@@ -513,6 +513,16 @@ O modelo do DTI consiste em um mapeamento dos sinais em cada \textit{voxel} de u
 \textcolor{brown}{Há pesquisas na área de visualização de volumes DWIs, tanto no que diz respeito à criação de glifos representativos do sinal de difusão a partir do DTI \cite{Kindlmann2004, Basser1994}, quanto à reconstrução das fibras do cérebro -- denominada de tractografia \cite{Weinstein1999, basser2000}. A figura \ref{fig::intro_ex_DTI_Superquadrica} ilustra o mapeamento dos tensores de difusão em glifos, enquanto a figura \ref{fig::intro_ex_DTI_Tractografia} apresenta uma tractografia.}
 
 \begin{figure}[ht]
+\captionsetup[subfloat]{farskip=0pt,nearskip=0pt}
+    \subfloat[Tensor de difusão representado por glifos superquádricos em uma fatia axial do cérebro na região do corpo caloso. As cores representam a direção predominante de difusão onde vermelho é esquerda-direita, azul é superior-inferior e verde é anterior-posterior]{\includegraphics[width=.49\linewidth, angle=0]{figs/Introducao/ex_DTI_Superquadrica.png}}
+    \hfill
+    \subfloat[Trato fascículo inferior fronto-occipital (IFOF). A cor predominantemente verde indica sua trajetória, que ocorre na direção anterior-posterior]{\includegraphics[width=.47\linewidth, angle=0]{figs/Introducao/ex_DTI_tractography.png}}
+    \hfill
+   
+    \label{fig::intro_ex_DTI_tractografia}
+\end{figure}
+
+\begin{figure}[ht]
 
 \centering
 \includegraphics[width=.485\linewidth, angle=00]{figs/Introducao/ex_DTI_Superquadrica.png}
@@ -537,7 +547,7 @@ O modelo do DTI consiste em um mapeamento dos sinais em cada \textit{voxel} de u
 
 Cientes dessas limitações, pesquisadores da área passaram a propor modelos matemáticos mais descritivos do processo de difusão, bem como aplicar estes modelos a volumes de alta resolução angular \todo{\url{https://www.researchgate.net/figure/Sampling-schemes-in-q-space-a-Cartesian-sampling-dedicated-to-diffusion-spectrum_fig3_319558026}} (HARDI - \textit{High Angular Resolution Diffusion Imaging}). Neste contexto, foram propostos métodos de imageamento. Alguns deles consistem na abordagem multi-tensor \cite{tuch2002}, o \textit{Q-Ball Imaging} (QBI) \cite{TuchQBall2004}, \textit{constrained spherical deconvolution} (CSD) \cite{tournier2007}, \textit{diffusion spectrum imaging} (DSI) \cite{wedeen2005} e a amostragem generalizada do espaço Q (GQI - \textit{generalized Q-space sampling}) \cite{yeh2010}. Para diferenciá-los do DTI, neste trabalho chamaremos estes métodos de imageamento de métodos HARDI.
 
-A partir dos métodos \textcolor{red}{de amostragem} HARDI, é possível gerar algoritmos de tractografia melhores e que levem em consideração mais nuances do sinal de difusão que o DTI, \todo{Referências?} especialmente em regiões de cruzamento de fibras. \textcolor{red}{Porém, (comentar o que falta ainda para popularizar o seu uso clínico em relação a DTI) ...}
+A partir de volumes com mais alta resolução angular e métodos HARDI, é possível gerar algoritmos de tractografia melhores e que levem em consideração mais nuances do sinal de difusão que o DTI,  \todo{Referências?} especialmente em regiões onde há cruzamentos de fibras \cite{fillard2011}. \textcolor{red}{Porém, (comentar o que falta ainda para popularizar o seu uso clínico em relação a DTI) ...}
 
 \todo[inline]{Sugiro mencionar aqui o artigo de Schilling et al. mostrando os desafios ainda em aberto.}
 
@@ -565,7 +575,7 @@ A contribuição esperada para o presente trabalho é a implementação e valida
 \begin{itemize}
 \item escolha e implementação \sout{do método HARDI} \textcolor{red}{de uma técnica de síntese das orientações de difusão} a partir das imagens de DWI \textcolor{red}{de alta resolução angular (HARDI)};
 \item visualização interativa de perfis de difusão obtido através \sout{do método}\textcolor{red}{dos dados do} HARDI;
-\item extração \sout{e visualização} de \sout{informações direcionais do método HARDI para tractografia} \textcolor{red}{direções da fibras a partir dos perfis de difusão e sua visualização} e
+\item extração \sout{e visualização} de \sout{informações direcionais do método HARDI para tractografia} \textcolor{red}{direções plausíveda fiis bras a partir dos perfis de difusão e sua visualização} e
 \item implementação, visualização e validação do algoritmo de tractografia.
 \end{itemize}
 
@@ -620,7 +630,7 @@ No que diz respeito a adequabilidade para tractografia, não há métodos que se
 
 \textcolor{red}{\subsection{Amostragem de Alta Resolução (HARDI)}}
 
-\todo[inline]{Overplus, Amostragem Uniforme em Coordenadas Esféricas, Amostragem Não-Uniforme -- Overplus, Amostragem Uniforme em Coordenadas Cartesianas}
+\todo[inline]{Amostragem Não-Uniforme -- Overplus, Amostragem Uniforme em Coordenadas Esféricas, Amostragem Uniforme em Coordenadas Cartesianas}
 
 
 \textcolor{red}{\subsection{Análise Comparativa}}
@@ -635,8 +645,6 @@ O método DSI esteve fora de cogitação por possuir mais requerimentos na aquis
 
 Tanto o GQI quanto a abordagem multi-tensor não possuem a mesma relevância nos mais diversos trabalhos quanto o QBI e o CSD. Acerca do GQI, \citeonline{yeh2010} mencionam a similaridade de resultados dos perfis de difusão com o QBI e sua vantagem no que diz respeito a ter incorporado no método de imageamento proposto modalidades de aquisição que não são englobadas pelo QBI, o que o torna atrativo em futuros trabalhos.
 
-\todo[inline]{Não falta incluir que o resultado é DOF a partir do qual é necessário ainda estimar orientações das fibras/"picos" como você chama?}
-
 Entre o CSD e o QBI, escolhemos o QBI pela facilidade de implementação neste estágio inicial desta pesquisa. Vale salientar que implementamos o algoritmo proposto por \citeonline{TuchQBall2004} e que \citeonline{descoteaux2007_QBI} propuseram uma versão que provê o cômputo mais rápido do QBI utilizando as funções base harmônicas esféricas, que poderá ser implementado como evolução deste trabalho.
 
 \textcolor{red}{\section{Renderização de ODFs}}
@@ -649,7 +657,7 @@ Entre o CSD e o QBI, escolhemos o QBI pela facilidade de implementação neste e
 
 \textcolor{brown}{Pela maior simplicidade e boa efetividade da renderização por instanciações de uma malha esférica, o esquema desenvolvido neste trabalho utiliza esta abordagem.}
 
-\textcolor{red}{\section{Extração de Direções de Fibras}}
+\textcolor{red}{\section{Extração de Direções Plausíveis de Fibras}}
 
 !!(eu tenho que estudar um pouco disso pra entender o que foi feito)
 Como pré-processamento, \citeonline{descoteaux2007}, inspirados por \citeonline{Tournier2004DirectEO}, sugerem uma transformação na ODF com o objetivo de aumentar a magnitude dos máximos em relação a partes suaves, utilizando a deconvolução esférica, o resultado da transformação é chamado de fODF.
@@ -964,7 +972,7 @@ A figura \ref{fig::Esquema_QBall} ilustra, passo a passo, a obtenção da ODF ex
 \section{Visualização de funções de distribuição de orientação}
 \label{sec::trabalhos_relacionados_glifos}
 
-O uso de glifos \todo[inline]{Por mais esquisito que soe, o nome é este mesmo}na forma de representação gráfica polar esférica\textcolor{red}{representados em coordenadas esféricas\todo[inline]{não é esse o termo que o Tuch usa.}} é sugerida por \citeonline{TuchQBall2004} para representar o conjunto de dados relacionados \todo{qual método?}o método. A sua representação consiste na modulação de uma malha esférica, na qual tem o seu raio $R(\textbf{u})$ escalonado por uma versão normalizada do valor da ODF na direção $\textbf{u}$. Uma forma de representação é dada pela equação \ref{eq::normglifo} e é mostrada na figura \ref{fig::Esquema_QBall}.e.
+O uso de glifos na forma de representação gráfica polar esférica é sugerida por \citeonline{TuchQBall2004} para representar o conjunto de dados relacionados a amostras de dODF. A sua representação consiste na modulação de uma malha esférica, na qual tem o seu raio $R(\textbf{u})$ escalonado por uma versão normalizada do valor da ODF na direção $\textbf{u}$. Uma forma de representação é dada pela equação \ref{eq::normglifo} e é mostrada na figura \ref{fig::Esquema_QBall}.e.
 
 \begin{equation}
 \label{eq::normglifo}
@@ -999,7 +1007,7 @@ Os critérios de parada consistem nos mesmos que para o DTI: o critério angular
 
 onde $\psi(\textbf{u})$ é o valor de difusão para uma direção \textbf{u}, $n$ é a quantidade de direções no domínio e  $\bar{\psi}$ é o valor médio dos valores $\psi(\textbf{u})$, para todo domínio \textbf{u}. \citeonline{corbo2013} mencionam que há uma correlação linear entre a métrica de FA do DTI e GFA.
 
-\textcolor{brown}{A abordagem para estimar as ODFs no espaço intra-voxel consiste em estimar cada uma das amostras de fODF utilizando interpolação trilinear.}\todo{Não entendi ...}
+%\textcolor{brown}{A abordagem para estimar as ODFs no espaço intra-voxel consiste em estimar cada uma das amostras de ODF utilizando interpolação trilinear.}\todo{Não entendi ...}
 
 
 
@@ -1262,13 +1270,33 @@ O resultados mostrados nas tabelas \ref{tab::benchmark_glifos_197} e \ref{tab::b
 \label{tab::benchmark_glifos_422}
 \end{table}
 
-\textcolor{red}{\chapter{Extração de Orientações de Fibras}}
+\textcolor{red}{\chapter{Extração de Direções Plausíveis de Fibras}}
 
 \todo[inline]{Tenho impressão de que você mistura técnica com dados no texto. Preste atenção.}
 
 \textcolor{red}{O procedimento para reconstrução de uma fibra não está, de fato, atrelado aos perfis de difusão, e sim às orientações das plausíveis fibras extraídas destes dados.} Descreveremos neste capítulo o processamento para extração de informações direcionais de ODFs computadas através do QBI para tractografia assim como o algoritmo de tractografia que utilizam estas informações direcionais para gerar linhas representativas de fibras do cérebro.
 
+
 \todo[inline]{Sugiro discutir em separado a extração de picos, pois é um procedimento que de fato motivou este trabalho ... pelas suas experiências do estágio ...}
+
+
+O procedimento para extração de direções plausíveis de fibras se dá através da detecção de máximos locais em uma ODF $psi(\mathbf{u})$.
+
+O processo de detecção de máximos locais é feito através das amostras de ODFs, no qual uma direção é classificada como máximo através da comparação com amostras vizinhas.
+
+Definimos a vizinhança de uma direção $\mathbf{u}$ para uma função esférica, discretizada em um conjunto finito de direções $\mathbf{U}$ como o conjunto $\mathbf{N_u}$, de acordo com o mostrado na equação \ref{eq::neighboorhood}.
+
+%Em funções esféricas, para um conjunto discreto de direções no domínio $\mathbf{U}$, definimos a vizinhança de uma direção $\mathbf{u}$ como o conjunto de vetores unitários $\mathbf{N_u}$ de acordo com a equação \ref{eq::neighboorhood}.
+
+\begin{equation}
+\label{eq::neighboorhood}
+    \mathbf{N_u} = \{\mathbf{s} \in \mathbf{U}  | \mathbf{u}.\mathbf{s} > \cos{\theta_{thr}} \}
+\end{equation}
+
+onde $\theta_{thr}$ é o ângulo máximo entre duas amostras direcionais para serem consideradas vizinhas. A escolha do $\theta_{thr}$ leva em consideração a quantidade de pontos do domínio $\mathbf{U}$ utilizado.
+
+A direção $\mathbf{u}$ é considerado máximo local se $\psi(\mathbf{u}) > \psi(\mathbf{s}) \; \forall \; \mathbf{s} \in \mathbf{N_u}$.
+
 
 
 \chapter{Tractografia em tempo real baseado em picos}
