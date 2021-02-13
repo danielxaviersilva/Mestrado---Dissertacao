@@ -1107,13 +1107,13 @@ Foi aplicado o algoritmo proposto por \citeonline{TuchQBall2004}\sout{, que}\tex
 \sout{A abordagem de implementação consiste no cômputo de todas as ODFs} Para cada \textit{voxel} do DWI\textcolor{red}{, todas as funções de distribuição de orientação (ODFs) foram computadas} para \textcolor{red}{todas} as direções representadas na malha com uso da Equação \ref{???} e \sout{seu armazenamento}\textcolor{red}{foram armazenadas} na memória para posterior uso na tractografia e geração de glifos.
 
 
-\section{\sout{Esquema de r}Renderização \sout{para} de funções de distribuição de orientação}
+\section{Renderização de funções de distribuição de orientação}
 
 %Foi implementado um esquema de visualização para ODFs em glifos de acordo através de representações gráficas polares esféricas. A implementação serviu primeiramente para prova de conceito e posteriormente otimizada para que seja possível a sua renderização, \textit{voxel} a \textit{voxel}, em tempo interativo pelo VMTK-Neuro, o que foi possível nos testes feitos em um Macbook Pro Retina 13', com processador Intel Core i5 Dual-Core 2.7Ghz, processador gráfico Intel Iris Graphics 6100 1536 MB e memória RAM de 8 GB 1867 MHz DDR3.
 
 \todo[inline]{Fazer uma breve justificativa da relevância da visualização das ODFs no contexto da sua proposta de uma visualização interativa almejando uma tractografia mais próxima dos tratos reais.}
 
-\subsection{Representação \sout{gráfica} polar esférica}
+\subsection{Plotagem polar esférica}
 
 Como descrito na seção \ref{sec::trabalhos_relacionados_glifos}, a forma do glifo consiste na modulação do raio na direção $\mathbf{u}$ de uma malha esférica de acordo com uma versão normalizada do seu valor de imagem na função $\psi(\mathbf{u})$. A normalização que fizemos neste trabalho para representação está representado na equação \ref{eq::normglifo2}.
 
@@ -1122,7 +1122,7 @@ Como descrito na seção \ref{sec::trabalhos_relacionados_glifos}, a forma do gl
     R(\mathbf{u}) = \frac{\psi(\mathbf{u}) - min(\psi(\mathbf{u}))}{max(\psi(\mathbf{u})) - min(\psi(\mathbf{u}))}
 \end{equation}
 
-As cores dos glifos consistem em um mapeamento das coordenadas dos vértices $(x_v,y_v,z_v)$ da malha esférica para as suas componentes RGB de acordo com a equação \ref{eq::cor_glifo} e ilustrado nos glifos da figura \ref{fig::glifo_ilustrado}. Esta forma de mapear, além de simples, entra muito em acordo com a codificação em cores definidos no mapa de FA e faz o entendimento do glifo ser intuitivo. \todo{É imprescincível adicionar esta informação?}\sout{Não foi implementado o cômputo de vetores normais à superfície representadas pelo glifo, que consequentemente não tem iluminação associada.}
+As cores dos glifos consistem em um mapeamento das coordenadas dos vértices $(x_v,y_v,z_v)$ da malha esférica para as suas componentes RGB de acordo com a equação \ref{eq::cor_glifo} e ilustrado nos glifos da figura \ref{fig::glifo_ilustrado}. Esta forma de mapear, além de simples, entra muito em acordo com a codificação em cores definidos no mapa de FA e faz o entendimento do glifo ser intuitivo. %\todo{É imprescincível adicionar esta informação?}\sout{Não foi implementado o cômputo de vetores normais à superfície representadas pelo glifo, que consequentemente não tem iluminação associada.}
 
 \begin{equation}
 \label{eq::cor_glifo}
@@ -1139,13 +1139,13 @@ As cores dos glifos consistem em um mapeamento das coordenadas dos vértices $(x
    \hspace{1pt}
 \end{figure}
 
-\subsection{\sout{Abordagem de renderização}}
+%\subsection{\sout{Abordagem de renderização}}
 
-\sout{\citeonline{peeters2009} apresentou pela primeira vez um esquema de renderização para esta categoria de glifos, nos quais são aperfeiçoados por \citeonline{peeters2011} e \citeonline{hlawitschka2012}. Estes esquemas utilizam a abordagem \textit{raycasting}.}
+%\sout{\citeonline{peeters2009} apresentou pela primeira vez um esquema de renderização para esta categoria de glifos, nos quais são aperfeiçoados por \citeonline{peeters2011} e \citeonline{hlawitschka2012}. Estes esquemas utilizam a abordagem \textit{raycasting}.}
 
-\sout{No VMTK-Neuro, um dos algoritmos de renderização do tensor difusão por glifos superquádricos é feita por instanciações de uma malha esférica, no qual é customizada por parâmetros particulares a cada tensor de difusão referentes a cada \textit{voxel} detectado e posicionado na cena de acordo. Este esquema de renderização desenha os glifos em tempo interativo.}
+%\sout{No VMTK-Neuro, um dos algoritmos de renderização do tensor difusão por glifos superquádricos é feita por instanciações de uma malha esférica, no qual é customizada por parâmetros particulares a cada tensor de difusão referentes a cada \textit{voxel} detectado e posicionado na cena de acordo. Este esquema de renderização desenha os glifos em tempo interativo.}
 
-\sout{Pela maior simplicidade e boa efetividade da renderização por instanciações de uma malha esférica, o esquema desenvolvido neste trabalho utiliza esta abordagem.}
+%\sout{Pela maior simplicidade e boa efetividade da renderização por instanciações de uma malha esférica, o esquema desenvolvido neste trabalho utiliza esta abordagem.}
 
 
 
@@ -1164,12 +1164,87 @@ As cores dos glifos consistem em um mapeamento das coordenadas dos vértices $(x
 
 
 %\todo[inline]{Falta uma descrição melhor de como são construídos os glifos a partir de ODFs e o seu mapeamento às entidades gráficas. Isso torna difícil o entendimento da sua implementação. !!Descrito em trabalhos relacionados!}
+\subsection{Renderização de objetos}
+
+A abordagem utilizada para renderização consiste em instanciações de uma malha esférica de N vértices centrada na origem e raio unitário, que é enviada à GPU uma única vez e sem repetição de vértices nos seus dados. A cada instância, a malha é transformada por uma matriz de translação e as suas amostras de ODF.
+
+A matriz de translação posiciona o centro da malha esférica para a sua respectiva posição. O perfil de difusão diz respeito às ODFs particulares a cada glifo, que determina a forma do glifo através da multiplicação do vértice da malha associada à direção de difusão ao seu valor de ODF.
+
+Estes elementos são enviados da CPU à GPU a cada requisição de desenho que tem como entrada uma lista de matrizes de translação e de amostras de ODF. Então, para atingirmos o objetivo da interatividade, é desejável que o tráfego de dados entre as partes seja o mínimo possível e sem redundância na descrição do objeto.
+
+O envio do conjunto de coordenadas de translação à GPU consiste no envio de um vetor contendo P matrizes de translação como um atributo, que é único para cada malha esférica instanciada.
+
+Os dados relativos a ODF enviados para GPU consistem nas N amostras referentes ao perfis de difusão para cada um dos P glifos a serem desenhados. A forma que as amostras de ODF são enviadas à GPU consiste na construção e envio de uma matriz $\mathbf{\Psi}_{PxN}$, onde P é a quantidade de glifos a serem desenhados e N consiste na quantidade de amostras de ODF utilizada. O envio da matriz $\mathbf{\Psi}$ à GPU é feito como uma textura 2D. 
+
+Na matriz $\mathbf{\Psi}$, o elemento da i-ésima linha na j-ésima coluna da matriz se refere à ODF do i-ésimo glifo a ser desenhado associado ao j-ésimo vértice da esfera, que por sua vez tem as coordenadas da direção $\mathbf{u}_j$. Chamaremos  a ODF na i-ésima linha de $\psi_i(\mathbf{u})$ e o seu valor no j-ésimo vértice da esfera de $\psi_i(\mathbf{u}_j)$.
+
+A recuperação na GPU das ODFs é feita através dos índices de instância e vértice. Para isto, é necessário que o índice de vértice j (\textit{gl\_VertexID}\footnotemark) da direção de cada um dos vértices correspondam à coluna do seu respectivo valor de ODF $\psi(\mathbf{u}_j)$ na matriz de perfis de difusão. O acesso das linhas da matriz de perfis de difusão, correspondentes aos perfis de difusão de um \textit{voxel} é acessível pelo índice de instância (\textit{gl\_InstanceID}\footnotemark[\value{footnote}]). Tendo os dados organizados desta maneira estabelecida, o acesso é feito no \textit{vertex shader} utilizando através da função \textit{texelFetch}\footnotemark[\value{footnote}] com os argumentos de acesso de linha e coluna através do par (\textit{gl\_VertexID}, \textit{gl\_InstanceID})\footnotemark[\value{footnote}]\footnotetext{Todos os comandos foram implementados em OpenGL com a linguagem para \textit{shader} GLSL.}. A forma de acesso na GPU da matriz de perfis é ilustrada na figura \ref{fig::GPU2glifoGeneral}.
+
+\begin{figure}[h]
+%\subfigcapskip = -5pt
+    \centering
+    \includegraphics[width=.8\linewidth, angle=0]{figs/Esquema_Glifo/GPU2GlifoGeneral.png}
+    \caption{Ilustração da organização de dados na GPU da matriz de perfil de difusão (vermelho) enviados conforme mostrado na figura \ref{fig::organizacao2GPU}. Os vértices da malha esférica estão em verde. A cada instância, a customização do glifo se dá através da multiplicação do vértice da malha com o seu respectivo valor $\psi$, recuperado através do seu índice de vértice para os P glifos a serem renderizados.}
+    \label{fig::GPU2glifoGeneral}
+   \hspace{1pt}
+\end{figure}
+
+
+%A figura \ref{fig::organizacao2GPU} ilustra \todo{Não entendi ... a organização é dinâmica? Isso é muito custoso!}\textcolor{brown}{a organização dos dados para quando ocorre a detecção de quatro \textit{voxels}}.
+
+%Na GPU, a malha esférica, copiada anteriormente e alocada em um \textit{vertex buffer object} (VBO), é instanciada P vezes. A recuperação na GPU das ODFs é feita através dos índices de instância e vértice. Para isto, é necessário que o índice de vértice (\textit{gl\_VertexID}\footnotemark) da direção de cada um dos vértices correspondam à coluna do seu respectivo valor de ODF $\psi(\mathbf{u})$ da matriz de perfis de difusão. O acesso das linhas da matriz de perfis de difusão, correspondentes aos perfis de difusão de um \textit{voxel}acessível pelo índice de instância (\textit{gl\_InstanceID}\footnotemark[\value{footnote}]). Tendo os dados organizados desta maneira estabelecida, o acesso é feito no \textit{vertex shader} utilizando através da função \textit{texelFetch}\footnotemark[\value{footnote}] com os argumentos de acesso de linha e coluna através do par (\textit{gl\_VertexID}, \textit{gl\_InstanceID})\footnotemark[\value{footnote}]\footnotetext{Todos os comandos foram implementados em OpenGL com a linguagem para \textit{shader} GLSL.}. A forma de acesso na GPU da matriz de perfis é ilustrada na figura \ref{fig::GPU2glifoGeneral}.
+
+A cor dos glifos é definida de acordo com o vértice da malha esférica instanciada no \textit{vertex shader} e definida de acordo com a equação \ref{eq::cor_glifo}.
+
+\todo[inline]{Incluir os pseudocódigos de shaders não ajudaria o entendimento da ideia?}
+
+
+
+\subsection{Integração da renderização ao VMTK-Neuro}
+
+No VMTK-Neuro, são computados a priori o conjunto de amostras de ODFs para uma malha esférica definida e de as matrizes de translação associados a cada um dos voxels.
+
+Há um sistema de detecção de voxels aparentes na cena integrado ao VMTK-Neuro, tanto na renderização de fatias, quanto na renderização do volume em três dimensões.
+
+Na renderização de fatias, a inferência dos \textit{voxels} aparentes na tela consistem na leitura do índice da fatia mostrada na tela, no qual os glifos são posicionados de acordo com a posição do seu respectivo \textit{pixel}.
+
+Na renderização tridimensional, há uma funcionalidade para detecção de \textit{voxels}, em que cada um possui uma matriz de translação associada. A detecção é baseada em \textit{raycasting} computado sobre o volume na GPU, que foi proposto e implementado no VMTK-Neuro por \citeonline{raphael_dissertacao}.
+
+A partir de $P$ \textit{voxels} detectados, suas respectivas matrizes de posicionamento são copiadas e armazenadas como um vetor e enviadas a GPU. Da mesma maneira, a matriz $\Psi$ é montada a partir dos \textit{voxels} detectados e enviada à GPU, conforme mostrado na Figura \ref{fig::organizacao2GPU}.
+
+
+\begin{figure}[ht]
+
+%\subfigcapskip = -5pt
+    \centering
+    \includegraphics[width=.95\linewidth, angle=0]{figs/Esquema_Glifo/organizacao2GPU.png}
+    \caption{Ilustração da organização de dados de perfis de difusão antes do envio à GPU. Em vermelho, estão os perfis de difusão dos \textit{voxels} (a, b, c, d) detectados, que são copiados para uma matriz e enviados à GPU. O valor M corresponde a quantidade voxels do volume e $n$ se refere a quantidade de amostras nos perfis de difusão}
+    \label{fig::organizacao2GPU}
+   \hspace{1pt}
+\end{figure}
+
+
+Há elementos comuns a todos os glifos, que são enviados à GPU como variáveis uniformes. Estes elementos se referem a parâmetros de câmera na cena e a transformações relativas a orientação neurológica, que integram a matriz \textit{model-view-projection} e fator de escala.
+
+As transformações relativas à orientação configuram a visualização de fatias para que fique compatível com um dos sistemas de orientação, que são a neurológica (LAS) e radiológica (RAS).
+
+O fator de escala é função do \textit{zoom} aplicado e dimensão do \textit{voxel}.
+
+
+
+
+
+%O envio do conjunto de matriz de reposicionamento à GPU consiste no envio das coordenadas de translação como um atributo, que é único para cada malha esférica instanciada. Estes dados são armazenados \sout{por}\textcolor{red}{em} um \todo{Corresponde a qual objeto gráfico na GPU?}vetor, cujo índice se refere ao deslocamento da malha instanciada para seu respectiva posição.
+
+
 
 \subsection{\sout{Esquema de }Renderização na GPU}
 
 \todo[inline]{Para que o texto seja auto-contido, ou você referencia o trabalho do Raphael ou faz uma descrição completa para que o algoritmo seja reprodutível. Pois pelo que entendi, a sua proposta é uma variante da proposta do Raphael. É preciso deixar bem claro onde está a variação. O algoritmos é para GPU? Quantos passos são executados? Quais shaders?}
 
-A abordagem utilizada para renderização consiste em instanciações de uma malha esférica centrada na origem e raio unitário, que é enviada à GPU uma única vez e sem repetição de vértices nos seus dados. A cada instância, a malha é transformada por duas classes de elementos: os elementos em comum a todos os \textit{voxels} e os particulares.
+A abordagem utilizada para renderização consiste em instanciações de uma malha esférica de N v centrada na origem e raio unitário, que é enviada à GPU uma única vez e sem repetição de vértices nos seus dados. A cada instância, a malha é transformada por duas classes de elementos: os elementos em comum a todos os \textit{voxels} e os particulares.
+
+O envio do conjunto de matriz de reposicionamento à GPU consiste no envio das coordenadas de translação como um atributo, que é único para cada malha esférica instanciada. Estes dados são armazenados \sout{por}\textcolor{red}{em} um \todo{Corresponde a qual objeto gráfico na GPU?}vetor, cujo índice se refere ao deslocamento da malha instanciada para seu respectiva posição.
 
 %\todo[inline]{Suportar visualizações em LAS e RAS é uma demanda clínica e não por uma adequação ao VMTK ... }
 Os elementos comuns se referem às rotações e mudanças de escala. O fator de escala, que é função do \textit{zoom} aplicado e dimensão do \textit{voxel}, bem como o cômputo das transformações relativas à orientação, para que fiquem compatíveis com os sistemas de orientação neurológica (LAS) e radiológica (RAS) constam no VMTK-Neuro.% e sincronização com fatias bidimensionais.
@@ -1187,19 +1262,12 @@ O envio do conjunto de matriz de reposicionamento para à GPU consiste na cópia
 
 O envio dos dados de ODF para GPU consiste na cópia dos dados referentes aos \textit{voxels} detectados de cada valor para cada perfil de difusão \todo{?}\textcolor{brown}{adotada consiste} na cópia dos dados de ODF para uma matriz pxn, onde p é a quantidade de \textit{voxels} detectados e n consiste na quantidade de amostras de ODF. A i-ésima linha da matriz se refere ao perfil de difusão do i-ésimo \textit{voxel} detectado, enquanto a j-ésima coluna se refere ao valor de difusão associado ao $\mathbf{u}_j$ para todos os \todo{Quais são os voxels detectados?}\textit{voxels} detectados. Esta matriz é enviada à GPU como uma textura 2D. A figura \ref{fig::organizacao2GPU} ilustra \todo{Não entendi ... a organização é dinâmica? Isso é muito custoso!}\textcolor{brown}{a organização dos dados para quando ocorre a detecção de quatro \textit{voxels}}.
 
-\begin{figure}[ht]
 
-%\subfigcapskip = -5pt
-    \centering
-    \includegraphics[width=.95\linewidth, angle=0]{figs/Esquema_Glifo/organizacao2GPU.png}
-    \caption{Ilustração da organização de dados de perfis de difusão antes do envio à GPU. Em vermelho, estão os perfis de difusão dos \textit{voxels} (a, b, c, d) detectados, que são copiados para uma matriz e enviados à GPU. O valor M corresponde a quantidade voxels do volume e $n$ se refere a quantidade de amostras nos perfis de difusão}
-    \label{fig::organizacao2GPU}
-   \hspace{1pt}
-\end{figure}
 
 \todo[inline]{Incluir os pseudocódigos de shaders não ajudaria o entendimento da ideia?}
 
-Na GPU, a malha esférica, copiada anteriormente e alocada em um \todo{VBO?}\textit{buffer}, é instanciada P vezes. Para a recuperação na GPU do perfil de difusão, é necessário que índice de vértice (\textit{gl\_VertexID}\footnotemark) da direção de cada um dos vértices correspondam à coluna do seu respectivo valor de ODF $\psi(\mathbf{u})$ da matriz de perfis de difusão. O acesso das linhas da matriz de perfis de difusão, correspondentes aos perfis de difusão de um \textit{voxel}acessível pelo índice de instância (\textit{gl\_InstanceID}\footnotemark[\value{footnote}]). Tendo os dados organizados desta maneira estabelecida, o acesso é feito no \textit{vertex shader} utilizando através da função \textit{texelFetch}\footnotemark[\value{footnote}] com os argumentos de acesso de linha e coluna através do par (\textit{gl\_VertexID}, \textit{gl\_InstanceID})\footnotemark[\value{footnote}]\footnotetext{Todos os comandos foram implementados em OpenGL com a linguagem para \textit{shader} GLSL.}. A forma de acesso na GPU da matriz de perfis de difusão enviada na figura \ref{fig::organizacao2GPU} é mostrada na figura \ref{fig::GPU2glifo}
+Na GPU, a malha esférica, copiada anteriormente e alocada em um \todo{VBO?}\textit{buffer}, é instanciada P vezes. Para a recuperação na GPU do perfil de difusão, é necessário que índice de vértice (\textit{gl\_VertexID}\footnotemark) da direção de cada um dos vértices correspondam à coluna do seu respectivo valor de ODF $\psi(\mathbf{u})$ da matriz de perfis de difusão. O acesso das linhas da matriz de perfis de difusão, correspondentes aos perfis de difusão de um \textit{voxel}acessível pelo índice de instância (\textit{gl\_InstanceID}\footnotemark[\value{footnote}]). Tendo os dados organizados desta maneira estabelecida, o acesso é feito no \textit{vertex shader} utilizando através da função \textit{texelFetch}\footnotemark[\value{footnote}] com os argumentos de acesso de linha e coluna através do par (\textit{gl\_VertexID}, \textit{gl\_InstanceID})\footnotemark[\value{footnote}]\footnotetext{Todos os comandos foram implementados em OpenGL com a linguagem para \textit{shader} GLSL.}. A forma de acesso na GPU da matriz de perfis de difusão como uma textura 2D é mostrada na figura \ref{fig::GPU2glifoGeneral}.
+
 
 \begin{figure}[h]
 %\subfigcapskip = -5pt
@@ -1280,22 +1348,22 @@ O resultados mostrados nas tabelas \ref{tab::benchmark_glifos_197} e \ref{tab::b
 \todo[inline]{Sugiro discutir em separado a extração de picos, pois é um procedimento que de fato motivou este trabalho ... pelas suas experiências do estágio ...}
 
 
-O procedimento para extração de direções plausíveis de fibras se dá através da detecção de máximos locais em uma ODF $psi(\mathbf{u})$.
+O procedimento para extração de direções plausíveis de fibras se dá através da detecção de máximos locais em uma ODF $\psi(\mathbf{u})$.
 
 O processo de detecção de máximos locais é feito através das amostras de ODFs, no qual uma direção é classificada como máximo através da comparação com amostras vizinhas.
 
-Definimos a vizinhança de uma direção $\mathbf{u}$ para uma função esférica, discretizada em um conjunto finito de direções $\mathbf{U}$ como o conjunto $\mathbf{N_u}$, de acordo com o mostrado na equação \ref{eq::neighboorhood}.
+Definimos a vizinhança de uma direção $\mathbf{x}$ para uma função esférica, discretizada em um conjunto finito de direções $\mathbf{U}$ como o conjunto $\mathbf{N_x}$, cujos elementos satisfazem as seguintes condições:
 
 %Em funções esféricas, para um conjunto discreto de direções no domínio $\mathbf{U}$, definimos a vizinhança de uma direção $\mathbf{u}$ como o conjunto de vetores unitários $\mathbf{N_u}$ de acordo com a equação \ref{eq::neighboorhood}.
 
 \begin{equation}
 \label{eq::neighboorhood}
-    \mathbf{N_u} = \{\mathbf{s} \in \mathbf{U}  | \mathbf{u}.\mathbf{s} > \cos{\theta_{thr}} \}
+    \mathbf{N_x} = \{\mathbf{s} \in \mathbf{U}  | \mathbf{x}.\mathbf{s} > \cos{\theta_{thr}} \}
 \end{equation}
 
 onde $\theta_{thr}$ é o ângulo máximo entre duas amostras direcionais para serem consideradas vizinhas. A escolha do $\theta_{thr}$ leva em consideração a quantidade de pontos do domínio $\mathbf{U}$ utilizado.
 
-A direção $\mathbf{u}$ é considerado máximo local se $\psi(\mathbf{u}) > \psi(\mathbf{s}) \; \forall \; \mathbf{s} \in \mathbf{N_u}$.
+A direção $\mathbf{x}$ é considerado máximo local de $\psi(\mathbf{u})$ se $\psi(\mathbf{x}) > \psi(\mathbf{s}) \; \forall \; \mathbf{s} \in \mathbf{N_x}$.
 
 
 
@@ -1369,13 +1437,11 @@ Acerca dos parâmetros referenciados na equação \ref{eq::tractografia_chamberl
 
 \subsection{Algoritmo e questões computacionais}
 
-O algoritmo implementado de tractografia em função de uma semente está mostrado no pseudocódigo \ref{psc::tractography}. Os parâmetros de entrada consistem na semente inicial ($p_0$), limiares de ângulo e anisotropia ($\theta_{thr}$ e $t_{aniso}$), o parâmetro $w_{punct}$ da equação \ref{eq::tractografia_chamberland}, o sentido que o algoritmo de tractografia deverá tomar ($d_{inv} = -1$ para inverter ou $d_{inv} = 1$ para manter igual ao máximo local)\footnote{Funções representativas de difusão são funções pares ($\Psi(\mathbf{u}) = \Psi(\mathbf{-u})$). Por questões de memória, na nossa implementação, não armazenamos a mesma direção em sentidos opostos}  o tamanho do passo na integração de linhas ($s_{len}$) e a quantidade máxima de pontos nos tratos ($l_{max}$). O conjunto de pontos de saída é representado pelo conjunto $\mathbf{\Phi}$.
+O algoritmo implementado de tractografia em função de uma semente está mostrado no pseudocódigo \ref{psc::tractography}. Os parâmetros de entrada consistem na semente inicial contida no DWI ($p_0$), limiares de ângulo e anisotropia ($\theta_{thr}$ e $t_{aniso}$), o parâmetro $w_{punct}$ da equação \ref{eq::tractografia_chamberland}, o sentido que o algoritmo de tractografia deverá tomar ($d_{inv} = -1$ para inverter ou $d_{inv} = 1$ para manter igual ao máximo local)\footnote{Funções representativas de difusão são funções pares ($\Psi(\mathbf{u}) = \Psi(\mathbf{-u})$). Por questões de memória, na nossa implementação, não armazenamos a mesma direção em sentidos opostos}  o tamanho do passo na integração de linhas ($s_{len}$) e a quantidade máxima de pontos nos tratos ($l_{max}$). O conjunto de pontos de saída é representado pelo conjunto $\mathbf{\Phi}$.
 
 \todo[inline]{Sugiro que faça uma descrição do algoritmo, contendo referências às linhas de instrução. A descrição abaixo está difícil de entender e seguir o pseudo-código que você escreveu.}
 
-\textcolor{brown}{
-As funções representadas no pseudocódigo são Valid(p), que verifica se o ponto computado está dentro do domínio do volume (linha \ref{alg:psc_valid}), GFA(p) consiste no cômputo do GFA no ponto p e ExtractLocalMaxSet(p) representa a escolha de picos da ODF no ponto p, no qual retorna um conjunto de vetores.
-}
+As funções representadas no pseudocódigo são Valid(p) (linha \ref{alg:psc_valid}), que verifica se o ponto computado está dentro do domínio do volume , GFA(p) (linha \ref{alg::GFA}) consiste no cômputo do GFA no ponto p e ExtractLocalMaxSet(p) (linha \ref{alg::extractLocalMaxSet}) representa a escolha de picos da ODF no ponto p, no qual retorna um conjunto de vetores.
 
 
 
@@ -1386,7 +1452,7 @@ As funções representadas no pseudocódigo são Valid(p), que verifica se o pon
 \caption{Integração de linhas em tractografia}
 \label{psc::tractography}
 \begin{algorithmic}[1]
-\Function{tractography}{$p_0$, $t_{aniso}$, $l_{max}$, $\theta_{thr}$, $s_{len}$, $w_{punct}$, $d_{inv}$}
+\Function{tractography}{$p_0$, $\theta_{thr}$, $t_{aniso}$, $w_{punct}$, $d_{inv}$, $s_{len}$, $l_{max}$}
 \State $\mathbf{\Phi} \gets \emptyset$
 \State $p \gets p_0$
 \State $\mathbf{d} \gets d_{inv}(argmax_\mathbf{u} \; \psi(\mathbf{u})_{p_0})$
@@ -1396,12 +1462,12 @@ As funções representadas no pseudocódigo são Valid(p), que verifica se o pon
 \While{$l < l_{max}$}
 \State $p \gets p + s_{len} \mathbf{d}$
 \State \textbf{If} $\neg$ Valid(p) \textbf{then} STOP \label{alg:psc_valid} %\EndIf 
-\State \textbf{If} $\text{FA}(p) < t_{aniso}$  \textbf{then} STOP%\EndIf
-\State $\mathbf{M} = ExtractLocalMaxSet(p)$
+\State \textbf{If} $\text{GFA}(p) < t_{aniso}$  \textbf{then} STOP \label{alg::GFA}%\EndIf
+\State $\mathbf{M} = ExtractLocalMaxSet(p)$ \label{alg::extractLocalMaxSet}
 \State $\mathbf{d}_{new} \gets argmax_{\textbf{m}} \; |\mathbf{d}.\mathbf{m}|, \; \mathbf{m} \in \mathbf{M}$
 \State \textbf{If} $\mathbf{d}.\mathbf{d}_{new} < 0$  \textbf{then} $\mathbf{d}_{new} \gets -\mathbf{d}_{new}$%\EndIf
 \State \textbf{If} $\mathbf{d}_{new}.\mathbf{d} < cos(\theta_{thr})$ \textbf{then} STOP%\EndIf
-\State $\mathbf{d} \gets GFA(p)\mathbf{d}_{new} + (1 - GFA(p))(w_{punct}\mathbf{d}_{new} + (1 - w_{punct})\mathbf{d})$
+\State $\mathbf{d} \gets \text{GFA}(p)\mathbf{d}_{new} + (1 - \text{GFA}(p))(w_{punct}\mathbf{d}_{new} + (1 - w_{punct})\mathbf{d})$
 \State $\mathbf{d} \gets \mathbf{d}/|\mathbf{d}|$
 %\State Insert $p$ in $\mathbf{\Phi}$
 \State $\mathbf{\Phi} \gets \mathbf{\Phi} \cup  \{p\}$
