@@ -514,30 +514,31 @@ O modelo do DTI consiste em um mapeamento dos sinais em cada \textit{voxel} de u
 
 \begin{figure}[ht]
 \captionsetup[subfloat]{farskip=0pt,nearskip=0pt}
-    \subfloat[Tensor de difusão representado por glifos superquádricos em uma fatia axial do cérebro na região do corpo caloso. As cores representam a direção predominante de difusão onde vermelho é esquerda-direita, azul é superior-inferior e verde é anterior-posterior]{\includegraphics[width=.49\linewidth, angle=0]{figs/Introducao/ex_DTI_Superquadrica.png}}
+    \subfloat[Tensor de difusão representado por glifos superquádricos em uma fatia axial do cérebro na região do corpo caloso. As cores representam a direção predominante de difusão onde vermelho é esquerda-direita, azul é superior-inferior e verde é anterior-posterior]{\includegraphics[width=.49\linewidth, angle=0]{figs/Introducao/ex_DTI_Superquadrica.png}
+    \label{fig::intro_ex_DTI_glifos}}
     \hfill
-    \subfloat[Trato fascículo inferior fronto-occipital (IFOF). A cor predominantemente verde indica sua trajetória, que ocorre na direção anterior-posterior]{\includegraphics[width=.47\linewidth, angle=0]{figs/Introducao/ex_DTI_tractography.png}}
+    \subfloat[Trato fascículo inferior fronto-occipital (IFOF). A cor predominantemente verde indica sua trajetória, que ocorre na direção anterior-posterior]{\includegraphics[width=.47\linewidth, angle=0]{figs/Introducao/ex_DTI_tractography.png}
+    \label{fig::intro_ex_DTI_tractografia}}
     \hfill
-   
-    \label{fig::intro_ex_DTI_tractografia}
+    \label{fig::intro_ex_DTI}
 \end{figure}
 
-\begin{figure}[ht]
+%\begin{figure}[ht]
+%
+%\centering
+%\includegraphics[width=.485\linewidth, %angle=00]{figs/Introducao/ex_DTI_Superquadric%a.png}
+%\centering
+%\caption{Tensor de difusão representado por %glifos superquádricos em uma fatia axial do %cérebro na região do corpo caloso. As cores %representam a direção predominante de difusão %onde vermelho é esquerda-direita, azul é %superior-inferior e verde é %anterior-posterior}
+%\label{fig::intro_ex_DTI_Superquadrica}
+%\end{figure}
 
-\centering
-\includegraphics[width=.485\linewidth, angle=00]{figs/Introducao/ex_DTI_Superquadrica.png}
-\centering
-\caption{Tensor de difusão representado por glifos superquádricos em uma fatia axial do cérebro na região do corpo caloso. As cores representam a direção predominante de difusão onde vermelho é esquerda-direita, azul é superior-inferior e verde é anterior-posterior}
-\label{fig::intro_ex_DTI_Superquadrica}
-\end{figure}
-
-\begin{figure}[ht]
-\centering
-\includegraphics[width=.485\linewidth, angle=00]{figs/Introducao/ex_DTI_tractography.png}
-\caption{Trato fascículo inferior fronto-occipital (IFOF). A cor predominantemente verde indica sua trajetória, que ocorre na direção anterior-posterior}
-\label{fig::intro_ex_DTI_Tractografia}
-\hfill
-\end{figure}
+%\begin{figure}[ht]
+%\centering
+%\includegraphics[width=.485\linewidth, %angle=00]{figs/Introducao/ex_DTI_tractography%.png}
+%\caption{Trato fascículo inferior %fronto-occipital (IFOF). A cor %predominantemente verde indica sua %trajetória, que ocorre na direção %anterior-posterior}
+%\label{fig::intro_ex_DTI_Tractografia}
+%\hfill
+%\end{figure}
 
 \sout{Em tractografia, devido a sua natureza de modelagem, o DTI apresenta limitações.} As principais abordagens para reconstrução de tratos a partir do DTI envolvem os autovalores e autovetores do tensor de difusão. Em determinadas regiões em que há \todo{Só cruzamento?}cruzamento de fibras, o modelo não resolve de forma satisfatória o cômputo das direções plausíveis para reconstrução da fibra de interesse e essa limitação se torna um obstáculo para traçar o caminho da matéria branca do cérebro de forma efetiva \cite{fillard2011, daducci2014}.
 
@@ -565,12 +566,14 @@ A partir de volumes com mais alta resolução angular e métodos HARDI, é poss�
 \section{Ambiente de Implementação}
 \label{ssec:ambiente}
 
-Todas as implementações e experimentos do trabalho são realizados no aplicativo VMTK-Neuro (\textit{Visual Manipulation ToolKit for Neuroimages}) \cite{VMTKNeuro}, que é um ambiente de visualização exploratória multimodal multi-plataforma desenvolvida e mantida pelo grupo de pesquisa da Faculdade de Engenharia Elétrica e de Computação da UNICAMP ao qual faço parte. O \textit{software} renderiza em tempo real volumes de ressonância magnética (\textit{magnetic resonance imaging} - MRI)\textcolor{red}{.}\sout{ e} Possui ferramentas de exploração para volumes DWI \textcolor{red}{escaneados com o protocolo Overplus \cite{Philips} e de rastreamento das fibras para volumes DTI sintetizados a partir de DWIs}.
+Todas as implementações e experimentos do trabalho são realizados no aplicativo VMTK-Neuro (\textit{Visual Manipulation ToolKit for Neuroimages}) \cite{VMTKNeuro}, que é um ambiente de visualização exploratória multimodal multi-plataforma desenvolvida e mantida pelo grupo de pesquisa da Faculdade de Engenharia Elétrica e de Computação da UNICAMP ao qual faço parte. O \textit{software} renderiza em tempo real volumes de ressonância magnética (\textit{magnetic resonance imaging} - MRI). Possui ferramentas de exploração para volumes DWI a partir do DTI.%\textcolor{red}{escaneados com o protocolo Overplus \cite{Philips} e de rastreamento das fibras para volumes DTI sintetizados a partir de DWIs}\todo{não necessariamente Overplus. Overplus não sintetiza as sequencias de aquisições de DWI que há por aí.}.
+
+Estas ferramentas consistem na visualização em tempo interativo de tensores de difusão mapeados em glifos superquádricos renderizados sobre os seus respectivos \textit{voxels} (figura \ref{fig::intro_ex_DTI_glifos}), tractografia (figura \ref{fig::intro_ex_DTI_tractografia}).
 
 \section{Objetivos}
 \label{sec::objetivos}
 
-A contribuição esperada para o presente trabalho é a implementação e validação de um algoritmo de tractografia \textcolor{red}{interativo} baseada \textcolor{red}{no} método de imageamento HARDI e a sua integração ao VMTK-Neuro. Para alcançar este objetivo, o trabalho foi esquematizado da seguinte forma:
+A contribuição esperada para o presente trabalho é a implementação e validação de um algoritmo de tractografia interativo baseada \textcolor{red}{no} método de imageamento HARDI e a sua integração ao VMTK-Neuro. Para alcançar este objetivo, o trabalho foi esquematizado da seguinte forma:
 
 \begin{itemize}
 \item escolha e implementação \sout{do método HARDI} \textcolor{red}{de uma técnica de síntese das orientações de difusão} a partir das imagens de DWI \textcolor{red}{de alta resolução angular (HARDI)};
@@ -699,6 +702,8 @@ Para atenuar o erro gerado pela atribuição do vizinho mais próximo, adotamos 
 Uma questão pertinente acerca do aumento de amostras é se ela deve ser feita no DWI, no qual o método de difusão é aplicado sobre o volume super amostrado ou se pode ser feito diretamente nos valores de ODF. A literatura não é clara neste aspecto. !!Referencias!
 }
 
+\todo[inline]{Vale incluir o trabalho de Aganj: ODF RECONSTRUCTION IN Q-BALL IMAGING WITH SOLID ANGLE CONSIDERATION (\url{https://www.ima.umn.edu/sites/default/files/2233.pdf}. Nele os autores explicam a causa da imprecisão no modelo de ODF, discutem a razão do pós-processamento de "aguçamento" das "plausíveis orientações" e propõem uma reformulação.}
+
 \section{Tractografia}
 \label{sec::decisoesiniciais_tractografia}
 
@@ -709,11 +714,13 @@ A tractografia determinística consiste na integração de linhas representativa
 
 %A tractografia determinística se baseia em um processo iterativo que consiste em, tendo em posse um conjunto de pontos nos quais o algoritmo é iniciado (sementes), há uma integração de linhas cujas direções são estimadas através de informações direcionais de um método de imageamento de difusão. Estas linhas são representativas da fibra estimada. O processo iterativo é terminado por meio de um critério apropriado \cite{tournier2011}.
 
-A tractografia probabilística consiste na consideração do comportamento de difusão de forma aleatória para cada \textit{voxel} \textcolor{red}{(amostra)}, e gera como resultado um mapa de probabilidade de tratos entre um conjunto de pontos de partida e chegada \cite{DTI_Handbook}. A partir do mapa, pode-se inferir sobre a probabilidade com que uma determinada conexão \sout{de interesse é construída} \textcolor{red}{pode ocorrer.} \cite{tournier2011}. %\citeonline{hagman2003} propôs um método probabilístico utilizando o tensor de difusão
+A tractografia probabilística consiste na consideração do comportamento de difusão de forma aleatória em cada ponto no volume, e gera como resultado um mapa de probabilidade de tratos entre um conjunto de pontos de partida e chegada \cite{DTI_Handbook}. A partir do mapa, pode-se inferir sobre a probabilidade com que uma determinada conexão pode ocorrer \cite{tournier2011}. %\citeonline{hagman2003} propôs um método probabilístico utilizando o tensor de difusão
 
-No que diz respeito a comparações da natureza entre as duas abordagens, as probabilísticas não possuem a restrição de ter um trato por semente e, dado dois pontos de escolha no cérebro de forma aleatória, esta abordagem irá encontrar caminhos entre ambos, nos quais cada um está associado a uma métrica de conectividade. Neste sentido, a abordagem probabilística é mais flexível que a determinística, entretanto \todo{Referência? Você achou uma afirmação dessa?}\textcolor{brown}{o resultado gerado não deve ser interpretado como a conectividade anatômica}. Por outro lado, as abordagens determinísticas geram resultados \todo{Referência?}\textcolor{brown}{que permitem uma correlação com a conectividade anatômica e são utilizadas para estudo de tratos conhecidos} que tem um conjunto de sementes estabelecidas e protocoladas. Adicionalmente, as abordagens determinísticas geralmente são menos custosas computacionalmente \cite{tournier2011}.
+No que diz respeito a comparações da natureza entre as duas abordagens, as probabilísticas não possuem a restrição de ter um trato por semente e, dado dois pontos de escolha no cérebro de forma aleatória, esta abordagem irá encontrar caminhos entre ambos, nos quais cada um está associado a uma métrica de conectividade. Neste sentido, a abordagem probabilística é mais flexível que a determinística, entretanto o resultado gerado não deve ser interpretado como a conectividade anatômica \cite{tournier2011}. 
 
-A tractografia determinística foi escolhida neste trabalho por ser menos demandante computacionalmente \todo{Referência? É algo que nunca vi ... Temos que tomar cuidado em misturar o fato com o achômetro.}\textcolor{brown}{e pela maior correlação com a conectividade de fibras do cérebro imageado através do DWI e que tem uma maior aplicabilidade para planejamento cirúrgico.}
+Por outro lado, as abordagens determinísticas geram resultados que permitem uma correlação com a conectividade anatômica e são utilizadas para estudo de tratos conhecidos que tem um conjunto de sementes estabelecidas e protocoladas \cite{tournier2011}. Adicionalmente, as abordagens determinísticas geralmente são menos custosas computacionalmente \cite{DTI_Handbook}.
+
+A tractografia determinística foi escolhida neste trabalho por ser menos demandante computacionalmente e pela maior correlação com a conectividade de fibras do cérebro imageado através do DWI e que tem uma maior aplicabilidade para planejamento cirúrgico.
 
 \textcolor{red}{
 \chapter{Trabalhos Relacionados??? Ou Materiais e Métodos??}
@@ -1068,12 +1075,11 @@ onde $\psi(\textbf{u})$ é o valor de difusão para uma direção \textbf{u}, $n
 
 
 
-\chapter{\sout{\textit{Q-Ball} e r}Renderização de perfis de difusão}
+\chapter{Renderização de perfis de difusão}
 
 \todo[inline]{Falta contextualizar nos objetivos que você listou na seção 1.3. Não é melhor focar em renderização de perfis de difusão que é um dos problemas relacionados diretamente com a interatividade?}
 
-Neste capítulo apresentamos \sout{a abordagem de}\textcolor{red}{uma} implementação do QBI e um esquema de renderização \sout{para visualização} dos perfis de difusão gerados
-\sout{ utilizando a infraestrutura do VMTK-Neuro} e o seu \sout{respectivo} \textit{benchmark}.
+Neste capítulo, apresentamos uma abordagem do cômputo do QBI e um esquema de renderização dos perfis de difusão gerados, sua integração ao VMTK-Neuro e o seu \textit{benchmark}.
 
 \todo[inline]{Eu deixaria o parágrafo abaixo para conclusões}
 Ressaltamos que o esquema de renderização de perfis de difusão pode ser utilizado por outros métodos de imageamento de difusão e para outras funções esféricas que sejam representadas através conjunto de amostras.
