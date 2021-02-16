@@ -668,11 +668,17 @@ Como pré-processamento, \citeonline{descoteaux2007}, inspirados por \citeonline
 \todo[inline]{Desloquei o texto abaixo para cá para mostrar os trablhos/discussões já existentes sobre este assunto ... Precisa ser organizado e adaptado para o seu contexto.}
 
 \textcolor{brown}{
- O algoritmo, chamado de dODF-STR, gera um \textit{streamline}, cujo processo é feito na escolha de uma e somente uma direção baseado nos picos extraídos de uma ODF. Em comparação com a outra abordagem proposta, chamada de SPLIT-STR, gera bifurcação dos \textit{streamlines} para múltiplas direções extraídas do modelo.
+ O algoritmo, chamado de \todo{referência?}dODF-STR, gera um \textit{streamline}, cujo processo é feito na escolha de uma e somente uma direção baseado nos picos extraídos de uma ODF. Em comparação com a outra abordagem proposta, chamada de \todo{referência?}SPLIT-STR, gera bifurcação dos \textit{streamlines} para múltiplas direções extraídas do modelo.
 }
 
+\todo[inline]{Anderson \citeonline{Anderson2005} propôs FORECAST.}
+
+\todo[inline]{Em \citeonline{Hess2006} ODFs são redefinidas em termos de harmônicos esféricos.}
+
+\todo[inline]{\citeonline{descoteaux2007}: Um termo de regularização baseado no operador de Laplace-Beltrami na transformada Funk-Radon para aprimorar a acurácia na detecção dos máximos de ODF.}
+
 \textcolor{brown}{
-\citeonline{descoteaux2007} propõem um pré-processamento que consiste no afiamento da ODF, na qual visa prover um maior destaque aos picos e regiões de mais alta magnitude na ODF, conforme a figura \ref{fig::sharpening}. Com dados artificiais, o autor faz um experimento no qual a extração de direção de fibras é feito com a ODF de difusão extraída do QBI, a ODF após o processamento, a função de distribuição de orientação de fibra extraída do método deconvolução esférica filtrada para diferentes relações sinal ruído. O resultado do experimento atesta que a precisão da extração de picos aumenta com o pré-processamento, e tem um grau parecido com a abordagem de deconvolução esférica. Este pré-processamento não foi contemplado neste trabalho de mestrado.
+\citeonline{descoteaux2007} propõem um \todo{qual pré-processamento? }pré-processamento que consiste no afiamento da ODF, na qual visa prover um maior destaque aos picos e regiões de mais alta magnitude na ODF, conforme a figura \ref{fig::sharpening}. Com dados artificiais, o autor faz um experimento no qual a extração de direção de fibras é feito com a ODF de difusão extraída do QBI, a ODF após o processamento, a função de distribuição de orientação de fibra extraída do método deconvolução esférica filtrada para diferentes relações sinal ruído. O resultado do experimento atesta que a precisão da extração de picos aumenta com o pré-processamento, e tem um grau parecido com a abordagem de deconvolução esférica. Este pré-processamento não foi contemplado neste trabalho de mestrado.
 }
 
 \begin{figure}[h]
@@ -690,6 +696,10 @@ Como pré-processamento, \citeonline{descoteaux2007}, inspirados por \citeonline
 Evidentemente que não é possível fazer uma tractografia que computa tratos em tempo interativo com uma abordagem idêntica como \citeonline{descoteaux2007}, que a cada iteração interpola trilinearmente 1281 amostras de ODF para computar picos no processo de decisão da direção do passo da curva em um \textit{loop}.
 }
 
+\todo[inline]{Vale incluir \citeonline{Aganj2009}. Nele os autores explicam a causa da imprecisão no modelo de ODF, discutem a razão do pós-processamento de ``aguçamento'' das  ``plausíveis orientações'' e propõem uma reformulação.}
+
+\todo[inline]{Fibernavigator: não entendi o que você escreveu. Em \citeonline{Chamberland2016} não há nenhuma proposta nova em relação à detecção de picos mais relevantes. Os autores aplicaram as técnicas já propostas.}
+
 \textcolor{brown}{
 A estratégia adotada então para este impasse é similar ao proposto por \citeonline{Chamberland2016}, que consiste em computar informações de direções de fibras na sua totalidade antes da execução da tractografia. Estes dados são acessados na tractografia e nas regiões \textit{intra-voxel}, a estimativa das direções é feita através da interpolação pelo vizinho mais próximo.
 }
@@ -702,7 +712,6 @@ Para atenuar o erro gerado pela atribuição do vizinho mais próximo, adotamos 
 Uma questão pertinente acerca do aumento de amostras é se ela deve ser feita no DWI, no qual o método de difusão é aplicado sobre o volume super amostrado ou se pode ser feito diretamente nos valores de ODF. A literatura não é clara neste aspecto. !!Referencias!
 }
 
-\todo[inline]{Vale incluir o trabalho de Aganj: ODF RECONSTRUCTION IN Q-BALL IMAGING WITH SOLID ANGLE CONSIDERATION (\url{https://www.ima.umn.edu/sites/default/files/2233.pdf}. Nele os autores explicam a causa da imprecisão no modelo de ODF, discutem a razão do pós-processamento de "aguçamento" das "plausíveis orientações" e propõem uma reformulação.}
 
 \section{Tractografia}
 \label{sec::decisoesiniciais_tractografia}
@@ -1353,10 +1362,13 @@ O resultados mostrados nas tabelas \ref{tab::benchmark_glifos_197} e \ref{tab::b
 
 \todo[inline]{Sugiro discutir em separado a extração de picos, pois é um procedimento que de fato motivou este trabalho ... pelas suas experiências do estágio ...}
 
+\todo[inline]{Antes de detecção de máximos, é necessário que os máximos sejam detectáveis. Como você melhorou as ODFs para que seus máximos sejam mais "concentrados"?}
 
-O procedimento para extração de direções plausíveis de fibras se dá através da detecção de máximos locais em uma ODF $\psi(\mathbf{u})$.
+O procedimento para extração de direções plausíveis de fibras se dá através da detecção de máximos locais em uma ODF $\psi(\mathbf{u})$\textcolor{red}{, pois foram confirmadas experimentalmente correspondências entre os picos das funções e as orientações das fibras \citeonline{Hess2006}.}
 
 O processo de detecção de máximos locais é feito através das amostras de ODFs, no qual uma direção é classificada como máximo através da comparação com amostras vizinhas.
+
+\todo[inline]{Segundo \citeonline{Aganj2009} as estimativas das funções ODF pela técnica original podem gerar distorções, os autores propõem um fator de correção para ter uma estimativa melhor de ODFs.}
 
 Definimos a vizinhança de uma direção $\mathbf{x}$ para uma função esférica, discretizada em um conjunto finito de direções $\mathbf{U}$ como o conjunto $\mathbf{N_x}$, cujos elementos satisfazem as seguintes condições:
 
