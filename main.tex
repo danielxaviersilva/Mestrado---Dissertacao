@@ -875,9 +875,9 @@ O corregistro faz o alinhamento entre um volume de difusão/mapa FA com um volum
 
 É integrado ao VMTK-Neuro um esquema de visualização de tensores de difusão através de glifos superquádricos \cite{Kindlmann2004}, conforme mostrado na figura \ref{fig::intro_ex_DTI_Superquadrica}. Os glifos são renderizados em tempo interativo nos seus respectivos \textit{voxels}, tanto em fatias do volume, quanto na sua renderização tridimensional.
 
-Nas fatias do volume, a inferência dos \textit{voxels} aparentes na tela consistem na leitura do índice da fatia mostrada na tela, no qual os glifos são posicionados de acordo com a posição do seu respectivo \textit{voxel}.
+Na visualização de fatias, a inferência dos \textit{pixels} aparentes na tela consistem na leitura do índice da fatia mostrada, no qual os glifos são posicionados no ponto central do seu respectivo \textit{pixel}.
 
-Na renderização tridimensional, há uma funcionalidade para detecção de \textit{voxels}, em que cada um possui uma matriz de translação associada. A detecção é baseada em \textit{raycasting} computado sobre o volume na GPU, que foi proposto e implementado por \citeonline{raphael_dissertacao}.
+Na renderização tridimensional, há uma funcionalidade para detecção de \textit{voxels}, em que cada um possui uma matriz de translação para o seu respectivo centro na cena. A detecção é baseada em \textit{raycasting} computado sobre o volume na GPU, que foi proposto e implementado por \citeonline{raphael_dissertacao}.
 
 
 
@@ -1193,13 +1193,13 @@ Os dados relativos a ODF enviados para GPU consistem nas N amostras referentes a
 
 Na matriz $\mathbf{\Psi}$, o elemento da i-ésima linha na j-ésima coluna da matriz se refere à ODF do i-ésimo glifo a ser desenhado associado ao j-ésimo vértice da esfera, que por sua vez tem as coordenadas da direção $\mathbf{u}_j$. Chamaremos  a ODF na i-ésima linha de $\psi_i(\mathbf{u})$ e o seu valor no j-ésimo vértice da esfera de $\psi_i(\mathbf{u}_j)$.
 
-A recuperação na GPU das ODFs é feita através dos índices de instância e vértice. Para isto, é necessário que o índice de vértice j (\textit{gl\_VertexID}\footnotemark) da direção de cada um dos vértices correspondam à coluna do seu respectivo valor de ODF $\psi(\mathbf{u}_j)$ na matriz de perfis de difusão. O acesso das linhas da matriz de perfis de difusão, correspondentes aos perfis de difusão de um \textit{voxel} é acessível pelo índice de instância (\textit{gl\_InstanceID}\footnotemark[\value{footnote}]). Tendo os dados organizados desta maneira estabelecida, o acesso é feito no \textit{vertex shader} utilizando através da função \textit{texelFetch}\footnotemark[\value{footnote}] com os argumentos de acesso de linha e coluna através do par (\textit{gl\_VertexID}, \textit{gl\_InstanceID})\footnotemark[\value{footnote}]\footnotetext{Todos os comandos foram implementados em OpenGL com a linguagem para \textit{shader} GLSL.}. A forma de acesso na GPU da matriz de perfis é ilustrada na figura \ref{fig::GPU2glifoGeneral}.
+A recuperação na GPU das ODFs é feita através dos índices de instância e vértice. Para isto, é necessário que o índice de vértice (\textit{gl\_VertexID}\footnotemark) da direção de cada um dos vértices correspondam à coluna do seu respectivo valor de ODF $\psi(\mathbf{u}_j)$ na matriz de perfis de difusão. O acesso das linhas da matriz de perfis de difusão, correspondentes aos perfis de difusão de um \textit{voxel} é acessível pelo índice de instância (\textit{gl\_InstanceID}\footnotemark[\value{footnote}]). Tendo os dados organizados desta maneira estabelecida, o acesso é feito no \textit{vertex shader} utilizando através da função \textit{texelFetch}\footnotemark[\value{footnote}] com os argumentos de acesso de linha e coluna através do par (\textit{gl\_VertexID}, \textit{gl\_InstanceID})\footnotemark[\value{footnote}]\footnotetext{Todos os comandos foram implementados em OpenGL com a linguagem para \textit{shader} GLSL.}. A forma de acesso na GPU da matriz de perfis é ilustrada na figura \ref{fig::GPU2glifoGeneral}.
 
 \begin{figure}[h]
 %\subfigcapskip = -5pt
     \centering
     \includegraphics[width=.8\linewidth, angle=0]{figs/Esquema_Glifo/GPU2GlifoGeneral.png}
-    \caption{Ilustração da organização de dados na GPU da matriz de perfil de difusão (vermelho) enviados conforme mostrado na figura \ref{fig::organizacao2GPU}. Os vértices da malha esférica estão em verde. A cada instância, a customização do glifo se dá através da multiplicação do vértice da malha com o seu respectivo valor $\psi$, recuperado através do seu índice de vértice para os P glifos a serem renderizados.}
+    \caption{Ilustração da organização de dados na GPU da matriz de perfil de difusão (vermelho) enviados conforme mostrado na figura \ref{fig::organizacao2GPU}. Os vértices da malha esférica estão em verde. A cada instância, a customização do glifo se dá através da multiplicação do vértice da malha com o seu respectivo valor $\psi$, recuperado no \textit{vertex shader} através do seu índice de vértice para os P glifos a serem renderizados.}
     \label{fig::GPU2glifoGeneral}
    \hspace{1pt}
 \end{figure}
@@ -1211,6 +1211,8 @@ A recuperação na GPU das ODFs é feita através dos índices de instância e v
 
 A cor dos glifos é definida de acordo com o vértice da malha esférica instanciada no \textit{vertex shader} e definida de acordo com a equação \ref{eq::cor_glifo}.
 
+
+
 \todo[inline]{Incluir os pseudocódigos de shaders não ajudaria o entendimento da ideia?}
 
 
@@ -1221,19 +1223,19 @@ No VMTK-Neuro, são computados a priori o conjunto de amostras de ODFs para uma 
 
 Há um sistema de detecção de voxels aparentes na cena integrado ao VMTK-Neuro, tanto na renderização de fatias, quanto na renderização do volume em três dimensões.
 
-Na renderização de fatias, a inferência dos \textit{voxels} aparentes na tela consistem na leitura do índice da fatia mostrada na tela, no qual os glifos são posicionados de acordo com a posição do seu respectivo \textit{pixel}.
+Na renderização de fatias, a inferência dos \textit{pixels} aparentes na tela consiste na leitura dos índices do \textit{voxel} nas fatias coronais, axiais no qual os glifos são posicionados de acordo com a posição do seu respectivo \textit{pixel}.
 
-Na renderização tridimensional, há uma funcionalidade para detecção de \textit{voxels}, em que cada um possui uma matriz de translação associada. A detecção é baseada em \textit{raycasting} computado sobre o volume na GPU, que foi proposto e implementado no VMTK-Neuro por \citeonline{raphael_dissertacao}.
+Na renderização tridimensional, há uma funcionalidade para detecção de \textit{voxels}, em que cada um possui uma matriz de translação associada. A detecção é baseada em \textit{raycasting} computado sobre o volume na GPU, foi proposto e implementado no VMTK-Neuro por \citeonline{raphael_dissertacao}.
 
-A partir de $P$ \textit{voxels} detectados, suas respectivas matrizes de posicionamento são copiadas e armazenadas como um vetor e enviadas a GPU. Da mesma maneira, a matriz $\Psi$ é montada a partir dos \textit{voxels} detectados e enviada à GPU, conforme mostrado na Figura \ref{fig::organizacao2GPU}.
+A partir de $P$ \textit{voxels} detectados em uma requisição de desenho, suas respectivas matrizes de posicionamento são copiadas e armazenadas como um vetor e enviadas à GPU. Da mesma maneira, a matriz $\Psi$ é montada a partir dos \textit{voxels} detectados e enviada à GPU, conforme mostrado na Figura \ref{fig::organizacao2GPU}.
 
 
 \begin{figure}[ht]
 
 %\subfigcapskip = -5pt
     \centering
-    \includegraphics[width=.95\linewidth, angle=0]{figs/Esquema_Glifo/organizacao2GPU.png}
-    \caption{Ilustração da organização de dados de perfis de difusão antes do envio à GPU. Em vermelho, estão os perfis de difusão dos \textit{voxels} (a, b, c, d) detectados, que são copiados para uma matriz e enviados à GPU. O valor M corresponde a quantidade voxels do volume e $n$ se refere a quantidade de amostras nos perfis de difusão}
+    \includegraphics[width=1.000\linewidth, angle=0]{figs/Esquema_Glifo/organizacao2GPU.png}
+    \caption{Ilustração da organização de dados de perfis de difusão antes do envio à GPU. Em vermelho, estão os perfis de difusão de P voxels detectados \textit{voxels} ($d_1$, $d_2$, ..., $d_P$) detectados, não necessariamente em sequência na memória, que são copiados para uma matriz e enviados à GPU. O valor S corresponde a quantidade voxels do volume e $N$ se refere a quantidade de amostras nos perfis de difusão}
     \label{fig::organizacao2GPU}
    \hspace{1pt}
 \end{figure}
@@ -1241,9 +1243,7 @@ A partir de $P$ \textit{voxels} detectados, suas respectivas matrizes de posicio
 
 Há elementos comuns a todos os glifos, que são enviados à GPU como variáveis uniformes. Estes elementos se referem a parâmetros de câmera na cena e a transformações relativas a orientação neurológica, que integram a matriz \textit{model-view-projection} e fator de escala.
 
-As transformações relativas à orientação configuram a visualização de fatias para que fique compatível com um dos sistemas de orientação, que são a neurológica (LAS) e radiológica (RAS).
-
-O fator de escala é função do \textit{zoom} aplicado e dimensão do \textit{voxel}.
+As transformações relativas à orientação configuram a visualização de fatias para que fique compatível com um dos sistemas de orientação, que são a neurológica (LAS) e radiológica (RAS). O fator de escala é função do \textit{zoom} aplicado e dimensão do \textit{voxel}.
 
 
 
@@ -1253,58 +1253,62 @@ O fator de escala é função do \textit{zoom} aplicado e dimensão do \textit{v
 
 
 
-\subsection{\sout{Esquema de }Renderização na GPU}
+%\subsection{\sout{Esquema de }Renderização na GPU}
 
-\todo[inline]{Para que o texto seja auto-contido, ou você referencia o trabalho do Raphael ou faz uma descrição completa para que o algoritmo seja reprodutível. Pois pelo que entendi, a sua proposta é uma variante da proposta do Raphael. É preciso deixar bem claro onde está a variação. O algoritmos é para GPU? Quantos passos são executados? Quais shaders?}
+%\todo[inline]{Para que o texto seja auto-contido, ou você referencia o trabalho do Raphael ou faz uma descrição completa para que o algoritmo seja reprodutível. Pois pelo que entendi, a sua proposta é uma variante da proposta do Raphael. É preciso deixar bem claro onde está a variação. O algoritmos é para GPU? Quantos passos são executados? Quais shaders?}
 
-A abordagem utilizada para renderização consiste em instanciações de uma malha esférica de N v centrada na origem e raio unitário, que é enviada à GPU uma única vez e sem repetição de vértices nos seus dados. A cada instância, a malha é transformada por duas classes de elementos: os elementos em comum a todos os \textit{voxels} e os particulares.
+%A abordagem utilizada para renderização consiste em instanciações de uma malha esférica de N v centrada na origem e raio unitário, que é enviada à GPU uma única vez e sem repetição de vértices nos seus dados. A cada instância, a malha é transformada por duas classes de elementos: os elementos em comum a todos os \textit{voxels} e os particulares.
 
-O envio do conjunto de matriz de reposicionamento à GPU consiste no envio das coordenadas de translação como um atributo, que é único para cada malha esférica instanciada. Estes dados são armazenados \sout{por}\textcolor{red}{em} um \todo{Corresponde a qual objeto gráfico na GPU?}vetor, cujo índice se refere ao deslocamento da malha instanciada para seu respectiva posição.
+%O envio do conjunto de matriz de reposicionamento à GPU consiste no envio das coordenadas de translação como um atributo, que é único para cada malha esférica instanciada. Estes dados são armazenados \sout{por}\textcolor{red}{em} um \todo{Corresponde a qual objeto gráfico na GPU?}vetor, cujo índice se refere ao deslocamento da malha instanciada para seu respectiva posição.
 
 %\todo[inline]{Suportar visualizações em LAS e RAS é uma demanda clínica e não por uma adequação ao VMTK ... }
-Os elementos comuns se referem às rotações e mudanças de escala. O fator de escala, que é função do \textit{zoom} aplicado e dimensão do \textit{voxel}, bem como o cômputo das transformações relativas à orientação, para que fiquem compatíveis com os sistemas de orientação neurológica (LAS) e radiológica (RAS) constam no VMTK-Neuro.% e sincronização com fatias bidimensionais.
+%Os elementos comuns se referem às rotações e mudanças de escala. O fator de escala, que é função do \textit{zoom} aplicado e dimensão do \textit{voxel}, bem como o cômputo das transformações relativas à orientação, para que fiquem compatíveis com os sistemas de orientação neurológica (LAS) e radiológica (RAS) constam no VMTK-Neuro.% e sincronização com fatias bidimensionais.
 
-Há dois elementos particulares que customizam os glifos, cujos dados são enviados à GPU a cada \textit{frame} após os voxels aparentes na cena serem detectados. O primeiro é a translação para reposicionamento, que desloca a malha para o centro do seu respectivo \textit{voxel} e o segundo diz respeito às ODFs particulares a cada \textit{voxel}, que determina a forma do glifo através da multiplicação do vértice da malha associada à direção de difusão ao seu valor de ODF. %A implementação da matriz de reposicionamento foi algo direto, sendo uma adaptação do algoritmo dos glifos para DTI, pois o deslocamento é comum a todos os vértices instanciados. Já o mesmo não acontece com o mapa de ODFs.
+%Há dois elementos particulares que customizam os glifos, cujos dados são enviados à GPU a cada \textit{frame} após os voxels aparentes na cena serem detectados. O primeiro é a translação para reposicionamento, que desloca a malha para o centro do seu respectivo \textit{voxel} e o segundo diz respeito às ODFs particulares a cada \textit{voxel}, que determina a forma do glifo através da multiplicação do vértice da malha associada à direção de difusão ao seu valor de ODF. %A implementação da matriz de reposicionamento foi algo direto, sendo uma adaptação do algoritmo dos glifos para DTI, pois o deslocamento é comum a todos os vértices instanciados. Já o mesmo não acontece com o mapa de ODFs.
 
-Para atingirmos o objetivo da interatividade, é necessário que o tráfego de dados CPU-GPU seja o mínimo possível e sem redundância. A maior parte deste tráfego se refere aos elementos particulares. Estes elementos são enviados à GPU a cada \textit{frame} de acordo com os \textit{voxels} visíveis detectados.
-
-A detecção de \textit{voxels}
+%Para atingirmos o objetivo da interatividade, é necessário que o tráfego de dados CPU-GPU seja o mínimo possível e sem redundância. A maior parte deste tráfego se refere aos elementos particulares. Estes elementos são enviados à GPU a cada \textit{frame} de acordo com os \textit{voxels} visíveis detectados.
 
 %\todo[inline]{Passou todos os dados para GPU como textura?}
 %Os de ODF sim. Os de translação, não
 
-O envio do conjunto de matriz de reposicionamento para à GPU consiste na cópia de dados de deslocamento pré-computados para os \todo{Quais são os voxels detectados?}\textit{voxels} detectados. Estes dados são armazenados \sout{por}\textcolor{red}{em} um \todo{Corresponde a qual objeto gráfico na GPU?}vetor, cujo índice se refere ao deslocamento da malha instanciada para seu respectiva posição.
+%O envio do conjunto de matriz de reposicionamento para à GPU consiste na cópia de dados de deslocamento pré-computados para os \todo{Quais são os voxels detectados?}\textit{voxels} detectados. Estes dados são armazenados \sout{por}\textcolor{red}{em} um \todo{Corresponde a qual objeto gráfico na GPU?}vetor, cujo índice se refere ao deslocamento da malha instanciada para seu respectiva posição.
 
-O envio dos dados de ODF para GPU consiste na cópia dos dados referentes aos \textit{voxels} detectados de cada valor para cada perfil de difusão \todo{?}\textcolor{brown}{adotada consiste} na cópia dos dados de ODF para uma matriz pxn, onde p é a quantidade de \textit{voxels} detectados e n consiste na quantidade de amostras de ODF. A i-ésima linha da matriz se refere ao perfil de difusão do i-ésimo \textit{voxel} detectado, enquanto a j-ésima coluna se refere ao valor de difusão associado ao $\mathbf{u}_j$ para todos os \todo{Quais são os voxels detectados?}\textit{voxels} detectados. Esta matriz é enviada à GPU como uma textura 2D. A figura \ref{fig::organizacao2GPU} ilustra \todo{Não entendi ... a organização é dinâmica? Isso é muito custoso!}\textcolor{brown}{a organização dos dados para quando ocorre a detecção de quatro \textit{voxels}}.
-
-
-
-\todo[inline]{Incluir os pseudocódigos de shaders não ajudaria o entendimento da ideia?}
-
-Na GPU, a malha esférica, copiada anteriormente e alocada em um \todo{VBO?}\textit{buffer}, é instanciada P vezes. Para a recuperação na GPU do perfil de difusão, é necessário que índice de vértice (\textit{gl\_VertexID}\footnotemark) da direção de cada um dos vértices correspondam à coluna do seu respectivo valor de ODF $\psi(\mathbf{u})$ da matriz de perfis de difusão. O acesso das linhas da matriz de perfis de difusão, correspondentes aos perfis de difusão de um \textit{voxel}acessível pelo índice de instância (\textit{gl\_InstanceID}\footnotemark[\value{footnote}]). Tendo os dados organizados desta maneira estabelecida, o acesso é feito no \textit{vertex shader} utilizando através da função \textit{texelFetch}\footnotemark[\value{footnote}] com os argumentos de acesso de linha e coluna através do par (\textit{gl\_VertexID}, \textit{gl\_InstanceID})\footnotemark[\value{footnote}]\footnotetext{Todos os comandos foram implementados em OpenGL com a linguagem para \textit{shader} GLSL.}. A forma de acesso na GPU da matriz de perfis de difusão como uma textura 2D é mostrada na figura \ref{fig::GPU2glifoGeneral}.
+%O envio dos dados de ODF para GPU consiste na cópia dos dados referentes aos \textit{voxels} detectados de cada valor para cada perfil de difusão \todo{?}\textcolor{brown}{adotada consiste} na cópia dos dados de ODF para uma matriz pxn, onde p é a quantidade de \textit{voxels} detectados e n consiste na quantidade de amostras de ODF. A i-ésima linha da matriz se refere ao perfil de difusão do i-ésimo \textit{voxel} detectado, enquanto a j-ésima coluna se refere ao valor de difusão associado ao $\mathbf{u}_j$ para todos os \todo{Quais são os voxels detectados?}\textit{voxels} detectados. Esta matriz é enviada à GPU como uma textura 2D. A figura \ref{fig::organizacao2GPU} ilustra \todo{Não entendi ... a organização é dinâmica? Isso é muito custoso!}\textcolor{brown}{a organização dos dados para quando ocorre a detecção de quatro \textit{voxels}}.
 
 
-\begin{figure}[h]
-%\subfigcapskip = -5pt
-    \centering
-    \includegraphics[width=.8\linewidth, angle=0]{figs/Esquema_Glifo/GPU2Glifo.png}
-    \caption{Ilustração da organização de dados na GPU da matriz de perfil de difusão (vermelho) enviados conforme mostrado na figura \ref{fig::organizacao2GPU}. Os vértices da malha esférica estão em verde. A cada instância, a customização do glifo se dá através da multiplicação do vértice da malha com o seu respectivo valor $\psi$, recuperado através do seu índice de vértice.}
-    \label{fig::GPU2glifo}
-   \hspace{1pt}
-\end{figure}
+
+%\todo[inline]{Incluir os pseudocódigos de shaders não ajudaria o entendimento da ideia?}
+
+%Na GPU, a malha esférica, copiada anteriormente e alocada em um \todo{VBO?}\textit{buffer}, é instanciada P vezes. Para a recuperação na GPU do perfil de difusão, é necessário que índice de vértice (\textit{gl\_VertexID}\footnotemark) da direção de cada um dos vértices correspondam à coluna do seu respectivo valor de ODF $\psi(\mathbf{u})$ da matriz de perfis de difusão. O acesso das linhas da matriz de perfis de difusão, correspondentes aos perfis de difusão de um \textit{voxel}acessível pelo índice de instância (\textit{gl\_InstanceID}\footnotemark[\value{footnote}]). Tendo os dados organizados desta maneira estabelecida, o acesso é feito no \textit{vertex shader} utilizando através da função \textit{texelFetch}\footnotemark[\value{footnote}] com os argumentos de acesso de linha e coluna através do par (\textit{gl\_VertexID}, \textit{gl\_InstanceID})\footnotemark[\value{footnote}]\footnotetext{Todos os comandos foram implementados em OpenGL com a linguagem para \textit{shader} GLSL.}. A forma de acesso na GPU da matriz de perfis de difusão como uma textura 2D é mostrada na figura \ref{fig::GPU2glifoGeneral}.
+
+
+%\begin{figure}[h]
+%%\subfigcapskip = -5pt
+%    \centering
+%    \includegraphics[width=.8\linewidth, %angle=0]{figs/Esquema_Glifo/GPU2Glifo%.png}
+%    \caption{Ilustração da organização de %dados na GPU da matriz de perfil de %difusão (vermelho) enviados conforme %mostrado na figura %\ref{fig::organizacao2GPU}. Os %vértices da malha esférica estão em %verde. A cada instância, a %customização do glifo se dá através %da multiplicação do vértice da malha %com o seu respectivo valor $\psi$, %recuperado através do seu índice de %vértice.}
+%    \label{fig::GPU2glifo}
+%   \hspace{1pt}
+%\end{figure}
 
 \subsection{Resultados}
 
-\todo[inline]{Comentar que, para aproveitar as funcionalidades de interações gráficas disponíveis no VMTK-Neuro, o algoritmo foi integrado no VMTK-Neuro. Se puder, comentar os pontos de conexão.}
-Na seção \ref{section::QBall_Glifos} do apêndice, seguem algumas imagens dos glifos derivados das ODFs implementado no VMTK-Neuro. O volume é derivado da competição ISMRM \cite{TractometerTool}. A malha esférica utilizada é a mesma da figura \ref{fig::MalhaEsferico}.
+%\todo[inline]{Comentar que, para aproveitar as funcionalidades de interações gráficas disponíveis no VMTK-Neuro, o algoritmo foi integrado no VMTK-Neuro. Se puder, comentar os pontos de conexão.}
 
-Medições do tempo relativo ao desempenho foram feitas para a quantidade de 197 e 422 vértices da malha esférica para diferentes quantidades de glifos renderizados e estão anotados nas tabelas \ref{tab::benchmark_glifos_197} e \ref{tab::benchmark_glifos_422}. O computador utilizado para o \textit{benchmark} foi um Macbook Pro Retina 13', com processador Intel Core i5 Dual-Core 2.7Ghz, processador gráfico Intel Iris Graphics 6100 1536 MB e memória RAM de 8 GB 1867 MHz DDR3. Os resultados estão também anotados como proporção do tempo de 0,1s, que é o limite máximo para que o usuário tenha a percepção de resposta instantânea da máquina \todo{Não entendi ...}\textcolor{brown}{e que suas ações são a causa de que algo aconteça na tela \cite{nielsen1994}}. 
+Na seção \ref{section::QBall_Glifos} do apêndice, seguem algumas imagens dos glifos derivados de ODFs integrados ao VMTK-Neuro. O volume é derivado da competição ISMRM \cite{TractometerTool}. A malha esférica utilizada é a mesma da figura \ref{fig::MalhaEsferico}.
 
-\todo[inline]{Percebeu oscilações nos tempos. A variação não é linear. Vamos ter que tentar entender por quê esta contra-intuitivo comportamento.}
+Medições do tempo relativo ao desempenho foram feitas para a quantidade de 197 e 422 vértices da malha esférica para diferentes quantidades de glifos renderizados e estão anotados nas tabelas \ref{tab::benchmark_glifos_197} e \ref{tab::benchmark_glifos_422}. O computador utilizado para o \textit{benchmark} foi um Macbook Pro Retina 13', com processador Intel Core i5 Dual-Core 2.7Ghz, processador gráfico Intel Iris Graphics 6100 1536 MB e memória RAM de 8 GB 1867 MHz DDR3.
+
+Os resultados estão também anotados como fração do limite de tempo de reação instantânea. Este limite é o intervalo de tempo máximo entre a interação do usuário com um sistema e a sua respectiva resposta no qual usuário tenha a percepção que o sistema reage instantaneamente as suas ações, que é de 0,1s \cite{nielsen1994}.
+
+%\citeonline{nielsen1994} define o tempo de 0,1s 
+%\todo{Não entendi ...}\textcolor{brown}{e que suas ações são a causa de que algo aconteça na tela }. 
+
+%\todo[inline]{Percebeu oscilações nos tempos. A variação não é linear. Vamos ter que tentar entender por quê esta contra-intuitivo comportamento.}
 
 O resultados mostrados nas tabelas \ref{tab::benchmark_glifos_197} e \ref{tab::benchmark_glifos_422} mostram que centenas de glifos podem ser renderizados na faixa de centenas de microssegundos e unidades de milissegundos, o que possibilita a sua integração a esquemas de renderização mais complexos e custosos computacionalmente relacionados a volumes de difusão.
 
-\todo[inline]{O que é fração do limite máximo para interatividade?}
+%\todo[inline]{O que é fração do limite máximo para interatividade?}
 \pagebreak
 
 %Pode-se notar que em ambas as malhas esféricas utilizadas, a fração de tempo de execução é pequena para centenas
@@ -1322,7 +1326,7 @@ O resultados mostrados nas tabelas \ref{tab::benchmark_glifos_197} e \ref{tab::b
 %\todo[inline]{Como foi a estruturação na textura? Procurou explorar a coalescência/a sequência de acessos?}
 %Evidentemente que há um mapeamento do domínio $[0,1]^2$, que é padrão numa unidade de textura, para a quantidade de instâncias e vértices que são processados.
 
-\todo[inline]{Há alguma explicação plausível para a queda de tempo na GPU entre 30 e 100 e entre 2000 e 5000?}
+%\todo[inline]{Há alguma explicação plausível para a queda de tempo na GPU entre 30 e 100 e entre 2000 e 5000?}
 \begin{table}[H]
 \begin{tabular}{c|c|c|c|c}
 \textbf{\begin{tabular}[c]{@{}c@{}}Quantidade \\ de glifos\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Organização \\ e envio de \\ dados à GPU\\ ($\mu$s)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Processamento\\ na GPU e \\ desenho ($\mu$s)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Tempo de \\ execução\\ ($\mu$s)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Fração do limite \\ máximo para\\ interatividade\end{tabular}} \\ \hline
@@ -1338,7 +1342,7 @@ O resultados mostrados nas tabelas \ref{tab::benchmark_glifos_197} e \ref{tab::b
 \end{table}
 
 
-\todo[inline]{Por quê a queda de tempo quando passa de 30 para 100? Alguma justificativa plausível?}
+%\todo[inline]{Por quê a queda de tempo quando passa de 30 para 100? Alguma justificativa plausível?}
 \begin{table}[H]
 \begin{tabular}{c|c|c|c|c}
 \textbf{\begin{tabular}[c]{@{}c@{}}Quantidade \\ de glifos\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Organização \\ e envio de \\ dados à GPU\\ ($\mu$s)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Processamento\\ na GPU e \\ desenho ($\mu$s)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Tempo de \\ execução\\ ($\mu$s)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Fração do limite \\ máximo para\\ interatividade\end{tabular}} \\ \hline
