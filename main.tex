@@ -1225,7 +1225,7 @@ Há um sistema de detecção de voxels aparentes na cena integrado ao VMTK-Neuro
 
 Na renderização de fatias, a inferência dos \textit{pixels} aparentes na tela consiste na leitura dos índices do \textit{voxel} nas fatias coronais, axiais no qual os glifos são posicionados de acordo com a posição do seu respectivo \textit{pixel}.
 
-Na renderização tridimensional, há uma funcionalidade para detecção de \textit{voxels}, em que cada um possui uma matriz de translação associada. A detecção é baseada em \textit{raycasting} computado sobre o volume na GPU, foi proposto e implementado no VMTK-Neuro por \citeonline{raphael_dissertacao}.
+Na renderização tridimensional, há uma funcionalidade para detecção de \textit{voxels}. A detecção é baseada em \textit{raycasting} computado sobre o volume na GPU, foi proposto e implementado no VMTK-Neuro por \citeonline{raphael_dissertacao}. O voxels detectados apresentam uma matriz de translação para o seu centro no espaço
 
 A partir de $P$ \textit{voxels} detectados em uma requisição de desenho, suas respectivas matrizes de posicionamento são copiadas e armazenadas como um vetor e enviadas à GPU. Da mesma maneira, a matriz $\Psi$ é montada a partir dos \textit{voxels} detectados e enviada à GPU, conforme mostrado na Figura \ref{fig::organizacao2GPU}.
 
