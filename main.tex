@@ -546,27 +546,31 @@ As fibras reconstruídas consistem de informações direcionais extraídas de um
 %\hfill
 %\end{figure}
 
-Em tractografia, devido a sua natureza de modelagem, o DTI apresenta limitações. O modelo gaussiano usado no DTI descreve bem regiões de fibras em que o comportamento de difusão ocorre predominantemente em uma direção. Em pontos que contém múltiplas fibras e que estão dispostas nas mais variadas configurações (por exemplo: cruzamento, bifurcação, mistura, beijo) o modelo gaussiano não sintetiza de forma correta o comportamento da difusão, impedindo o cômputo das direções plausíveis para reconstrução de uma fibra de interesse \cite{fillard2011, daducci2014}. Há um estimativa que entre 66\% a 90\% da substância branca do cérebro contém múltiplas configurações de cruzamento de fibra \cite{descoteaux2015} e a limitação do DTI é um obstáculo para traçar o caminho de fibras do cérebro de forma efetiva.
+Em tractografia, devido a sua natureza de modelagem, o DTI apresenta limitações. O modelo gaussiano usado no DTI descreve bem regiões de fibras em que o comportamento de difusão ocorre predominantemente em uma direção. Em pontos que contém múltiplas fibras e que estão dispostas nas mais variadas configurações (por exemplo: cruzamento, bifurcação, mistura, "beijo") o modelo gaussiano não sintetiza de forma correta o comportamento da difusão, impedindo o cômputo das direções plausíveis para reconstrução de uma fibra de interesse \cite{fillard2011, daducci2014}. Há um estimativa que entre 66\% a 90\% da substância branca do cérebro contém múltiplas configurações de cruzamento de fibra \cite{descoteaux2015} e a limitação do DTI é um obstáculo para traçar o caminho de fibras do cérebro de forma efetiva.
 
 
 %\section{Motivação}
 %\label{ssec:motivation}
 
-Cientes dessas limitações, pesquisadores da área passaram a propor modelos matemáticos mais descritivos do processo de difusão, bem como aplicar estes modelos a volumes de alta resolução angular  (HARDI - \textit{High Angular Resolution Diffusion Imaging}). A tese de doutorado de David Tuch \cite{tuch2002} é o trabalho seminal da área.
+Cientes das limitações do DTI, pesquisadores da área passaram a propor modelos matemáticos mais descritivos do processo de difusão, bem como aplicar estes modelos a volumes de alta resolução angular  (HARDI - \textit{High Angular Resolution Diffusion Imaging}). A tese de doutorado de David Tuch \cite{tuch2002} é o trabalho seminal da área.
 
 Uma aquisição DWI é considerada HARDI se há 45 ou mais gradientes de ponderação de difusão. Esta modalidade de aquisição se diferencia de uma aquisição DTI, que costuma possuir entre 6 a 32 direções \cite{descoteaux2015}.
 
 
 %\todo{\url{https://www.researchgate.net/figure/Sampling-schemes-in-q-space-a-Cartesian-sampling-dedicated-to-diffusion-spectrum_fig3_319558026}}.
-Para aquisições HARDI, foram propostos métodos de imageamento mais descritivos do processo de difusão que o DTI. Alguns deles consistem na abordagem multi-tensor \cite{tuch2002}, o \textit{Q-Ball Imaging} (QBI) \cite{tuch2002, Kindlmann2004}, \textit{constrained spherical deconvolution} (CSD) \cite{tournier2007}, \textit{diffusion spectrum imaging} (DSI) \cite{tuch2002,wedeen2005} e a amostragem generalizada do espaço Q (GQI - \textit{generalized Q-space sampling}) \cite{yeh2010}. Para diferenciá-los do DTI, neste trabalho chamaremos estes métodos de imageamento de métodos HARDI.
+Para aquisições HARDI, foram propostos métodos de imageamento mais descritivos do processo de difusão que o DTI. Alguns deles consistem na abordagem multi-tensor \cite{tuch2002}, o \textit{Q-Ball Imaging} (QBI) \cite{tuch2002, Kindlmann2004}, \textit{constrained spherical deconvolution} (CSD) \cite{tournier2007}, \textit{diffusion spectrum imaging} (DSI) \cite{tuch2002,wedeen2005} e a amostragem generalizada do espaço Q (GQI - \textit{generalized Q-space sampling}) \cite{yeh2010}. Os métodos consistem no cômputo de uma função de distribuição de orientação (ODF - \textit{orientation distribution function}), no qual padrões de fibras subjacentes podem ser inferidos. Para diferenciá-los do DTI, neste trabalho chamaremos estes métodos de imageamento de métodos HARDI.
 
-A partir de volumes com mais alta resolução angular e métodos HARDI, é possível gerar algoritmos de tractografia melhores e que levem em consideração mais nuances do sinal de difusão que o DTI, especialmente em regiões que contém as mais diversas configurações de múltiplas de fibras \cite{fillard2011}. Porém, tanto técnicas quanto métodos HARDI não são popularmente utilizadas clinicamente. %\textcolor{red}{Porém, (comentar o que falta ainda para popularizar o seu uso clínico em relação a DTI) ...}
+A partir de volumes com mais alta resolução angular e métodos HARDI, é possível gerar algoritmos de tractografia melhores e que levem em consideração mais nuances do sinal de difusão que o DTI, especialmente em regiões que contém as mais diversas configurações de múltiplas de fibras \cite{fillard2011}. Porém, aquisições e métodos HARDI não são popularmente utilizadas clinicamente. %\textcolor{red}{Porém, (comentar o que falta ainda para popularizar o seu uso clínico em relação a DTI) ...}
 
-No uso clínico, o DTI é ainda muito mais utilizado que métodos HARDI \cite{descoteaux2015}. As vantagens do DTI se referem a sua aquisição, que requer menos tempo para ser feita, e a popularidade de aplicativos que processam DWI por este método de imageamento. O DTI demanda uma menor quantidade memória para armazenar parâmetros intrínsecos ao seu método comparados aos métodos HARDI, e suas ferramentas para análise de DWIs são computacionalmente menos exigentes.
+No uso clínico, o DTI é ainda muito mais utilizado que métodos HARDI \cite{descoteaux2015}. As vantagens do DTI se referem a sua aquisição, que requer menos tempo para ser feita e a popularidade de aplicativos que processam DWI por este método de imageamento. O DTI demanda uma menor quantidade memória para armazenar parâmetros intrínsecos ao seu método comparados aos métodos HARDI e suas ferramentas para análise de DWIs são computacionalmente menos exigentes.
+
+%Falar de tratos que HARDI resolve e DTI não?
 
 Em tractografia, tanto baseada em DTI, quanto HARDI, há avanços no entendimento de patologias, como esclerose múltipla, mal de Parkinson, esquizofrenia e derrame \cite{SCHILLING2019194}. Mesmo com essas aplicabilidades, há muitos desafios na área.
 
-Mesmo métodos HARDI conseguindo sanar os problemas já citados do DTI, há muitos desafios na área. Métodos HARDI, mesmo sendo precisos na detecção de orientação local, não inferem sobre a configuração de fibras. Por exemplo, se há duas direções de fibras, o método irá identificá-las, mas o mesmo não infere sobre a configuração de ambas (por exemplo, se as fibras se cruzam ou se "beijam")  \cite{SCHILLING2019194}.
+Mesmo métodos HARDI conseguindo sanar os problemas já citados do DTI, há muitos desafios na área. Mesmo sendo precisos na detecção de orientação local, não inferem sobre a configuração de fibras. Por exemplo, se em um ponto, há duas ou mais direções de fibras, o método irá identificá-las, mas o mesmo não infere sobre a configuração de ambas (por exemplo, se as fibras se cruzam ou se "beijam") \cite{SCHILLING2019194}.
+
+%%RELER O ARTIGO DO SCHILING E MOSTRAR OPORTUNIDADES 
 
 
 
@@ -574,6 +578,21 @@ Mesmo métodos HARDI conseguindo sanar os problemas já citados do DTI, há muit
 
 \section{Motivação}
 \label{ssec:motivation}
+
+Diante dos desafios em aberto, este trabalho aborda um sistema de visualização interativa para dados de difusão HARDI, utilizando um método de imageamento apropriado.
+
+O sistema proposto tem a intenção de ser usado por um especialista para que, a partir de um DWI, ele possa construir e analisar de forma não invasiva fibras dos cérebros. Para este fim, iremos propor a visualização interativa de perfis de difusão gerados pelo método de imageamento utilizado e um algoritmo de tractografia interativo associado.
+
+A visualização interativa de perfis de difusão em cada amostra dá ao especialista uma visão de como o método utilizado o reconstrói a partir do sinal de difusão. A partir disto, ele pode inferir visualmente sobre o método de imageamento utilizado quanto a sua adequabilidade para com a aquisição utilizada.
+
+Acerca do algoritmo de tractografia, a interação com um especialista é relevante nos seguintes aspectos: queremos que o usuário tenha a liberdade de escolher os tratos a serem analisados e que ele possa inferir e assegurar a plausabilidade das conexões das amostras de múltiplas orientações que métodos HARDI proveem.
+
+Acerca da natureza do tipo de interatividade que queremos mostrar, evidentemente que somente informações extraídas de um volume de difusão não assegura a plausabilidade de fibras reconstruídas e é desejável que haja ferramentas de interatividade para com um especialista para que ele possa escolher regiões de análise e verificar a plausabilidade de fibras.
+
+%O conhecimento de tratos a partir de DWIs é escasso e há discrepâncias entre especialistas, não apenas na área de difusão, mas também na literatura anatômica \cite{SCHILLING2019194} e é necessária a análise humana para inferir sobre a plausabilidade do que está sendo reconstruído.
+
+
+
 
 \todo[inline]{Principal motivação é aprimorar a interatividade no processo de reconstrução de uma fibra? Diante dos desafios ainda em aberto, espera-se que, através de uma visualização interativa dos dados de difusão HARDI devidamente pré-processados, um especialista junto com uma máquina construa de forma mais fiel possível, e não-invasiva, as fibras dos tratos (conhecidos e desconhecidos)?}
 
@@ -586,28 +605,71 @@ Mesmo métodos HARDI conseguindo sanar os problemas já citados do DTI, há muit
 \section{Ambiente de Implementação}
 \label{ssec:ambiente}
 
-Todas as implementações e experimentos do trabalho são realizados no aplicativo VMTK-Neuro (\textit{Visual Manipulation ToolKit for Neuroimages}) \cite{VMTKNeuro}, que é um ambiente de visualização exploratória multimodal multi-plataforma desenvolvida e mantida pelo grupo de pesquisa da Faculdade de Engenharia Elétrica e de Computação da UNICAMP ao qual faço parte. O \textit{software} renderiza em tempo real volumes de ressonância magnética (\textit{magnetic resonance imaging} - MRI). Possui ferramentas de exploração para volumes DWI a partir do DTI.%\textcolor{red}{escaneados com o protocolo Overplus \cite{Philips} e de rastreamento das fibras para volumes DTI sintetizados a partir de DWIs}\todo{não necessariamente Overplus. Overplus não sintetiza as sequencias de aquisições de DWI que há por aí.}.
+Todas as implementações e experimentos do trabalho são realizados no aplicativo VMTK-Neuro (\textit{Visual Manipulation ToolKit for Neuroimages}) \cite{VMTKNeuro}, que é um ambiente de visualização exploratória multimodal multi-plataforma desenvolvida e mantida pelo grupo de pesquisa da Faculdade de Engenharia Elétrica e de Computação da UNICAMP ao qual faço parte. O \textit{software} renderiza em tempo real volumes de ressonância magnética (\textit{magnetic resonance imaging} - MRI). Possui ferramentas de exploração para volumes DWI a partir do DTI, conforme mostrado no fluxograma da figura \ref{fig::PipelineDTI_tracto}.%\textcolor{red}{escaneados com o protocolo Overplus \cite{Philips} e de rastreamento das fibras para volumes DTI sintetizados a partir de DWIs}\todo{não necessariamente Overplus. Overplus não sintetiza as sequencias de aquisições de DWI que há por aí.}.
 
-Estas ferramentas consistem na visualização em tempo interativo de tensores de difusão mapeados em glifos superquádricos renderizados sobre os seus respectivos \textit{voxels} (figura \ref{fig::intro_ex_DTI_glifos}), tractografia (figura \ref{fig::intro_ex_DTI_tractografia}).
+\begin{figure}[ht]
+   \centering
+       \addtolength{\leftskip} {-2cm} % increase (absolute) value if needed
+    \addtolength{\rightskip}{-2cm}
+
+    %\vspace*{3mm}
+    \centering
+    \includegraphics[width=1.0\linewidth, angle=0]{figs/Fluxogramas/PipelineDTI_tracto.jpg}
+    \caption{Fluxograma para tractografia implementado no VMTK-Neuro.}
+    \label{fig::PipelineDTI_tracto}
+\end{figure}
+
+Estas ferramentas consistem na visualização em tempo interativo de tensores de difusão mapeados em glifos superquádricos \cite{Kindlmann2004} renderizados sobre as suas respectivas amostras (figura \ref{fig::intro_ex_DTI_glifos}), tractografia (figura \ref{fig::intro_ex_DTI_tractografia}) e o corregistro de volumes de difusão com volumes anatômicos T1.
+
+Na tractografia baseada em DTI, o VMTK-Neuro possui ferramentas de interatividade que possibilitam que o usuário possa inferir sobre as regiões do volume que contém os tratos a serem analisados, bem como filtrar fibras de interesse e eliminar fibras espúrias. Adicionalmente, parâmetros relacionados a reconstrução, que podem diferir de acordo com a região de análise do usuário, também são configuráveis. O algoritmo de tractografia apresenta resultados visuais em tempo interativo para as formas de interação mencionadas.
+
+
+
 
 \section{Objetivos}
 \label{sec::objetivos}
 
-A contribuição esperada para o presente trabalho é a implementação e validação de um algoritmo de tractografia interativo baseada \textcolor{red}{no} método de imageamento HARDI e a sua integração ao VMTK-Neuro. Para alcançar este objetivo, o trabalho foi esquematizado da seguinte forma:
+A contribuição esperada para o presente trabalho é a implementação e validação de um algoritmo de tractografia interativo baseada em um método de imageamento HARDI como um protótipo ao VMTK-Neuro. Para alcançar este objetivo, o trabalho está esquematizado no fluxograma da figura \ref{fig::flowchart_trabalho_intro}.
+
+\begin{figure}[ht]
+   \centering
+       \addtolength{\leftskip} {-2cm} % increase (absolute) value if needed
+    \addtolength{\rightskip}{-2cm}
+
+    %\vspace*{3mm}
+    \centering
+    \includegraphics[width=.9\linewidth, angle=0]{figs/Fluxogramas/flowchart_trabalho_intro.png}
+    \caption{Fluxograma de trabalho}
+    \label{fig::flowchart_trabalho_intro}
+\end{figure}
+
+A partir do fluxograma, então, é necessário ter de forma esquemática a resposta a questões relativas a:
 
 \begin{itemize}
-\item escolha e implementação \sout{do método HARDI} \textcolor{red}{de uma técnica de síntese das orientações de difusão} a partir das imagens de DWI \textcolor{red}{de alta resolução angular (HARDI)};
-\item visualização interativa de perfis de difusão obtido através \sout{do método}\textcolor{red}{dos dados do} HARDI;
-\item extração \sout{e visualização} de \sout{informações direcionais do método HARDI para tractografia} \textcolor{red}{direções plausíveda fiis bras a partir dos perfis de difusão e sua visualização} e
-\item implementação, visualização e validação do algoritmo de tractografia.
+\item escolha e implementação de um método de imageamento HARDI; \textcolor{red}{de alta resolução angular (HARDI)};
+\item visualização interativa de perfis de difusão gerados através do método HARDI;
+\item como extrair direções plausíveis de fibras a partir dos perfis de difusão e sua visualização e
+\item como implementar um algoritmo de tractografia de forma interativa.
 \end{itemize}
 
+
 \textcolor{red}{A expectativa é aplicar os resultados na implementação do fluxograma mostrado na Figura ??? no VMTK-Neuro ...}
+
+
 
 \todo[inline]{Sugiro que mostre em algum ponto uma visão geral do fluxo de controle da sua proposta de construção de tractografia a partir de DWIs de alta resolução angular.}
 
 \section{Desafios}
 \label{sec::desafios}
+
+Para implementação do sistema, muito da infraestrutura necessária para alcançar os objetivos estabelecidos estão implementadas no VMTK-Neuro para visualização de volumes DWI por DTI. Portanto, muitos dos desafios enfrentados dizem respeito a questões de implementação do método HARDI, seu esquema de visualização em glifo e o algoritmo de tractografia associado.
+
+A própria implementação matemática de um método HARDI para sintetizar o perfil de difusão é uma tarefa desafiadora. Os métodos demandam uma quantidade de memória razoavelmente maior que o DTI, que pode ser codificado na memória com apenas 6 elementos (matriz 3x3 simétrica). Métodos HARDI não estabelecem um critério mínimo, entretanto precisam de centenas de elementos para descreverem o perfil de difusão de forma razoável.
+
+A implementação de um esquema de renderização de perfis de difusão em tempo interativo é algo desafiador pela grande quantidade de dados necessários para sintetizar um glifo. Além disso, na renderização tridimensional de volumes de difusão, este esquema de renderização é integrado ao próprio esquema de renderização do volume, bem como o sistema de detecção de amostras aparentes presente no \textit{software}, o que diminui a margem de tempo de execução do esquema.
+
+O último desafio diz respeito à implementação de um algoritmo em tempo interativo de tractografia, que precisa ter seu cômputo rápido o suficiente para seguir as interações feitas pelo usuário.
+
 
 \todo[inline]{Não acha que aqui você tem que focar nos desafios relacionados à interatividade, uma vez que o item 4 listado na seção anterior já se encontra implementado no VMTK. Só precisa de algumas adequações. Quais são os desafios para tornar um algoritmo de reconstrução de fibras a partir de HARDI (DWI de alta resolução angular) interativo? Quais restrições devem ser observadas?}
 
@@ -633,6 +695,17 @@ A contribuição esperada para o presente trabalho é a implementação e valida
 
 \section{Organização}
 \label{sec:intro_organizacao}
+
+Como penso em fazer:
+Obs: Trabalhos relacionados integrados a cada capítulo.
+
+1)Implementação do método HARDI e extração de fibras subjacentes através de picos.
+
+2) Glifos;
+
+3) Tractografia;
+
+4) Conclusões
 
 \textcolor{red}{
 \chapter{Decisões Iniciais??? Ou Trabalhos Relacionados}
@@ -794,17 +867,18 @@ Nesta capítulo são apresentados os trabalhos relacionados as decisões iniciai
 
 No VMTK-Neuro, há a implementação de ferramentas de processamento e visualização para volumes de difusão e que estão diretamente relacionadas ao presente trabalho. Estas ferramentas, que usam como base o DTI, estão esquematizadas no fluxograma da figura \ref{fig::PipelineDTI_tracto}.
 
-\begin{figure}[ht]
-   \centering
-       \addtolength{\leftskip} {-2cm} % increase (absolute) value if needed
-    \addtolength{\rightskip}{-2cm}
-
-    %\vspace*{3mm}
-    \centering
-    \includegraphics[width=1.0\linewidth, angle=0]{figs/Fluxogramas/PipelineDTI_tracto.jpg}
-    \caption{Fluxograma para tractografia implementado no VMTK-Neuro.}
-    \label{fig::PipelineDTI_tracto}
-\end{figure}
+%ORIGINAL -> FLUXOGRAMA VMTK NEURO
+%\begin{figure}[ht]
+%   \centering
+%       \addtolength{\leftskip} {-2cm} % increase %(absolute) value if needed
+%    \addtolength{\rightskip}{-2cm}
+%
+%    %\vspace*{3mm}
+%    \centering
+%    \includegraphics[width=1.0\linewidth, %angle=0]{figs/Fluxogramas/PipelineDTI_tracto.jpg}
+%    \caption{Fluxograma para tractografia implementado %no VMTK-Neuro.}
+%    \label{fig::PipelineDTI_tracto}
+%\end{figure}
 
 \pagebreak
 \subsection{DTI}
