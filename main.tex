@@ -562,11 +562,11 @@ Para aquisições HARDI, foram propostos métodos de imageamento mais descritivo
 
 A partir de volumes com mais alta resolução angular e métodos HARDI, é possível gerar algoritmos de tractografia melhores e que levem em consideração mais nuances do sinal de difusão que o DTI, especialmente em regiões que contém as mais diversas configurações de múltiplas de fibras \cite{fillard2011}. Porém, tanto técnicas quanto métodos HARDI não são popularmente utilizadas clinicamente. %\textcolor{red}{Porém, (comentar o que falta ainda para popularizar o seu uso clínico em relação a DTI) ...}
 
-No uso clínico, o DTI é ainda muito mais utilizado que métodos HARDI \cite{descoteaux2015}. As vantagens do DTI se referem a sua aquisição, que requer menos tempo para ser feita, e a popularidade de aplicativos que processam DWI por este método de imageamento. O DTI demanda uma maior quantidade memória para armazenar parâmetros relativos bem menor métodos HARDI,  e, adicionalmente, tem um menor custo computacional de algoritmos para análise de DWI.
+No uso clínico, o DTI é ainda muito mais utilizado que métodos HARDI \cite{descoteaux2015}. As vantagens do DTI se referem a sua aquisição, que requer menos tempo para ser feita, e a popularidade de aplicativos que processam DWI por este método de imageamento. O DTI demanda uma menor quantidade memória para armazenar parâmetros intrínsecos ao seu método comparados aos métodos HARDI, e suas ferramentas para análise de DWIs são computacionalmente menos exigentes.
 
 Em tractografia, tanto baseada em DTI, quanto HARDI, há avanços no entendimento de patologias, como esclerose múltipla, mal de Parkinson, esquizofrenia e derrame \cite{SCHILLING2019194}. Mesmo com essas aplicabilidades, há muitos desafios na área.
 
-Em tractografia, mesmo métodos HARDI conseguindo sanar os problemas já citados do DTI, há muitos desafios na área. Métodos HARDI, mesmo sendo precisos na detecção de orientação local, não inferem sobre a configuração de fibras. Por exemplo, se há duas direções de fibras, o método irá identificá-las, mas o mesmo não infere sobre a configuração de ambas (por exemplo, se as fibras se cruzam ou se "beijam")  \cite{SCHILLING2019194}.
+Mesmo métodos HARDI conseguindo sanar os problemas já citados do DTI, há muitos desafios na área. Métodos HARDI, mesmo sendo precisos na detecção de orientação local, não inferem sobre a configuração de fibras. Por exemplo, se há duas direções de fibras, o método irá identificá-las, mas o mesmo não infere sobre a configuração de ambas (por exemplo, se as fibras se cruzam ou se "beijam")  \cite{SCHILLING2019194}.
 
 
 
@@ -877,8 +877,7 @@ A relação entre anisotropia fracionada e os autovalores do tensor de difusão 
 
 \begin{equation}
 \label{eq::fa}
-    FA = \sqrt{\frac{3}{2}}.\sqrt{\frac{(\lambda_1 - \overline{\lambda})^2 + (\lambda_2 - \overline{\lambda})^2 + (\lambda_3 - \overline{\lambda})^2}{\lambda_1^2 + \lambda_2^2 + \lambda_3^2}
-    }
+    FA = \sqrt{\frac{3}{2}}.\sqrt{\frac{(\lambda_1 - \overline{\lambda})^2 + (\lambda_2 - \overline{\lambda})^2 + (\lambda_3 - \overline{\lambda})^2}{\lambda_1^2 + \lambda_2^2 + \lambda_3^2}}
 \end{equation}
 
 
@@ -1268,9 +1267,9 @@ Há um sistema de detecção de amostras do DWI aparentes na cena integrado ao V
 
 Na renderização de fatias, a inferência dos \textit{pixels} aparentes na tela consiste na leitura dos índices do \textit{voxel} nas fatias coronais, axiais no qual os glifos são posicionados de acordo com a posição do seu respectivo \textit{pixel}.
 
-Na renderização tridimensional, há uma funcionalidade para detecção de \textit{voxels}. A detecção é baseada em \textit{raycasting} computado sobre o volume na GPU, foi proposto e implementado no VMTK-Neuro por \citeonline{raphael_dissertacao}. Cada um dos \textit{voxels} é associado a uma matriz de translação pré-computada para o seu centro no 3D.
+Na renderização tridimensional, também há uma funcionalidade para detecção de amostras aparentes. A detecção é baseada em \textit{raycasting} computado sobre o volume na GPU, no qual foi proposto e implementado no VMTK-Neuro por \citeonline{raphael_dissertacao}. Cada uma das amostras é associado a uma matriz de translação pré-computada para o seu centro no 3D.
 
-A partir de $P$ \textit{voxels} detectados em uma requisição de desenho, suas respectivas matrizes de posicionamento são copiadas e armazenadas como um vetor e enviadas à GPU. Da mesma maneira, a matriz $\Psi$ é computada a partir dos \textit{voxels} detectados e enviada à GPU, conforme mostrado na Figura \ref{fig::organizacao2GPU}.
+A partir de $P$ \textit{voxels} detectados em uma requisição de desenho, suas respectivas matrizes de posicionamento são copiadas e armazenadas como um vetor e enviadas à GPU. Da mesma maneira, a matriz $\Psi$ é computada a partir das amostras detectadas e enviada à GPU, conforme mostrado na Figura \ref{fig::organizacao2GPU}.
 
 
 \begin{figure}[ht]
