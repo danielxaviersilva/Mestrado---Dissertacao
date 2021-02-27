@@ -491,33 +491,39 @@ A ressonância magnética ponderada por difusão (DWI) é uma sequência de imag
 A difusão molecular é um processo físico que se refere ao movimento aleatório de moléculas de fluídos que resultam da sua energia térmica \cite{lebihan2006}. 
 Pode-se categorizar o movimento de difusão em relação ao meio da sua ocorrência em difusão isotrópica e anisotrópica. A difusão isotrópica ocorre em um meio que não oferece obstáculos, enquanto na difusão anisotrópica, o meio apresenta restrições ao movimento.
 
-No cérebro, o processo de difusão ocorre majoritariamente com moléculas de água e difere significantemente da difusão isotrópica \cite{lebihan2006}. As moléculas interagem com muitos dos tecidos cerebrais, como membranas de células e fibras, assim, \sout{tendo}\textcolor{red}{podendo} a distância da difusão \sout{pode} ser reduzida ou restringida.
+No cérebro, o processo de difusão ocorre majoritariamente com moléculas de água e difere significantemente da difusão isotrópica \cite{lebihan2006}. As moléculas interagem com muitos dos tecidos cerebrais, como membranas de células e fibras. Estas interações reduzem e restringem a distância da difusão.
 
 
 Há diferenças na forma de ocorrência da difusão nas substâncias branca e cinzenta do cérebro. Na substância cinzenta, a característica da difusão é altamente complexa devido à sua organização em camadas, o que torna a interpretação do fenômeno bem desafiadora. A substância branca, por sua vez, é composta por fibras organizadas em um conjunto coerente e compactado que faz a conexão entre neurônios localizados em diferentes partes do cérebro, o que faz a difusão ter um comportamento proeminente ao longo da direção do feixe de fibras \cite{DTI_Handbook}.
 
-\todo{Por quê}A medição das características difusão da água no cérebro pode fornecer informações sobre a direção de fibras e conectividade do cérebro, o que é possível através da ressonância magnética ponderada por difusão (\textit{diffusion-weighted magnetic resonance imaging} - DW-MRI ou DWI).
-Esta modalidade de imageamento é uma forma de ressonância magnética que gera contraste a partir da difusão das moléculas de água em determinadas direções \cite{DTI_Handbook}. %A partir do sinal adquirido, há ferramentas que  possibilitam o seu mapeamento em  fibras nervosas do cérebro humano \textit{in-vivo}.
+\todo{Por quê}A medição das características difusão da água no cérebro pode fornecer informações sobre a matéria branca, que se referem a direção de fibras e conectividade do cérebro. Esta medição é possível através da ressonância magnética ponderada por difusão (\textit{diffusion-weighted magnetic resonance imaging} - DW-MRI ou DWI).
+
+%O DWI é uma forma de ressonância magnética que gera contraste a partir da difusão das moléculas de água em determinadas direções \cite{DTI_Handbook}. %A partir do sinal adquirido, há ferramentas que  possibilitam o seu mapeamento em  fibras nervosas do cérebro humano \textit{in-vivo}.
 
 %A ressonância magnética ponderada na sequência de difusão (\textit{diffusion-weighted magnetic resonance imaging} - DW-MRI ou DWI) é uma sequência de ressonância magnética que mensura a difusão das moléculas de água em determinadas direções \cite{DTI_Handbook}. A partir do sinal adquirido, há ferramentas que  possibilitam o seu mapeamento em  fibras nervosas do cérebro humano \textit{in-vivo}.
 
 %!!A forma mais comum para gerar o DWI é através da sequência e pulsos PGSE (\textit{Pulsed Gradient Spin Echo}).
 
 
-Na aquisição do DWI, é escaneado um conjunto de volumes em que cada um possui a ponderação de único gradiente de difusão associado a um valor-b\footnote{O valor-b é uma métrica de sensitividade para difusão e é função de parâmetros da aquisição do DWI, como função da intensidade, duração e o intervalo de tempo dos gradientes de ponderação de difusão. Quanto maior o seu valor, maior o decaimento do sinal relativo à difusão.}, e, adicionalmente, um ou mais volumes sem ponderação de gradiente, denominado volume b0. A quantidade de volumes ponderados para diferentes direções de gradiente é denominada de resolução angular. Técnicas para sumarizar os sinais coletados em informações de potenciais caminhos de fibras nervosas são objeto de pesquisa \sout{há mais de 25 anos}\textcolor{red}{desde os primeiros trabalhos seminais ...}.
+Na aquisição do DWI, é escaneado um conjunto de volumes em que cada um possui a ponderação de único gradiente de difusão associado a um valor-b\footnote{O valor-b é uma métrica de sensitividade para difusão e é função de parâmetros da aquisição do DWI, como função da intensidade, duração e o intervalo de tempo dos gradientes de ponderação de difusão. Quanto maior o seu valor, maior o decaimento do sinal relativo à difusão.}, e, adicionalmente, um ou mais volumes sem ponderação de gradiente, denominado volume b0. A quantidade de volumes ponderados para diferentes direções de gradiente é denominada de resolução angular. Técnicas para sumarizar os sinais coletados em informações de potenciais caminhos de fibras nervosas são objeto de pesquisa desde o início dos anos 90 \cite{descoteaux2015}.%\sout{há mais de 25 anos}\textcolor{red}{desde os primeiros trabalhos seminais ...}.
 
-A técnica de imageamento mais amplamente utilizada para estes fins é chamada de imageamento por tensor de difusão (DTI - \textit{Diffusion Tensor Imaging}), proposto por \citeonline{Basser1994}. 
-O modelo do DTI consiste em um mapeamento dos sinais em cada \textit{voxel} de um volume DWI em um tensor, representado por uma matriz 3x3 simétrica. Os três autovetores do tensor de difusão representam três direções ortogonais cujos respectivos autovalores representam a magnitude de difusão\textcolor{brown}{???, que são máximos para restrição de ortogonalidade}.
+O método de imageamento mais amplamente utilizada para estes fins é chamada de imageamento por tensor de difusão (DTI - \textit{Diffusion Tensor Imaging}), proposto por \citeonline{Basser1994}. 
 
-\todo[inline]{Abstraindo o que você escreveu ... há duas linhas de empenho: visualização dos sinais de difusão por amostra (modelagem local da geometria das fibras) e/ou por fibra (modelagem global da conectividade das amostras). É melhor colocar Fig 1.1 e 1.2 uma ao lado da outra. Facilita análise comparativa.}
-\textcolor{brown}{Há pesquisas na área de visualização de volumes DWIs, tanto no que diz respeito à criação de glifos representativos do sinal de difusão a partir do DTI \cite{Kindlmann2004, Basser1994}, quanto à reconstrução das fibras do cérebro -- denominada de tractografia \cite{Weinstein1999, basser2000}. A figura \ref{fig::intro_ex_DTI_Superquadrica} ilustra o mapeamento dos tensores de difusão em glifos, enquanto a figura \ref{fig::intro_ex_DTI_Tractografia} apresenta uma tractografia.}
+O método do DTI consiste em um mapeamento das amostras de difusão em um ponto contido em uma aquisição DWI em um modelo gaussiano, que é sintetizada por tensor de ordem 2, representado por uma matriz 3x3 simétrica. A informação referente ao processo de difusão é comumente extraída dos seus três autovetores e autovalores.%  do tensor de difusão representam três direções ortogonais cujos respectivos autovalores representam a magnitude de difusão, que são máximos para restrição de ortogonalidade.
+
+%\todo[inline]{Abstraindo o que você escreveu ... há duas linhas de empenho: visualização dos sinais de difusão por amostra (modelagem local da geometria das fibras) e/ou por fibra (modelagem global da conectividade das amostras). É melhor colocar Fig 1.1 e 1.2 uma ao lado da outra. Facilita análise comparativa.}
+Há pesquisas na área de visualização de volumes DWIs, tanto no que diz respeito à criação de glifos representativos do comportamento de difusão, quanto à reconstrução das fibras do cérebro -- denominada tractografia.
+
+\citeonline{Basser1994} e \citeonline{Kindlmann2004}, por exemplo, propuseram glifos representativos que sintetizam a difusão a partir do DTI. Na figura \ref{fig::intro_ex_DTI_glifos} ilustra glifos propostos por os glifos propostos por \citeonline{Kindlmann2004}, denominados superquádricos.
+
+As fibras reconstruídas consistem de informações direcionais extraídas de um método de imageamento e costumam ser representadas por linhas, como ilustrado na figura \ref{fig::intro_ex_DTI_tractografia}. Algoritmos de tractografia baseados em DTI são exemplificados por \citeonline{Weinstein1999} e \citeonline{basser2000}. 
 
 \begin{figure}[ht]
 \captionsetup[subfloat]{farskip=0pt,nearskip=0pt}
-    \subfloat[Tensor de difusão representado por glifos superquádricos em uma fatia axial do cérebro na região do corpo caloso. As cores representam a direção predominante de difusão onde vermelho é esquerda-direita, azul é superior-inferior e verde é anterior-posterior]{\includegraphics[width=.49\linewidth, angle=0]{figs/Introducao/ex_DTI_Superquadrica.png}
+    \subfloat[Tensores de difusão representado por glifos superquádricos em uma fatia axial do cérebro na região do corpo caloso. As cores representam a direção predominante de difusão onde vermelho é esquerda-direita, azul é superior-inferior e verde é anterior-posterior]{\includegraphics[width=.52\linewidth, angle=0]{figs/Introducao/ex_DTI_Superquadrica.png}
     \label{fig::intro_ex_DTI_glifos}}
     \hfill
-    \subfloat[Trato fascículo inferior fronto-occipital (IFOF). A cor predominantemente verde indica sua trajetória, que ocorre na direção anterior-posterior]{\includegraphics[width=.47\linewidth, angle=0]{figs/Introducao/ex_DTI_tractography.png}
+    \subfloat[Trato fascículo inferior fronto-occipital (IFOF). A cor predominantemente verde indica sua trajetória, que ocorre na direção anterior-posterior. As linhas são reconstruídas com base no proposto por \citeonline{Weinstein1999} ]{\includegraphics[width=.46\linewidth, angle=0]{figs/Introducao/ex_DTI_tractography.png}
     \label{fig::intro_ex_DTI_tractografia}}
     \hfill
     \label{fig::intro_ex_DTI}
@@ -540,15 +546,29 @@ O modelo do DTI consiste em um mapeamento dos sinais em cada \textit{voxel} de u
 %\hfill
 %\end{figure}
 
-\sout{Em tractografia, devido a sua natureza de modelagem, o DTI apresenta limitações.} As principais abordagens para reconstrução de tratos a partir do DTI envolvem os autovalores e autovetores do tensor de difusão. Em determinadas regiões em que há \todo{Só cruzamento?}cruzamento de fibras, o modelo não resolve de forma satisfatória o cômputo das direções plausíveis para reconstrução da fibra de interesse e essa limitação se torna um obstáculo para traçar o caminho da matéria branca do cérebro de forma efetiva \cite{fillard2011, daducci2014}.
+Em tractografia, devido a sua natureza de modelagem, o DTI apresenta limitações. O modelo gaussiano usado no DTI descreve bem regiões de fibras em que o comportamento de difusão ocorre predominantemente em uma direção. Em pontos que contém múltiplas fibras e que estão dispostas nas mais variadas configurações (por exemplo: cruzamento, bifurcação, mistura, beijo) o modelo gaussiano não sintetiza de forma correta o comportamento da difusão, impedindo o cômputo das direções plausíveis para reconstrução de uma fibra de interesse \cite{fillard2011, daducci2014}. Há um estimativa que entre 66\% a 90\% da substância branca do cérebro contém múltiplas configurações de cruzamento de fibra \cite{descoteaux2015} e a limitação do DTI é um obstáculo para traçar o caminho de fibras do cérebro de forma efetiva.
 
 
 %\section{Motivação}
 %\label{ssec:motivation}
 
-Cientes dessas limitações, pesquisadores da área passaram a propor modelos matemáticos mais descritivos do processo de difusão, bem como aplicar estes modelos a volumes de alta resolução angular \todo{\url{https://www.researchgate.net/figure/Sampling-schemes-in-q-space-a-Cartesian-sampling-dedicated-to-diffusion-spectrum_fig3_319558026}} (HARDI - \textit{High Angular Resolution Diffusion Imaging}). Neste contexto, foram propostos métodos de imageamento. Alguns deles consistem na abordagem multi-tensor \cite{tuch2002}, o \textit{Q-Ball Imaging} (QBI) \cite{TuchQBall2004}, \textit{constrained spherical deconvolution} (CSD) \cite{tournier2007}, \textit{diffusion spectrum imaging} (DSI) \cite{wedeen2005} e a amostragem generalizada do espaço Q (GQI - \textit{generalized Q-space sampling}) \cite{yeh2010}. Para diferenciá-los do DTI, neste trabalho chamaremos estes métodos de imageamento de métodos HARDI.
+Cientes dessas limitações, pesquisadores da área passaram a propor modelos matemáticos mais descritivos do processo de difusão, bem como aplicar estes modelos a volumes de alta resolução angular  (HARDI - \textit{High Angular Resolution Diffusion Imaging}). A tese de doutorado de David Tuch \cite{tuch2002} é o trabalho seminal da área.
 
-A partir de volumes com mais alta resolução angular e métodos HARDI, é possível gerar algoritmos de tractografia melhores e que levem em consideração mais nuances do sinal de difusão que o DTI,  \todo{Referências?} especialmente em regiões onde há cruzamentos de fibras \cite{fillard2011}. \textcolor{red}{Porém, (comentar o que falta ainda para popularizar o seu uso clínico em relação a DTI) ...}
+Uma aquisição DWI é considerada HARDI se há 45 ou mais gradientes de ponderação de difusão. Esta modalidade de aquisição se diferencia de uma aquisição DTI, que costuma possuir entre 6 a 32 direções \cite{descoteaux2015}.
+
+
+%\todo{\url{https://www.researchgate.net/figure/Sampling-schemes-in-q-space-a-Cartesian-sampling-dedicated-to-diffusion-spectrum_fig3_319558026}}.
+Para aquisições HARDI, foram propostos métodos de imageamento mais descritivos do processo de difusão que o DTI. Alguns deles consistem na abordagem multi-tensor \cite{tuch2002}, o \textit{Q-Ball Imaging} (QBI) \cite{tuch2002, Kindlmann2004}, \textit{constrained spherical deconvolution} (CSD) \cite{tournier2007}, \textit{diffusion spectrum imaging} (DSI) \cite{tuch2002,wedeen2005} e a amostragem generalizada do espaço Q (GQI - \textit{generalized Q-space sampling}) \cite{yeh2010}. Para diferenciá-los do DTI, neste trabalho chamaremos estes métodos de imageamento de métodos HARDI.
+
+A partir de volumes com mais alta resolução angular e métodos HARDI, é possível gerar algoritmos de tractografia melhores e que levem em consideração mais nuances do sinal de difusão que o DTI, especialmente em regiões que contém as mais diversas configurações de múltiplas de fibras \cite{fillard2011}. Porém, tanto técnicas quanto métodos HARDI não são popularmente utilizadas clinicamente. %\textcolor{red}{Porém, (comentar o que falta ainda para popularizar o seu uso clínico em relação a DTI) ...}
+
+No uso clínico, o DTI é ainda muito mais utilizado que métodos HARDI \cite{descoteaux2015}. As vantagens do DTI se referem a sua aquisição, que requer menos tempo para ser feita, e a popularidade de aplicativos que processam DWI por este método de imageamento. O DTI demanda uma maior quantidade memória para armazenar parâmetros relativos bem menor métodos HARDI,  e, adicionalmente, tem um menor custo computacional de algoritmos para análise de DWI.
+
+Em tractografia, tanto baseada em DTI, quanto HARDI, há avanços no entendimento de patologias, como esclerose múltipla, mal de Parkinson, esquizofrenia e derrame \cite{SCHILLING2019194}. Mesmo com essas aplicabilidades, há muitos desafios na área.
+
+Em tractografia, mesmo métodos HARDI conseguindo sanar os problemas já citados do DTI, há muitos desafios na área. Métodos HARDI, mesmo sendo precisos na detecção de orientação local, não inferem sobre a configuração de fibras. Por exemplo, se há duas direções de fibras, o método irá identificá-las, mas o mesmo não infere sobre a configuração de ambas (por exemplo, se as fibras se cruzam ou se "beijam")  \cite{SCHILLING2019194}.
+
+
 
 \todo[inline]{Sugiro mencionar aqui o artigo de Schilling et al. mostrando os desafios ainda em aberto.}
 
@@ -618,6 +638,30 @@ A contribuição esperada para o presente trabalho é a implementação e valida
 \chapter{Decisões Iniciais??? Ou Trabalhos Relacionados}
 \label{chapter::decisoesiniciais}
 }
+
+\section{Métodos HARDI}
+
+Houveram mais de cem artigos que propuseram métodos de imageamento para descrever o perfil de difusão entre 2000-2010 \cite{descoteaux2015} e evidentemente precisamos fazer uma seleção dos quais deles são mais relevantes para o nosso trabalho.
+
+Os primeiros métodos HARDI propostos consistem no DSI \cite{wedeen2005} - proposto originalmente em 2000 - e presente na tese de doutorado de \citeonline{tuch2002}, juntamente com a abordagem multitensor e o QBI - este último que tem sido o mais popular e está também descrito em artigo \cite{TuchQBall2004}.
+
+Há diferentes aplicativos livres que utilizam métodos HARDI para processamento de DWI, que estão ligados a grupos de pesquisa na área, nos quais restringimos o nosso horizonte a eles. Estes métodos são: GQI (DSI-Studio, !!refDSI), QBI (FSL, FiberNavigator), CSD (MRTrix, ExploreDTI).
+
+Para implementação, o GQI foi escolhido para ser implementado neste trabalho, por suas seguintes características:
+
+\begin{enumerate}
+    \item Ser aplicável em categorias de aquisição com múltiplos valores $b$, o que não é presente no QBI;
+    \item facilidade de implementação. O GQI não depende da codificação por harmônicas esféricas e interpolações no domínio esférico nas aquisições;
+    \item boa aplicabilidade em volumes de mais baixa resolução angular \cite{yeh2010};
+    \item ter parâmetros de regularização e filtragem integrados ao método.
+\end{enumerate}
+
+A grande desvantagem do GQI implementado na forma proposta por \citeonline{yeh2010} ocorre em questões computacionais. A codificação por amostras de funções esféricas requer uma quantidade maior de memória do que o armazenamento de dados como coeficientes de harmônicas esféricas, como é a abordagem da implementação do CSD e QBI nos softwares mencionados anteriormente.
+
+%Alguns métodos HARDI nos quais há softwares associados a grupos de pesquisa na comunidade do DWI consistem no: GQI, implementado no DSI-Studio !!ref), QBI, implementado no FSL e o CSD, implementado no MRTrix
+FiberNavigator????????!!
+
+
 
 \todo[inline]{As decisões iniciais são tipicamente baseadas nos trabalhos relacionados. Portanto, sugiro que você apresenta as suas decisões iniciais contextualizadas no estado-da-arte.}
 
@@ -833,10 +877,9 @@ A relação entre anisotropia fracionada e os autovalores do tensor de difusão 
 
 \begin{equation}
 \label{eq::fa}
-    FA = \sqrt{\frac{3}{2}}.\sqrt{\frac{(\lambda_1 - \overline{\lambda})^2 + (\lambda_2 - \overline{\lambda})^2 + (\lambda_3 - \overline{\lambda})^2}{\lambda_1^2 + \lambda_2^2 + \lambda_3^2}}
+    FA = \sqrt{\frac{3}{2}}.\sqrt{\frac{(\lambda_1 - \overline{\lambda})^2 + (\lambda_2 - \overline{\lambda})^2 + (\lambda_3 - \overline{\lambda})^2}{\lambda_1^2 + \lambda_2^2 + \lambda_3^2}
+    }
 \end{equation}
-
-
 
 
 O mapa consiste em um volume, cujas cores são definidas são definidas \textit{voxel} a \textit{voxel} em função do FA e o autovetor associado a maior difusão $\mathbf{e}_1$ através da equação \ref{eq::FAMap}.
@@ -1199,7 +1242,7 @@ A recuperação na GPU das ODFs é feita através dos índices de instância e v
 %\subfigcapskip = -5pt
     \centering
     \includegraphics[width=.8\linewidth, angle=0]{figs/Esquema_Glifo/GPU2GlifoGeneral.png}
-    \caption{Ilustração da organização de dados na GPU da matriz de perfil de difusão (vermelho) enviados conforme mostrado na figura \ref{fig::organizacao2GPU}. Os vértices da malha esférica estão em verde. A cada instância, a customização do glifo se dá através da multiplicação do vértice da malha com o seu respectivo valor $\psi$, recuperado no \textit{vertex shader} através do seu índice de vértice para os P glifos a serem renderizados.}
+    \caption{Ilustração da organização de dados na GPU da matriz de perfil de difusão (vermelho). Os vértices da malha esférica estão em verde. A cada instância, a customização do glifo se dá através da multiplicação do vértice da malha com o seu respectivo valor $\psi$, recuperado no \textit{vertex shader} através do seu índice de vértice para os P glifos a serem renderizados.}
     \label{fig::GPU2glifoGeneral}
    \hspace{1pt}
 \end{figure}
@@ -1217,17 +1260,17 @@ A cor dos glifos é definida de acordo com o vértice da malha esférica instanc
 
 
 
-\subsection{Integração da renderização ao VMTK-Neuro}
+\subsection{Integração ao VMTK-Neuro}
 
-No VMTK-Neuro, são computados a priori o conjunto de amostras de ODFs para uma malha esférica definida e de as matrizes de translação associados a cada um dos voxels.
+No VMTK-Neuro, são computados a priori o conjunto de amostras de ODFs para uma determinada malha esférica e de matrizes de translação associados a cada um dos voxels.
 
-Há um sistema de detecção de voxels aparentes na cena integrado ao VMTK-Neuro, tanto na renderização de fatias, quanto na renderização do volume em três dimensões.
+Há um sistema de detecção de amostras do DWI aparentes na cena integrado ao VMTK-Neuro, tanto na renderização de fatias, quanto na renderização do volume em três dimensões.
 
 Na renderização de fatias, a inferência dos \textit{pixels} aparentes na tela consiste na leitura dos índices do \textit{voxel} nas fatias coronais, axiais no qual os glifos são posicionados de acordo com a posição do seu respectivo \textit{pixel}.
 
-Na renderização tridimensional, há uma funcionalidade para detecção de \textit{voxels}. A detecção é baseada em \textit{raycasting} computado sobre o volume na GPU, foi proposto e implementado no VMTK-Neuro por \citeonline{raphael_dissertacao}. O voxels detectados apresentam uma matriz de translação para o seu centro no espaço
+Na renderização tridimensional, há uma funcionalidade para detecção de \textit{voxels}. A detecção é baseada em \textit{raycasting} computado sobre o volume na GPU, foi proposto e implementado no VMTK-Neuro por \citeonline{raphael_dissertacao}. Cada um dos \textit{voxels} é associado a uma matriz de translação pré-computada para o seu centro no 3D.
 
-A partir de $P$ \textit{voxels} detectados em uma requisição de desenho, suas respectivas matrizes de posicionamento são copiadas e armazenadas como um vetor e enviadas à GPU. Da mesma maneira, a matriz $\Psi$ é montada a partir dos \textit{voxels} detectados e enviada à GPU, conforme mostrado na Figura \ref{fig::organizacao2GPU}.
+A partir de $P$ \textit{voxels} detectados em uma requisição de desenho, suas respectivas matrizes de posicionamento são copiadas e armazenadas como um vetor e enviadas à GPU. Da mesma maneira, a matriz $\Psi$ é computada a partir dos \textit{voxels} detectados e enviada à GPU, conforme mostrado na Figura \ref{fig::organizacao2GPU}.
 
 
 \begin{figure}[ht]
@@ -1299,7 +1342,7 @@ Na seção \ref{section::QBall_Glifos} do apêndice, seguem algumas imagens dos 
 
 Medições do tempo relativo ao desempenho foram feitas para a quantidade de 197 e 422 vértices da malha esférica para diferentes quantidades de glifos renderizados e estão anotados nas tabelas \ref{tab::benchmark_glifos_197} e \ref{tab::benchmark_glifos_422}. O computador utilizado para o \textit{benchmark} foi um Macbook Pro Retina 13', com processador Intel Core i5 Dual-Core 2.7Ghz, processador gráfico Intel Iris Graphics 6100 1536 MB e memória RAM de 8 GB 1867 MHz DDR3.
 
-Os resultados estão também anotados como fração do limite de tempo de reação instantânea. Este limite é o intervalo de tempo máximo entre a interação do usuário com um sistema e a sua respectiva resposta no qual usuário tenha a percepção que o sistema reage instantaneamente as suas ações, que é de 0,1s \cite{nielsen1994}.
+Os resultados estão também anotados como fração do limite de tempo de reação instantânea ($t_{max}$). Seja $t$ o intervalo de tempo entre a interação do usuário com um sistema e a sua respectiva resposta, mostrada de forma visual. O tempo $t_{max}$ é o limite máximo de $t$ em que o usuário tenha a percepção que o sistema reage instantaneamente as suas ações que, de acordo com \citeonline{nielsen1994}, é de 0,1s.
 
 %\citeonline{nielsen1994} define o tempo de 0,1s 
 %\todo{Não entendi ...}\textcolor{brown}{e que suas ações são a causa de que algo aconteça na tela }. 
@@ -1643,11 +1686,6 @@ O fato da direção dominante não ser ascendente resulta em dois tipos de decis
 
 %\todo[inline]{Reformular a segunda parte do parágrafo.}
 %A região acima do corpo caloso gerou linhas que \todo{não necessariamente parte do limite superior!} partem do limite superior do cérebro e no momento da chegada no cruzamento de fibras, uma boa parte seguiu na direção do trato do corpo caloso e segue na direção da outra parte do trato bifurcado e uma parte menor seguiu na direção descendente.
-
-
-
-
-
 
 %Na integração das linhas geradas a partir das sementes da direita, na passagem pela região de cruzamento de fibras na altura do corpo caloso, houveram desvios de algumas linhas para outras direções, além de uma interrupção das iterações, que acontece pelo critério de baixa anisotropia, ou por mudança brusca de direção da direção principal de maior difusão do tensor.
 %Na integração das linhas geradas a partir das sementes da esquerda, há um claro desvio de caminho para a região do corpo caloso, onde as fibras terminam no limite do volume. Além disso, há uma quantidade menor de fibras seguem o caminho do trato CS.
