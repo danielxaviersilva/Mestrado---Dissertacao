@@ -605,23 +605,25 @@ Acerca da natureza do tipo de interatividade que queremos mostrar, evidentemente
 \section{Ambiente de Implementação}
 \label{ssec:ambiente}
 
-Todas as implementações e experimentos do trabalho são realizados no aplicativo VMTK-Neuro (\textit{Visual Manipulation ToolKit for Neuroimages}) \cite{VMTKNeuro}, que é um ambiente de visualização exploratória multimodal multi-plataforma desenvolvida e mantida pelo grupo de pesquisa da Faculdade de Engenharia Elétrica e de Computação da UNICAMP ao qual faço parte. O \textit{software} renderiza em tempo real volumes de ressonância magnética (\textit{magnetic resonance imaging} - MRI). Possui ferramentas de exploração para volumes DWI a partir do DTI, conforme mostrado no fluxograma da figura \ref{fig::PipelineDTI_tracto}.%\textcolor{red}{escaneados com o protocolo Overplus \cite{Philips} e de rastreamento das fibras para volumes DTI sintetizados a partir de DWIs}\todo{não necessariamente Overplus. Overplus não sintetiza as sequencias de aquisições de DWI que há por aí.}.
+Todas as implementações e experimentos do trabalho são realizados no aplicativo VMTK-Neuro (\textit{Visual Manipulation ToolKit for Neuroimages}) \cite{VMTKNeuro}, que é um ambiente de visualização exploratória multimodal multi-plataforma desenvolvida e mantida pelo grupo de pesquisa da Faculdade de Engenharia Elétrica e de Computação da UNICAMP ao qual faço parte. O \textit{software} renderiza em tempo real volumes de ressonância magnética (\textit{magnetic resonance imaging} - MRI) e possui ferramentas de exploração para volumes DWI a partir do DTI. Na subseção \ref{ssec:vmtk-neuro} do capítulo Materiais e Métodos, ilustramos as ferramentas para DWI como um fluxograma e descrevemos as funcionalidades correlatas ao presente trabalho.
 
-\begin{figure}[ht]
-   \centering
-       \addtolength{\leftskip} {-2cm} % increase (absolute) value if needed
-    \addtolength{\rightskip}{-2cm}
+% conforme mostrado no fluxograma da figura \ref{fig::PipelineDTI_tracto}.%\textcolor{red}{escaneados com o protocolo Overplus \cite{Philips} e de rastreamento das fibras para volumes DTI sintetizados a partir de DWIs}\todo{não necessariamente Overplus. Overplus não sintetiza as sequencias de aquisições de DWI que há por aí.}.
 
-    %\vspace*{3mm}
-    \centering
-    \includegraphics[width=1.0\linewidth, angle=0]{figs/Fluxogramas/PipelineDTI_tracto.jpg}
-    \caption{Fluxograma para tractografia implementado no VMTK-Neuro.}
-    \label{fig::PipelineDTI_tracto}
-\end{figure}
+%\begin{figure}[ht]
+%   \centering
+%       \addtolength{\leftskip} {-2cm} % increase (absolute) value if needed
+%    \addtolength{\rightskip}{-2cm}
+%
+%    %\vspace*{3mm}
+%    \centering
+%    \includegraphics[width=1.0\linewidth, angle=0]{figs/Fluxogramas/PipelineDTI_tracto.jpg}
+%    \caption{Fluxograma para tractografia implementado no VMTK-Neuro.}
+%    \label{fig::PipelineDTI_tracto}
+%\end{figure}
 
-Estas ferramentas consistem na visualização em tempo interativo de tensores de difusão mapeados em glifos superquádricos \cite{Kindlmann2004} renderizados sobre as suas respectivas amostras (figura \ref{fig::intro_ex_DTI_glifos}), tractografia (figura \ref{fig::intro_ex_DTI_tractografia}) e o corregistro de volumes de difusão com volumes anatômicos T1.
+%Estas ferramentas consistem na visualização em tempo interativo de tensores de difusão mapeados em glifos superquádricos \cite{Kindlmann2004} renderizados sobre as suas respectivas amostras (figura \ref{fig::intro_ex_DTI_glifos}), tractografia (figura \ref{fig::intro_ex_DTI_tractografia}) e o corregistro de volumes de difusão com volumes anatômicos T1.
 
-Na tractografia baseada em DTI, o VMTK-Neuro possui ferramentas de interatividade que possibilitam que o usuário possa inferir sobre as regiões do volume que contém os tratos a serem analisados, bem como filtrar fibras de interesse e eliminar fibras espúrias. Adicionalmente, parâmetros relacionados a reconstrução, que podem diferir de acordo com a região de análise do usuário, também são configuráveis. O algoritmo de tractografia apresenta resultados visuais em tempo interativo para as formas de interação mencionadas.
+%Na tractografia baseada em DTI, o VMTK-Neuro possui ferramentas de interatividade que possibilitam que o usuário possa inferir sobre as regiões do volume que contém os tratos a serem analisados, bem como filtrar fibras de interesse e eliminar fibras espúrias. Adicionalmente, parâmetros relacionados a reconstrução, que podem diferir de acordo com a região de análise do usuário, também são configuráveis. O algoritmo de tractografia apresenta resultados visuais em tempo interativo para as formas de interação mencionadas.
 
 
 
@@ -646,38 +648,38 @@ A contribuição esperada para o presente trabalho é a implementação e valida
 A partir do fluxograma, então, é necessário ter de forma esquemática a resposta a questões relativas a:
 
 \begin{itemize}
-\item escolha e implementação de um método de imageamento HARDI; \textcolor{red}{de alta resolução angular (HARDI)};
+\item escolha e implementação de um método de imageamento HARDI; %\textcolor{red}{de alta resolução angular (HARDI)}; 
 \item visualização interativa de perfis de difusão gerados através do método HARDI;
-\item como extrair direções plausíveis de fibras a partir dos perfis de difusão e sua visualização e
-\item como implementar um algoritmo de tractografia de forma interativa.
+\item extração de direções plausíveis de fibras a partir dos perfis de difusão e sua visualização e
+\item implementação de um algoritmo interativo de tractografia .
 \end{itemize}
 
 
-\textcolor{red}{A expectativa é aplicar os resultados na implementação do fluxograma mostrado na Figura ??? no VMTK-Neuro ...}
+%\textcolor{red}{A expectativa é aplicar os resultados na implementação do fluxograma mostrado na Figura ??? no VMTK-Neuro ...}
 
 
 
-\todo[inline]{Sugiro que mostre em algum ponto uma visão geral do fluxo de controle da sua proposta de construção de tractografia a partir de DWIs de alta resolução angular.}
+%\todo[inline]{Sugiro que mostre em algum ponto uma visão geral do fluxo de controle da sua proposta de construção de tractografia a partir de DWIs de alta resolução angular.}
 
 \section{Desafios}
 \label{sec::desafios}
 
-Para implementação do sistema, muito da infraestrutura necessária para alcançar os objetivos estabelecidos estão implementadas no VMTK-Neuro para visualização de volumes DWI por DTI. Portanto, muitos dos desafios enfrentados dizem respeito a questões de implementação do método HARDI, seu esquema de visualização em glifo e o algoritmo de tractografia associado.
+Para implementação do sistema, muito da infraestrutura necessária para alcançar os objetivos estabelecidos estão implementadas no VMTK-Neuro para visualização de volumes DWI por DTI. Portanto, muitos dos desafios enfrentados dizem respeito a questões de implementação do método HARDI, seu esquema de visualização em glifos e o algoritmo de tractografia associado.
 
 A própria implementação matemática de um método HARDI para sintetizar o perfil de difusão é uma tarefa desafiadora. Os métodos demandam uma quantidade de memória razoavelmente maior que o DTI, que pode ser codificado na memória com apenas 6 elementos (matriz 3x3 simétrica). Métodos HARDI não estabelecem um critério mínimo, entretanto precisam de centenas de elementos para descreverem o perfil de difusão de forma razoável.
 
-A implementação de um esquema de renderização de perfis de difusão em tempo interativo é algo desafiador pela grande quantidade de dados necessários para sintetizar um glifo. Além disso, na renderização tridimensional de volumes de difusão, este esquema de renderização é integrado ao próprio esquema de renderização do volume, bem como o sistema de detecção de amostras aparentes presente no \textit{software}, o que diminui a margem de tempo de execução do esquema.
+A implementação de um esquema de renderização de perfis de difusão em tempo interativo é algo desafiador pela grande quantidade de dados necessários para sintetizar um glifo. Além disso, na renderização tridimensional de volumes de difusão, a renderização de glifos é integrado ao pipeline do próprio esquema de renderização do volume, bem como o sistema de detecção de amostras aparentes integrados ao \textit{software}, o que diminui a margem de tempo de execução do esquema para manter a visualização interativa.
 
 O último desafio diz respeito à implementação de um algoritmo em tempo interativo de tractografia, que precisa ter seu cômputo rápido o suficiente para seguir as interações feitas pelo usuário.
 
 
-\todo[inline]{Não acha que aqui você tem que focar nos desafios relacionados à interatividade, uma vez que o item 4 listado na seção anterior já se encontra implementado no VMTK. Só precisa de algumas adequações. Quais são os desafios para tornar um algoritmo de reconstrução de fibras a partir de HARDI (DWI de alta resolução angular) interativo? Quais restrições devem ser observadas?}
+%\todo[inline]{Não acha que aqui você tem que focar nos desafios relacionados à interatividade, uma vez que o item 4 listado na seção anterior já se encontra implementado no VMTK. Só precisa de algumas adequações. Quais são os desafios para tornar um algoritmo de reconstrução de fibras a partir de HARDI (DWI de alta resolução angular) interativo? Quais restrições devem ser observadas?}
 
-\sout{No que diz respeito à escolha do método HARDI utilizado, integramos a sua formulação matemática diretamente no VMTK-Neuro. Os principais critérios para sua escolha se devem a sua adequabilidade em tractografia, sua usabilidade em DWIs de baixa resolução angular e simplicidade.}
+%\sout{No que diz respeito à escolha do método HARDI utilizado, integramos a sua formulação matemática diretamente no VMTK-Neuro. Os principais critérios para sua escolha se devem a sua adequabilidade em tractografia, sua usabilidade em DWIs de baixa resolução angular e simplicidade.}
 
-\sout{Pelo demanda de visualização interativa do VMTK-Neuro, objetivamos que a visualização dos perfis de difusão do método HARDI para os voxels visíveis na tela seja em tempo interativo. Assim, o usuário tem a informação em tempo real dos perfis de difusão nas regiões do volume a serem analisadas.}
+%\sout{Pela demanda de visualização interativa do VMTK-Neuro, objetivamos que a visualização dos perfis de difusão do método HARDI para os voxels visíveis na tela seja em tempo interativo. Assim, o usuário tem a informação em tempo real dos perfis de difusão nas regiões do volume a serem analisadas.}
 
-\sout{Assim como a visualização dos perfis de difusão, também objetivamos a visualização interativa da tractografia. As vantagens desta abordagem consistem em dar ao usuário o poder de, através da visualização, escolher regiões de análise e setar os melhores parâmetros de acordo com o seu trato de interesse, indivíduo analisado e aquisição DWI.}
+%\sout{Assim como a visualização dos perfis de difusão, também objetivamos a visualização interativa da tractografia. As vantagens desta abordagem consistem em dar ao usuário o poder de, através da visualização, escolher regiões de análise e setar os melhores parâmetros de acordo com o seu trato de interesse, indivíduo analisado e aquisição DWI.}
 
 %\section{Contribuições}
 %\label{sec::contribuicoes}
@@ -706,6 +708,65 @@ Obs: Trabalhos relacionados integrados a cada capítulo.
 3) Tractografia;
 
 4) Conclusões
+
+\chapter{Materiais e Métodos}
+
+\section{Materiais}
+
+
+
+
+
+
+\subsection{VMTK-Neuro}
+\label{ssec:vmtk-neuro}
+
+O VMTK-Neuro é um \textit{software} que renderiza em tempo real volumes de ressonância magnética (\textit{magnetic resonance imaging} - MRI) e possui ferramentas de exploração para volumes DWI a partir do DTI, conforme mostrado no fluxograma da figura \ref{fig::PipelineDTI_tracto}. O software utiliza a linguagem de programação em C++ e o OpenGL como API gráfica.
+
+\begin{figure}[ht]
+   \centering
+       \addtolength{\leftskip} {-2cm} % increase (absolute) value if needed
+    \addtolength{\rightskip}{-2cm}
+
+    %\vspace*{3mm}
+    \centering
+    \includegraphics[width=1.0\linewidth, angle=0]{figs/Fluxogramas/PipelineDTI_tracto.jpg}
+    \caption{Fluxograma para tractografia implementado no VMTK-Neuro.}
+    \label{fig::PipelineDTI_tracto}
+\end{figure}
+
+Estas ferramentas consistem na visualização em tempo interativo de tensores de difusão mapeados em glifos superquádricos \cite{Kindlmann2004} renderizados sobre as suas respectivas amostras (figura \ref{fig::intro_ex_DTI_glifos}), tractografia (figura \ref{fig::intro_ex_DTI_tractografia}) e o corregistro de volumes de difusão com volumes anatômicos T1.
+
+
+
+Na tractografia baseada em DTI, o VMTK-Neuro possui ferramentas de interatividade que possibilitam que o usuário possa inferir sobre as regiões do volume que contém os tratos a serem analisados, bem como filtrar fibras de interesse e eliminar fibras espúrias. Adicionalmente, parâmetros relacionados a reconstrução, que podem diferir de acordo com a região de análise do usuário, também são configuráveis. O algoritmo de tractografia apresenta resultados visuais em tempo interativo para as formas de interação mencionadas.
+
+
+\subsection{Volumes}
+
+%%%%%VOLUMES UTILIZADOS NOS EXPERIMENTOS
+
+
+%Temos a intenção de fazer a investigação com dados reais de pacientes do Hospital das Clínicas da UNICAMP, cujo uso foi aprovado pelo comitê de ética CAAE 0893.0.146-000.09, 
+
+
+No decorrer do trabalho tínhamos a intenção de usar o volumes do bancos de dados do Hospital das Clínicas da UNICAMP, porém os resultados preliminares em termos de conjuntos de ODFs obtidos não se mostraram adequados, e descartamos o uso. Fizemos um estudo para diagnosticar a natureza do problema, que está detalhado na subseção \ref{ssec::problema_overplus} do apêndice, e concluímos que está relacionado ao conjunto de gradientes de ponderação de difusão utilizado no padrão \textit{Overplus}.
+
+Neste trabalho, não pudemos
+
+
+\section{Métodos}
+\subsection{Interatividade}
+
+Pela demanda de visualização interativa do VMTK-Neuro, objetivamos que a visualização dos perfis de difusão do método HARDI para as amostras visíveis na tela e o cômputo da tractografia aconteça em tempo interativo. Sendo assim, documentaremos os \textit{benchmarks} de ambos sistemas para atestar o cumprimento deste objetivo.
+
+\subsection{Tractografia}
+
+A motivação principal desde trabalho nasceu da seguinte pergunta: "como podemos melhorar a tractografia baseada em DTI do VMTK-Neuro?". Neste contexto, iremos comparar a tractografia baseada em DTI implementada no VMTK-Neuro e a tractografia baseada em HARDI em tratos que há a documentação de falhas do DTI e que são resolvidos pela abordagem que utiliza métodos HARDI.
+
+
+
+
 
 \textcolor{red}{
 \chapter{Decisões Iniciais??? Ou Trabalhos Relacionados}
@@ -830,23 +891,6 @@ Uma questão pertinente acerca do aumento de amostras é se ela deve ser feita n
 }
 
 
-\section{Tractografia}
-\label{sec::decisoesiniciais_tractografia}
-
-A tractografia consiste em traçar fibras no cérebro por meio de modelos matemáticos a partir um volume de difusão. Há dois tipos de abordagem, que consistem nos determinísticos e probabilísticos.
-
-A tractografia determinística consiste na integração de linhas representativas de fibras do cérebro. Estas linhas são estimadas em um processo iterativo, no qual é iniciado em um conjunto de pontos (sementes), e o passo de cada iteração é obtido através de informações direcionais provenientes de um método de \sout{difusão}\textcolor{red}{estimativa das direções de difusão locais a partir de volumes DWI}. \sout{O processo iterativo é terminado por meio de um critério apropriado}\textcolor{red}{O critério de parada do processo iterativo pode variar entre as implementações.} \cite{tournier2011}.
-
-
-%A tractografia determinística se baseia em um processo iterativo que consiste em, tendo em posse um conjunto de pontos nos quais o algoritmo é iniciado (sementes), há uma integração de linhas cujas direções são estimadas através de informações direcionais de um método de imageamento de difusão. Estas linhas são representativas da fibra estimada. O processo iterativo é terminado por meio de um critério apropriado \cite{tournier2011}.
-
-A tractografia probabilística consiste na consideração do comportamento de difusão de forma aleatória em cada ponto no volume, e gera como resultado um mapa de probabilidade de tratos entre um conjunto de pontos de partida e chegada \cite{DTI_Handbook}. A partir do mapa, pode-se inferir sobre a probabilidade com que uma determinada conexão pode ocorrer \cite{tournier2011}. %\citeonline{hagman2003} propôs um método probabilístico utilizando o tensor de difusão
-
-No que diz respeito a comparações da natureza entre as duas abordagens, as probabilísticas não possuem a restrição de ter um trato por semente e, dado dois pontos de escolha no cérebro de forma aleatória, esta abordagem irá encontrar caminhos entre ambos, nos quais cada um está associado a uma métrica de conectividade. Neste sentido, a abordagem probabilística é mais flexível que a determinística, entretanto o resultado gerado não deve ser interpretado como a conectividade anatômica \cite{tournier2011}. 
-
-Por outro lado, as abordagens determinísticas geram resultados que permitem uma correlação com a conectividade anatômica e são utilizadas para estudo de tratos conhecidos que tem um conjunto de sementes estabelecidas e protocoladas \cite{tournier2011}. Adicionalmente, as abordagens determinísticas geralmente são menos custosas computacionalmente \cite{DTI_Handbook}.
-
-A tractografia determinística foi escolhida neste trabalho por ser menos demandante computacionalmente e pela maior correlação com a conectividade de fibras do cérebro imageado através do DWI e que tem uma maior aplicabilidade para planejamento cirúrgico.
 
 \textcolor{red}{
 \chapter{Trabalhos Relacionados??? Ou Materiais e Métodos??}
@@ -991,7 +1035,7 @@ O corregistro faz o alinhamento entre um volume de difusão/mapa FA com um volum
 
 É integrado ao VMTK-Neuro um esquema de visualização de tensores de difusão através de glifos superquádricos \cite{Kindlmann2004}, conforme mostrado na figura \ref{fig::intro_ex_DTI_Superquadrica}. Os glifos são renderizados em tempo interativo nos seus respectivos \textit{voxels}, tanto em fatias do volume, quanto na sua renderização tridimensional.
 
-Na visualização de fatias, a inferência dos \textit{pixels} aparentes na tela consistem na leitura do índice da fatia mostrada, no qual os glifos são posicionados no ponto central do seu respectivo \textit{pixel}.
+Na visualização de fatias, a inferência das amostras aparentes consistem na leitura do índice da fatia mostrada, no qual os glifos são posicionados no ponto central do seu respectivo \textit{pixel}.
 
 Na renderização tridimensional, há uma funcionalidade para detecção de \textit{voxels}, em que cada um possui uma matriz de translação para o seu respectivo centro na cena. A detecção é baseada em \textit{raycasting} computado sobre o volume na GPU, que foi proposto e implementado por \citeonline{raphael_dissertacao}.
 
@@ -1314,7 +1358,7 @@ A recuperação na GPU das ODFs é feita através dos índices de instância e v
 \begin{figure}[h]
 %\subfigcapskip = -5pt
     \centering
-    \includegraphics[width=.8\linewidth, angle=0]{figs/Esquema_Glifo/GPU2GlifoGeneral.png}
+    \includegraphics[width=1.0\linewidth, angle=0]{figs/Esquema_Glifo/GPU2GlifoGeneral.png}
     \caption{Ilustração da organização de dados na GPU da matriz de perfil de difusão (vermelho). Os vértices da malha esférica estão em verde. A cada instância, a customização do glifo se dá através da multiplicação do vértice da malha com o seu respectivo valor $\psi$, recuperado no \textit{vertex shader} através do seu índice de vértice para os P glifos a serem renderizados.}
     \label{fig::GPU2glifoGeneral}
    \hspace{1pt}
@@ -1413,7 +1457,7 @@ As transformações relativas à orientação configuram a visualização de fat
 
 Na seção \ref{section::QBall_Glifos} do apêndice, seguem algumas imagens dos glifos derivados de ODFs integrados ao VMTK-Neuro. O volume é derivado da competição ISMRM \cite{TractometerTool}. A malha esférica utilizada é a mesma da figura \ref{fig::MalhaEsferico}.
 
-Medições do tempo relativo ao desempenho foram feitas para a quantidade de 197 e 422 vértices da malha esférica para diferentes quantidades de glifos renderizados e estão anotados nas tabelas \ref{tab::benchmark_glifos_197} e \ref{tab::benchmark_glifos_422}. O computador utilizado para o \textit{benchmark} foi um Macbook Pro Retina 13', com processador Intel Core i5 Dual-Core 2.7Ghz, processador gráfico Intel Iris Graphics 6100 1536 MB e memória RAM de 8 GB 1867 MHz DDR3.
+Medições do tempo relativo ao desempenho foram feitas para a quantidade de 197 e 422 vértices da malha esférica para diferentes quantidades de glifos renderizados e estão anotados nas tabelas \ref{tab::benchmark_glifos_197} e \ref{tab::benchmark_glifos_422}. O computador utilizado para o \textit{benchmark} foi um Macbook Pro Retina 13', com processador Intel Core i5 Dual-Core 2.7GHz, processador gráfico Intel Iris Graphics 6100 1536 MB e memória RAM de 8 GB 1867 MHz DDR3.
 
 Os resultados estão também anotados como fração do limite de tempo de reação instantânea ($t_{max}$). Seja $t$ o intervalo de tempo entre a interação do usuário com um sistema e a sua respectiva resposta, mostrada de forma visual. O tempo $t_{max}$ é o limite máximo de $t$ em que o usuário tenha a percepção que o sistema reage instantaneamente as suas ações que, de acordo com \citeonline{nielsen1994}, é de 0,1s.
 
@@ -1505,9 +1549,50 @@ A direção $\mathbf{x}$ é considerado máximo local de $\psi(\mathbf{u})$ se $
 
 
 
-\chapter{Tractografia em tempo real baseado em picos}
+\chapter{Tractografia HARDI}
+\label{chap::tractografia}
 
-Neste capítulo descreveremos o algoritmo de tractografia baseado em picos. Na seção \ref{sec::decisoesiniciais_tractografia}, apresentamos condições desejáveis para o algoritmo proposto, que consiste em \todo{Releia ... impossível entender.}\textcolor{brown}{resolver tratos que algoritmos de tractografia baseadas em métodos HARDI resolvem, ter um baixo custo computacional e gerar visualmente resultados que estejam correlacionados ao trato de interesse}.
+Tractografia HARDI se refere a algoritmos de tractografia que utilizam métodos HARDI como base. Neste capítulo, descrevemos o processo de escolha e implementação de algoritmo de tractografia HARDI. Na seção \ref{sec::tractografia:consideracoes_iniciais}, introduzimos as diferentes abordagens de tractografia, no que tractografia HARDI agrega em relação ao DTI e o processo de decisões tomadas de acordo com as demandas do VMTK-Neuro. Na seção \ref{sec::tractografia:ExtracaoFOD}, descrevemos o processo de extração da distribuição de fibras do método HARDI. Na seção \ref{sec::tractografia::TractografiaTempoReal} apresentamos o algoritmo proposto e implementado no VMTK-Neuro, com suas respectivas questões computacionais. Por último, na seção \ref{sec::tractografia:resultados}, apresentamos seus resultados.
+
+
+
+\section{Considerações Iniciais}
+\label{sec::tractografia:consideracoes_iniciais}
+
+A tractografia consiste em traçar fibras no cérebro por meio de modelos matemáticos a partir um volume de difusão. Há dois tipos de abordagem, que consistem na determinística e probabilística.
+
+A tractografia determinística consiste na integração de linhas representativas de fibras do cérebro. Estas linhas são estimadas em um processo iterativo, no qual é iniciado em um conjunto de pontos (sementes), e o passo de cada iteração é obtido através de informações direcionais provenientes da estimativa da distribuição de fibras subjacente a uma ODF de um método de imageamento de difusão. Consistem em um processo iterativo, que é terminado por meio de um critério apropriado, que varia entre implementações \cite{tournier2011}.
+
+
+%A tractografia determinística se baseia em um processo iterativo que consiste em, tendo em posse um conjunto de pontos nos quais o algoritmo é iniciado (sementes), há uma integração de linhas cujas direções são estimadas através de informações direcionais de um método de imageamento de difusão. Estas linhas são representativas da fibra estimada. O processo iterativo é terminado por meio de um critério apropriado \cite{tournier2011}.
+
+A tractografia probabilística consiste na consideração do comportamento de difusão de forma aleatória em cada ponto no volume, e gera como resultado um mapa de probabilidade de tratos entre um conjunto de pontos de partida e chegada \cite{DTI_Handbook}. A partir do mapa, pode-se inferir sobre a probabilidade com que uma determinada conexão pode ocorrer \cite{tournier2011}. %\citeonline{hagman2003} propôs um método probabilístico utilizando o tensor de difusão
+
+No que diz respeito a comparações da natureza entre as duas abordagens, as probabilísticas não possuem a restrição de ter um trato por semente e, dado dois pontos de escolha no cérebro de forma aleatória, esta abordagem irá encontrar caminhos entre ambos, nos quais cada um está associado a uma métrica de conectividade. Neste sentido, a abordagem probabilística é mais flexível que a determinística, entretanto o resultado gerado não deve ser interpretado como a conectividade anatômica \cite{tournier2011}. 
+
+Por outro lado, as abordagens determinísticas geram resultados que permitem uma correlação com a conectividade anatômica e são utilizadas para estudo de tratos conhecidos que tem um conjunto de sementes estabelecidas e protocoladas \cite{tournier2011}. Adicionalmente, as abordagens determinísticas geralmente são menos custosas computacionalmente \cite{DTI_Handbook}.
+
+A tractografia determinística foi escolhida neste trabalho por ser menos demandante computacionalmente e pela maior correlação com a conectividade de fibras do cérebro imageado através do DWI e que tem uma maior aplicabilidade para planejamento cirúrgico.
+
+\section{Extração de orientações de fibras}
+
+Em métodos HARDI, a formas utilizadas para inferir a configuração de fibras subjacente às ODFs consistem na extração de máximos locais \cite{descoteaux2007}!!Mais artigo de tractografia. Isso ocorre porque a difusão tende a ocorrer de forma mais predominante ao longo da fibra do que através dela e este comportamento é mapeado no sinal de difusão \cite{DTI_Handbook}, como ilustrado na figura \ref{fig::fibravsodf}.
+
+
+\begin{figure}[h]
+%\subfigcapskip = -5pt
+    \centering
+    \includegraphics[width=.45\linewidth, angle=0]{figs/Tractografia/FibraVSodf.png}
+     \caption{Ilustração da relação entre configuração de fibras que se cruzam (esquerda) com sua ODF de difusão (direita). A ODF descreve essencialmente a probabilidade das moléculas se moverem a uma certa orientação e seus picos apontam para orientações de fibra. \\
+     Fonte: adaptado de \cite{DTI_Handbook}
+     }
+     \label{fig::fibravsodf}
+ %   \hspace{1pt}
+\end{figure}
+
+
+
+
 
 \sout{Descreveremos neste capítulo o processamento para extração de informações direcionais de ODFs computadas através do QBI para tractografia assim como o algoritmo de tractografia que utilizam estas informações direcionais para gerar linhas representativas de fibras do cérebro.}
 
