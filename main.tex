@@ -1248,41 +1248,51 @@ onde $\psi(\textbf{u})$ é o valor de difusão para uma direção \textbf{u}, $n
 
 \todo[inline]{Falta contextualizar nos objetivos que você listou na seção 1.3. Não é melhor focar em renderização de perfis de difusão que é um dos problemas relacionados diretamente com a interatividade?}
 
-Neste capítulo, apresentamos uma abordagem do cômputo do QBI e um esquema de renderização dos perfis de difusão gerados, sua integração ao VMTK-Neuro e o seu \textit{benchmark}.
+Neste capítulo, apresentamos uma abordagem de um esquema de renderização interativa de múltiplas ODFs através de sua plotagem polar esférica, a sua integração ao VMTK-Neuro, resultados visuais e o seu \textit{benchmark}, mostrado através do FPS (\textit{frames} por segundo) em função da quantidade de glifo.
 
 \todo[inline]{Eu deixaria o parágrafo abaixo para conclusões}
 Ressaltamos que o esquema de renderização de perfis de difusão pode ser utilizado por outros métodos de imageamento de difusão e para outras funções esféricas que sejam representadas através conjunto de amostras.
 
 %Esta classe de glifos são amplamente utilizados como uma ferramenta de visualização para prova de conceito em trabalhos na área de DWI. Além de \citeonline{TuchQBall2004}, alguns trabalhos relacionados que os utilizam são: \citeonline{SCHILLING2019194}, para ilustrar a eficácia de métodos HARDI na detecção de direções de difusão, \citeonline{descoteaux2007}, para mostrar o efeito de uma técnica pré-processamento proposto em ODFs que melhora a tractografia e \citeonline{yeh2010} os utilizam como ferramenta de visualização para o método de imageamento proposto em seu trabalho.
 
-\section{Cômputo de funções de distribuição de orientação de difusão}
+%\section{Cômputo de funções de distribuição de orientação de difusão}
 
-Foi aplicado o algoritmo proposto por \citeonline{TuchQBall2004}\sout{, que}\textcolor{red}{Este} consiste na discretização da FRT para amostras contida num domínio esférico discreto $\{\textbf{u}\}$. O domínio $\{\textbf{u}\}$ utilizado é proveniente de uma malha esférica gerada a partir de subdivisões de um icosaedro, conforme representado na figura \ref{fig::MalhaEsferico}.
-\textcolor{red}{Esta subdivisão proporciona uma distribuição mais uniforme dos pontos em comparação com os pontos gerados pela parametrização em coordenadas esféricas $(\phi, \theta)$ \cite{TuchQBall2004, descoteaux2007_QBI, yeh2010}}.
+%Foi aplicado o algoritmo proposto por \citeonline{TuchQBall2004}\sout{, que}\textcolor{red}{Este} consiste na discretização da FRT para amostras contida num domínio esférico discreto $\{\textbf{u}\}$. O domínio $\{\textbf{u}\}$ utilizado é proveniente de uma malha esférica gerada a partir de subdivisões de um icosaedro, conforme representado na figura \ref{fig::MalhaEsferico}.
+%\textcolor{red}{Esta subdivisão proporciona uma distribuição mais uniforme dos pontos em comparação com os pontos gerados pela parametrização em coordenadas esféricas $(\phi, \theta)$ \cite{TuchQBall2004, descoteaux2007_QBI, yeh2010}}.
 
 %Um exemplo de malha esférica obtida com essa abordagem está ilustrado na figura \ref{fig::MalhaEsferico}.
 
 
-\begin{figure}[ht]
+%\begin{figure}[ht]
 
 %\subfigcapskip = -5pt
-    \centering
+%    \centering
     %\vspace*{1mm}
-    \includegraphics[width=0.4\linewidth, angle=0]{figs/Exemplos_QBall_visualizacao/MeshEsfericoIco.png}
-        \caption{Malha Esférica a partir de duas subdivisões de um icosaedro. Esta malha possui 216 vértices não-colineares}
-    \label{fig::MalhaEsferico}
+   % \includegraphics[width=0.4\linewidth, angle=0]{figs/Exemplos_QBall_visualizacao/Mesh%EsfericoIco.png}
+ %       \caption{Malha Esférica a partir de duas subdivisões de um icosaedro. Esta malha possui 162 vértices não-colineares}
+%    \label{fig::MalhaEsferico}
  %   \hspace{1pt}
-\end{figure}
+%\end{figure}
 
-\todo[inline]{Está confuso. Quem propôs usar icosaedro?}
-\sout{A motivação da escolha desta categoria de malha esférica consiste em uma distribuição mais uniforme dos pontos na esfera em comparação a outras abordagens. Comparando com a malha gerada partir de discretizações nas coordenadas esféricas $(\phi, \theta)$, a distribuição de pontos é mais concentrada de pontos nos polos e mais esparsa no equador. Esta categoria de malha é referenciada em trabalhos da área como base de amostras para descrever funções esféricas \cite{TuchQBall2004, descoteaux2007_QBI, yeh2010}.}
+%\todo[inline]{Está confuso. Quem propôs usar icosaedro?}
+%\sout{A motivação da escolha desta categoria de malha esférica consiste em uma distribuição mais uniforme dos pontos na esfera em comparação a outras abordagens. Comparando com a malha gerada partir de discretizações nas coordenadas esféricas $(\phi, \theta)$, a distribuição de pontos é mais concentrada de pontos nos polos e mais esparsa no equador. Esta categoria de malha é referenciada em trabalhos da área como base de amostras para descrever funções esféricas \cite{TuchQBall2004, descoteaux2007_QBI, yeh2010}.}
 
-\todo[inline]{Procure conectar as partes do seu texto. Ligue o "cômputo" com a Equação que você apresentou antes.}
+%\todo[inline]{Procure conectar as partes do seu texto. Ligue o "cômputo" com a Equação que você apresentou antes.}
 
-\sout{A abordagem de implementação consiste no cômputo de todas as ODFs} Para cada \textit{voxel} do DWI\textcolor{red}{, todas as funções de distribuição de orientação (ODFs) foram computadas} para \textcolor{red}{todas} as direções representadas na malha com uso da Equação \ref{???} e \sout{seu armazenamento}\textcolor{red}{foram armazenadas} na memória para posterior uso na tractografia e geração de glifos.
+%\sout{A abordagem de implementação consiste no cômputo de todas as ODFs} Para cada \textit{voxel} do DWI\textcolor{red}{, todas as funções de distribuição de orientação (ODFs) foram computadas} para \textcolor{red}{todas} as direções representadas na malha com uso da Equação \ref{???} e \sout{seu armazenamento}\textcolor{red}{foram armazenadas} na memória para posterior uso na tractografia e geração de glifos.
 
 
-\section{Renderização de funções de distribuição de orientação}
+\section{Visualização de funções de distribuição de orientação}
+
+A forma mais comum de visualizar dados derivados de ODFs através de métodos HARDI é através glifos provenientes da plotagem polar esférica.
+
+Estes glifos dão uma visualização clara do comportamento local de difusão e são amplamente utilizados para provas de conceito em trabalhos na área de DWI. Alguns dos exemplos de trabalhos que os utilizam, temos: \citeonline{TuchQBall2004} e \citeonline{yeh2010} os utilizam como ferramenta de visualização para o método de imageamento propostos em seus respectivos trabalhos, \citeonline{daducci2014} os utiliza para ilustrar e comparar ODFs reconstruídas por diferentes métodos, \citeonline{SCHILLING2019194} os usam para ilustrar a eficácia de métodos HARDI na detecção local de direções de fibras subjacentes, \citeonline{descoteaux2007}, para ilustrar transformações entre ODFs no seus respectivos algoritmos de tractografia propostos.
+
+Este esquema de renderização, integrado a um sistema de visualização para DWI pode ser uma ferramenta poderosa para pesquisadores da área para avaliar perfis de difusão locais e melhorar o seu entendimento em métodos HARDI.
+
+
+
+%Esta classe de glifos são amplamente utilizados como uma ferramenta de visualização para prova de conceito em trabalhos na área de DWI. Além de \citeonline{TuchQBall2004}, alguns trabalhos relacionadosque os utilizam são: \citeonline{SCHILLING2019194}, para ilustrar a eficácia de métodos HARDI na detecção de direções de difusão, \citeonline{descoteaux2007}, para ilustrar o efeito de um\sout{a técnica} \todo{qual pré-processamento?}pré-processamento \sout{proposto} em ODFs que melhora a tractografia e \citeonline{yeh2010} 
 
 %Foi implementado um esquema de visualização para ODFs em glifos de acordo através de representações gráficas polares esféricas. A implementação serviu primeiramente para prova de conceito e posteriormente otimizada para que seja possível a sua renderização, \textit{voxel} a \textit{voxel}, em tempo interativo pelo VMTK-Neuro, o que foi possível nos testes feitos em um Macbook Pro Retina 13', com processador Intel Core i5 Dual-Core 2.7Ghz, processador gráfico Intel Iris Graphics 6100 1536 MB e memória RAM de 8 GB 1867 MHz DDR3.
 
@@ -1290,7 +1300,8 @@ Foi aplicado o algoritmo proposto por \citeonline{TuchQBall2004}\sout{, que}\tex
 
 \subsection{Plotagem polar esférica}
 
-Como descrito na seção \ref{sec::trabalhos_relacionados_glifos}, a forma do glifo consiste na modulação do raio na direção $\mathbf{u}$ de uma malha esférica de acordo com uma versão normalizada do seu valor de imagem na função $\psi(\mathbf{u})$. A normalização que fizemos neste trabalho para representação está representado na equação \ref{eq::normglifo2}.
+%Como descrito na seção \ref{sec::trabalhos_relacionados_glifos}
+A forma do glifo consiste na modulação do raio na direção $\mathbf{u}$ de uma esférica de acordo com uma versão normalizada do seu valor de imagem na função $\psi(\mathbf{u})$. A normalização que fizemos neste trabalho para representação está representado na equação \ref{eq::normglifo2}.
 
 \begin{equation}
 \label{eq::normglifo2}
@@ -1313,6 +1324,18 @@ As cores dos glifos consistem em um mapeamento das coordenadas dos vértices $(x
     \label{fig::glifo_ilustrado}
    \hspace{1pt}
 \end{figure}
+
+Neste trabalho, chamaremos a plotagem polar esférica aplicada a ODFs de métodos HARDI de glifos HARDI.
+
+\section{Trabalhos Relacionados}
+
+\citeonline{shattuck2008} mostram uma abordagem utilizando polígonos, que é a mesma deste trabalho, e relatou uma grande limitação na sua performance, sendo assim, não podendo ser utilizado em tempo interativo. A performance relatada pelos autores é de 10 FPS para uma malha esférica de 225 pontos em uma cena no qual há 2 milhões de triângulos renderizados. No trabalho deles, consta que não foi utilizado programação em GPU.
+
+\citeonline{peeters2009} apresentaram um esquema de renderização utilizando \textit{ray casting}, no qual foi aperfeiçoado por \cite{peeters2011}. Esta abordagem possibilitou incrementos em performance em relação a \citeonline{shattuck2008}.
+
+\citeonline{raphael_dissertacao} propôs um esquema de renderização interativa do tensor de difusão em glifos superquádricos \cite{Kindlmann2004} utilizando polígonos. Em seu trabalho, atinge a performance de renderização interativa minimizando o tráfego de dados entre CPU-GPU utilizado a técnica de desenho por instanciação, que consiste apenas em parâmetros que customizam e deslocam os glifos. Adicionalmente, este esquema está integrado ao VMTK-Neuro. Os resultados obtidos neste trabalho nos influenciou a adaptar o seu esquema para glifos HARDI.
+
+
 
 %\subsection{\sout{Abordagem de renderização}}
 
@@ -1455,18 +1478,29 @@ As transformações relativas à orientação configuram a visualização de fat
 
 %\todo[inline]{Comentar que, para aproveitar as funcionalidades de interações gráficas disponíveis no VMTK-Neuro, o algoritmo foi integrado no VMTK-Neuro. Se puder, comentar os pontos de conexão.}
 
-Na seção \ref{section::QBall_Glifos} do apêndice, seguem algumas imagens dos glifos derivados de ODFs integrados ao VMTK-Neuro. O volume é derivado da competição ISMRM \cite{TractometerTool}. A malha esférica utilizada é a mesma da figura \ref{fig::MalhaEsferico}.
+Na seção \ref{section::QBall_Glifos} do apêndice, seguem algumas imagens dos glifos derivados de ODFs integrados ao VMTK-Neuro. O volume é derivado da competição ISMRM \cite{TractometerTool}.
 
-Medições do tempo relativo ao desempenho foram feitas para a quantidade de 197 e 422 vértices da malha esférica para diferentes quantidades de glifos renderizados e estão anotados nas tabelas \ref{tab::benchmark_glifos_197} e \ref{tab::benchmark_glifos_422}. O computador utilizado para o \textit{benchmark} foi um Macbook Pro Retina 13', com processador Intel Core i5 Dual-Core 2.7GHz, processador gráfico Intel Iris Graphics 6100 1536 MB e memória RAM de 8 GB 1867 MHz DDR3.
+Medições em FPS em função da quantidade de glifos renderizadas foram feitas para malhas esféricas de 162, 642 e 2562 vértices e estão na figura \ref{fig::benchmark}, tanto na forma genérica de ODFs (figura \ref{fig::benchmark_full}), quanto na versão otimizada para ODFs simétricas (figura \ref{fig::benchmark_half}). Utilizamos paralelismo em CPU no processo de preparação dos dados a serem enviados à GPU.
 
-Os resultados estão também anotados como fração do limite de tempo de reação instantânea ($t_{max}$). Seja $t$ o intervalo de tempo entre a interação do usuário com um sistema e a sua respectiva resposta, mostrada de forma visual. O tempo $t_{max}$ é o limite máximo de $t$ em que o usuário tenha a percepção que o sistema reage instantaneamente as suas ações que, de acordo com \citeonline{nielsen1994}, é de 0,1s.
+
+O computador utilizado para o \textit{benchmark} foi um Macbook Pro Retina 13', com processador Intel Core i5 Dual-Core 2.7GHz, processador gráfico Intel Iris Graphics 6100 1536 MB e memória RAM de 8 GB 1867 MHz DDR3.
+
+Os resultados mostram que o esquema pode ser utilizado de forma interativa. Pode-se renderizar milhares de glifos utilizando uma malha esférica com 162 vértices e centenas de glifos utilizando 2562 vértices em tempo interativo.
+
+Há uma diferença relevante de performance na adaptação do esquema de renderização que toma vantagem da simetria de ODFs. Por exemplo, na performance da malha esférica de 642 vértices, sem otimização, a quantidade de glifos para renderizar em 60 FPS é menor que 2000, enquanto o esquema otimizado permite a renderização de um pouco mais de 4000 para mesma performance.
+
+%Medições em FPS em função da quantidade de glifos renderizadas ao desempenho foram feitas para a quantidade de 197 e 422 vértices da malha esférica para diferentes quantidades de glifos renderizados e estão anotados nas tabelas \ref{tab::benchmark_glifos_197} e \ref{tab::benchmark_glifos_422}. O computador utilizado para o \textit{benchmark} foi um Macbook Pro Retina 13', com processador Intel Core i5 Dual-Core 2.7GHz, processador gráfico Intel Iris Graphics 6100 1536 MB e memória RAM de 8 GB 1867 MHz DDR3.
+
+%Medições do tempo relativo ao desempenho foram feitas para a quantidade de 197 e 422 vértices da malha esférica para diferentes quantidades de glifos renderizados e estão anotados nas tabelas \ref{tab::benchmark_glifos_197} e \ref{tab::benchmark_glifos_422}. O computador utilizado para o \textit{benchmark} foi um Macbook Pro Retina 13', com processador Intel Core i5 Dual-Core 2.7GHz, processador gráfico Intel Iris Graphics 6100 1536 MB e memória RAM de 8 GB 1867 MHz DDR3.
+
+%Os resultados estão também anotados como fração do limite de tempo de reação instantânea ($t_{max}$). Seja $t$ o intervalo de tempo entre a interação do usuário com um sistema e a sua respectiva resposta, mostrada de forma visual. O tempo $t_{max}$ é o limite máximo de $t$ em que o usuário tenha a percepção que o sistema reage instantaneamente as suas ações que, de acordo com \citeonline{nielsen1994}, é de 0,1s.
 
 %\citeonline{nielsen1994} define o tempo de 0,1s 
 %\todo{Não entendi ...}\textcolor{brown}{e que suas ações são a causa de que algo aconteça na tela }. 
 
 %\todo[inline]{Percebeu oscilações nos tempos. A variação não é linear. Vamos ter que tentar entender por quê esta contra-intuitivo comportamento.}
 
-O resultados mostrados nas tabelas \ref{tab::benchmark_glifos_197} e \ref{tab::benchmark_glifos_422} mostram que centenas de glifos podem ser renderizados na faixa de centenas de microssegundos e unidades de milissegundos, o que possibilita a sua integração a esquemas de renderização mais complexos e custosos computacionalmente relacionados a volumes de difusão.
+%O resultados mostrados nas tabelas \ref{tab::benchmark_glifos_197} e \ref{tab::benchmark_glifos_422} mostram que centenas de glifos podem ser renderizados na faixa de centenas de microssegundos e unidades de milissegundos, o que possibilita a sua integração a esquemas de renderização mais complexos e custosos computacionalmente relacionados a volumes de difusão.
 
 %\todo[inline]{O que é fração do limite máximo para interatividade?}
 \pagebreak
@@ -1487,35 +1521,52 @@ O resultados mostrados nas tabelas \ref{tab::benchmark_glifos_197} e \ref{tab::b
 %Evidentemente que há um mapeamento do domínio $[0,1]^2$, que é padrão numa unidade de textura, para a quantidade de instâncias e vértices que são processados.
 
 %\todo[inline]{Há alguma explicação plausível para a queda de tempo na GPU entre 30 e 100 e entre 2000 e 5000?}
-\begin{table}[H]
-\begin{tabular}{c|c|c|c|c}
-\textbf{\begin{tabular}[c]{@{}c@{}}Quantidade \\ de glifos\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Organização \\ e envio de \\ dados à GPU\\ ($\mu$s)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Processamento\\ na GPU e \\ desenho ($\mu$s)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Tempo de \\ execução\\ ($\mu$s)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Fração do limite \\ máximo para\\ interatividade\end{tabular}} \\ \hline
-30                                                                       & 139.97                                                                                                 & 2097.00                                                              & 2236.97                                                                        & 2\%                                                                                               \\
-100                                                                      & 190.72                                                                                                 & 517.00                                                               & 707.72                                                                         & 1\%                                                                                               \\
-500                                                                      & 387.25                                                                                                 & 745.00                                                               & 1132.25                                                                        & 1\%                                                                                               \\
-2000                                                                     & 1352.93                                                                                                & 792.00                                                               & 2144.93                                                                        & 2\%                                                                                               \\
-5000                                                                     & 4768.94                                                                                                & 435.00                                                               & 5203.94                                                                        & 5\%                                                                                               \\
-10000                                                                    & 11886.44                                                                                               & 7798.00                                                              & 19684.44                                                                       & 20\%                                                                                             
-\end{tabular}
-\caption{\textit{Benchmark} de glifos representados por uma malha esférica de 197 vértices}
-\label{tab::benchmark_glifos_197}
-\end{table}
+
+\begin{figure}[ht]
+\centering
+\captionsetup[subfloat]{farskip=0pt,nearskip=0pt}
+    \subfloat[Esquema de renderização para ODFs genéricas ]{\includegraphics[width=.75\linewidth, angle=0]{figs/Esquema_Glifo/benchmark_full.png}
+    \label{fig::benchmark_full}
+    }
+    %\hfill
+    \\
+    \subfloat[Esquema de renderização otimizado para ODFs simétricas ]{\includegraphics[width=.75\linewidth, angle=0]{figs/Esquema_Glifo/benchmark_half.png}
+    \label{fig::benchmark_half}
+    }
+     \caption{FPS em função da quantidade de glifos renderizados. As curvas de cor azul, laranja e verde correspondem a medições feitas em malhas esféricas com 162, 642 e 2462 vértices, respectivamente. As malhas são geradas pelas subdivisões de $4^{a}$, $8^{a}$ e $16^{a}$ ordem do icosaedro}
+    \label{fig::benchmark}
+\end{figure}
+
+
+%\begin{table}[H]
+%\begin{tabular}{c|c|c|c|c}
+%\textbf{\begin{tabular}[c]{@{}c@{}}Quantidade \\ de glifos\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Organização \\ e envio de \\ dados à GPU\\ ($\mu$s)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Processamento\\ na GPU e \\ desenho ($\mu$s)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Tempo de \\ execução\\ ($\mu$s)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Fração do limite \\ máximo para\\ interatividade\end{tabular}} \\ \hline
+%30                                                                       & 139.97                                                                                                 & 2097.00                                                              & 2236.97                                                                        & 2\%                                                                                               \\
+%100                                                                      & 190.72                                                                                                 & 517.00                                                               & 707.72                                                                         & 1\%                                                                                               \\
+%500                                                                      & 387.25                                                                                                 & 745.00                                                               & 1132.25                                                                        & 1\%                                                                                               \\
+%2000                                                                     & 1352.93                                                                                                & 792.00                                                               & 2144.93                                                                        & 2\%                                                                                               \\
+%5000                                                                     & 4768.94                                                                                                & 435.00                                                               & 5203.94                                                                        & 5\%                                                                                               \\
+%10000                                                                    & 11886.44                                                                                               & 7798.00                                                              & 19684.44                                                                       & 20\%                                                                                             
+%\end{tabular}
+%\caption{\textit{Benchmark} de glifos representados por uma malha esférica de 197 vértices}
+%\label{tab::benchmark_glifos_197}
+%\end{table}
 
 
 %\todo[inline]{Por quê a queda de tempo quando passa de 30 para 100? Alguma justificativa plausível?}
-\begin{table}[H]
-\begin{tabular}{c|c|c|c|c}
-\textbf{\begin{tabular}[c]{@{}c@{}}Quantidade \\ de glifos\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Organização \\ e envio de \\ dados à GPU\\ ($\mu$s)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Processamento\\ na GPU e \\ desenho ($\mu$s)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Tempo de \\ execução\\ ($\mu$s)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Fração do limite \\ máximo para\\ interatividade\end{tabular}} \\ \hline
-30                                                                       & 270.40                                                                                               & 2174.00                                                              & 2444.40                                                                          & 2\%                                                                                               \\
-100                                                                      & 244.93                                                                                               & 447.00                                                               & 691.93                                                                           & 1\%                                                                                               \\
-500                                                                      & 724.67                                                                                               & 725.00                                                               & 1449.67                                                                          & 1\%                                                                                               \\
-2000                                                                     & 5439.72                                                                                              & 3384.00                                                              & 8823.72                                                                          & 9\%                                                                                               \\
-5000                                                                     & 13914.25                                                                                             & 5094.00                                                              & 19008.25                                                                         & 19\%                                                                                              \\
-10000                                                                    & 26841.13                                                                                             & 4773.00                                                              & 31614.13                                                                         & 32\%                                                                                             
-\end{tabular}
-\caption{\textit{Benchmark} de glifos representados por uma malha esférica de 422 vértices}
-\label{tab::benchmark_glifos_422}
-\end{table}
+%\begin{table}[H]
+%\begin{tabular}{c|c|c|c|c}
+%\textbf{\begin{tabular}[c]{@{}c@{}}Quantidade \\ de glifos\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Organização \\ e envio de \\ dados à GPU\\ ($\mu$s)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Processamento\\ na GPU e \\ desenho ($\mu$s)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Tempo de \\ execução\\ ($\mu$s)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Fração do limite \\ máximo para\\ interatividade\end{tabular}} \\ \hline
+%30                                                                       & 270.40                                                                                               & 2174.00                                                              & 2444.40                                                                          & 2\%                                                                                               \\
+%100                                                                      & 244.93                                                                                               & 447.00                                                               & 691.93                                                                           & 1\%                                                                                               \\
+%500                                                                      & 724.67                                                                                               & 725.00                                                               & 1449.67                                                                          & 1\%                                                                                               \\
+%2000                                                                     & 5439.72                                                                                              & 3384.00                                                              & 8823.72                                                                          & 9\%                                                                                               \\
+%5000                                                                     & 13914.25                                                                                             & 5094.00                                                              & 19008.25                                                                         & 19\%                                                                                              \\
+%10000                                                                    & 26841.13                                                                                             & 4773.00                                                              & 31614.13                                                                         & 32\%                                                                                             
+%\end{tabular}
+%\caption{\textit{Benchmark} de glifos representados por uma malha esférica de 422 vértices}
+%\label{tab::benchmark_glifos_422}
+%\end{table}
 
 \textcolor{red}{\chapter{Extração de Direções Plausíveis de Fibras}}
 
@@ -1574,6 +1625,21 @@ Por outro lado, as abordagens determinísticas geram resultados que permitem uma
 
 A tractografia determinística foi escolhida neste trabalho por ser menos demandante computacionalmente e pela maior correlação com a conectividade de fibras do cérebro imageado através do DWI e que tem uma maior aplicabilidade para planejamento cirúrgico.
 
+Dos algoritmos determinísticos, nossas decisões serão tomadas de forma que o cômputo das fibras reconstruídas aconteçam em tempo interativo. Isto permite ao usuário alterar parâmetros de cômputo de tractografia de acordo com a região do cérebro analisada e obter o resultado visual de forma  interativa.
+
+\section{Infraestrutura do VMTK-Neuro para tractografia}
+
+É integrado VMTK-Neuro uma infraestrutura de interação com o usuário para tractografia baseada em DTI e que serão descritas nesta seção.
+
+Há a funcionalidade para o usuário setar as sementes. O usuário a possibilidade de desenhar contornos fechados que contém suas respectivas regiões de interesse (ROI - \textit{region of interest}) que são selecionados em fatias 2D do volume analisado. A sementes consistem um subconjunto das ROIs que apresentam uma anisotropia acima de um limiar.
+
+O usuário pode também definir parâmetros de tractografia. Estes parâmetros consistem no valor de anisotropia para as amostras da ROI serem sementes; parâmetros de critérios de parada, que consistem no limiar inferior de anisotropia e ângulo de interrupção mínimo para direção do passo anterior e atual; e, finalmente, o parâmetro de advecção $w_{punct}$ (definido por \citeonline{Weinstein1999}).
+
+
+Há também no VMTK-Neuro a funcionalidade de tractografia seletiva, que dá ao usuário a possibilidade de remoção de fibras reconstruídas em regiões irrelevantes ou indesejadas através dos filtros do tipo NOT, AND e de reconstrução por parte. O filtro NOT consiste na escolha de uma região para que seja excluída na reconstrução do trato em questão e a do tipo AND restringe as linhas para apenas as que passam pela região escolhida. A implementação foi  baseada nas funcionalidades do aplicativo Explore DTI \cite{exploredti2009}. A reconstrução por parte consiste em setar, com base na análise visual das outras direções principais por meio de glifos, mais de uma região de sementes ao longo de uma fibra.
+
+%Acerca da natureza do tipo de interatividade que queremos mostrar, evidentemente que somente informações extraídas de um volume de difusão não assegura a plausabilidade de fibras reconstruídas e é desejável que haja ferramentas de interatividade para com um especialista para que ele possa escolher regiões de análise e verificar a plausabilidade de fibras.
+
 \section{Extração de orientações de fibras}
 
 Em métodos HARDI, a formas utilizadas para inferir a configuração de fibras subjacente às ODFs consistem na extração de máximos locais \cite{descoteaux2007}!!Mais artigo de tractografia. Isso ocorre porque a difusão tende a ocorrer de forma mais predominante ao longo da fibra do que através dela e este comportamento é mapeado no sinal de difusão \cite{DTI_Handbook}, como ilustrado na figura \ref{fig::fibravsodf}.
@@ -1594,14 +1660,14 @@ Em métodos HARDI, a formas utilizadas para inferir a configuração de fibras s
 
 
 
-\sout{Descreveremos neste capítulo o processamento para extração de informações direcionais de ODFs computadas através do QBI para tractografia assim como o algoritmo de tractografia que utilizam estas informações direcionais para gerar linhas representativas de fibras do cérebro.}
+%\sout{Descreveremos neste capítulo o processamento para extração de informações direcionais de ODFs computadas através do QBI para tractografia assim como o algoritmo de tractografia que utilizam estas informações direcionais para gerar linhas representativas de fibras do cérebro.}
 
-Para validação do algoritmo, iremos compará-lo com a abordagem DTI, \todo{Releia ...}\textcolor{brown}{com o estado da arte, que está aplicativo MRTrix (https://www.mrtrix.org) \cite{tournier2019} no trato corticoespinhal}. Para validação de performance, também apresentaremos o \todo{Qual?}seu \textit{benchmark}.
+%Para validação do algoritmo, iremos compará-lo com a abordagem DTI, \todo{Releia ...}\textcolor{brown}{com o estado da arte, que está aplicativo MRTrix (https://www.mrtrix.org) \cite{tournier2019} no trato corticoespinhal}. Para validação de performance, também apresentaremos o \todo{Qual?}seu \textit{benchmark}.
 
-\sout{Ressaltamos que o algoritmo de tractografia a ser apresentado não está atrelado a método de imageamento e sim a informações direcionais extraídas destes métodos, sendo o QBI o método utilizado para este fim.}
+%\sout{Ressaltamos que o algoritmo de tractografia a ser apresentado não está atrelado a método de imageamento e sim a informações direcionais extraídas destes métodos, sendo o QBI o método utilizado para este fim.}
 
 
-\section{\textit{Q-Ball} e direções de fibras}
+%\section{\textit{Q-Ball} e direções de fibras}
 
 %\subsection{Extração de picos}
 
@@ -1664,7 +1730,7 @@ O algoritmo implementado de tractografia em função de uma semente está mostra
 
 \todo[inline]{Sugiro que faça uma descrição do algoritmo, contendo referências às linhas de instrução. A descrição abaixo está difícil de entender e seguir o pseudo-código que você escreveu.}
 
-As funções representadas no pseudocódigo são Valid(p) (linha \ref{alg:psc_valid}), que verifica se o ponto computado está dentro do domínio do volume , GFA(p) (linha \ref{alg::GFA}) consiste no cômputo do GFA no ponto p e ExtractLocalMaxSet(p) (linha \ref{alg::extractLocalMaxSet}) representa a escolha de picos da ODF no ponto p, no qual retorna um conjunto de vetores.
+As funções representadas no pseudocódigo do algoritmo \ref{alg::extractLocalMaxSet} são Valid(p) (linha \ref{alg:psc_valid}), que verifica se o ponto computado está dentro do domínio do volume , GFA(p) (linha \ref{alg::GFA}) consiste no cômputo do GFA no ponto p e ExtractLocalMaxSet(p) (linha \ref{alg::extractLocalMaxSet}) representa a escolha de picos da ODF no ponto p, no qual retorna um conjunto de vetores.
 
 
 
