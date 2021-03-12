@@ -1053,7 +1053,7 @@ O objetivo do glifo é a disponibilidade de mais uma ferramenta de visualizaçã
 
 
 
-A tractografia presente no VMTK-Neuro foi baseado no nos métodos determinísticos baseados em DTI propostos por \citeonline{Weinstein1999} e \citeonline{basser2000}. As demandas que motivaram escolha do método vem do baixo custo computacional do modelo e a possibilidade de renderização de linhas representativas das fibras do cérebro de forma interativa, imediatamente após a seleção das sementes.
+
 
 
 %Os métodos consistem na seleção de um conjunto de sementes pelo usuário e a partir delas, há a integração iterativa de linhas até que um critério de parada seja satisfeito.
@@ -1333,7 +1333,7 @@ Neste trabalho, chamaremos a plotagem polar esférica aplicada a ODFs de método
 
 \citeonline{peeters2009} apresentaram um esquema de renderização utilizando \textit{ray casting}, no qual foi aperfeiçoado por \cite{peeters2011}. Esta abordagem possibilitou incrementos em performance em relação a \citeonline{shattuck2008}.
 
-\citeonline{raphael_dissertacao} propôs um esquema de renderização interativa do tensor de difusão em glifos superquádricos \cite{Kindlmann2004} utilizando polígonos. Em seu trabalho, atinge a performance de renderização interativa minimizando o tráfego de dados entre CPU-GPU utilizado a técnica de desenho por instanciação, que consiste apenas em parâmetros que customizam e deslocam os glifos. Adicionalmente, este esquema está integrado ao VMTK-Neuro. Os resultados obtidos neste trabalho nos influenciou a adaptar o seu esquema para glifos HARDI.
+\citeonline{raphael_dissertacao} propôs um esquema de renderização interativa do tensor de difusão em glifos superquádricos \cite{Kindlmann2004} utilizando polígonos. Em seu trabalho, os glifos são renderizados a taxas interativas e a sua abordagem consiste na minimização de tráfego de dados entre CPU-GPU, que consiste apenas em parâmetros que customizam e deslocam os glifos, e o uso de renderização por instâncias. Adicionalmente, este esquema está integrado ao VMTK-Neuro. Os resultados obtidos neste trabalho nos influenciou a adaptar o seu esquema para glifos HARDI.
 
 
 
@@ -1627,20 +1627,74 @@ A tractografia determinística foi escolhida neste trabalho por ser menos demand
 
 Dos algoritmos determinísticos, nossas decisões serão tomadas de forma que o cômputo das fibras reconstruídas aconteçam em tempo interativo. Isto permite ao usuário alterar parâmetros de cômputo de tractografia de acordo com a região do cérebro analisada e obter o resultado visual de forma  interativa.
 
+\section {Tractografia determinística}
+\label{sec::tractografia_deterministica}
+
+Os algoritmos de tractografia determinística, chamadas de \textit{streamline}, são processos iterativos nos quais seus passos consistem no cômputo de uma direção, extraída de uma estimativa da distribuição de fibras subjacente de um método de imageamento de difusão e a verificação se algum critério de parada é atendido.
+
+De forma geral, o passo de um algoritmo de tractografia é efetuado em função da estimativa da direção de fibra subjacente a um modelo de difusão. No DTI, a direção subjacente consiste principalmente no autovetor associado ao maior autovalor \cite{Weinstein1999, basser2000}. Em tractografia HARDI, a distribuição de fibras subjacentes costumam ser extraídos de máximos locais de ODF \cite{descoteaux2007, SCHILLING2019194}.
+
+Geralmente há três critérios de parada: quando o \textit{streamline} atinge os limites do volume, o ponto atual do processo iterativo apresenta uma baixa anisotropia e um alto ângulo entre a direção computada da iteração atual e a anterior.
+
+O critério referente ao alcance da linha aos limites do volume é direto garante que o \textit{streamline} esteja dentro do domínio descrito pelo DWI. 
+
+O critério da baixa anisotropia vem da inferência, que, se a anisotropia é baixa, implica que \textit{streamline} saiu da substância branca do cérebro.
+
+O critério do alto ângulo entre a direção computada da iteração atual e a anterior, ou critério angular, diz respeito a questão da continuidade do trato. Se a direção atual destoa demasiadamente da anterior, implica que a \textit{streamline} saiu da região da fibra de interesse a ser reconstruída e invadiu outra estrutura.
+
+
 \section{Infraestrutura do VMTK-Neuro para tractografia}
 
-É integrado VMTK-Neuro uma infraestrutura de interação com o usuário para tractografia baseada em DTI e que serão descritas nesta seção.
+Nesta seção discorreremos sobre a tractografia baseada em DTI presente no VMTK-Neuro e suas respectivas ferramentas de interação, nas quais serão reaproveitadas neste trabalho.
+
+\subsection{Tractografia no VMTK-Neuro}
+
+A tractografia presente no VMTK-Neuro foi baseado no nos métodos determinísticos baseados em DTI propostos por \citeonline{Weinstein1999} e \citeonline{basser2000}. As demandas que motivaram escolha do método vem do baixo custo computacional do modelo e a possibilidade de renderização de linhas representativas das fibras do cérebro de forma interativa, imediatamente após a seleção das sementes.
+
+O algoritmo iterativo de integração de linhas foi baseado no proposto por \citeonline{Weinstein1999}, enquanto os critérios de parada do processo iterativo foi implementado de acordo com \citeonline{basser2000}.
+
+
+\subsection{Ferramentas de interatividade}
+
+\subsubsection{Visualização}
+
+A forma visual de apresentação da tractografia do VMTK-Neuro é feita através de linhas construídas a partir dos pontos que definem os \textit{streamlines}.
+
+
+\subsubsection{Entrada}
 
 Há a funcionalidade para o usuário setar as sementes. O usuário a possibilidade de desenhar contornos fechados que contém suas respectivas regiões de interesse (ROI - \textit{region of interest}) que são selecionados em fatias 2D do volume analisado. A sementes consistem um subconjunto das ROIs que apresentam uma anisotropia acima de um limiar.
 
-O usuário pode também definir parâmetros de tractografia. Estes parâmetros consistem no valor de anisotropia para as amostras da ROI serem sementes; parâmetros de critérios de parada, que consistem no limiar inferior de anisotropia e ângulo de interrupção mínimo para direção do passo anterior e atual; e, finalmente, o parâmetro de advecção $w_{punct}$ (definido por \citeonline{Weinstein1999}).
+O usuário pode também definir parâmetros de tractografia. Estes parâmetros consistem em:
+%Deixar o usuário a par do que é anisotropia e direções.
+\begin{itemize}
+    \item Valor de anisotropia mínima para sementes extraídas da ROI;
+    \item parâmetros de critérios de parada, que consistem em:\begin{itemize}
+        \item limiar inferior de anisotropia no ponto atual,
+        \item ângulo de interrupção mínimo entre as direções do passo atual e anterior;
+    \end{itemize}
+    \item parâmetro de advecção $w_{punct}$ (definido por \citeonline{Weinstein1999})
+\end{itemize}.
+
+Após a redefinição de qualquer um dos parâmetros, a tractografia é re-computada, e como o cômputo da tractografia ocorre em tempo interativo, o usuário tem a realimentação visual em tempo real.
 
 
 Há também no VMTK-Neuro a funcionalidade de tractografia seletiva, que dá ao usuário a possibilidade de remoção de fibras reconstruídas em regiões irrelevantes ou indesejadas através dos filtros do tipo NOT, AND e de reconstrução por parte. O filtro NOT consiste na escolha de uma região para que seja excluída na reconstrução do trato em questão e a do tipo AND restringe as linhas para apenas as que passam pela região escolhida. A implementação foi  baseada nas funcionalidades do aplicativo Explore DTI \cite{exploredti2009}. A reconstrução por parte consiste em setar, com base na análise visual das outras direções principais por meio de glifos, mais de uma região de sementes ao longo de uma fibra.
 
 %Acerca da natureza do tipo de interatividade que queremos mostrar, evidentemente que somente informações extraídas de um volume de difusão não assegura a plausabilidade de fibras reconstruídas e é desejável que haja ferramentas de interatividade para com um especialista para que ele possa escolher regiões de análise e verificar a plausabilidade de fibras.
+\section{Tractografia HARDI em tempo real}
 
-\section{Extração de orientações de fibras}
+%!!Verificar isso aqui depois
+\citeonline{Chamberland2016} propôs um algoritmo inovador de tractografia em tempo real baseada em picos e que serviu de base para este trabalho.
+
+A sua abordagem de tractografia consiste em um processo iterativo para usar um conjunto de direções de fibras pré-computados a partir de métodos HARDI. Outras abordagens de tractografia HARDI, como a de \citeonline{descoteaux2007}, por exemplo, computa ODFs e extrai a distribuição de fibras durante o processo iterativo.
+
+Em função destas direções pré-computadas, o algoritmo gera \textit{streamlines}.
+
+Nesta seção, iremos descrever a adaptação da tractografia proposta por \cite{Chamberland2016}, que consistem na extração de orientação de fibras do GQI, o processo iterativo de integração de fibras e questões computacionais.
+
+
+\subsection{Extração de orientações de fibras}
 
 Em métodos HARDI, a formas utilizadas para inferir a configuração de fibras subjacente às ODFs consistem na extração de máximos locais \cite{descoteaux2007}!!Mais artigo de tractografia. Isso ocorre porque a difusão tende a ocorrer de forma mais predominante ao longo da fibra do que através dela e este comportamento é mapeado no sinal de difusão \cite{DTI_Handbook}, como ilustrado na figura \ref{fig::fibravsodf}.
 
@@ -1655,6 +1709,12 @@ Em métodos HARDI, a formas utilizadas para inferir a configuração de fibras s
      \label{fig::fibravsodf}
  %   \hspace{1pt}
 \end{figure}
+
+A extração de picos do GQI envolve a comparação de amostras de ODF com suas vizinhas. O critério de vizinhança é definido através da malha esférica utilizada para implementação de glifos, mostrada no capítulo \ref{chap::glifos}.
+
+Para um determinado vértice ponto $P_k$, associado a uma direção $\mathbf{u}_k$ o conjunto de vizinhos $N_k$ são os pontos nos quais $P_k$ formam triângulos na malha esférica, e que são os pontos mais próximos.
+
+Em trabalhos na área, é muito comum a discretização de uma malha esférica via pontos obtidos através da subdivisão de um icosaedro, devido a sua uniformidade de amostras. Em seu algoritmo de tractografia proposto, \citeonline{descoteaux2007} utiliza uma malha esférica relativa a uma subdivisão de $16^a$ ordem de um icosaedro, de 2562 pontos. Já \citeonline{yeh2010} discretiza !!Falar do icosaedro desses caras.
 
 
 
@@ -1675,45 +1735,12 @@ Em métodos HARDI, a formas utilizadas para inferir a configuração de fibras s
 
 !!Mostrar Linhas representativas coloridas em um mapa FA e comparar com os glifos.
 
-\section{Tractografia}
 
-\subsection{Formulação}
+\section{Formulação}
 
-Com a restrições mencionadas no início deste capítulo, o trabalho consiste na adaptação de um dos dois algoritmos de tractografia determinísticos propostos por \citeonline{descoteaux2007}. \sout{O algoritmo, chamado de dODF-STR, gera um \textit{streamline}, cujo processo é feito na escolha de uma e somente uma direção baseado nos picos extraídos de uma ODF. Em comparação com a outra abordagem proposta, chamada de SPLIT-STR, gera bifurcação dos \textit{streamlines} para múltiplas direções extraídas do modelo.}
+\subsection{Integração de linhas}
 
-\sout{
-\citeonline{descoteaux2007} propõem um pré-processamento que consiste no afiamento da ODF, na qual visa prover um maior destaque aos picos e regiões de mais alta magnitude na ODF, conforme a figura \ref{fig::sharpening}. Com dados artificiais, o autor faz um experimento no qual a extração de direção de fibras é feito com a ODF de difusão extraída do QBI, a ODF após o processamento, a função de distribuição de orientação de fibra extraída do método deconvolução esférica filtrada para diferentes relações sinal ruído. O resultado do experimento atesta que a precisão da extração de picos aumenta com o pré-processamento, e tem um grau parecido com a abordagem de deconvolução esférica. Este pré-processamento não foi contemplado neste trabalho de mestrado.
-}
-
-%O algoritmo proposto consiste em um pré-processamento, em que consiste no afiamento da ODF, no qual visa prover um maior destaque aos picos e regiões de mais alta magnitude na ODF, conforme a figura \ref{fig::sharpening}. Após o pré-processamento, assim como na abordagem DTI determinística, a tractografia visa gerar linhas representativas de fibras do cérebro utilizando um modelo como base, que neste caso são ODFs.
-
-
-\begin{figure}[h]
-%\subfigcapskip = -5pt
-    \centering
-    \includegraphics[width=.45\linewidth, angle=0]{figs/Tractografia/sharpening.png}
-     \caption{Operação de afiamento de ODF. A função esférica a esquerda mostra um glifo de ODF obtida através de um sinal HARDI simulado e a direita a sua transformação em uma ODF afiada. \\
-     Fonte: \cite{descoteaux2007}
-     }
-     \label{fig::sharpening}
- %   \hspace{1pt}
-\end{figure}
-
-\sout{
-Evidentemente que não é possível fazer uma tractografia que computa tratos em tempo interativo com uma abordagem idêntica como \citeonline{descoteaux2007}, que a cada iteração interpola trilinearmente 1281 amostras de ODF para computar picos no processo de decisão da direção do passo da curva em um \textit{loop}.
-}
-
-\sout{
-A estratégia adotada então para este impasse é similar ao proposto por \citeonline{Chamberland2016}, que consiste em computar informações de direções de fibras na sua totalidade antes da execução da tractografia. Estes dados são acessados na tractografia e nas regiões \textit{intra-voxel}, a estimativa das direções é feita através da interpolação pelo vizinho mais próximo.
-}
-
-Para atenuar o erro gerado pela atribuição do vizinho mais próximo, adotamos uma estratégia de aumentar as amostras de ODF para extração de informações direcionais neste respeito utilizando interpolação trilinear. Os resultados apresentados !!(na seção???) utilizam picos de um volume com a resolução duplicada nas direções x, y, z (de 2x2x2 $mm^3$ para 1x1x1 $mm^3$).
-
-\sout{
-Uma questão pertinente acerca do aumento de amostras é se ela deve ser feita no DWI, no qual o método de difusão é aplicado sobre o volume super amostrado ou se pode ser feito diretamente nos valores de ODF. A literatura não é clara neste aspecto. !!Referencias!
-}
-
-O cômputo do passo na tractografia em um ponto pode ser categorizado em duas etapas: a escolha da direção de propagação e a equação do passo. A escolha da direção de propagação é feita a partir dos picos candidatos, no qual o escolhido é a direção que tem o menor ângulo com o passo anterior. Sobre a equação do passo, utilizaremos a adaptação que \citeonline{Chamberland2016} propôs como uma adaptação da equação do passo proposta por \citeonline{Weinstein1999} na tractografia baseada em DTI, exposta na equação \ref{eq::tractografia_weinstein}. A equação \ref{eq::tractografia_chamberland} mostra esta relação:
+O cômputo do passo na tractografia em um ponto pode ser categorizado em duas etapas: a escolha da direção de propagação e a equação do passo. A escolha da direção de propagação é feita a partir dos picos candidatos, no qual o escolhido é a direção que tem o menor ângulo com o passo anterior. Sobre a equação do passo, utilizaremos a adaptação que \citeonline{Chamberland2016} propôs da equação do passo proposta por \citeonline{Weinstein1999} na tractografia baseada em DTI, exposta na equação \ref{eq::tractografia_chamberland}:
 
 \begin{equation}
 \label{eq::tractografia_chamberland}
@@ -1722,11 +1749,55 @@ O cômputo do passo na tractografia em um ponto pode ser categorizado em duas et
 
 onde $\mathbf{v}_{step}$ é a direção de propagação da \textit{streamline}, $A$ é uma métrica de anisotropia (GFA), $\mathbf{e}$ é o pico escolhido dentre os candidatos no ponto em questão, $\mathbf{v}_{in}$ é a direção de propagação anterior e $w_{punct}$ é o parâmetro que pondera a decisão do passo continuar na direção anterior ou seguir na direção do pico escolhido, no caso em que a anisotropia do ponto seja baixa.
 
+\subsection{Critério de parada}
+
+Assim como mencionado na seção \ref{sec::tractografia_deterministica}, os critérios de parada consistem no critério de limites do volume, anisotropia e angular.
+
+Destes critérios, o único que é derivado do método de imageamento é a anisotropia, no qual o utilizado é o GFA (!!falar sobre o GFA no capítulo sobre métodos HARDI).
+
+Aproveitaremos as ferramentas de interatividade do VMTK-Neuro para deixar a cargo do usuário a configuração da anisotropia mínima de parada e o ângulo máximo do critério angular.
+
+
+%Com a restrições mencionadas no início deste capítulo, o trabalho consiste na adaptação de um dos dois algoritmos de tractografia determinísticos propostos por \citeonline{descoteaux2007}. \sout{O algoritmo, chamado de dODF-STR, gera um \textit{streamline}, cujo processo é feito na escolha de uma e somente uma direção baseado nos picos extraídos de uma ODF. Em comparação com a outra abordagem proposta, chamada de SPLIT-STR, gera bifurcação dos \textit{streamlines} para múltiplas direções extraídas do modelo.}
+
+%\sout{
+%\citeonline{descoteaux2007} propõem um pré-processamento que consiste no afiamento da ODF, na qual visa prover um maior destaque aos picos e regiões de mais alta magnitude na ODF, conforme a figura \ref{fig::sharpening}. Com dados artificiais, o autor faz um experimento no qual a extração de direção de fibras é feito com a ODF de difusão extraída do QBI, a ODF após o processamento, a função de distribuição de orientação de fibra extraída do método deconvolução esférica filtrada para diferentes relações sinal ruído. O resultado do experimento atesta que a precisão da extração de picos aumenta com o pré-processamento, e tem um grau parecido com a abordagem de deconvolução esférica. Este pré-processamento não foi contemplado neste trabalho de mestrado.
+%}
+
+%O algoritmo proposto consiste em um pré-processamento, em que consiste no afiamento da ODF, no qual visa prover um maior destaque aos picos e regiões de mais alta magnitude na ODF, conforme a figura \ref{fig::sharpening}. Após o pré-processamento, assim como na abordagem DTI determinística, a tractografia visa gerar linhas representativas de fibras do cérebro utilizando um modelo como base, que neste caso são ODFs.
+
+
+%\begin{figure}[h]
+%\subfigcapskip = -5pt
+%    \centering
+%    \includegraphics[width=.45\linewidth, angle=0]{figs/Tractografia/sharpening.png}
+%     \caption{Operação de afiamento de ODF. A função esférica a esquerda mostra um glifo de ODF obtida através de um sinal HARDI simulado e a direita a sua transformação em uma ODF afiada. \\
+%    Fonte: \cite{descoteaux2007}
+ %    }
+%     \label{fig::sharpening}
+ %   \hspace{1pt}
+%\end{figure}
+
+%\sout{
+%Evidentemente que não é possível fazer uma tractografia que computa tratos em tempo interativo com uma abordagem idêntica como \citeonline{descoteaux2007}, que a cada iteração interpola trilinearmente 1281 amostras de ODF para computar picos no processo de decisão da direção do passo da curva em um \textit{loop}.
+%}
+
+%\sout{
+%A estratégia adotada então para este impasse é similar ao proposto por \citeonline{Chamberland2016}, que consiste em computar informações de direções de fibras na sua totalidade antes da execução da tractografia. Estes dados são acessados na tractografia e nas regiões \textit{intra-voxel}, a estimativa das direções é feita através da interpolação pelo vizinho mais próximo.
+%}
+
+%Para atenuar o erro gerado pela atribuição do vizinho mais próximo, adotamos uma estratégia de aumentar as amostras de ODF para extração de informações direcionais neste respeito utilizando interpolação trilinear. Os resultados apresentados !!(na seção???) utilizam picos de um volume com a resolução duplicada nas direções x, y, z (de 2x2x2 $mm^3$ para 1x1x1 $mm^3$).
+
+%\sout{
+%Uma questão pertinente acerca do aumento de amostras é se ela deve ser feita no DWI, no qual o método de difusão é aplicado sobre o volume super amostrado ou se pode ser feito diretamente nos valores de ODF. A literatura não é clara neste aspecto. !!Referencias!
+%}
+
+
 Acerca dos parâmetros referenciados na equação \ref{eq::tractografia_chamberland}, o GFA é uma métrica previamente calculada para todo o volume e seu valor nas regiões \textit{intra-voxels} são computados a partir de interpolação trilinear. O parâmetro $w_{punct}$, assim como exposto na seção \ref{ssec::tractografia_e_seletividade} é um parâmetro contido no intervalo [0, 1] e é configurável pelo usuário.
 
-\subsection{Algoritmo e questões computacionais}
+\subsection{Algoritmo}
 
-O algoritmo implementado de tractografia em função de uma semente está mostrado no pseudocódigo \ref{psc::tractography}. Os parâmetros de entrada consistem na semente inicial contida no DWI ($p_0$), limiares de ângulo e anisotropia ($\theta_{thr}$ e $t_{aniso}$), o parâmetro $w_{punct}$ da equação \ref{eq::tractografia_chamberland}, o sentido que o algoritmo de tractografia deverá tomar ($d_{inv} = -1$ para inverter ou $d_{inv} = 1$ para manter igual ao máximo local)\footnote{Funções representativas de difusão são funções pares ($\Psi(\mathbf{u}) = \Psi(\mathbf{-u})$). Por questões de memória, na nossa implementação, não armazenamos a mesma direção em sentidos opostos}  o tamanho do passo na integração de linhas ($s_{len}$) e a quantidade máxima de pontos nos tratos ($l_{max}$). O conjunto de pontos de saída é representado pelo conjunto $\mathbf{\Phi}$.
+O algoritmo implementado de tractografia em função de uma semente está mostrado no pseudocódigo \ref{psc::tractography}. Os parâmetros de entrada consistem na semente inicial contida no DWI ($p_0$), limiares de ângulo e anisotropia ($\theta_{thr}$ e $t_{aniso}$), o parâmetro $w_{punct}$ da equação \ref{eq::tractografia_chamberland}, o sentido que o algoritmo de tractografia deverá tomar ($d_{inv} = -1$ para inverter ou $d_{inv} = 1$ para manter igual ao máximo local)\footnote{Funções representativas de difusão são funções simétricas ($\Psi(\mathbf{u}) = \Psi(\mathbf{-u})$). Por questões de memória, na nossa implementação, não armazenamos a mesma direção em sentidos opostos}  o tamanho do passo na integração de linhas ($s_{len}$) e a quantidade máxima de pontos nos tratos ($l_{max}$). O conjunto de pontos de saída é representado pelo conjunto $\mathbf{\Phi}$.
 
 \todo[inline]{Sugiro que faça uma descrição do algoritmo, contendo referências às linhas de instrução. A descrição abaixo está difícil de entender e seguir o pseudo-código que você escreveu.}
 
@@ -1766,6 +1837,18 @@ As funções representadas no pseudocódigo do algoritmo \ref{alg::extractLocalM
 \EndFunction
 \end{algorithmic}
 \end{algorithm}
+
+\subsection{Questões Computacionais}
+
+Na tractografia, os conjuntos de direções de fibras e o GFA são pré-computadas para cada amostra do DWI. O pré-cômputo das direções para referência na construção dos \textit{streamlines} é o que torna o método viável para cômputo em tempo real \cite{Chamberland2016}.%A função ExtractLocalMaxSet (linha \ref{alg::extractLocalMaxSet}), como proposto por \citeonline{Chamberland2016}, referencia o conjunto de máximos locais vem de um conjunto pré-computado para cada amostra, assim como o ocorre também com o GFA (linha \ref{alg::GFA}).
+
+Para pontos intra-voxel, a interpolação utilizada para obtenção de direções de fibra é a do vizinho mais próximo, enquanto para cômputos do GFA, é utilizada a interpolação trilinear.
+
+\subsection{Implementação}
+
+
+
+
 
 \todo[inline]{Qual parte está no geometry shader???}
 \textcolor{brown}{
