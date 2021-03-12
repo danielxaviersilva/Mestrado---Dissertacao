@@ -1636,9 +1636,9 @@ De forma geral, o passo de um algoritmo de tractografia é efetuado em função 
 
 Geralmente há três critérios de parada: quando o \textit{streamline} atinge os limites do volume, o ponto atual do processo iterativo apresenta uma baixa anisotropia e um alto ângulo entre a direção computada da iteração atual e a anterior.
 
-O critério referente ao alcance da linha aos limites do volume é direto garante que o \textit{streamline} esteja dentro do domínio descrito pelo DWI. 
+O critério de parada referente à chegada da \textit{streamline} aos limites do volume o condiciona a estar contido no domínio da aquisição DWI. 
 
-O critério da baixa anisotropia vem da inferência, que, se a anisotropia é baixa, implica que \textit{streamline} saiu da substância branca do cérebro.
+O critério da baixa anisotropia vem da inferência, que, se a anisotropia é baixa, implica que \textit{streamline} saiu da substância branca do cérebro, portanto as linhas computadas a partir deste ponto deixa de representar as fibras de interesse.
 
 O critério do alto ângulo entre a direção computada da iteração atual e a anterior, ou critério angular, diz respeito a questão da continuidade do trato. Se a direção atual destoa demasiadamente da anterior, implica que a \textit{streamline} saiu da região da fibra de interesse a ser reconstruída e invadiu outra estrutura.
 
@@ -1663,7 +1663,7 @@ A forma visual de apresentação da tractografia do VMTK-Neuro é feita através
 
 \subsubsection{Entrada}
 
-Há a funcionalidade para o usuário setar as sementes. O usuário a possibilidade de desenhar contornos fechados que contém suas respectivas regiões de interesse (ROI - \textit{region of interest}) que são selecionados em fatias 2D do volume analisado. A sementes consistem um subconjunto das ROIs que apresentam uma anisotropia acima de um limiar.
+Há a funcionalidade para o usuário setar as sementes. A funcionalidade consiste em dar possibilidade de desenhar contornos fechados que contém suas respectivas regiões de interesse (ROI - \textit{region of interest}) que são selecionados em fatias 2D do volume analisado. A sementes consistem um subconjunto das ROIs que apresentam uma anisotropia acima de um limiar.
 
 O usuário pode também definir parâmetros de tractografia. Estes parâmetros consistem em:
 %Deixar o usuário a par do que é anisotropia e direções.
@@ -1714,7 +1714,7 @@ A extração de picos do GQI envolve a comparação de amostras de ODF com suas 
 
 Para um determinado vértice ponto $P_k$, associado a uma direção $\mathbf{u}_k$ o conjunto de vizinhos $N_k$ são os pontos nos quais $P_k$ formam triângulos na malha esférica, e que são os pontos mais próximos.
 
-Em trabalhos na área, é muito comum a discretização de uma malha esférica via pontos obtidos através da subdivisão de um icosaedro, devido a sua uniformidade de amostras. Em seu algoritmo de tractografia proposto, \citeonline{descoteaux2007} utiliza uma malha esférica relativa a uma subdivisão de $16^a$ ordem de um icosaedro, de 2562 pontos. Já \citeonline{yeh2010} discretiza !!Falar do icosaedro desses caras.
+Em trabalhos na área, é muito comum a discretização de uma malha esférica via pontos obtidos através da subdivisão de um icosaedro, devido a uma certa distribuição uniforme no conjunto de pontos sobre a esfera e a sua formulação analítica. Em seu algoritmo de tractografia proposto, \citeonline{descoteaux2007} utiliza uma malha esférica relativa a uma subdivisão de $16^a$ ordem de um icosaedro, de 2562 pontos. Já \citeonline{yeh2010} discretiza !!Falar do icosaedro desses caras.
 
 
 
