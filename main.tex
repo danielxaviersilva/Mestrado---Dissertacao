@@ -1458,6 +1458,8 @@ As transformações relativas à orientação configuram a visualização de fat
 
 %O envio dos dados de ODF para GPU consiste na cópia dos dados referentes aos \textit{voxels} detectados de cada valor para cada perfil de difusão \todo{?}\textcolor{brown}{adotada consiste} na cópia dos dados de ODF para uma matriz pxn, onde p é a quantidade de \textit{voxels} detectados e n consiste na quantidade de amostras de ODF. A i-ésima linha da matriz se refere ao perfil de difusão do i-ésimo \textit{voxel} detectado, enquanto a j-ésima coluna se refere ao valor de difusão associado ao $\mathbf{u}_j$ para todos os \todo{Quais são os voxels detectados?}\textit{voxels} detectados. Esta matriz é enviada à GPU como uma textura 2D. A figura \ref{fig::organizacao2GPU} ilustra \todo{Não entendi ... a organização é dinâmica? Isso é muito custoso!}\textcolor{brown}{a organização dos dados para quando ocorre a detecção de quatro \textit{voxels}}.
 
+%Teste
+
 
 
 %\todo[inline]{Incluir os pseudocódigos de shaders não ajudaria o entendimento da ideia?}
