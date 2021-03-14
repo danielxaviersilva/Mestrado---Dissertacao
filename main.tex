@@ -1365,56 +1365,51 @@ Neste trabalho, chamaremos a plotagem polar esférica aplicada a ODFs de método
 %\todo[inline]{Falta uma descrição melhor de como são construídos os glifos a partir de ODFs e o seu mapeamento às entidades gráficas. Isso torna difícil o entendimento da sua implementação. !!Descrito em trabalhos relacionados!}
 \section{Esquema de renderização de glifos HARDI}
 
+%A abordagem utilizada para renderização consiste em instanciações de uma malha esférica de N vértices centrada na origem e raio unitário, que é enviada à GPU uma única vez e sem repetição de vértices nos seus dados. A cada instância, a malha é transformada por uma matriz de translação e as suas amostras de ODF.
+
+%A matriz de translação posiciona o centro da malha esférica para a sua respectiva posição. O perfil de difusão diz respeito às ODFs particulares a cada glifo, que determina a forma do glifo através da multiplicação do vértice da malha associada à direção de difusão ao seu valor de ODF.
+
+%Estes elementos são enviados da CPU à GPU a cada requisição de desenho que tem como entrada uma lista de matrizes de translação e de amostras de ODF. Então, para atingirmos o objetivo da interatividade, é desejável que o tráfego de dados entre as partes seja o mínimo possível e sem redundância na descrição do objeto.
+
+%O envio do conjunto de coordenadas de translação à GPU consiste no envio de um vetor contendo P matrizes de translação como um atributo, que é único para cada malha esférica instanciada.
+
+%Os dados relativos a ODF enviados para GPU consistem nas N amostras referentes ao perfis de difusão para cada um dos P glifos a serem desenhados. A forma que as amostras de ODF são enviadas à GPU consiste na construção e envio de uma matriz $\mathbf{\Psi}_{PxN}$, onde P é a quantidade de glifos a serem desenhados e N consiste na quantidade de amostras de ODF utilizada. O envio da matriz $\mathbf{\Psi}$ à GPU é feito como uma textura 2D. 
+
+%Na matriz $\mathbf{\Psi}$, o elemento da i-ésima linha na j-ésima coluna da matriz se refere à ODF do i-ésimo glifo a ser desenhado associado ao j-ésimo vértice da esfera, que por sua vez tem as coordenadas da direção $\mathbf{u}_j$. Chamaremos  a ODF na i-ésima linha de $\psi_i(\mathbf{u})$ e o seu valor no j-ésimo vértice da esfera de $\psi_i(\mathbf{u}_j)$.
+
+%A recuperação na GPU das ODFs é feita através dos índices de instância e vértice. Para isto, é necessário que o índice de vértice (\textit{gl\_VertexID}\footnotemark) da direção de cada um dos vértices correspondam à coluna do seu respectivo valor de ODF $\psi(\mathbf{u}_j)$ na matriz de perfis de difusão. O acesso das linhas da matriz de perfis de difusão, correspondentes aos perfis de difusão de um \textit{voxel} é acessível pelo índice de instância (\textit{gl\_InstanceID}\footnotemark[\value{footnote}]). Tendo os dados organizados desta maneira estabelecida, o acesso é feito no \textit{vertex shader} utilizando através da função \textit{texelFetch}\footnotemark[\value{footnote}] com os argumentos de acesso de linha e coluna através do par (\textit{gl\_VertexID}, \textit{gl\_InstanceID})\footnotemark[\value{footnote}]\footnotetext{Todos os comandos foram implementados em OpenGL com a linguagem para \textit{shader} GLSL.}. A forma de acesso na GPU da matriz de perfis é ilustrada na figura \ref{fig::GPU2glifoGeneral}.
 
 
-
-
-
-
-A abordagem utilizada para renderização consiste em instanciações de uma malha esférica de N vértices centrada na origem e raio unitário, que é enviada à GPU uma única vez e sem repetição de vértices nos seus dados. A cada instância, a malha é transformada por uma matriz de translação e as suas amostras de ODF.
-
-A matriz de translação posiciona o centro da malha esférica para a sua respectiva posição. O perfil de difusão diz respeito às ODFs particulares a cada glifo, que determina a forma do glifo através da multiplicação do vértice da malha associada à direção de difusão ao seu valor de ODF.
-
-Estes elementos são enviados da CPU à GPU a cada requisição de desenho que tem como entrada uma lista de matrizes de translação e de amostras de ODF. Então, para atingirmos o objetivo da interatividade, é desejável que o tráfego de dados entre as partes seja o mínimo possível e sem redundância na descrição do objeto.
-
-O envio do conjunto de coordenadas de translação à GPU consiste no envio de um vetor contendo P matrizes de translação como um atributo, que é único para cada malha esférica instanciada.
-
-Os dados relativos a ODF enviados para GPU consistem nas N amostras referentes ao perfis de difusão para cada um dos P glifos a serem desenhados. A forma que as amostras de ODF são enviadas à GPU consiste na construção e envio de uma matriz $\mathbf{\Psi}_{PxN}$, onde P é a quantidade de glifos a serem desenhados e N consiste na quantidade de amostras de ODF utilizada. O envio da matriz $\mathbf{\Psi}$ à GPU é feito como uma textura 2D. 
-
-Na matriz $\mathbf{\Psi}$, o elemento da i-ésima linha na j-ésima coluna da matriz se refere à ODF do i-ésimo glifo a ser desenhado associado ao j-ésimo vértice da esfera, que por sua vez tem as coordenadas da direção $\mathbf{u}_j$. Chamaremos  a ODF na i-ésima linha de $\psi_i(\mathbf{u})$ e o seu valor no j-ésimo vértice da esfera de $\psi_i(\mathbf{u}_j)$.
-
-A recuperação na GPU das ODFs é feita através dos índices de instância e vértice. Para isto, é necessário que o índice de vértice (\textit{gl\_VertexID}\footnotemark) da direção de cada um dos vértices correspondam à coluna do seu respectivo valor de ODF $\psi(\mathbf{u}_j)$ na matriz de perfis de difusão. O acesso das linhas da matriz de perfis de difusão, correspondentes aos perfis de difusão de um \textit{voxel} é acessível pelo índice de instância (\textit{gl\_InstanceID}\footnotemark[\value{footnote}]). Tendo os dados organizados desta maneira estabelecida, o acesso é feito no \textit{vertex shader} utilizando através da função \textit{texelFetch}\footnotemark[\value{footnote}] com os argumentos de acesso de linha e coluna através do par (\textit{gl\_VertexID}, \textit{gl\_InstanceID})\footnotemark[\value{footnote}]\footnotetext{Todos os comandos foram implementados em OpenGL com a linguagem para \textit{shader} GLSL.}. A forma de acesso na GPU da matriz de perfis é ilustrada na figura \ref{fig::GPU2glifoGeneral}.
-
-\begin{figure}[h]
-%\subfigcapskip = -5pt
-    \centering
-    \includegraphics[width=1.0\linewidth, angle=0]{figs/Esquema_Glifo/GPU2GlifoGeneral.png}
-    \caption{Ilustração da organização de dados na GPU da matriz de perfil de difusão (vermelho). Os vértices da malha esférica estão em verde. A cada instância, a customização do glifo se dá através da multiplicação do vértice da malha com o seu respectivo valor $\psi$, recuperado no \textit{vertex shader} através do seu índice de vértice para os P glifos a serem renderizados.}
-    \label{fig::GPU2glifoGeneral}
-   \hspace{1pt}
-\end{figure}
 
 
 %A figura \ref{fig::organizacao2GPU} ilustra \todo{Não entendi ... a organização é dinâmica? Isso é muito custoso!}\textcolor{brown}{a organização dos dados para quando ocorre a detecção de quatro \textit{voxels}}.
 
 %Na GPU, a malha esférica, copiada anteriormente e alocada em um \textit{vertex buffer object} (VBO), é instanciada P vezes. A recuperação na GPU das ODFs é feita através dos índices de instância e vértice. Para isto, é necessário que o índice de vértice (\textit{gl\_VertexID}\footnotemark) da direção de cada um dos vértices correspondam à coluna do seu respectivo valor de ODF $\psi(\mathbf{u})$ da matriz de perfis de difusão. O acesso das linhas da matriz de perfis de difusão, correspondentes aos perfis de difusão de um \textit{voxel}acessível pelo índice de instância (\textit{gl\_InstanceID}\footnotemark[\value{footnote}]). Tendo os dados organizados desta maneira estabelecida, o acesso é feito no \textit{vertex shader} utilizando através da função \textit{texelFetch}\footnotemark[\value{footnote}] com os argumentos de acesso de linha e coluna através do par (\textit{gl\_VertexID}, \textit{gl\_InstanceID})\footnotemark[\value{footnote}]\footnotetext{Todos os comandos foram implementados em OpenGL com a linguagem para \textit{shader} GLSL.}. A forma de acesso na GPU da matriz de perfis é ilustrada na figura \ref{fig::GPU2glifoGeneral}.
 
-A cor dos glifos é definida de acordo com o vértice da malha esférica instanciada no \textit{vertex shader} e definida de acordo com a equação \ref{eq::cor_glifo}.
+%A cor dos glifos é definida de acordo com o vértice da malha esférica instanciada no \textit{vertex shader} e definida de acordo com a equação \ref{eq::cor_glifo}.
+
+
+%A quantidade de amostras $N$ de ODF que customizam os glifos costumam estar na casa das centenas \cite{TuchQBall2004, yeh2010}, o que gera uma grande quantidade de dados enviados à GPU nas requisições de desenho.
 
 
 
-\todo[inline]{Incluir os pseudocódigos de shaders não ajudaria o entendimento da ideia?}
+
+O objetivo desta seção é detalhar o esquema de renderização de glifos baseada em polígonos. Na subseção \ref{ssec::initializacao_glifo}, descrevemos a inicialização do esquema; na subseção \ref{ssec::datastruct} detalhamos a estrutura de dados que consistem no tráfego CPU-GPU a cada requisição de renderização; na subseção \ref{ssec::otimizacao}, mostramos uma adaptação da estrutura de dados para ODF simétricas de modo a diminuir o tráfego CPU-GPU; na subseção \ref{sssec::visao_shaders}, esquematizamos as funcionalidades do \textit{vertex} e \textit{fragment shaders}.
+
+
+%\todo[inline]{Incluir os pseudocódigos de shaders não ajudaria o entendimento da ideia?}
 
 \subsection{Inicialização}
+\label{ssec::initializacao_glifo}
 
-A inicialização do esquema consiste no pré-cômputo de uma malha esférica unitária centrada na origem com um conjunto de N pontos $\Pi = \{P_1, P_2, \dots, P_N\}$ e o seu respectivo \mathit{index buffer} e enviá-los à GPU apenas uma vez como um atributo a ser instanciado.
+A inicialização do esquema consiste no pré-cômputo de uma malha esférica unitária centrada na origem com um conjunto de N pontos $\Pi = \{P_1, P_2, \dots, P_N\}$. A malha é enviada na forma de um vetor $[P_1, P_2, \dots, P_N]$ e os triângulos são definidos através do seu respectivo \textit{index buffer}. Estes dados são enviados à GPU apenas uma vez como um atributo a ser instanciado.
 
 \subsection{Estrutura de dados e tráfego CPU-GPU}
 \label{ssec::datastruct}
 
-Dois elementos customizam cada um dos glifos: amostras ODF e sua posição. Esses elementos são enviados para a GPU em cada solicitação de sorteio.
+Dois elementos customizam cada um dos glifos: amostras ODF e sua posição. Esses elementos são enviados para a GPU em cada solicitação de desenho.
 
-Primeiro, vamos definir o conjunto de vetores $\Upsilon$ como uma função de $\Pi$ como mostrado na Eq.\ref{eq::u_vector_set}. A geometria do glifo é deformada escalonando cada ponto $P_k$ na malha para o valor ODF $\psi (\mathbf{u}_k) $. A matriz de translação coloca a malha esférica deformada para ser centralizada em um ponto $C(x, y, z)$.
+Primeiro, vamos definir o conjunto de vetores $\Upsilon$ como uma função de $\Pi$ como mostrado na equação \ref{eq::u_vector_set}. A geometria do glifo é deformada escalonando cada ponto $P_k$ na malha para o valor ODF $\psi(\mathbf{u}_k)$. A matriz de translação coloca a malha esférica deformada para ser centralizada em um ponto $C(x, y, z)$.
 
 \begin{equation}
 \label{eq::u_vector_set}
@@ -1426,10 +1421,10 @@ Primeiro, vamos definir o conjunto de vetores $\Upsilon$ como uma função de $\
 \text{ }\}
 \end{equation}
 
-Devido à grande quantidade de dados enviados à GPU nas solicitações de desenho, o objetivo desta subseção é mostrar uma maneira de estruturar os dados na CPU, como enviá-los à GPU e como os shaders da GPU os lêem para que o tráfego de dados CPU-GPU seja o mínimo possível.
+
 
 \subsubsection {Translação}
-Seja $P$ o número de instâncias do esquema de renderização e glifos a serem desenhados. Os pontos de translação são organizados como um vetor de pontos $[C_1, C_2,\dots, C_P] $, onde $ C_i = (x_i, y_i, z_i)$, e enviados para a GPU como um atributo. Cada ponto deste atributo é único para cada uma das P instâncias da malha esférica.
+Seja $P$ o número de instâncias do esquema de renderização e glifos a serem desenhados. Os pontos de translação são organizados como um vetor de pontos $[C_1, C_2,\dots, C_P]$, onde $C_i = (x_i, y_i, z_i)$, e enviados para a GPU como um atributo. Cada ponto deste atributo é único para cada uma das P instâncias da malha esférica.
 
 \subsubsection {ODFs}
 
@@ -1451,25 +1446,24 @@ Os dados de ODF enviados para a GPU consistem nas N amostras referentes aos perf
 
 onde $\psi_ {ij} $ se refere ao valor ODF $\psi_i (\mathbf {u} _j) $ do i-ésimo glifo associado à direção $\mathbf {u} _j $, que escala $ P_j $ vértice da malha esférica. A matriz $\mathbf {\Psi} _ {PxN} $ é enviada para a GPU como uma textura 2D.
 
-Na GPU, o acesso das amostras de ODF para deformar seu respectivo ponto de esfera é feito acessando os dados de textura por meio de sua instância e índices de vértice no \mathit{vertex shader}.
+Na GPU, o acesso das amostras de ODF para deformar seu respectivo ponto de esfera é feito acessando os dados de textura por meio de sua instância e índices de vértice no \textit{vertex shader}.
 
-O índice de instância (Instance\_ID) corresponde a uma malha esférica instanciada centrada em seu respectivo ponto $ P $, e como as amostras ODFs de um glifo são armazenadas nas linhas de $\mathbf {\Psi} $, quando Instance\_ID é usado para acessar esta dimensão para o acesso das amostras de ODF por glifo.
+O índice de instância (Instance\_ID) corresponde a uma malha esférica instanciada centrada em seu respectivo ponto $P$, e como as amostras ODFs de um glifo são armazenadas nas linhas de $\mathbf {\Psi} $, o Instance\_ID é usado para acessar esta dimensão para o acesso das amostras de ODF por glifo.
 
 O índice do vértice (Vertex\_ID), por sua vez, indica um ponto da malha esférica, que corresponde à coluna de seu respectivo valor ODF em $\mathbf{\Psi}$.
 
 Assim, realizamos o acesso GPU por um simples \textit{lookup} na textura correspondente a $\mathbf{\Psi}$\footnote{Em OpenGL, o \textit{lookup} é feito através do comando texelFetch($\mathbf {\Psi}$, ivec2 (gl\_InstanceID, gl\_VertexID), 0)[0]} usando o par Vertex\_ID e Instance\_ID. A figura \ref{fig::organizacao2GPU} ilustra o acesso ODF para cada instância e vértice na GPU.
 
-\figura de acesso aqui
-
-\begin{figure}[ht]
-
+\begin{figure}[h]
 %\subfigcapskip = -5pt
     \centering
-    \includegraphics[width=1.000\linewidth, angle=0]{figs/Esquema_Glifo/organizacao2GPU.png}
-    \caption{Ilustração da organização de dados de perfis de difusão antes do envio à GPU. Em vermelho, estão os perfis de difusão de P voxels detectados \textit{voxels} ($d_1$, $d_2$, ..., $d_P$) detectados, não necessariamente em sequência na memória, que são copiados para uma matriz e enviados à GPU. O valor S corresponde a quantidade voxels do volume e $N$ se refere a quantidade de amostras nos perfis de difusão}
-    \label{fig::organizacao2GPU}
+    \includegraphics[width=1.0\linewidth, angle=0]{figs/Esquema_Glifo/GPU2GlifoGeneral.png}
+    \caption{Ilustração da organização de dados na GPU da matriz de perfil de difusão (vermelho). Os vértices da malha esférica estão em verde. A cada instância, a customização do glifo se dá através da multiplicação do vértice da malha com o seu respectivo valor $\psi$, recuperado no \textit{vertex shader} através do seu índice de vértice para os P glifos a serem renderizados.}
+    \label{fig::GPU2glifoGeneral}
    \hspace{1pt}
 \end{figure}
+
+
 
 \subsection{Otimização para ODFs simétricas}
 \label{ssec::otimizacao}
@@ -1482,7 +1476,7 @@ Primeiramente, sugerimos o uso de uma malha esférica simétrica. Isso significa
 
 Em segundo lugar, sugerimos que a estrutura de dados da malha esférica simétrica escolhida seja organizada de forma que um ponto $P $em um índice par seja seguido por $-P$. Esta malha esférica é enviada para a GPU da mesma forma indicada na subseção \ref {ssec::precomputation}.
 
-Seguindo essas recomendações, a estrutura de dados dos pontos na esfera $[P_1, P_2, P_3, P_4, \dots, P_ {N-1}, P_N] $torna-se $[P_1, -P_1, P_3, -P_3, \dots , P_ {N-1}, -P_ {N-1}]$e seu $ \Upsilon$ associado muda para $[\mathbf{u}_1, - \mathbf{u}_1, \mathbf{u}_3, -\mathbf{u}_3, \dots, \mathbf{u}_{N-1}, - \mathbf{u}_{N-1}]$. Nesta situação, $\mathbf{\Psi}$ se torna:
+Seguindo essas recomendações, a estrutura de dados dos pontos na esfera $[P_1, P_2, P_3, P_4, \dots, P_ {N-1}, P_N] $ torna-se $[P_1, -P_1, P_3, -P_3, \dots , P_ {N-1}, -P_ {N-1}]$ e seu $ \Upsilon$ associado muda para $[\mathbf{u}_1, - \mathbf{u}_1, \mathbf{u}_3, -\mathbf{u}_3, \dots, \mathbf{u}_{N-1}, - \mathbf{u}_{N-1}]$. Nesta situação, $\mathbf{\Psi}$ se torna:
 
 \begin{equation}
 \mathbf{\Psi} = 
@@ -1503,7 +1497,7 @@ Seguindo essas recomendações, a estrutura de dados dos pontos na esfera $[P_1,
 
 onde cada (2k+1)-ésima coluna é a mesma (2k+2)-ésima ($0 \leq k < \frac{N}{2}$).
 
-Portanto, definimos uma matriz $\mathbf{\Psi^h}_{Px\frac{N}{2}}$de tal forma que $\mathbf{\psi^h}_{ij} = \mathbf{\psi}_{i(2j-1)}$, descrita na expressão abaixo.
+Portanto, definimos uma matriz $\mathbf{\Psi^h}_{Px\frac{N}{2}}$de tal forma que $\mathbf{\psi^h}_{ij} = \mathbf{\psi}_{i(2j-1)}$, descrita na expressão abaixo:
 
 \begin{equation}
 \label{eq::Psi_changed}
@@ -1524,13 +1518,13 @@ Portanto, definimos uma matriz $\mathbf{\Psi^h}_{Px\frac{N}{2}}$de tal forma que
 \end{equation}
 
 
-$\mathbf{\Psi^h}$ é enviado à GPU nas solicitações de desenho da mesma forma que $\mathbf{\Psi}$ descrito na subseção \ref{ssec::datastruct} e a diferença entre ambas está no \textit{lookup} na GPU. Na GPU, os vértices correspondentes ao 2k-ésimo e (2k+1)-ésimo vértice\_ID na malha esférica da mesma instância têm o mesmo valor de lookup\footnote{Em OpenGL, a pesquisa é feita pelo comando texelFetch ($\mathbf{\Psi^h} $, ivec2 (gl\_InstanceID, gl \_VertexID/2), 0) [0]}, correspondendo à k-ésima coluna, que pode ser acessada adequadamente no \textit{vertex shader}.
+$\mathbf{\Psi^h}$ é enviado à GPU nas solicitações de desenho da mesma forma que $\mathbf{\Psi}$ descrito na subseção \ref{ssec::datastruct} e a diferença entre ambas está no \textit{lookup} na GPU. Na GPU, os vértices correspondentes ao 2k-ésimo e (2k+1)-ésimo Vértice\_ID na malha esférica da mesma instância têm o mesmo valor de lookup\footnote{Em OpenGL, a pesquisa é feita pelo comando texelFetch ($\mathbf{\Psi^h} $, ivec2 (gl\_InstanceID, gl \_VertexID/2), 0) [0]}, correspondendo à k-ésima coluna, que pode ser acessada adequadamente no \textit{vertex shader}.
 
 
 
 \subsection{Visão geral dos \textit{shaders}}
 
-\label{ssec::rendering}
+\label{sssec::visao_shaders}
 
 \subsubsection{Vertex Shader}
 \begin{enumerate}
@@ -1565,6 +1559,18 @@ Na renderização de fatias, a inferência dos \textit{pixels} aparentes na tela
 Na renderização tridimensional, também há uma funcionalidade para detecção de amostras aparentes. A detecção é baseada em \textit{raycasting} computado sobre o volume na GPU, no qual foi proposto e implementado no VMTK-Neuro por \citeonline{raphael_dissertacao}. Cada uma das amostras é associado a uma matriz de translação pré-computada para o seu centro no 3D.
 
 A partir de $P$ \textit{voxels} detectados em uma requisição de desenho, suas respectivas matrizes de posicionamento são copiadas e armazenadas como um vetor e enviadas à GPU. Da mesma maneira, a matriz $\Psi$ é computada a partir das amostras detectadas e enviada à GPU, conforme mostrado na Figura \ref{fig::organizacao2GPU}.
+
+\begin{figure}[ht]
+
+%\subfigcapskip = -5pt
+    \centering
+    \includegraphics[width=1.0\linewidth, angle=0]{figs/Esquema_Glifo/organizacao2GPU.png}
+    \caption{Ilustração da organização de dados de perfis de difusão antes do envio à GPU. Em vermelho, estão os perfis de difusão de P voxels detectados \textit{voxels} ($d_1$, $d_2$, ..., $d_P$) detectados, não necessariamente em sequência na memória, que são copiados para uma matriz e enviados à GPU. O valor S corresponde a quantidade voxels do volume e $N$ se refere a quantidade de amostras nos perfis de difusão}
+    \label{fig::organizacao2GPU}
+   \hspace{1pt}
+\end{figure}
+
+
 
 
 
