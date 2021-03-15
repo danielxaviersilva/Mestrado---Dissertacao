@@ -80,6 +80,8 @@
 
 \usepackage{algpseudocode,algorithm}
 
+\usepackage{amsmath,amsfonts,amssymb}
+
 
 %\let\printglossary\relax
 %\let\theglossary\relax
@@ -831,7 +833,7 @@ Entre o CSD e o QBI, escolhemos o QBI pela facilidade de implementação neste e
 
 \textcolor{red}{\section{Renderização de ODFs}}
 
-\textcolor{brown}{\citeonline{peeters2009} apresentou pela primeira vez um esquema de renderização para esta categoria de glifos, nos quais são aperfeiçoados por \citeonline{peeters2011} e \citeonline{hlawitschka2012}. Estes esquemas utilizam a abordagem \textit{raycasting}.}
+\textcolor{brown}{\citeonline{peeters2009} apresentou pela primeira vez um esquema de renderização para esta categoria de glifos, nos quais são aperfeiçoados por \citeonline{almsick2011} e \citeonline{hlawitschka2012}. Estes esquemas utilizam a abordagem \textit{raycasting}.}
 
 \textcolor{brown}{No VMTK-Neuro, um dos algoritmos de renderização do tensor difusão por glifos superquádricos é feita por instanciações de uma malha esférica, no qual é customizada por parâmetros particulares a cada tensor de difusão referentes a cada \textit{voxel} detectado e posicionado na cena de acordo. Este esquema de renderização desenha os glifos em tempo interativo.}
 
@@ -1332,7 +1334,7 @@ Neste trabalho, chamaremos a plotagem polar esférica aplicada a ODFs de método
 
 \citeonline{shattuck2008} mostram uma abordagem utilizando polígonos, que é a mesma deste trabalho, e relatou uma grande limitação na sua performance, sendo assim, não podendo ser utilizado em tempo interativo. A performance relatada pelos autores é de 10 FPS para uma malha esférica de 225 pontos em uma cena no qual há 2 milhões de triângulos renderizados. No trabalho deles, consta que não foi utilizado programação em GPU.
 
-\citeonline{peeters2009} apresentaram um esquema de renderização utilizando \textit{ray casting}, no qual foi aperfeiçoado por \cite{peeters2011}. Esta abordagem possibilitou incrementos em performance em relação a \citeonline{shattuck2008}.
+\citeonline{peeters2009} apresentaram um esquema de renderização utilizando \textit{ray casting}, no qual foi aperfeiçoado por \cite{almsick2011}. Esta abordagem possibilitou incrementos em performance em relação a \citeonline{shattuck2008}.
 
 \citeonline{raphael_dissertacao} propôs um esquema de renderização interativa do tensor de difusão em glifos superquádricos \cite{Kindlmann2004} utilizando polígonos. Em seu trabalho, os glifos são renderizados a taxas interativas e a sua abordagem consiste na minimização de tráfego de dados entre CPU-GPU, que consiste apenas em parâmetros que customizam e deslocam os glifos, e o uso de renderização por instâncias. Adicionalmente, este esquema está integrado ao VMTK-Neuro. Os resultados obtidos neste trabalho nos influenciou a adaptar o seu esquema para glifos HARDI.
 
@@ -1340,7 +1342,7 @@ Neste trabalho, chamaremos a plotagem polar esférica aplicada a ODFs de método
 
 %\subsection{\sout{Abordagem de renderização}}
 
-%\sout{\citeonline{peeters2009} apresentou pela primeira vez um esquema de renderização para esta categoria de glifos, nos quais são aperfeiçoados por \citeonline{peeters2011} e \citeonline{hlawitschka2012}. Estes esquemas utilizam a abordagem \textit{raycasting}.}
+%\sout{\citeonline{peeters2009} apresentou pela primeira vez um esquema de renderização para esta categoria de glifos, nos quais são aperfeiçoados por \citeonline{almsick2011} e \citeonline{hlawitschka2012}. Estes esquemas utilizam a abordagem \textit{raycasting}.}
 
 %\sout{No VMTK-Neuro, um dos algoritmos de renderização do tensor difusão por glifos superquádricos é feita por instanciações de uma malha esférica, no qual é customizada por parâmetros particulares a cada tensor de difusão referentes a cada \textit{voxel} detectado e posicionado na cena de acordo. Este esquema de renderização desenha os glifos em tempo interativo.}
 
@@ -1389,12 +1391,15 @@ Neste trabalho, chamaremos a plotagem polar esférica aplicada a ODFs de método
 %A cor dos glifos é definida de acordo com o vértice da malha esférica instanciada no \textit{vertex shader} e definida de acordo com a equação \ref{eq::cor_glifo}.
 
 
-%A quantidade de amostras $N$ de ODF que customizam os glifos costumam estar na casa das centenas \cite{TuchQBall2004, yeh2010}, o que gera uma grande quantidade de dados enviados à GPU nas requisições de desenho.
+%f
 
 
 
 
 O objetivo desta seção é detalhar o esquema de renderização de glifos baseada em polígonos. Na subseção \ref{ssec::initializacao_glifo}, descrevemos a inicialização do esquema; na subseção \ref{ssec::datastruct} detalhamos a estrutura de dados que consistem no tráfego CPU-GPU a cada requisição de renderização; na subseção \ref{ssec::otimizacao}, mostramos uma adaptação da estrutura de dados para ODF simétricas de modo a diminuir o tráfego CPU-GPU; na subseção \ref{sssec::visao_shaders}, esquematizamos as funcionalidades do \textit{vertex} e \textit{fragment shaders}.
+
+
+A quantidade de amostras $N$ de ODF que customizam os glifos de forma razoável costumam estar na casa das centenas \cite{TuchQBall2004, yeh2010}, o que gera uma grande quantidade de dados enviados à GPU nas requisições de desenho e os procedimentos sugeridos consistem em minimizar ao máximo o tráfego de dados.
 
 
 %\todo[inline]{Incluir os pseudocódigos de shaders não ajudaria o entendimento da ideia?}
@@ -1409,7 +1414,7 @@ A inicialização do esquema consiste no pré-cômputo de uma malha esférica un
 
 Dois elementos customizam cada um dos glifos: amostras ODF e sua posição. Esses elementos são enviados para a GPU em cada solicitação de desenho.
 
-Primeiro, vamos definir o conjunto de vetores $\Upsilon$ como uma função de $\Pi$ como mostrado na equação \ref{eq::u_vector_set}. A geometria do glifo é deformada escalonando cada ponto $P_k$ na malha para o valor ODF $\psi(\mathbf{u}_k)$. A matriz de translação coloca a malha esférica deformada para ser centralizada em um ponto $C(x, y, z)$.
+Primeiro, vamos definir o conjunto de vetores $\Upsilon$ como uma função de $\Pi$ como mostrado na equação \ref{eq::u_vector_set}. A geometria do glifo é deformada escalonando cada ponto $P_k$ na malha para o valor ODF $\psi(\mathbf{u}_k)$. A matriz de translação centraliza a malha esférica deformada para ser ponto $C(x, y, z)$.
 
 \begin{equation}
 \label{eq::u_vector_set}
@@ -1420,6 +1425,8 @@ Primeiro, vamos definir o conjunto de vetores $\Upsilon$ como uma função de $\
 \end{tabular}
 \text{ }\}
 \end{equation}
+
+
 
 
 
@@ -2252,7 +2259,7 @@ A abordagem de implementação consiste no cômputo de todas as ODFs para cada \
 
 %Foi implementado um esquema de visualização para ODFs em glifos de acordo com o proposto por \citeonline{TuchQBall2004}. A implementação serviu primeiramente para prova de conceito e posteriormente otimizada para que seja possível a sua renderização, \textit{voxel} a \textit{voxel}, em tempo interativo pelo VMTK-Neuro, o que foi possível nos testes feitos em um Macbook Pro Retina 13', com processador Intel Core i5 Dual-Core 2.7Ghz, processador gráfico Intel Iris Graphics 6100 1536 MB e memória RAM de 8 GB 1867 MHz DDR3.
 
-%\citeonline{peeters2009} apresentou pela primeira vez um esquema de renderização para esta categoria de glifos, nos quais são aperfeiçoados por \citeonline{peeters2011} e \citeonline{hlawitschka2012}, utilizando \textit{raycasting}!!(VER OS ARTIGOS). No VMTK-Neuro, um dos algoritmos de renderização do tensor difusão por superquádricas é feita por instanciação de malhas esféricas, que são modificadas por parâmetros particulares a cada tensor de difusão referentes a cada voxel detectado, e posicionado na cena de acordo. O esquema de renderização ocorre em tempo interativo, e tem performances, que foram medidas pelo nosso grupo de pesquisa, comparáveis aos algoritmos baseados em \textit{raycasting} da mesma categoria !!\ref{}.
+%\citeonline{peeters2009} apresentou pela primeira vez um esquema de renderização para esta categoria de glifos, nos quais são aperfeiçoados por \citeonline{almsick2011} e \citeonline{hlawitschka2012}, utilizando \textit{raycasting}!!(VER OS ARTIGOS). No VMTK-Neuro, um dos algoritmos de renderização do tensor difusão por superquádricas é feita por instanciação de malhas esféricas, que são modificadas por parâmetros particulares a cada tensor de difusão referentes a cada voxel detectado, e posicionado na cena de acordo. O esquema de renderização ocorre em tempo interativo, e tem performances, que foram medidas pelo nosso grupo de pesquisa, comparáveis aos algoritmos baseados em \textit{raycasting} da mesma categoria !!\ref{}.
 
 %Pela maior simplicidade e boa efetividade da renderização pelas instanciações de uma malha esférica, onde o glifo é modificado por parâmetros particulares de cada perfil de difusão e que tem sido previamente implementado na renderização de glifos superquádricos, o esquema desenvolvido para representação polar esférica utiliza uma adaptação desta abordagem.
 
@@ -2372,7 +2379,7 @@ A figura \ref{fig::Trato_QBall_MapaFA_Linhas} mostra os picos de ODF \textit{vox
 
 \chapter{Futuros trabalhos}
 
-Na renderização de glifos, pode-se implementar o cômputo de vetores normais para serem usados na iluminação das superfícies, o que é algo comum na apresentação por glifos. Adicionalmente, podemos implementar as representações polares esféricas sugerida por \citeonline{hlawitschka2012} e/ou \citeonline{peeters2011} para fins de comparação de performance com a nossa abordagem.
+Na renderização de glifos, pode-se implementar o cômputo de vetores normais para serem usados na iluminação das superfícies, o que é algo comum na apresentação por glifos. Adicionalmente, podemos implementar as representações polares esféricas sugerida por \citeonline{hlawitschka2012} e/ou \citeonline{almsick2011} para fins de comparação de performance com a nossa abordagem.
 
 Em tractografia, o próximo passo é a implementação do afiamento de ODFs, o que melhora extração de direções plausíveis de direções a serem usadas no \textit{tracking} de fibras \cite{fillard2011, SCHILLING2019194}.
 
