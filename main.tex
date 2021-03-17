@@ -1412,7 +1412,7 @@ A inicialização do esquema consiste no pré-cômputo de uma malha esférica un
 
 Dois elementos customizam cada um dos glifos: amostras ODF e sua posição. Esses elementos são enviados para a GPU em cada solicitação de desenho.
 
-Primeiro, vamos definir o conjunto de vetores $\Upsilon$ como uma função de $\Pi$ como mostrado na equação \ref{eq::u_vector_set}. A geometria do glifo é deformada escalonando cada ponto $P_k$ na malha para o valor ODF $\psi(\mathbf{u}_k)$. A matriz de translação centraliza a malha esférica deformada para ser ponto $C(x, y, z)$.
+Primeiro, vamos definir o conjunto de vetores $\Upsilon$ como uma função de $\Pi$ como mostrado na equação \ref{eq::u_vector_set}. A geometria do glifo é deformada escalonando cada ponto $P_k$ na malha para o valor ODF $\psi(\mathbf{u}_k)$. A matriz de translação centraliza a malha esférica deformada para o ponto $C(x, y, z)$.
 
 \begin{equation}
 \label{eq::u_vector_set}
@@ -1429,11 +1429,11 @@ Primeiro, vamos definir o conjunto de vetores $\Upsilon$ como uma função de $\
 
 
 \subsubsection {Translação}
-Seja $P$ o número de instâncias do esquema de renderização e glifos a serem desenhados. Os pontos de translação são organizados como um vetor de pontos $[C_1, C_2,\dots, C_P]$, onde $C_i = (x_i, y_i, z_i)$, e enviados para a GPU como um atributo. Cada ponto deste atributo é único para cada uma das P instâncias da malha esférica.
+Seja $M$ o número de instâncias do esquema de renderização e glifos a serem desenhados. Os pontos de translação são organizados como um vetor de pontos $[C_1, C_2,\dots, C_M]$, onde $C_i = C_i(x_i, y_i, z_i)$, e enviados para a GPU como um atributo. Cada ponto deste atributo é único para cada uma das M instâncias da malha esférica.
 
 \subsubsection {ODFs}
 
-Os dados de ODF enviados para a GPU consistem nas N amostras referentes aos perfis de difusão para cada um dos P glifos a serem desenhados. Construímos uma matriz $\mathbf {\Psi}_{PxN} $, onde P é o número de glifos a serem desenhados e N é o número de amostras de ODF usadas, conforme mostrado na equação \ref {eq::Psi}:
+Os dados de ODF enviados para a GPU consistem nas N amostras referentes aos perfis de difusão para cada um dos $M$ glifos a serem desenhados. Construímos uma matriz $\mathbf {\Psi}_{MxN} $, onde $M$ é o número de glifos a serem desenhados e $N$ é o número de amostras de ODF utilizadas, conforme mostrado na equação \ref {eq::Psi}:
 
 \begin{equation}
 \label{eq::Psi}
@@ -1444,20 +1444,20 @@ Os dados de ODF enviados para a GPU consistem nas N amostras referentes aos perf
     \psi_1(\mathbf{u}_1) & \psi_1(\mathbf{u}_2) & \cdots \psi_1(\mathbf{u}_{N-1}) & \psi_1(\mathbf{u}_{N})  \\   
      \psi_2(\mathbf{u}_1)& \psi_2(\mathbf{u}_2) & \cdots \psi_2(\mathbf{u}_{N-1}) & \psi_2(\mathbf{u}_{N}) \\
     \vdots & \vdots & \vdots & \vdots  \\   
-     \psi_P(\mathbf{u}_1)&\psi_P(\mathbf{u}_2) & \cdots \psi_P(\mathbf{u}_{N-1}) & \psi_P(\mathbf{u}_{N})
+     \psi_M(\mathbf{u}_1)&\psi_M(\mathbf{u}_2) & \cdots \psi_M(\mathbf{u}_{N-1}) & \psi_M(\mathbf{u}_{N})
 \end{bmatrix}, 
 \endgroup
 \end{equation}
 
-onde $\psi_ {ij} $ se refere ao valor ODF $\psi_i (\mathbf {u} _j) $ do i-ésimo glifo associado à direção $\mathbf {u} _j $, que escala $ P_j $ vértice da malha esférica. A matriz $\mathbf {\Psi} _ {PxN} $ é enviada para a GPU como uma textura 2D.
+onde $\psi_ {ij} $ se refere ao valor ODF $\psi_i (\mathbf {u} _j) $ do i-ésimo glifo associado à direção $\mathbf {u} _j $, que escalona $ P_j $ vértice da malha esférica. A matriz $\mathbf {\Psi}_{MxN}$ é enviada para a GPU como uma textura 2D.
 
 Na GPU, o acesso das amostras de ODF para deformar seu respectivo ponto de esfera é feito acessando os dados de textura por meio de sua instância e índices de vértice no \textit{vertex shader}.
 
-O índice de instância (Instance\_ID) corresponde a uma malha esférica instanciada centrada em seu respectivo ponto $P$, e como as amostras ODFs de um glifo são armazenadas nas linhas de $\mathbf {\Psi} $, o Instance\_ID é usado para acessar esta dimensão para o acesso das amostras de ODF por glifo.
+O i-ésimo índice de instância (Instance\_ID) corresponde a uma malha esférica instanciada centrada em seu respectivo ponto $C_{i+1}$, e como as amostras de ODFs para o (i+1)-ésimo glifo são armazenadas nas linhas de $\mathbf{\Psi}$, o Instance\_ID é usado para acessar esta dimensão para o acesso das amostras de ODF por glifo.
 
-O índice do vértice (Vertex\_ID), por sua vez, indica um ponto da malha esférica, que corresponde à coluna de seu respectivo valor ODF em $\mathbf{\Psi}$.
+O j-ésimo índice do vértice (Vertex\_ID), por sua vez, se refere ao (j+1)-ésimo ponto da malha esférica, e que referencia a coluna de $\mathbf{\Psi}$.
 
-Assim, realizamos o acesso GPU por um simples \textit{lookup} na textura correspondente a $\mathbf{\Psi}$\footnote{Em OpenGL, o \textit{lookup} é feito através do comando texelFetch($\mathbf {\Psi}$, ivec2 (gl\_InstanceID, gl\_VertexID), 0)[0]} usando o par Vertex\_ID e Instance\_ID. A figura \ref{fig::organizacao2GPU} ilustra o acesso ODF para cada instância e vértice na GPU.
+Assim, realizamos o acesso na GPU por um simples \textit{lookup} na textura correspondente a $\mathbf{\Psi}$\footnote{Em OpenGL, o \textit{lookup} é feito através do comando texelFetch($\mathbf {\Psi}$, ivec2 (gl\_InstanceID, gl\_VertexID), 0)[0]} usando o par Vertex\_ID e Instance\_ID. A figura \ref{fig::organizacao2GPU} ilustra o acesso ODF para cada instância e vértice na GPU.
 
 \begin{figure}[h]
 %\subfigcapskip = -5pt
@@ -1479,9 +1479,9 @@ Uma ODF é simétrica se $\psi(\mathbf{u}) = \psi (-\mathbf{u}) $ para todo $\ma
 
 Primeiramente, sugerimos o uso de uma malha esférica simétrica. Isso significa que se um ponto $P \in \Pi \implies -P \in \Pi$. Como exemplo, uma malha gerada por qualquer ordem de um icosaedro tesselado se encaixa nesse critério.
 
-Em segundo lugar, sugerimos que a estrutura de dados da malha esférica simétrica escolhida seja organizada de forma que um ponto $P $em um índice par seja seguido por $-P$. Esta malha esférica é enviada para a GPU da mesma forma indicada na subseção \ref {ssec::precomputation}.
+Em segundo lugar, sugerimos que a estrutura de dados da malha esférica simétrica escolhida seja organizada de forma que um ponto $P$ em um índice par seja seguido por $-P$. Esta malha esférica é enviada para a GPU da mesma forma indicada na subseção \ref{ssec::initializacao_glifo}.
 
-Seguindo essas recomendações, a estrutura de dados dos pontos na esfera $[P_1, P_2, P_3, P_4, \dots, P_ {N-1}, P_N] $ torna-se $[P_1, -P_1, P_3, -P_3, \dots , P_ {N-1}, -P_ {N-1}]$ e seu $ \Upsilon$ associado muda para $[\mathbf{u}_1, - \mathbf{u}_1, \mathbf{u}_3, -\mathbf{u}_3, \dots, \mathbf{u}_{N-1}, - \mathbf{u}_{N-1}]$. Nesta situação, $\mathbf{\Psi}$ se torna:
+Seguindo estas recomendações, a estrutura de dados dos pontos na esfera $[P_1, P_2, P_3, P_4, \dots, P_ {N-1}, P_N] $ torna-se $[P_1, -P_1, P_3, -P_3, \dots , P_ {N-1}, -P_ {N-1}]$ e seu respectivo conjunto $ \Upsilon$ se torna $[\mathbf{u}_1, - \mathbf{u}_1, \mathbf{u}_3, -\mathbf{u}_3, \dots, \mathbf{u}_{N-1}, - \mathbf{u}_{N-1}]$. Com os dados estruturados desta maneira, $\mathbf{\Psi}$ se torna:
 
 \begin{equation}
 \mathbf{\Psi} = 
@@ -1494,7 +1494,7 @@ Seguindo essas recomendações, a estrutura de dados dos pontos na esfera $[P_1,
 
     \vdots & \vdots & \vdots & \vdots  \\
     
-     \psi_P(\mathbf{u}_1)&\psi_P(-\mathbf{u}_1) & \cdots \psi_P(\mathbf{u}_{N-1}) & \psi_P(-\mathbf{u}_{N-1})
+     \psi_M(\mathbf{u}_1)&\psi_M(-\mathbf{u}_1) & \cdots \psi_M(\mathbf{u}_{N-1}) & \psi_M(-\mathbf{u}_{N-1})
     
 \end{bmatrix},
 \endgroup
@@ -1502,7 +1502,7 @@ Seguindo essas recomendações, a estrutura de dados dos pontos na esfera $[P_1,
 
 onde cada (2k+1)-ésima coluna é a mesma (2k+2)-ésima ($0 \leq k < \frac{N}{2}$).
 
-Portanto, definimos uma matriz $\mathbf{\Psi^h}_{Px\frac{N}{2}}$de tal forma que $\mathbf{\psi^h}_{ij} = \mathbf{\psi}_{i(2j-1)}$, descrita na expressão abaixo:
+Portanto, definimos uma matriz $\mathbf{\Psi^h}_{Mx\frac{N}{2}}$ de tal forma que $\mathbf{\psi^h}_{ij} = \mathbf{\psi}_{i(2j-1)}$, descrita na expressão abaixo:
 
 \begin{equation}
 \label{eq::Psi_changed}
@@ -1516,7 +1516,7 @@ Portanto, definimos uma matriz $\mathbf{\Psi^h}_{Px\frac{N}{2}}$de tal forma que
 
     \vdots & \vdots & \vdots & \vdots  \\
     
-     \psi_P(\mathbf{u}_1)&\psi_P(\mathbf{u}_3) & \cdots \psi_P(\mathbf{u}_{N-3}) & \psi_P(\mathbf{u}_{N-1})
+     \psi_M(\mathbf{u}_1)&\psi_M(\mathbf{u}_3) & \cdots \psi_M(\mathbf{u}_{N-3}) & \psi_M(\mathbf{u}_{N-1})
     
 \end{bmatrix}
 \endgroup
@@ -1563,14 +1563,14 @@ Na renderização de fatias, a inferência dos \textit{pixels} aparentes na tela
 
 Na renderização tridimensional, também há uma funcionalidade para detecção de amostras aparentes. A detecção é baseada em \textit{raycasting} computado sobre o volume na GPU, no qual foi proposto e implementado no VMTK-Neuro por \citeonline{raphael_dissertacao}. Cada uma das amostras é associado a uma matriz de translação pré-computada para o seu centro no 3D.
 
-A partir de $P$ \textit{voxels} detectados em uma requisição de desenho, suas respectivas matrizes de posicionamento são copiadas e armazenadas como um vetor e enviadas à GPU. Da mesma maneira, a matriz $\Psi$ é computada a partir das amostras detectadas e enviada à GPU, conforme mostrado na Figura \ref{fig::organizacao2GPU}.
+A partir de $M$ \textit{voxels} detectados em uma requisição de desenho, suas respectivas matrizes de posicionamento são copiadas e armazenadas como um vetor e enviadas à GPU. Da mesma maneira, a matriz $\mathbf{\Psi^h}$ é computada a partir das amostras detectadas e enviada à GPU, conforme mostrado na Figura \ref{fig::organizacao2GPU}.
 
 \begin{figure}[ht]
 
 %\subfigcapskip = -5pt
     \centering
     \includegraphics[width=1.0\linewidth, angle=0]{figs/Esquema_Glifo/organizacao2GPU.png}
-    \caption{Ilustração da organização de dados de perfis de difusão antes do envio à GPU. Em vermelho, estão os perfis de difusão de P voxels detectados \textit{voxels} ($d_1$, $d_2$, ..., $d_P$) detectados, não necessariamente em sequência na memória, que são copiados para uma matriz e enviados à GPU. O valor S corresponde a quantidade voxels do volume e $N$ se refere a quantidade de amostras nos perfis de difusão}
+    \caption{Ilustração da organização de dados de perfis de difusão antes do envio à GPU para um volume $V$ com $S$ \textit{voxels}. Cada perfil de difusão com $N$ amostras é pré-computado para todas os \textit{voxels} do volume. Em vermelho, estão os perfis de difusão de $M$ \textit{voxels} de ODF requisitados a serem desenhados, cujos índices são $d_1, d_2, \dots, d_M$, não necessariamente dispostos em sequência na memória. Estas amostras definem $\mathbf{\Psi^h}$ e são enviados à GPU.}
     \label{fig::organizacao2GPU}
    \hspace{1pt}
 \end{figure}
@@ -1662,7 +1662,7 @@ Há uma diferença relevante de performance na adaptação do esquema de renderi
 %O resultados mostrados nas tabelas \ref{tab::benchmark_glifos_197} e \ref{tab::benchmark_glifos_422} mostram que centenas de glifos podem ser renderizados na faixa de centenas de microssegundos e unidades de milissegundos, o que possibilita a sua integração a esquemas de renderização mais complexos e custosos computacionalmente relacionados a volumes de difusão.
 
 %\todo[inline]{O que é fração do limite máximo para interatividade?}
-\pagebreak
+%\pagebreak
 
 %Pode-se notar que em ambas as malhas esféricas utilizadas, a fração de tempo de execução é pequena para centenas
 
