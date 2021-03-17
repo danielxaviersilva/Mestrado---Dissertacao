@@ -1394,12 +1394,10 @@ Neste trabalho, chamaremos a plotagem polar esférica aplicada a ODFs de método
 %f
 
 
-
-
 O objetivo desta seção é detalhar o esquema de renderização de glifos baseada em polígonos. Na subseção \ref{ssec::initializacao_glifo}, descrevemos a inicialização do esquema; na subseção \ref{ssec::datastruct} detalhamos a estrutura de dados que consistem no tráfego CPU-GPU a cada requisição de renderização; na subseção \ref{ssec::otimizacao}, mostramos uma adaptação da estrutura de dados para ODF simétricas de modo a diminuir o tráfego CPU-GPU; na subseção \ref{sssec::visao_shaders}, esquematizamos as funcionalidades do \textit{vertex} e \textit{fragment shaders}.
 
 
-A quantidade de amostras $N$ de ODF que customizam os glifos de forma razoável costumam estar na casa das centenas \cite{TuchQBall2004, yeh2010}, o que gera uma grande quantidade de dados enviados à GPU nas requisições de desenho e os procedimentos sugeridos consistem em minimizar ao máximo o tráfego de dados.
+A quantidade de amostras $N$ de ODF que customizam os glifos de forma razoável costumam estar na casa das centenas \cite{TuchQBall2004, yeh2010}, o que gera uma grande quantidade de dados enviados à GPU nas requisições de desenho. Assim, os procedimentos sugeridos nas subseções \ref{ssec::datastruct} e \ref{ssec::otimizacao} são fundamentais ao esquema pois consistem em expor estratégias para minimizar ao máximo o tráfego de dados CPU-GPU.
 
 
 %\todo[inline]{Incluir os pseudocódigos de shaders não ajudaria o entendimento da ideia?}
