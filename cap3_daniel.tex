@@ -32,7 +32,7 @@ Apesar da relevância reconhecida da renderização interativa de dados de ODF, 
 
 \todo[inline]{Sendo uma dissertação, você deve discutir melhor as técnicas apresentadas em relação à solução dada à lista dos potenciais problemas.}
 
-\citeonline{shattuck2008} tessela uma representação polar de ODF com triângulos, onde a superfície do glifo é gerada através da discretização do seu domínio polar, e sua forma é gerada na CPU através de uma função analítica neste domínio. Os glifos são renderizados por fatia. Com a mudança de malha e parâmetros de visualização, os vertices do glifo são re-computados e reenviados à GPU. A performance relatada é de dez \textit{frames}/s para uma fatia de um volume, no qual cada glifo tem 225 vértices, em uma cena com aproximadamente 2 milhões de triângulos. 
+\citeonline{shattuck2008} tessela uma representação polar de ODF com triângulos, onde a superfície do glifo é gerada através da discretização do seu domínio polar, e sua forma é gerada na CPU através de uma função analítica neste domínio. Os glifos são renderizados por fatia. Com a mudança de malha e parâmetros de visualização, os vértices do glifo são re-computados e reenviados à GPU. A performance relatada é de dez \textit{frames}/s para uma fatia de um volume, no qual cada glifo tem 225 vértices, em uma cena com aproximadamente 2 milhões de triângulos. 
 
 Em seu trabalho, \citeonline{shattuck2008} não utilizam programação na GPU. Os vértices dos glifos são gerados na CPU pelo escalonamento de pontos de uma malha esférica pelo valor de ODF aplicados em suas respectivas normais. A estrutura de dados enviada à GPU é referente aos vértices estruturados para definição de um polígono, gerando um tráfego de dados redundante e excessivo.
 
