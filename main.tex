@@ -31,6 +31,8 @@
 \usepackage{microtype}             % para melhorias de justificação
 \usepackage{amsmath}
 
+%para R chique e curvo
+\usepackage{mathrsfs}
 
 \usepackage[position=bottom]{subfig}
 %\usepackage[hang]{subfigure}
@@ -1083,7 +1085,7 @@ A partir dessas amostras, métodos de imageamento, como o \textit{Diffusion Spec
 onde $W_{\Delta}(\mathbf{r},\mathbf{0})$ certifica que $\bar{p}_{\Delta}(\mathbf{r}, \mathbf{u})$ é uma função de densidade de probabilidade.
 
 % \begin{equation}
-% \int_{\mathbf{q} \in Q} W(\mathbf{q}, t) \exp (i2 \pi \mathbf{q} \cdot \mathbf{R}) d \mathbf{q}
+% \int_{\mathbf{q} \in Q} W(\mathbf{q}, t) \exp (i2 \pi \mathbf{q} \cdot \mathbf{u}) d \mathbf{q}
 % \end{equation}
 
 
@@ -1215,7 +1217,7 @@ Para isso, o método explora a relação de Fourier em três dimensões entre o 
 \label{eq::spin_densidade_presentacao}
     Q(\mathbf{r}, \mathbf{u}) = W_{\Delta}(\mathbf{r}, \mathbf{0}) \bar{p}_{\Delta}(\mathbf{r}, \mathbf{u})
 \end{equation}
-onde $W_{\Delta}(\mathbf{r}, \mathbf{0})$ é o valor da densidade de \textit{spins}. Multiplicando a Eq. \ref{eq::propagator} por  $W_{\Delta}(\mathbf{r}, \mathbf{0})$ e substituindo a expressão à esquerda por $Q(\mathbf{r}, \mathbf{R})$, temos:
+onde $W_{\Delta}(\mathbf{r}, \mathbf{0})$ é o valor da densidade de \textit{spins}. Multiplicando a Eq. \ref{eq::propagator} por  $W_{\Delta}(\mathbf{r}, \mathbf{0})$ e substituindo a expressão à esquerda por $Q(\mathbf{r}, \mathbf{u})$, temos:
 
 
 \begin{equation}
@@ -1224,7 +1226,7 @@ onde $W_{\Delta}(\mathbf{r}, \mathbf{0})$ é o valor da densidade de \textit{spi
     \int \! W(\mathbf{r}, \mathbf{q})e^{-i2\pi \mathbf{q}\cdot \mathbf{u} } \,\mathrm{d}\mathbf{q} .
 \end{equation}
 
-Como $Q(\mathbf{r}, \mathbf{R})$ é real e $W(\mathbf{r}, \mathbf{q})$ é simétrica, podemos considerar a parte real da transformada, reduzindo a expressão em:
+Como $Q(\mathbf{r}, \mathbf{u})$ é real e $W(\mathbf{r}, \mathbf{q})$ é simétrica, podemos considerar a parte real da transformada, reduzindo a expressão em:
 
 \begin{equation}
 \label{eq::spin_diffsignal_2}
@@ -2101,11 +2103,11 @@ O parâmetro de translação deixa de ser um atributo por vértice e se torna um
     .
 \end{equation}
 
-Definimos a matriz $\mathbf{R}_{N \times M}$, computada na CPU, e que consiste em todas as amostras de ODF que sintetizam os glifos a serem renderizados nas células:%, ilustrada em Eq. \ref{eq::odf_prototipo2}.
+Definimos a matriz $\boldsymbol{\mathscr{R}}_{N \times M}$, computada na CPU, e que consiste em todas as amostras de ODF que sintetizam os glifos a serem renderizados nas células:%, ilustrada em Eq. \ref{eq::odf_prototipo2}.
 
 \begin{equation}
 \label{eq::odf_prototipo2}
-\mathbf{R} = 
+\boldsymbol{\mathscr{R}} = 
 \begingroup % keep the change local
 \setlength\arraycolsep{2pt}
 \begin{bmatrix} 
@@ -2124,9 +2126,9 @@ Definimos a matriz $\mathbf{R}_{N \times M}$, computada na CPU, e que consiste e
 \endgroup
 \end{equation}
 
-Enviamos $\mathbf{R}$ como uma textura 2D, de formato $RED$ e com dimensões $N\times M$. Observe que o acesso na GPU dos elementos pode ser feito a partir dos pares índice de instância e índice de vértice. Na $j$-ésima instância, onde o glifo da $j$-ésima célula é processado, o \textit{lookup} na GPU é feito através da função \textit{texelFetch} das coordenadas não normalizadas $(j, Vertex\_ID)$. O acesso da ODF min-max normalizada no processamento do vértice em sua respectiva instância é feito pela leitura do valor da componente $R$ do $RGBA$ do \textit{texel}.
+Enviamos $\boldsymbol{\mathscr{R}}$ como uma textura 2D, de formato $RED$ e com dimensões $N\times M$. Observe que o acesso na GPU dos elementos pode ser feito a partir dos pares índice de instância e índice de vértice. Na $j$-ésima instância, onde o glifo da $j$-ésima célula é processado, o \textit{lookup} na GPU é feito através da função \textit{texelFetch} das coordenadas não normalizadas $(j, Vertex\_ID)$. O acesso da ODF min-max normalizada no processamento do vértice em sua respectiva instância é feito pela leitura do valor da componente $R$ do $RGBA$ do \textit{texel}.
 
-Após o envio de $\mathbf{R}$ e $T$ à GPU, em adição à Seção \ref{sec::primeiro_prototipo}, o \textit{lookup} de ODFs e o escalonamento dos vértices da malha esférica base efetuada para geração do glifo é feita no \textit{vertex shader} e somente um comando de desenho é efetuado.
+Após o envio de $\boldsymbol{\mathscr{R}}$ e $T$ à GPU, em adição à Seção \ref{sec::primeiro_prototipo}, o \textit{lookup} de ODFs e o escalonamento dos vértices da malha esférica base efetuada para geração do glifo é feita no \textit{vertex shader} e somente um comando de desenho é efetuado.
 
 Fig. \ref{fig::FPS_prototipo_2} traz os resultados gráficos em FPS de forma comparativa da renderização por instâncias com o primeiro protótipo.
 
@@ -2176,11 +2178,11 @@ $\boldsymbol{\psi}(j)_{\frac{N}{2}\times 1} =[
 \psi(j, \mathbf{n}_{N-1})
 ]^T$.
 
-Neste contexto, na formação do glifo ODF na $j$-ésima célula, na i-ésima posição $\psi(j, \mathbf{n}_{2i-1})$ escalona os pontos $P_{2i-1}$ e $P_{2i}$ da esfera na $j$-ésima instância. Logo, reestruturamos $\mathbf{R}$ para que se torne $\mathbf{R}_{\frac{N}{2}\times M}$, tal que:
+Neste contexto, na formação do glifo ODF na $j$-ésima célula, na i-ésima posição $\psi(j, \mathbf{n}_{2i-1})$ escalona os pontos $P_{2i-1}$ e $P_{2i}$ da esfera na $j$-ésima instância. Logo, reestruturamos $\boldsymbol{\mathscr{R}}$ para que se torne $\boldsymbol{\mathscr{R}}_{\frac{N}{2}\times M}$, tal que:
 
 \begin{equation}
 \label{eq::odf_prototipo3}
-\mathbf{R} = 
+\boldsymbol{\mathscr{R}} = 
 \begingroup % keep the change local
 \setlength\arraycolsep{2pt}
 \begin{bmatrix} 
@@ -2199,7 +2201,7 @@ Neste contexto, na formação do glifo ODF na $j$-ésima célula, na i-ésima po
 \endgroup
 \end{equation}
 
-Assim como na Seção \ref{sec::renderizacao_por_instancias}, enviamos $\mathbf{R}$ à GPU como uma textura 2D, de formato $RED$, com dimensões $\frac{N}{2}\times M$. Observe que o acesso na GPU dos elementos é modificado em função do \textit{Vertex\_ID}. Na $j$-ésima instância, onde o glifo da $j$-ésima célula é processado, o \textit{lookup} na GPU é feito através da função \textit{texelFetch} das coordenadas não normalizadas $\lfloor (j, Vertex\_ID/2)\rfloor$. O acesso da ODF min-max normalizada no processamento do vértice em sua respectiva instância é feito pela leitura do valor da componente $R$ do \textit{texel}\footnote{A função em OpenGL para \textit{lookup} em função dos índices de instância e vértice é dada por texelFetch($\mathbf{R}$,ivec2((gl\_VertexID)/2, gl\_InstanceID), 0).r.}, conforme ilustrado na Fig. \ref{fig::texelfetch_prototipo3}.
+Assim como na Seção \ref{sec::renderizacao_por_instancias}, enviamos $\boldsymbol{\mathscr{R}}$ à GPU como uma textura 2D, de formato $RED$, com dimensões $\frac{N}{2}\times M$. Observe que o acesso na GPU dos elementos é modificado em função do \textit{Vertex\_ID}. Na $j$-ésima instância, onde o glifo da $j$-ésima célula é processado, o \textit{lookup} na GPU é feito através da função \textit{texelFetch} das coordenadas não normalizadas $\lfloor (j, Vertex\_ID/2)\rfloor$. O acesso da ODF min-max normalizada no processamento do vértice em sua respectiva instância é feito pela leitura do valor da componente $R$ do \textit{texel}\footnote{A função em OpenGL para \textit{lookup} em função dos índices de instância e vértice é dada por texelFetch($\boldsymbol{\mathscr{R}}$,ivec2((gl\_VertexID)/2, gl\_InstanceID), 0).r.}, conforme ilustrado na Fig. \ref{fig::texelfetch_prototipo3}.
 
 \begin{figure}[htb]
 %\subfigcapskip = -5pt
@@ -2248,11 +2250,11 @@ Note que as componentes B, G e A do \textit{texel} são alocadas, setadas para v
 \subsection{Estrutura de dados para textura RGBA}
 \label{sec::estrutura_de_dados_para_textura_RGBA}
 
-Para evitar o desperdício de memória e mal uso do cache da GPU, enviamos $\mathbf{R}$ como uma textura de formato RGBA, de tamanho $\lceil \frac{N/2}{4}\rceil \times M$ em que agrupamos os valores escalares da $j$-ésima coluna em sequência de quatro em quatro. Se $N/2$ não é divisível por quatro, é necessária a inserção de linhas com valores \textit{dummy} em $\mathbf{R}$ afim de completar a divisibilidade por quatro, para que cada coluna da matriz possa ser acessada via índice de instância.
+Para evitar o desperdício de memória e mal uso do cache da GPU, enviamos $\boldsymbol{\mathscr{R}}$ como uma textura de formato RGBA, de tamanho $\lceil \frac{N/2}{4}\rceil \times M$ em que agrupamos os valores escalares da $j$-ésima coluna em sequência de quatro em quatro. Se $N/2$ não é divisível por quatro, é necessária a inserção de linhas com valores \textit{dummy} em $\boldsymbol{\mathscr{R}}$ afim de completar a divisibilidade por quatro, para que cada coluna da matriz possa ser acessada via índice de instância.
 
 Assim, em cada \textit{texel} há quatro amostras de ODF que escalonam 8 pontos da malha esférica. No Capítulo \ref{chap::renderizacao_interativa_de_perfis_de_difusao}, a Fig. \ref{fig::texelfetch} ilustra a forma que o \textit{lookup} é feito, onde neste contexto $j = d_j$. O argumento da função \textit{texelFetch} para a $j$-ésima instância se torna as coordenadas não-normalizadas $(j, \lfloor \frac{Vertex\_ID}{8} \rfloor)$ e o acesso do ponto processado ao seu respectivo valor de ODF min-max normalizado, considerando que as componentes R, G, B e A são mapeados nos índices 0, 1, 2 e 3 nos \textit{texels} é mapeado por $\lfloor Vertex\_ID \mod{8}/2 \rfloor$.
 
-Fig. \ref{fig::FPS_prototipo_4} traz de forma comparativa o FPS gerado por esta nova organização de $\mathbf{R}$ no envio como textura em comparação à Seção \ref{sec::otimizacao_da_simetria}.
+Fig. \ref{fig::FPS_prototipo_4} traz de forma comparativa o FPS gerado por esta nova organização de $\boldsymbol{\mathscr{R}}$ no envio como textura em comparação à Seção \ref{sec::otimizacao_da_simetria}.
 
 \begin{figure}[ht]
 \centering
@@ -2277,7 +2279,7 @@ Fig. \ref{fig::FPS_prototipo_4} traz de forma comparativa o FPS gerado por esta 
 \end{figure}
 
 
-Observe que este procedimento faz o tráfego de dados CPU-GPU ser sutilmente aumentado para $N/2 + 3 + (4 -N/2 \mod{4})$ \textit{floats} por glifo, mas a quantidade de memória alocada para $\mathbf{R}$ na GPU cai para aproximadamente um quarto em comparação à abordagem anterior.
+Observe que este procedimento faz o tráfego de dados CPU-GPU ser sutilmente aumentado para $N/2 + 3 + (4 -N/2 \mod{4})$ \textit{floats} por glifo, mas a quantidade de memória alocada para $\boldsymbol{\mathscr{R}}$ na GPU cai para aproximadamente um quarto em comparação à abordagem anterior.
 
 Observe que há um aumento em FPS quando milhares de glifos são renderizados a partir das malhas da $8^a$ e $16^a$ ordem de subdivisão. Na subdivisão de ordem 8, o ganho em FPS é acima de 10\% para mais de 5600 glifos. Na subdivisão de ordem 16, o ganho de FPS é cerca de 10\% para 1600 glifos renderizados e se estabiliza na faixa de 15\% para mais de 5600 glifos renderizados. Por outro lado, a diferença é desprezível quando a quantidade de glifos renderizados é menor que 1000 para estas malhas e totalmente desprezível quando utilizamos as tesselações de ordem dois e quatro.
 
