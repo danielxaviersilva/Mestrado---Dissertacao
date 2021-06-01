@@ -126,7 +126,7 @@ de instância? Onde está a malha esférica? \textcolor{green}{OK!}}
 \begin{figure}[ht]
     \centering
     %\rule{6cm}{3cm}
-    \includegraphics[width=.7\linewidth, angle=0]{figs/Esquema_Glifo/fluxograma_glifos_VMTK_5.png}
+    \includegraphics[width=.7\linewidth, angle=0]{figs/Esquema_Glifo/fluxograma_glifos_VMTK_7.png}
     \caption{
     Renderização multimodal para glifos ODF. A cor azul representa a saída a ser desenhada, armazenada no \textit{framebuffer} (FB); a cor magenta se refere a dados pré-computados. Os volumes co-registrados são renderizados via \textit{ray-casting} e processamento de \textit{voxels} visíveis estão descritos por \citeonline{voltoline2021}. O estágio de preparação dos dados de ODF e renderização de glifos ODF estão descritos na Seção \ref{sec::renderizacao_de_glifos_ODF}. Os vértices da malha esférica base são armazenados na GPU são replicados por instância. O superconjunto de índices referenciam os vértices afim de formar a malha esférica com diferentes resoluções. As setas preta indicam entrada e saída de dados computados nos módulos apresentados.
     }
@@ -297,7 +297,7 @@ $-P_3$,...,
 $ P_{N-1}$,
 $-P_{N-1}]$ para GPU como um atributo a ser replicado a cada instância, em adição ao superconjunto de índices $\{I_1$, $I_2$, ..., $I_k\}$ antes da inicialização da renderização.
 
-Com os dados das dODF min-max computados e armazenados na CPU e $\Pi$, e o super conjunto de índices $\{I_1$, $I_2$, ..., $I_k\}$ armazenados na GPU, na Seção \ref{malha_esferica} mostramos o procedimento da escolha malha esférica instanciada e na Seção \ref{ssec::atributos}, mostramos o tráfego de dados CPU-GPU que customizam os glifos em uma requisição de desenho a partir do conjunto de \textit{voxels} visíveis $D = [
+Com os dados das dODF min-max computados e armazenados na CPU; e o conjunto de vértices $\Pi$, e o super conjunto de índices $\{I_1$, $I_2$, ..., $I_k\}$ armazenados na GPU, na Seção \ref{malha_esferica} mostramos o procedimento da escolha malha esférica instanciada e na Seção \ref{ssec::atributos}, mostramos o tráfego de dados CPU-GPU que customizam os glifos em uma requisição de desenho a partir do conjunto de \textit{voxels} visíveis $D = [
 \mathbf{d}_1,
 \mathbf{d}_2, ..., 
 \mathbf{d}_M
@@ -446,7 +446,7 @@ R(\mathbf{d}_{j}, \mathbf{\mathbf{n}}_{8K+7})$ (A) com os quais deslocamos quatr
 \begin{figure}[ht]
 %\subfigcapskip = -5pt
     \centering
-    \includegraphics[width=.45\linewidth, angle=0]{figs/Esquema_Glifo/texellookup.png}
+    \includegraphics[width=.45\linewidth, angle=0]{figs/Esquema_Glifo/texellookup_2.png}
     \caption{Ilustração do acesso nas componentes RGBA em \textit{texel} na textura \textbf{R} no índice $K$ e $j$. O \textit{texel} é acessado pelas \textit{threads} que processam os vértices de índices 8K, 8K+1, ..., 8K+7 em uma instância $j$. Os blocos de contorno vermelho, azul, verde e cinza ilustram as componentes R,G,B e A do \textit{texel}, respectivamente.}
     \label{fig::texelfetch}
    %\hspace{1pt}

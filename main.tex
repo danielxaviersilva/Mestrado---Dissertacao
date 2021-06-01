@@ -1632,7 +1632,7 @@ A superfície do glifo da ODF no \textit{voxel} de coordenadas $\mathbf{r}$ $\ps
 \label{eq::dODF2min_max}
     \boldsymbol{R}(\mathbf{r}) = [ \frac{\boldsymbol{\psi}_d(\mathbf{r}) - \text{min}(\boldsymbol{\psi}_d(\mathbf{r}))}{\text{max}(\boldsymbol{\psi}_d(\mathbf{r})) - \text{min}(\boldsymbol{\psi}_d(\mathbf{r}))}],
 \end{equation}
-onde $\text{min}(\boldsymbol{\psi}_d(\mathbf{r}))$ e $\text{max}(\boldsymbol{\psi}_d(\mathbf{r}))$ são, respectivamente, o mínimo e o máximo dos $S$ valores associados de dODF à amostra $\mathbf{r}$. O efeito da normalização está ilustrado na Fig. \ref{fig::normalizacao_min_max}. 
+onde $\text{min}(\boldsymbol{\psi}_d(\mathbf{r}))$ e $\text{max}(\boldsymbol{\psi}_d(\mathbf{r}))$ são, respectivamente, o mínimo e o máximo dos $S$ valores associados de dODF nas coordenadas $\mathbf{r}$. O efeito da normalização está ilustrado na Fig. \ref{fig::normalizacao_min_max}. 
 
 Há um problema intrínseco à normalização min-max, no qual regiões onde o meio de ocorrência da difusão é isotrópico, que consiste na produção de picos devido ao ruído, que pode potencialmente mostrar resultados visuais de difusão isotrópica aparentar ser anisotrópica \cite{TuchQBall2004}.
 %Observe que a normalização cancela o fator de escala $A_qL_{\Delta}$ da Eq. \ref{eq::s_ij}.
@@ -2206,7 +2206,7 @@ Assim como na Seção \ref{sec::renderizacao_por_instancias}, enviamos $\boldsym
 \begin{figure}[htb]
 %\subfigcapskip = -5pt
     \centering
-    \includegraphics[width=.35\linewidth, angle=0]{figs/Renderizacao_glifos_evolucao/texellookup_RED_2.png}
+    \includegraphics[width=.35\linewidth, angle=0]{figs/Renderizacao_glifos_evolucao/texellookup_RED_4.png}
     \caption{Ilustração do acesso nas componentes RGBA em \textit{texel} na textura \textbf{R} no índice $K$ e $j$. O \textit{texel} é acessado pelas \textit{threads} que processam os vértices de índices 2K e 2K+1 em uma instância $j$. Os blocos de contorno vermelho, azul, verde e cinza ilustram as componentes R,G,B e A do \textit{texel}, respectivamente. Observe que as componentes G, B e A são inicializadas com valores \textit{default}.}
     \label{fig::texelfetch_prototipo3}
    %\hspace{1pt}
