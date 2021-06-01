@@ -13,12 +13,11 @@ Além de proporcionar melhor entendimento dos dados adquiridos pelas técnicas d
 
 Neste capítulo, apresentamos o algoritmo de renderização interativa de ODFs através de glifos, integrados ao ambiente de visualização multimodal para visualização DWI e MRI anatômico ponderado por T1 co-registrados. Devido à grande quantidade de dados que definem as ODFs, mostramos estratégias para lidar com o potencial alto tráfego de dados CPU-GPU e minimizamos o uso da memória da GPU para renderização dos glifos.
 
-Para isto, propomos uma novo algoritmo de renderização de glifos ODF baseado em triângulos, no qual utilizamos a instanciação de GPU e tiramos vantagem da simetria desta classe de funções para lidar com o gargalo no tráfego de dados CPU-GPU e a limitação da memória de vídeo. Adicionalmente, elaboramos um algoritmo de tesselação recursiva de icosaedro para geração de malhas esféricas de ordem $2^k$  que nos permite  obter um espaço de amostras de orientações quasi-igualmente espaçadas na esfera e relacionar a sua área de projeção na tela e resolução, proporcionando um aumento no desempenho temporal sem afetar a qualidade de informação codificada na malha.
+Para isto, propomos uma novo algoritmo de renderização de glifos ODF baseado em triângulos, no qual utilizamos a instanciação de GPU e tiramos vantagem da simetria desta classe de funções para lidar com o gargalo no tráfego de dados CPU-GPU e a limitação da memória de vídeo. Adicionalmente, elaboramos um algoritmo de tesselação recursiva de icosaedro para geração de malhas esféricas de ordem $2^k$  que nos permite  obter um espaço de amostras de orientações \textit{quasi}-igualmente espaçadas na esfera e relacionar a sua área de projeção na tela e resolução, proporcionando um aumento no desempenho temporal sem afetar a qualidade de informação codificada na malha.
 
-\todo[inline]{A revisar}
-\textcolor{magenta}{
+\todo[inline]{A revisar \textcolor{green}{OK!}}
+
 O capítulo está organizado em seis seções. Na seção \ref{sec::trabalhos_relacionados}, apresentamos os trabalhos relacionados; na seção \ref{sec::superquadricas}, apresentamos brevemente a \textit{pipeline} de renderização multimodal para visualização de DWIs co-registrados com MRI anatômico ponderado em T1 e glifos ODF e um fluxograma representativo; na Seção \ref{sec::renderizacao_de_glifos_ODF}, apresentamos a o mapeamento dos glifos em uma forma geométrica; na Seção \ref{sec::inicialização_do_algoritmo}, apresentamos os procedimentos de inicialização do algoritmo; na Seção \ref{sec::trafego_cpu_gpu}, apresentamos o papel da CPU no algoritmo de renderização e o leiaute de memória dos dados que são enviados à GPU a cada requisição de desenho; e na Seção \ref{sec::processamento_GPU}, mostramos as tarefas executadas pelos \textit{vertex} e \textit{fragment shaders} na GPU para renderização dos glifos.
-}
 
 %\sout{; na seção \ref{sec::experimentos}, mostramos os experimentos e resultados. Na Subseção \ref{ssec::aspectos_visuais}, mostramos aspectos visuais, em que ilustramos a atuação do modelo que relaciona a ocupância e resolução e mostramos que esses glifos são mais informativos que os superquádricos por permitir o inferimento do cruzamento de fibras e \ref{ssec::performance} atestamos a sua interatividade.}\todo{Cap. 4?}
 
@@ -29,7 +28,7 @@ Apesar da relevância reconhecida da renderização interativa de dados de ODF e
 
 \todo[inline]{Sendo uma dissertação, você deve discutir melhor as técnicas apresentadas em relação à solução dada à lista dos potenciais problemas: volume dos dados, tráfego CPU--GPU, tamanho limitado da memória de vídeo, desempenho na renderização. \textcolor{green}{OK!}}
 
-\citeonline{shattuck2008} tessela uma representação polar de ODF com triângulos, onde a superfície do glifo é gerada através da discretização do seu domínio polar, e sua forma é gerada na CPU através de uma função analítica neste domínio. Os glifos são renderizados por fatia. Com a mudança de malha e parâmetros de visualização, os vertices do glifo são re-computados e reenviados à GPU. A performance relatada é de dez \textit{frames}/s para uma fatia de um volume, no qual cada glifo tem 225 vértices, em uma cena com aproximadamente 2 milhões de triângulos.
+\citeonline{shattuck2008} tessela uma representação polar de ODF com triângulos, onde a superfície do glifo é gerada através da discretização do seu domínio polar, e sua forma é gerada na CPU através de uma função analítica neste domínio. Os glifos são renderizados por fatia. Com a mudança de malha e parâmetros de visualização, os vértices do glifo são re-computados e reenviados à GPU. A performance relatada é de dez \textit{frames}/s para uma fatia de um volume, no qual cada glifo tem 225 vértices, em uma cena com aproximadamente 2 milhões de triângulos.
 
 Em seu trabalho, \citeonline{shattuck2008} não utilizam programação na GPU. Os vértices dos glifos são gerados na CPU pelo escalonamento de pontos de uma malha esférica pelo valor de ODF aplicados em suas respectivas normais. Os dados que são enviados à GPU consistem nos vértices da superfície em um leiaute que definem polígonos, gerando um tráfego de dados redundante e excessivo.
 
@@ -71,14 +70,17 @@ O processo iterativo é terminado quando acabam as amostras do volume para contr
 \centering
 \captionsetup[subfloat]{farskip=0pt,nearskip=0pt}
 \centering
-    \subfloat[Ilustração - processo de \textit{ray-casting}. O plano de visualização da imagem é ortogonal à Fig. \ref{fig::raycasting_3d}. Por simplicidade na imagem, mostramos apenas seis \textit{pixels}. A quantidade real de \textit{pixels} processada para este plano é dado pelo comprimento da imagem em Fig. \ref{fig::raycasting_3d}.] {\includegraphics[width=.57\linewidth, angle=0]{figs/Esquema_Glifo/raycasting/raycasting_2d.png}
+   \subfloat[Em vermelho, os raios lançados por pixel. Os pontos indicam o ponto de amostragem do raio no volume, onde o valor do \textit{voxel} $C_{src}$ e $\alpha_{src}$ são extraídos para cômputo de $C_{dst}$ e $\alpha_{dst}$. Os pontos amarelos indicam espaço vazio e os brancos indicam pontos do volume. Por simplicidade, ilustramos para apenas seis \textit{pixels}, enquanto a quantidade real para o plano é dado pelo comprimento da imagem em \ref{fig::raycasting_3d}.
+    ]{\makebox[1.7\width]{\includegraphics[width=.55\linewidth, angle=0]{figs/Esquema_Glifo/raycasting/raycasting_2d_2.png}
     \label{fig::raycasting_2d}
     }
+    }
+    \\
     \hspace{1em}
-    \subfloat[Volume 3D renderizado via \textit{ray-casting}] {\includegraphics[width=.35\linewidth, angle=0]{figs/Esquema_Glifo/raycasting/raycasting_3d.png}
+    \subfloat[Volume 3D renderizado via \textit{ray-casting}] {\includegraphics[width=.37\linewidth, angle=0]{figs/Esquema_Glifo/raycasting/raycasting_3d.png}
     \label{fig::raycasting_3d}
     }
-     \caption{Ilustração do processo de \textit{ray-casting} de um volume MRI. Em vermelho, os raios lançados por pixel. Os pontos brancos indicam o ponto de amostragem do raio para com pontos do volume, onde o valor do \textit{voxel} $C_{src}$ e $\alpha_{src}$ são extraídos do volume para cômputo de $C_{dst}$ e $\alpha_{dst}$. Fig. \ref{fig::raycasting_2d} ilustra o \textit{ray-casting} para os \textit{pixels} na metade da visualização 3D em um plano ortogonal à \ref{fig::raycasting_3d}.}
+     \caption{Ilustração do processo de \textit{ray-casting} de um volume MRI. Fig. \ref{fig::raycasting_2d} ilustra o \textit{ray-casting} para os \textit{pixels} situados em um plano ortogonal à Fig. \ref{fig::raycasting_3d} na coluna central da visualização 3D.}
     \label{fig::ilustracao_raycasting}
 \end{figure}
 
@@ -149,7 +151,7 @@ A fim de renderizar os dados numéricos de dODFs min-max normalizadas em GPUs, �
 P_1$,
 $P_2$, ...,
 $P_N
-\}$, são escalonados pela dODF min-max normalizada $\psi(\mathbf{r}, \mathbf{n}_i)$, onde $\mathbf{n}_i$ é unitário e tem direção e sentido de $P_i \in \Pi$. Após a definição da superfície do glifo, o escalonamos para estar contido no domínio de cada \textit{voxel}, e os deslocamos para o centro do seu respectivo \textit{voxel} de coordenadas $\mathbf{r}$ na cena, como mostrado na Fig \ref{fig::esfera_deformada_cena}.
+\}$, são escalonados pela dODF min-max normalizada $\psi(\mathbf{r}, \mathbf{n}_i)$, onde $\mathbf{n}_i$ é unitário e tem direção e sentido de $P_i \in \Pi$. Após a definição da superfície do glifo, o escalonamos para estar contido no domínio de cada \textit{voxel}, e os deslocamos para o centro do seu respectivo \textit{voxel} de coordenadas $\mathbf{r}$ na cena, como mostrado na Fig. \ref{fig::esfera_deformada_cena}.
 
 \begin{figure}[htb]
     \centering
@@ -178,7 +180,7 @@ Na CPU, geramos as malhas esféricas base e computamos o conjunto de dODF min-ma
 
 %\subsubsection{Simetria}
 
-Sendo a função dODF simétrica em relação aos eixos coordenados \cite{descoteaux2015}, i. e. $\psi_d(\mathbf{u}) = \psi_d(-\mathbf{u})$, e tomando vantagem da propriedade da malha esférica obtida com o procedimento de subdivisões sucessivas de um icosaedro apresentado na seção \ref{ssec::dominio_esferico} de que os pares de vértices antipodais estão presentes na malha, podemos representar uma dODF usando somente os dados de uma malha semi-esférica.
+Tomando vantagem da simetria das funções do sinal de difusão em relação aos eixos coordenados \cite{descoteaux2015}, i. e. $\psi_d(\mathbf{u}) = \psi_d(-\mathbf{u})$, e da propriedade da malha esférica obtida com o procedimento de subdivisões sucessivas de um icosaedro apresentado na seção \ref{ssec::dominio_esferico} na qual cada vértice presente na malha é acompanhando de sua antípoda, podemos amostrar dODFs usando somente os dados de uma malha semi-esférica.
 
 Propomos categorizar em pontos com subíndice ímpar $\Pi_{impar} = \{P_1$,
 $P_3$, ...,
@@ -201,7 +203,7 @@ Pelos testes realizados, recomendamos que a ordem de tesselação para amostrage
 
 %\sout{A primeira condição, conforme já discutido no capítulo \ref{chapter::metodos_hardi} na forma de armazenamento de dados da ODF tira vantagem da simetria e armazena os pontos em metade de uma esfera. Propomos que os pontos simétricos em relação aos eixos coordenados de $\Pi$ estejam dispostos de forma consecutiva na memória, i. e. $P_{2i+2} = -P_{2i+1}$, $(0 \leq i \leq \frac{N-2}{2})$, o que nos leva a uma estrutura de dados $\Pi = [P_1, -P_1, P_3, -P_3, \dots, P_{N-3}, -P_{N-3}, P_{N-1}, -P_{N-1}]$.}
 
-Em vista do custo da memória, é desejável que a ordem de tesselação seja adaptativa na renderização de glifos, de ordem 0 até 16$^a$ ordem. Propomos que os vértices sejam estruturados numa estrutura linear. Como os vértices da ordem $2^{k+1}$ contêm os vértices da ordem $2^{k}$, propomos anexar, em bloco, os vértices adicionais da ordem $2^{k+1}$ em relação à ordem $2^k$ ao bloco dos vértices da ordem $2^k$, mantendo a relação de vértices de índices pares e ímpares, ou seja $P_{2i+2} = -P_{2i+1}$. Com isso, garante-se que todos os vértices de uma ordem específica sejam contíguos e que os vértices incrementais de sub-malhas de ordens inferiores estejam organizados em blocos facilmente distinguíveis.
+Em vista do custo da memória, é desejável que a ordem de tesselação seja adaptativa na renderização de glifos, de ordem 0 até 16$^a$ ordem. Propomos que os vértices sejam estruturados numa estrutura linear em $\Pi$. Como os vértices da ordem $2^{k+1}$ contêm os vértices da ordem $2^{k}$, propomos anexar, em bloco, os vértices adicionais da ordem $2^{k+1}$ em relação à ordem $2^k$ ao bloco dos vértices da ordem $2^k$, mantendo a relação de vértices de índices pares e ímpares, ou seja $P_{2i+2} = -P_{2i+1}$. Com isso, garante-se que todos os vértices de uma ordem específica sejam contíguos e que os vértices incrementais de sub-malhas de ordens inferiores estejam organizados em blocos facilmente distinguíveis.
 
 %\sout{A segunda condição objetiva fazer a geometria base do glifo ser adaptativa como uma sub-malha da malha esférica base. Seja $k$ o número de sub-malhas de $(\Pi, I)$, onde cada sub-malha é denotada por $(\Pi_i, I_i)$,  $(0 \leq i < k)$, adicionalmente, o número de pontos das sub-malhas é crescente de acordo com os sub-índices, i.e. se $(0 \leq i < j < k)$, implica $|\Pi_j| > |\Pi_i|$. Sugerimos que cada sub-malha $(\Pi_i, I_i)$ seja simétrica em relação a origem e os primeiros $|\Pi_i|$ elementos na estrutura de dados de $\Pi$ corresponda aos elementos de $\Pi_i$. Note que esta condição também implica que, para $i$, $j$ tais $0 \leq i < j < k$, $\Pi_i$ é subconjunto de $\Pi_j$.}
 
@@ -382,7 +384,7 @@ Para renderizarmos $M$ glifos com um comando de desenho, instanciamos a malha es
 \subsubsection{Translação}
 \label{ssec::translacao}
 
-O vetor de translação leva o glifo centrado na origem para o centro do seu respectivo \textit{voxel} $\mathbf{r}(v_x, v_y, v_z)$ renderizado na cena. O ponto na cena $V(dx, dy, dz)$ que correspondem ao centro da cena é:
+O vetor de translação leva o glifo centrado na origem para o centro do seu respectivo \textit{voxel} $\mathbf{r}(v_x, v_y, v_z)$ renderizado na cena. O ponto na cena $V(dx, dy, dz)$ que correspondem ao centro do \textit{voxel} é:
 
 \begin{align}
  \label{eq::translation}
@@ -392,7 +394,7 @@ O vetor de translação leva o glifo centrado na origem para o centro do seu res
 \end{align}
 onde $spacing_x$, $spacing_y$, $spacing_z$ é o espaço entre duas amostras adjacentes nos eixos x, y e z, respectivamente.
 
-\todo[inline]{O seguinte parágrafo surgiu muito abuptamente. \textcolor{green}{OK!}}
+\todo[inline]{O seguinte parágrafo surgiu muito abruptamente. \textcolor{green}{OK!}}
 Os dados de coordenadas $(v_x, v_y, v_z)$ são recuperados na detecção de \textit{voxels} visíveis (Fig. \ref{fig::vmtk_simplified}) e é copiado da GPU para CPU para preparação dos dados que definem os glifos. Aproveitamos estes dados já armazenados na GPU e os utilizamos como um atributo único por instância, no qual aplicamos Eq. \ref{eq::translation} para computar o seu posicionamento na cena. %Note que os dados de voxel visíveis retornados pelo algoritmo é armazenado em um \textit{buffer} na GPU. Este dado é utilizado diretamente no algoritmo de renderização no \textit{vertex shader} para cômputo do atributo de translação.
 
 \subsubsection{Preparação de dados para superfície do glifo ODF}
@@ -445,7 +447,7 @@ Cada \textit{texel} no formato RGBA suporta quatro valores. Agrupamos os valores
 %\subfigcapskip = -5pt
     \centering
     \includegraphics[width=.45\linewidth, angle=0]{figs/Esquema_Glifo/texellookup.png}
-    \caption{Ilustração do acesso nas componentes RGBA em \textit{texel} na textura \textbf{R} no índice $K$ e $j$. O \textit{texel} é acessado pelas threads que processam os vertices de índices 8K, 8K+1, ..., 8K+7 em uma instância $j$. Os blocos de contorno vermelho, azul, verde e cinza ilustram as componentes R,G,B e A do \textit{texel}, respectivamente.}
+    \caption{Ilustração do acesso nas componentes RGBA em \textit{texel} na textura \textbf{R} no índice $K$ e $j$. O \textit{texel} é acessado pelas \textit{threads} que processam os vértices de índices 8K, 8K+1, ..., 8K+7 em uma instância $j$. Os blocos de contorno vermelho, azul, verde e cinza ilustram as componentes R,G,B e A do \textit{texel}, respectivamente.}
     \label{fig::texelfetch}
    %\hspace{1pt}
 \end{figure}
