@@ -151,7 +151,7 @@ A fim de renderizar os dados numéricos de dODFs min-max normalizadas em GPUs, �
 P_1$,
 $P_2$, ...,
 $P_N
-\}$, são escalonados pela dODF min-max normalizada $\psi(\mathbf{r}, \mathbf{n}_i)$, onde $\mathbf{n}_i$ é unitário e tem direção e sentido de $P_i \in \Pi$. Após a definição da superfície do glifo, o escalonamos para estar contido no domínio de cada \textit{voxel}, e os deslocamos para o centro do seu respectivo \textit{voxel} de coordenadas $\mathbf{r}$ na cena, como mostrado na Fig. \ref{fig::esfera_deformada_cena}.
+\}$, são escalonados pela dODF min-max normalizada $R(\mathbf{r}, \mathbf{n}_i)$, onde $\mathbf{n}_i$ é unitário e tem direção e sentido de $P_i \in \Pi$. Após a definição da superfície do glifo, o escalonamos para estar contido no domínio de cada \textit{voxel}, e os deslocamos para o centro do seu respectivo \textit{voxel} de coordenadas $\mathbf{r}$ na cena, como mostrado na Fig. \ref{fig::esfera_deformada_cena}.
 
 \begin{figure}[htb]
     \centering
@@ -233,7 +233,7 @@ $\mathbf{n}_{N-3}$,
 $\mathbf{n}_{N-1}]$, onde $\mathbf{n}_i$ é o vetor unitário com direção e sentido de $P_i \in \Pi_{impar}$
 e as computamos para todos os \textit{voxels} da aquisição DWI, como mostrado na Seção \ref{sec::gqi} e \ref{sec::vis_dODFs}.
 
-Pela alta dimensionalidade das dODFs min-max normalizadas $\boldsymbol{\psi}(\mathbf{r}, \mathbf{n})$, as mantemos na CPU, e em tempo de execução da renderização, as enviamos sob demanda para GPU para definição das superfícies dos glifos, o que potencialmente gera um elevado tráfego de dados no processo, que afeta a performance e interatividade da renderização, nos quais discutimos na Seção \ref{sec::trafego_cpu_gpu}.
+Pela alta dimensionalidade das dODFs min-max normalizadas $\boldsymbol{R}(\mathbf{r}, \mathbf{n})$, as mantemos na CPU, e em tempo de execução da renderização, as enviamos sob demanda para GPU para definição das superfícies dos glifos, o que potencialmente gera um elevado tráfego de dados no processo, que afeta a performance e interatividade da renderização, nos quais discutimos na Seção \ref{sec::trafego_cpu_gpu}.
 
 Para ajustar o tamanho dos glifos ao tamanho dos seus respectivos \textit{voxels}, redimensionamos os glifos com base nos espaçamentos entre \textit{voxels} da aquisição \cite{voltoline2021} com base em um fator de escala dado por $mS/2$, onde
 \begin{equation}
@@ -401,14 +401,14 @@ Os dados de coordenadas $(v_x, v_y, v_z)$ são recuperados na detecção de \tex
 \label{ssec::preparacao_de_dados}
 
 %Uma dODF min-max normalizada discreta tem dimensão igual à quantidade $N/2$ de vértices na malha esférica tesselada.
-Para um \textit{voxel} de coordenadas $\mathbf{r}$, os elementos da dODF min-max normalizada são organizados como $\boldsymbol{\psi}(\mathbf{r})_{\frac{N}{2} \times 1} = [
-\psi(\mathbf{r}, \mathbf{n}_1)$,
-$\psi(\mathbf{r}, \mathbf{n}_3)$, ...,
-$\psi(\mathbf{r}, \mathbf{n}_{N-3})$,
-$\psi(\mathbf{r}, \mathbf{n}_{N-1})]^T$, onde cada elemento na K-ésima posição $\psi(\mathbf{r}, \mathbf{n}_{2K-1})$ desloca os pontos $P_{2K-1}$ e o seu simétrico $P_{2K}$ na malha esférica.
+Para um \textit{voxel} de coordenadas $\mathbf{r}$, os elementos da dODF min-max normalizada são organizados como $\boldsymbol{R}(\mathbf{r})_{\frac{N}{2} \times 1} = [
+R(\mathbf{r}, \mathbf{n}_1)$,
+$R(\mathbf{r}, \mathbf{n}_3)$, ...,
+$R(\mathbf{r}, \mathbf{n}_{N-3})$,
+$R(\mathbf{r}, \mathbf{n}_{N-1})]^T$, onde cada elemento na K-ésima posição $R(\mathbf{r}, \mathbf{n}_{2K-1})$ desloca os pontos $P_{2K-1}$ e o seu simétrico $P_{2K}$ na malha esférica.
 
 Para a malha esférica da subdivisão de ordem $2^t$ do icosaedro escolhida, geramos na CPU uma matriz $\boldsymbol{\mathscr{R}}_{\frac{V}{2} \times M}$ com os dados de dODFs min-max normalizadas para o conjunto de \textit{voxels} detectados $D$ (Eq. \ref{eq::R}). Escolhemos as $V/2$ primeiras amostras nas quais escalonam os vértices da malha esférica escolhida, onde $V = 10 \times 4^t + 2$ é a quantidade de vértices da malha (Eq. \ref{eq::icosphere_vertices}). $\boldsymbol{\mathscr{R}}$ é enviado para GPU como uma textura 2D de formato RGBA (Fig. \ref{fig::vmtk_simplified}).
-%, dado por . \todo{Não entendi ...}\textcolor{magenta}{A $j$-ésima coluna consiste nos primeiros $V/2$ elementos de $\boldsymbol{\psi}(\mathbf{d_j})$}. 
+%, dado por . \todo{Não entendi ...}\textcolor{magenta}{A $j$-ésima coluna consiste nos primeiros $V/2$ elementos de $\boldsymbol{R}(\mathbf{d_j})$}. 
 
 
 \begin{equation}
@@ -417,31 +417,31 @@ Para a malha esférica da subdivisão de ordem $2^t$ do icosaedro escolhida, ger
 \begingroup % keep the change local
 \setlength\arraycolsep{2pt}
 \begin{bmatrix} 
-    \psi(\mathbf{d}_{1}, \mathbf{n}_1) &
-    \psi(\mathbf{d}_{2}, \mathbf{n}_1) & \cdots & 
-    \psi(\mathbf{d}_{M}, \mathbf{n}_1)  \\
+    R(\mathbf{d}_{1}, \mathbf{n}_1) &
+    R(\mathbf{d}_{2}, \mathbf{n}_1) & \cdots & 
+    R(\mathbf{d}_{M}, \mathbf{n}_1)  \\
     
-    \psi(\mathbf{d}_{1}, \mathbf{n}_3) &
-    \psi(\mathbf{d}_{2}, \mathbf{n}_3) & \cdots & 
-    \psi(\mathbf{d}_{M}, \mathbf{n}_{3}) \\ \vdots & \vdots & \vdots & \vdots  \\
+    R(\mathbf{d}_{1}, \mathbf{n}_3) &
+    R(\mathbf{d}_{2}, \mathbf{n}_3) & \cdots & 
+    R(\mathbf{d}_{M}, \mathbf{n}_{3}) \\ \vdots & \vdots & \vdots & \vdots  \\
     
-    \psi(\mathbf{d}_{1}, \mathbf{n}_{V-1}) & 
-    \psi(\mathbf{d}_{2}, \mathbf{n}_{V-1}) & \cdots & 
-    \psi(\mathbf{d}_{M}, \mathbf{n}_{V-1})
+    R(\mathbf{d}_{1}, \mathbf{n}_{V-1}) & 
+    R(\mathbf{d}_{2}, \mathbf{n}_{V-1}) & \cdots & 
+    R(\mathbf{d}_{M}, \mathbf{n}_{V-1})
 \end{bmatrix}.
 \endgroup
 \end{equation}
 
 Cada \textit{texel} no formato RGBA suporta quatro valores. Agrupamos os valores escalares da j-ésima coluna $[
-\psi(\mathbf{d}_{j}, \mathbf{n}_1),
-\psi(\mathbf{d}_{j}, \mathbf{n}_3), ...,
-\psi(\mathbf{d}_{j}, \mathbf{n}_{V-3}),
-\psi(\mathbf{d}_{j}, \mathbf{n}_{V-1})
+R(\mathbf{d}_{j}, \mathbf{n}_1),
+R(\mathbf{d}_{j}, \mathbf{n}_3), ...,
+R(\mathbf{d}_{j}, \mathbf{n}_{V-3}),
+R(\mathbf{d}_{j}, \mathbf{n}_{V-1})
 ]^T$ de quatro em quatro, como mostrado na Fig. \ref{fig::texelfetch}. Consequentemente, em cada acesso de \textit{texel}, temos quatro valores escalares $
-\psi(\mathbf{d}_{j}, \mathbf{\mathbf{n}}_{8K+1})$ (R), $
-\psi(\mathbf{d}_{j}, \mathbf{\mathbf{n}}_{8K+3})$ (G), $
-\psi(\mathbf{d}_{j}, \mathbf{\mathbf{n}}_{8K+5})$ (B), $
-\psi(\mathbf{d}_{j}, \mathbf{\mathbf{n}}_{8K+7})$ (A) com os quais deslocamos quatro pares de pontos simétricos na malha esférica $P_{8K+1}$, $-P_{8K+1}$, $P_{8K+3}$, $-P_{8K+3}$, $P_{8K+5}$, $-P_{8K+5}$, $P_{8K+7}$, $-P_{8K+7}$ para o j-ésimo glifo visível (também $j$-ésima instância). Desta forma, as dimensões da textura com dados ODF é $ \lceil \frac{V/2}{4} \rceil \times M$. Se $\frac{V}{2}$ não é divisível por quatro, é necessário inserir mais linhas abaixo da última com valores \textit{dummy}, para que o número de linhas se torne divisível, o que certifica que cada coluna de $\boldsymbol{\mathscr{R}}$ possa ser acessada com o índice de instância na GPU.
+R(\mathbf{d}_{j}, \mathbf{\mathbf{n}}_{8K+1})$ (R), $
+R(\mathbf{d}_{j}, \mathbf{\mathbf{n}}_{8K+3})$ (G), $
+R(\mathbf{d}_{j}, \mathbf{\mathbf{n}}_{8K+5})$ (B), $
+R(\mathbf{d}_{j}, \mathbf{\mathbf{n}}_{8K+7})$ (A) com os quais deslocamos quatro pares de pontos simétricos na malha esférica $P_{8K+1}$, $-P_{8K+1}$, $P_{8K+3}$, $-P_{8K+3}$, $P_{8K+5}$, $-P_{8K+5}$, $P_{8K+7}$, $-P_{8K+7}$ para o j-ésimo glifo visível (também $j$-ésima instância). Desta forma, as dimensões da textura com dados ODF é $ \lceil \frac{V/2}{4} \rceil \times M$. Se $\frac{V}{2}$ não é divisível por quatro, é necessário inserir mais linhas abaixo da última com valores \textit{dummy}, para que o número de linhas se torne divisível, o que certifica que cada coluna de $\boldsymbol{\mathscr{R}}$ possa ser acessada com o índice de instância na GPU.
 
 \begin{figure}[ht]
 %\subfigcapskip = -5pt
@@ -471,9 +471,9 @@ Podemos sintetizar as transformações aplicadas a cada vértice $P_K$ em coorde
 onde 
 \begin{equation}
     M_{Kj} = \begin{bmatrix} 
-   \mbox{\small $\psi( \mathbf{d}_j, \mathbf{n}_K)$} & 0 & 0 & 0 \\
-    0 & \mbox{\small $\psi( \mathbf{d}_j, \mathbf{n}_K)$}  & 0 & 0 \\
-    0 & 0 & \mbox{\small $\psi( \mathbf{d}_j, \mathbf{n}_K)$}  & 0 \\
+   \mbox{\small $R( \mathbf{d}_j, \mathbf{n}_K)$} & 0 & 0 & 0 \\
+    0 & \mbox{\small $R( \mathbf{d}_j, \mathbf{n}_K)$}  & 0 & 0 \\
+    0 & 0 & \mbox{\small $R( \mathbf{d}_j, \mathbf{n}_K)$}  & 0 \\
     0 & 0 & 0 & 1 \\
 \end{bmatrix},
 \end{equation}

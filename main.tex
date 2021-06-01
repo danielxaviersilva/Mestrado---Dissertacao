@@ -489,7 +489,7 @@ Diffusion-weighted magnetic resonance (DWI) is an imaging modality that measures
 %\item[CC] Corpo Caloso
 
 %\item[GFA] \textit{Generalized Fractional Anisotropy} Anisotropia Fracionada Generalizada
-\item[VMTK-Neuro] \textit{Manipulation Toolkit for NeuroImages}
+\item[VMTK-Neuro] \textit{Visual Manipulation Toolkit for NeuroImages}
 
 \item[DSI] \textit{Diffusion Spectrum Imaging} (Imagemento por Espectro de difusão)
 
@@ -690,7 +690,7 @@ Durante a década de 2000, foram propostos métodos de imageamento mais descriti
 
 \todo[inline]{Não entendi a parte em magenta ... O texto que adicionei não se conecta com ela. "em uma função" é muito vaga. Pelo menos explicita qual tipo de função ... \textcolor{green}{feito!}}
 
-Os métodos usualmente sintetizam os sinais de difusão locais em uma função de distribuição de orientação (\textit{Orientation Distribution Function}, ODF). Estas funções associam uma direção, representada pelo vetor unitário $\mathbf{\hat{u}}$, a um valor escalar de probabilidade $\psi(\mathbf{\hat{u}})$ representativo de difusão \cite{TuchQBall2004, wedeen2005} ou de fibra \cite{Tournier2004DirectEO, tournier2007}. %O primeiro uso desta categoria de funções é documentado por \citeonline{tuch2002}, que mostra que há uma relação de Fourier tridimensional entre os sinais de difusão para a função de difusão. Adicionalmente, o conteúdo direcional da difusão é obtido através através da integração na coordenada radial da função de difusão.
+Os métodos usualmente sintetizam os sinais de difusão locais em uma função de distribuição de orientação (\textit{Orientation Distribution Function}, ODF). Estas funções associam uma direção, representada pelo vetor unitário $\mathbf{\hat{u}}$, a um valor escalar de probabilidade $R(\mathbf{\hat{u}})$ representativo de difusão \cite{TuchQBall2004, wedeen2005} ou de fibra \cite{Tournier2004DirectEO, tournier2007}. %O primeiro uso desta categoria de funções é documentado por \citeonline{tuch2002}, que mostra que há uma relação de Fourier tridimensional entre os sinais de difusão para a função de difusão. Adicionalmente, o conteúdo direcional da difusão é obtido através através da integração na coordenada radial da função de difusão.
 
 Em ambas as modalidades de ODF, a informação sobre a distribuição de fibras subjacente é extraída de um conjunto de direções feita através do cômputo dos máximos locais destas funções. Se o cômputo das ODFs são feitos a partir de aquisições com uma relação sinal ruído razoável, as fibras tendem a ser bem modeladas através de seus máximos locais \cite{fillard2011}.
 
@@ -1043,7 +1043,7 @@ O modelo descreve bem regiões de fibras em que o comportamento de difusão ocor
 
 Devido às limitações do DTI para inferir sobre a substância branca do cérebro na resolução de cruzamento de fibras, houve uma agenda de pesquisa que começa no início da década de 2000 para distinguir múltiplas orientações numa amostra, e consequentemente houve uma demanda por mais amostras de sinais de difusão por \textit{voxel} nas aquisições DWI. %denominadas de imageamento difusão de alta resolução angular para difusão (HARDI - \textit{high angular resolution diffusion imaging}). Tipicamente aquisições HARDI \textit{single-shell} contém 45 volumes ponderados por e $1000 \leq b \leq 4500$ $s/mm^2$.
 
-Houve mais de cem artigos que propuseram métodos de imageamento para transformação do sinal de difusão para o seu perfil de densidade de probabilidade de direções de difusão de fibras entre 2000-2010 \cite{descoteaux2015}. Os métodos consistem essencialmente na síntese do sinal de difusão em funções de distribuição de orientações (ODF) que dão a possibilidade de inferir sobre a distribuição de fibras subjacentes. Uma ODF consiste em uma associação entre um conjunto de direções, usualmente representadas por um vetor unitário $\mathbf{\hat{u}}$ (ou par $(\theta, \phi)$ em coordenadas esféricas), em um valor escalar $\psi(\mathbf{\hat{u}})$, representativo da probabilidade de difusividade em $\mathbf{\hat{u}}$. Em geral, estes métodos podem ser categorizados de duas formas de acordo com a natureza da técnica de transformada do sinal de difusão para a ODF: técnicas de misturas (\textit{mixture models techniques}) e técnicas livres de modelo, que abrange o GQI.
+Houve mais de cem artigos que propuseram métodos de imageamento para transformação do sinal de difusão para o seu perfil de densidade de probabilidade de direções de difusão de fibras entre 2000-2010 \cite{descoteaux2015}. Os métodos consistem essencialmente na síntese do sinal de difusão em funções de distribuição de orientações (ODF) que dão a possibilidade de inferir sobre a distribuição de fibras subjacentes. Uma ODF consiste em uma associação entre um conjunto de direções, usualmente representadas por um vetor unitário $\mathbf{\hat{u}}$ (ou par $(\theta, \phi)$ em coordenadas esféricas), em um valor escalar $R(\mathbf{\hat{u}})$, representativo da probabilidade de difusividade em $\mathbf{\hat{u}}$. Em geral, estes métodos podem ser categorizados de duas formas de acordo com a natureza da técnica de transformada do sinal de difusão para a ODF: técnicas de misturas (\textit{mixture models techniques}) e técnicas livres de modelo, que abrange o GQI.
 
 Estes métodos requerem uma quantidade maior de volumes ponderados por difusão em um DWI, além de maiores valores $b$. Tipicamente, a quantidade de gradientes de ponderação por difusão é acima de 45, e $1000 \leq b \leq 4500s/mm^2$ \cite{descoteaux2015}. Comumente, aquisições DWI possuem um valor $b$ fixo para os volumes ponderados por difusão. Estas aquisições são chamadas de \textit{single-shell} porque suas amostras estão contidas em uma esfera no espaço-Q (Seção \ref{metodos_livres_de_modelo}). Aquisições \textit{single-shell} adequadas para métodos de alta ordem são chamadas de imagem de difusão de alta resolução angular (\textit{High Angular Resolution Diffusion Imaging, HARDI}).
 
@@ -1183,7 +1183,7 @@ Um ponto importante no processo de escolha é referente à adequabilidade em tra
 
 
 
-%As técnicas livres de modelo buscam \sout{formular} uma \sout{representação para} formulação da \sout{função de} difusão \textcolor{red}{em função do seu perfil angular $\psi(\mathbf{\hat{u}})$,} explorando a relação de Fourier \cite{tuch2002} do sinal de difusão $W(\mathbf{r}, \mathbf{q})$\sout{ para obtenção de características da difusão em seu perfil angular $\psi(\mathbf{\hat{u}})$}. Entre os métodos \sout{foram} propostos, \textcolor{red}{destacam-se} o DSI \textcolor{red}{(\textit{Diffusion Sampling Imaging})} \cite{wedeen2005}, proposto originalmente em 2000 e presente na tese de doutorado de \citeonline{tuch2002}, juntamente com o QBI \textcolor{red}{(\textit{Q-ball Imaging})}, proposto em \citeonline{TuchQBall2004} \sout{em sua forma de artigo}, e o GQI \textcolor{red}{(\textit{Generalized Q-sampling Imaging})} \cite{yeh2010}\sout{ exemplificam esta categoria de métodos}.
+%As técnicas livres de modelo buscam \sout{formular} uma \sout{representação para} formulação da \sout{função de} difusão \textcolor{red}{em função do seu perfil angular $R(\mathbf{\hat{u}})$,} explorando a relação de Fourier \cite{tuch2002} do sinal de difusão $W(\mathbf{r}, \mathbf{q})$\sout{ para obtenção de características da difusão em seu perfil angular $R(\mathbf{\hat{u}})$}. Entre os métodos \sout{foram} propostos, \textcolor{red}{destacam-se} o DSI \textcolor{red}{(\textit{Diffusion Sampling Imaging})} \cite{wedeen2005}, proposto originalmente em 2000 e presente na tese de doutorado de \citeonline{tuch2002}, juntamente com o QBI \textcolor{red}{(\textit{Q-ball Imaging})}, proposto em \citeonline{TuchQBall2004} \sout{em sua forma de artigo}, e o GQI \textcolor{red}{(\textit{Generalized Q-sampling Imaging})} \cite{yeh2010}\sout{ exemplificam esta categoria de métodos}.
 
 
 %!!Porque geram ODFs?
@@ -1341,11 +1341,11 @@ Observe que a normalização cancela o fator de escala $A_qL_{\Delta}$ da Eq. \r
 %s_{i,j} = A_qL_{\Delta}\text{sinc}(\sigma \sqrt{6D.b(\mathbf{q}_j)} )\mathbf{\hat{q}}_j.\mathbf{\hat{u}_i}) ,
 %\end{equation}
 
-%\sout{Com o objetivo de enfatizar as direções dominantes de difusão na renderização de glifos, \citeonline{TuchQBall2004} sugere normalizar cada função de distribuição de \textit{spins} $\boldsymbol{\psi}_m(\mathbf{r})$ pela normalização min-max, \textcolor{red}{cujo resultado Sicrano \cite{???} mostrou que é uma} ODF $\boldsymbol{\psi}(\mathbf{r})$\sout{, conforme mostrado na Eq. \ref{eq::SDF2dODF}.} }
+%\sout{Com o objetivo de enfatizar as direções dominantes de difusão na renderização de glifos, \citeonline{TuchQBall2004} sugere normalizar cada função de distribuição de \textit{spins} $\boldsymbol{\psi}_m(\mathbf{r})$ pela normalização min-max, \textcolor{red}{cujo resultado Sicrano \cite{???} mostrou que é uma} ODF $\boldsymbol{R}(\mathbf{r})$\sout{, conforme mostrado na Eq. \ref{eq::SDF2dODF}.} }
 
 % \begin{equation}
 % \label{eq::SDF2dODF}
-%     \boldsymbol{\psi}(\mathbf{r}) = [ \frac{\boldsymbol{\psi}_m(\mathbf{r}) - \text{min}(\boldsymbol{\psi}_m(\mathbf{r}))}{\text{max}(\boldsymbol{\psi}_m(\mathbf{r})) - \text{min}(\boldsymbol{\psi}_m(\mathbf{r}))}], m = 1, \cdots, S ,
+%     \boldsymbol{R}(\mathbf{r}) = [ \frac{\boldsymbol{\psi}_m(\mathbf{r}) - \text{min}(\boldsymbol{\psi}_m(\mathbf{r}))}{\text{max}(\boldsymbol{\psi}_m(\mathbf{r})) - \text{min}(\boldsymbol{\psi}_m(\mathbf{r}))}], m = 1, \cdots, S ,
 % \end{equation}
 % \sout{onde $\text{min}(\boldsymbol{\psi}_m(\mathbf{r}))$ e $\text{max}(\boldsymbol{\psi}_m(\mathbf{r}))$ são, respectivamente, o mínimo e o máximo dos $S$ valores associados à amostra $\mathbf{r}$.}
 
@@ -1353,7 +1353,7 @@ Observe que a normalização cancela o fator de escala $A_qL_{\Delta}$ da Eq. \r
 
 %\begin{equation}
 %\label{eq::SDF2dODF}
-%    \boldsymbol{\psi}(\mathbf{r}) = [ \frac{\boldsymbol{\psi}_m(\mathbf{r}) - %\text{min}(\boldsymbol{\psi}_m(\mathbf{r}))}{\text{max}(\boldsymbol{\psi}_m(\mathbf{r})) - %\text{min}(\boldsymbol{\psi}_m(\mathbf{r}))}], m = 1, \cdots, S
+%    \boldsymbol{R}(\mathbf{r}) = [ \frac{\boldsymbol{\psi}_m(\mathbf{r}) - %\text{min}(\boldsymbol{\psi}_m(\mathbf{r}))}{\text{max}(\boldsymbol{\psi}_m(\mathbf{r})) - %\text{min}(\boldsymbol{\psi}_m(\mathbf{r}))}], m = 1, \cdots, S
 %\end{equation}
 
 %\begin{figure}[ht]
@@ -1419,8 +1419,8 @@ $\mathbf{\hat{u}}_S]$ como ilustra a Fig. \ref{fig::direcoes}, são obtidas atra
    \hspace{1pt}
 \end{figure}
 
-
-A subdivisão por cordas iguais é efetuada em cada face do icosaedro. Para cada aresta do triângulo, um conjunto de \todo[inline]{grids ou segmentos? \textcolor{green}{Segmentos! O nome utilizado pelo autor é grid e eu não consegui pensar em coisa melhor}}segmentos paralelos à aresta e equidistantes entre si são traçados. As intersecções dos dos segmentos constituem novos vértices e são projetados na esfera. Fig. \ref{fig::icosaedro_faces_2} ilustra o procedimento de uma subdivisão. Traçamos somente um segmento paralelo a cada aresta da face triangular, equidistante da aresta e do vértice oposto à aresta. As intersecções, v01', v12'e v20', dividem as arestas em arcos iguais e são inseridos como novos vértices da malha. Esses vértices são, então, projetados sobre a esfera. O procedimento é feito em todas as faces da malha, conforme ilustrado nas Fig.\ref{fig::icosaedro_nao_norm}. Fig. \ref{fig::icosaedro_norm} mostra o espaço de amostras após a projeção de todos os novos vértices sobre a esfera unitária.
+\todo[inline]{grids ou segmentos? \textcolor{green}{Segmentos! O nome utilizado pelo autor é grid e eu não consegui pensar em coisa melhor}}
+A subdivisão por cordas iguais é efetuada em cada face do icosaedro. Para cada aresta do triângulo, um conjunto de segmentos paralelos à aresta e equidistantes entre si são traçados. As intersecções dos dos segmentos constituem novos vértices e são projetados na esfera. Fig. \ref{fig::icosaedro_faces_2} ilustra o procedimento de uma subdivisão. Traçamos somente um segmento paralelo a cada aresta da face triangular, equidistante da aresta e do vértice oposto à aresta. As intersecções, v01', v12'e v20', dividem as arestas em arcos iguais e são inseridos como novos vértices da malha. Esses vértices são, então, projetados sobre a esfera. O procedimento é feito em todas as faces da malha, conforme ilustrado nas Fig.\ref{fig::icosaedro_nao_norm}. Fig. \ref{fig::icosaedro_norm} mostra o espaço de amostras após a projeção de todos os novos vértices sobre a esfera unitária.
 
 \begin{figure}[htb]
     \centering
@@ -1564,7 +1564,7 @@ Neste trabalho, escolhemos a subdivisão por cordas iguais e restringimo-nos a c
 %\mathbf{n}_3, ..., 
 %\mathbf{n}_{N-3},
 %\mathbf{n}_{N-1}
-%]$, onde o vetor na K-ésima  posição de $\mathbf{U}$ é $\mathbf{\hat{n}}_{2K-1}$. Observe que após o cômputo, $\boldsymbol{\psi}(\mathbf{r})$ tem na K-ésima posição os valores de ODF associadas à $\mathbf{n}_{2K-1}$, e também a direção $\mathbf{n}_{2K}$.
+%]$, onde o vetor na K-ésima  posição de $\mathbf{U}$ é $\mathbf{\hat{n}}_{2K-1}$. Observe que após o cômputo, $\boldsymbol{R}(\mathbf{r})$ tem na K-ésima posição os valores de ODF associadas à $\mathbf{n}_{2K-1}$, e também a direção $\mathbf{n}_{2K}$.
 %}
 
 %\sout{
@@ -1617,20 +1617,20 @@ Nesta seção, apresentamos o projeto de glifos para representar ODFs referentes
 %Como descrito na seção \ref{sec::trabalhos_relacionados_glifos}
 %\subsubsection{Superfície}
 
-A superfície do glifo da ODF no \textit{voxel} de coordenadas $\mathbf{r}$ $\psi_d(\mathbf{r}, \mathbf{\hat{u}})$ consiste na plotagem polar esférica $R(\mathbf{\hat{u}})$ de $\psi(\mathbf{r}, \mathbf{\hat{u}})$, onde $\psi(\mathbf{r}, \mathbf{\hat{u}})$ é $\psi_d(\mathbf{r}, \mathbf{\hat{u}})$ min-max normalizada  (Eq. \ref{eq::dODF2min_max}). A plotagem polar esférica $R(\mathbf{\hat{u}})$ é uma superfície na qual a distância da origem para um dos seus respectivos pontos na direção $\mathbf{\hat{u}}$ é dado por $R(\mathbf{\hat{u}})$. Esta normalização foi sugerida por \citeonline{TuchQBall2004} com o objetivo de enfatizar as direções dominantes dos glifos, como ilustrado na Fig. \ref{fig::normalizacao_min_max}. A normalização min-max de $\psi_d(\mathbf{r}, \mathbf{\hat{u}})$ é dada por:
+A superfície do glifo da ODF no \textit{voxel} de coordenadas $\mathbf{r}$ $\psi_d(\mathbf{r}, \mathbf{\hat{u}})$ consiste na plotagem polar esférica $R(\mathbf{\hat{u}})$ de $\psi_d(\mathbf{r}, \mathbf{\hat{u}})$  min-max normalizada  (Eq. \ref{eq::dODF2min_max}). A plotagem polar esférica $R(\mathbf{\hat{u}})$ é uma superfície na qual a distância da origem para um dos seus respectivos pontos na direção $\mathbf{\hat{u}}$ é dado por $R(\mathbf{\hat{u}})$. Esta normalização foi sugerida por \citeonline{TuchQBall2004} com o objetivo de enfatizar as direções dominantes dos glifos, como ilustrado na Fig. \ref{fig::normalizacao_min_max}. A normalização min-max de $\psi_d(\mathbf{r}, \mathbf{\hat{u}})$ é dada por:
 
-% é dada por  na modulação do raio na direção $\mathbf{u}$ de uma esférica de acordo com uma versão normalizada do seu valor de imagem na função $\psi(\mathbf{u})$. A normalização que fizemos neste trabalho para representação está representado na equação \ref{eq::normglifo2}.
+% é dada por  na modulação do raio na direção $\mathbf{u}$ de uma esférica de acordo com uma versão normalizada do seu valor de imagem na função $R(\mathbf{u})$. A normalização que fizemos neste trabalho para representação está representado na equação \ref{eq::normglifo2}.
 
 %\begin{equation}
 %\label{eq::normglifo2}
-%    R(\mathbf{u}) = \frac{\psi(\mathbf{u}) - min(\psi(\mathbf{u}))}{max(\psi(\mathbf{u})) - min(\psi(\mathbf{u}))}
+%    R(\mathbf{u}) = \frac{R(\mathbf{u}) - min(R(\mathbf{u}))}{max(R(\mathbf{u})) - min(R(\mathbf{u}))}
 %\end{equation}
 
 
 
 \begin{equation}
 \label{eq::dODF2min_max}
-    \boldsymbol{\psi}(\mathbf{r}) = [ \frac{\boldsymbol{\psi}_d(\mathbf{r}) - \text{min}(\boldsymbol{\psi}_d(\mathbf{r}))}{\text{max}(\boldsymbol{\psi}_d(\mathbf{r})) - \text{min}(\boldsymbol{\psi}_d(\mathbf{r}))}],
+    \boldsymbol{R}(\mathbf{r}) = [ \frac{\boldsymbol{\psi}_d(\mathbf{r}) - \text{min}(\boldsymbol{\psi}_d(\mathbf{r}))}{\text{max}(\boldsymbol{\psi}_d(\mathbf{r})) - \text{min}(\boldsymbol{\psi}_d(\mathbf{r}))}],
 \end{equation}
 onde $\text{min}(\boldsymbol{\psi}_d(\mathbf{r}))$ e $\text{max}(\boldsymbol{\psi}_d(\mathbf{r}))$ são, respectivamente, o mínimo e o máximo dos $S$ valores associados de dODF à amostra $\mathbf{r}$. O efeito da normalização está ilustrado na Fig. \ref{fig::normalizacao_min_max}. 
 
@@ -1640,7 +1640,7 @@ Há um problema intrínseco à normalização min-max, no qual regiões onde o m
 
 %\begin{equation}
 %\label{eq::SDF2dODF}
-%    \boldsymbol{\psi}(\mathbf{r}) = [ \frac{\boldsymbol{\psi}_m(\mathbf{r}) - %\text{min}(\boldsymbol{\psi}_m(\mathbf{r}))}{\text{max}(\boldsymbol{\psi}_m(\mathbf{r})) - %\text{min}(\boldsymbol{\psi}_m(\mathbf{r}))}], m = 1, \cdots, S
+%    \boldsymbol{R}(\mathbf{r}) = [ \frac{\boldsymbol{\psi}_m(\mathbf{r}) - %\text{min}(\boldsymbol{\psi}_m(\mathbf{r}))}{\text{max}(\boldsymbol{\psi}_m(\mathbf{r})) - %\text{min}(\boldsymbol{\psi}_m(\mathbf{r}))}], m = 1, \cdots, S
 %\end{equation}
 
 \begin{figure}[ht]
@@ -1694,7 +1694,7 @@ No ambiente, cada glifo é posicionado no centro de seu \textit{voxel} e é esca
 
 \subsection{Renderização interativa de glifos ODF e desafios}
 
-Como estágio final do processamento dos sinais de difusão, armazenamos as amostras de $\boldsymbol{\psi}_d(\mathbf{r})$ min-max normalizadas em $\boldsymbol{\psi}(\mathbf{r})$ objetivando uma melhor interpretabilidade dos glifos na renderização. Fig. \ref{fig::QBall_glifos_coronal} ilustra a representação dos glifos renderizados sobrepostos ao volume de difusão no ambiente de visualização multimodal.
+Como estágio final do processamento dos sinais de difusão, armazenamos as amostras de $\boldsymbol{\psi}_d(\mathbf{r})$ min-max normalizadas em $\boldsymbol{R}(\mathbf{r})$ objetivando uma melhor interpretabilidade dos glifos na renderização. Fig. \ref{fig::QBall_glifos_coronal} ilustra a representação dos glifos renderizados sobrepostos ao volume de difusão no ambiente de visualização multimodal.
 
 
 No próximo capítulo, propomos um novo algoritmo interativo de renderização de glifos ODF acelerado por GPU integrado ao ambiente de visualização multimodal \cite{voltoline2021} a partir das dODF min-max normalizadas pré computadas.
@@ -1896,7 +1896,7 @@ Na próxima seção, descrevemos uma infra-estruturada fora do ambiente de rende
 
 %\sout{Medições do tempo relativo ao desempenho foram feitas para a quantidade de 197 vértices da malha esférica \sout{em um}\textcolor{blue}{num} volume de resolução 128x128x90. Para uma quantidade na faixa de 5000 glifos renderizados simultaneamente sobre uma fatia completa, obtemos tem um tempo de resposta entre 80 e 110ms. Para uma quantidade pequena de glifos na faixa das dezenas, o tempo de resposta cai para o intervalo entre 60 e 70ms. Esse tempo de resposta está nas proximidades ou é menor do que o tempo de 0,1s, que é o limite máximo para que o usuário tenha a percepção de resposta instantânea da máquina e que suas ações são a causa de que algo aconteça na tela \cite{nielsen1994}.}
 
-%\sout{No cômputo das ODFs do \textit{QBall}, é feito o mapeamento do sinal de DWI para a ODF a partir das direções derivadas da malha esférica. O glifo para visualização é gerado diretamente de acordo a representação gráfica polar esférica em que $R(\textbf{u}) = \psi(\mathbf{u})$, onde \textbf{u} é a direção de difusão. A malha esférica utilizada para geração dos glifos em \ref{section::QBall_Glifos} está representada na figura \ref{fig::MalhaEsferico}.}
+%\sout{No cômputo das ODFs do \textit{QBall}, é feito o mapeamento do sinal de DWI para a ODF a partir das direções derivadas da malha esférica. O glifo para visualização é gerado diretamente de acordo a representação gráfica polar esférica em que $R(\textbf{u}) = R(\mathbf{u})$, onde \textbf{u} é a direção de difusão. A malha esférica utilizada para geração dos glifos em \ref{section::QBall_Glifos} está representada na figura \ref{fig::MalhaEsferico}.}
 
 %A priori, todas as ODFs são calculadas e normalizadas para o intervalo $[0,1]$ para cada um dos \textit{voxels} do volume e referenciadas no processo de renderização.
 
@@ -1962,11 +1962,11 @@ Variamos a quantidade de células $H$ de cinco até cem, anotamos os dados de FP
 
 
 
-Indexamos as células nas quais os glifos são renderizados como $1$, $2$, ..., $M$, cuja sequência é crescente na ordem esquerda para direita, cima e para baixo, e $M = H^2$. Associamos o conjunto de amostras a serem renderizadas na $j$-ésima $(1 \leq j \leq M)$ célula como $\boldsymbol{\psi}(j) = [
-\psi(j, \mathbf{n}_1), 
-\psi(j, \mathbf{n}_2), 
-\psi(j, \mathbf{n}_3), ..., 
-\psi(j, \mathbf{n}_N)
+Indexamos as células nas quais os glifos são renderizados como $1$, $2$, ..., $M$, cuja sequência é crescente na ordem esquerda para direita, cima e para baixo, e $M = H^2$. Associamos o conjunto de amostras a serem renderizadas na $j$-ésima $(1 \leq j \leq M)$ célula como $\boldsymbol{R}(j) = [
+R(j, \mathbf{n}_1), 
+R(j, \mathbf{n}_2), 
+R(j, \mathbf{n}_3), ..., 
+R(j, \mathbf{n}_N)
 ]^T$, onde $\mathbf{n}_k$ é o vetor unitário com direção e sentido associado à normal do ponto $P_k$ de uma malha esférica $(\Pi, I)$, onde $\Pi = [P_1, P_2, \dots, P_N]$. $I_{3\tau \times 1}$ é o conjunto de índices que triangulam $\Pi$ afim de gerar a malha esférica, onde $\tau$ é a quantidade de triângulos da malha.%\footnote{Escolhemos esta forma de indexar as variáveis envolvidas para que fique similar à forma utilizada no Capítulo \ref{chap::renderizacao_interativa_de_perfis_de_difusao}.}
 
 Utilizamos dez funções harmônicas esféricas, em que, na Fig. \ref{fig::ambiente_validacao_5}, da esquerda para direita e parte superior para inferior, consistem em: $Re(Y_1^{-1})$,
@@ -1978,7 +1978,7 @@ $Re(Y_2^{-1})$,
 $Im(Y_2^{-1})$,
 $Y_2^0$,
 $Y_0^0$ e
-$Y_3^0$, onde $Y_l^m$ se refere a harmônica esférica de grau $l$ e ordem $m$. Na Seção \ref{sec::harmonicas_esfericas} do Apêndice, escrevemos a formulação analítica das funções utilizadas. Fazemos a associação entre cada $\boldsymbol{\psi}(j)$, a sua respectiva harmônica esférica de acordo com a Tabela \ref{tab::harmonicas_esfericas}, na qual computamos o seu valor absoluto e fazemos a normalização min-max para o intervalo $[0, 1]$ dos valores amostrados\footnote{No caso da harmônica esférica $(Y_0^0)$, que é constante e mapeada em um glifo esférico, normalizamos a função para ser constante igual a um.}, que são pré-computadas na CPU. Fig. \ref{fig::ambiente_validacao} ilustra os glifos no ambiente de teste para diferentes valores de $M$. O cômputo do valor absoluto torna estas funções simétricas em relação ao eixos coordenados, assim como as funções e sinais de difusão.
+$Y_3^0$, onde $Y_l^m$ se refere a harmônica esférica de grau $l$ e ordem $m$. Na Seção \ref{sec::harmonicas_esfericas} do Apêndice, escrevemos a formulação analítica das funções utilizadas. Fazemos a associação entre cada $\boldsymbol{R}(j)$, a sua respectiva harmônica esférica de acordo com a Tabela \ref{tab::harmonicas_esfericas}, na qual computamos o seu valor absoluto e fazemos a normalização min-max para o intervalo $[0, 1]$ dos valores amostrados\footnote{No caso da harmônica esférica $(Y_0^0)$, que é constante e mapeada em um glifo esférico, normalizamos a função para ser constante igual a um.}, que são pré-computadas na CPU. Fig. \ref{fig::ambiente_validacao} ilustra os glifos no ambiente de teste para diferentes valores de $M$. O cômputo do valor absoluto torna estas funções simétricas em relação ao eixos coordenados, assim como as funções e sinais de difusão.
 
 \begin{table}[ht]
 \centering
@@ -1995,7 +1995,7 @@ $j \mod 10$ & Harmônica Esférica \\ \hline
 9 & $Y_0^0$         \\
 0 & $Y_3^0$        
 \end{tabular}
-\caption{Associação de índice de célula para função harmônica esférica utilizada. Adicionamos o cômputo dos valores absolutos e fizemos a normalização min-max para cômputo de $\boldsymbol{\psi}(j)$. Os glifos ODF estão ilustrados em Fig. \ref{fig::ambiente_validacao}.}
+\caption{Associação de índice de célula para função harmônica esférica utilizada. Adicionamos o cômputo dos valores absolutos e fizemos a normalização min-max para cômputo de $\boldsymbol{R}(j)$. Os glifos ODF estão ilustrados em Fig. \ref{fig::ambiente_validacao}.}
 \label{tab::harmonicas_esfericas}
 \end{table}
 
@@ -2010,9 +2010,9 @@ No primeiro protótipo, recebendo um conjunto de índices de células cujos glif
 2, ..., 
 M
 ]$, o esquema gera três matrizes $\mathbf{V}$, $I^D$ e $T$ a serem enviados à GPU em função de todas as amostras min-max normalizadas referentes a
-$\boldsymbol{\psi}(1)$,
-$\boldsymbol{\psi}(2)$, ...,
-$\boldsymbol{\psi}(M)$ pré-computadas na CPU. $\mathbf{V}$, se refere ao conjunto de vértices de todos os glifos, $I^D$, se refere ao conjunto de índices que triangulam os vértices dos glifos e $T$ consiste nos dados de translação para as células.
+$\boldsymbol{R}(1)$,
+$\boldsymbol{R}(2)$, ...,
+$\boldsymbol{R}(M)$ pré-computadas na CPU. $\mathbf{V}$, se refere ao conjunto de vértices de todos os glifos, $I^D$, se refere ao conjunto de índices que triangulam os vértices dos glifos e $T$ consiste nos dados de translação para as células.
 
 %Para geração dos glifos, uma malha esférica base ($\Pi, I$) é utilizada, Onde $\Pi_{3\times N} = [P_1, P_2, \dots, P_N]$ é o conjunto de vértices da malha, onde $P_k = [P_{xk}, P_{yk}, P_{zk}]^T$, e $I_{3\tau \times 1}$ é o conjunto de índices que triangulam $\Pi$ afim de gerar a malha esférica, onde $\tau$ é a quantidade de triângulos da malha.
 
@@ -2024,16 +2024,16 @@ Na CPU, a matriz $\mathbf{V}_{3\times N\cdot M}$ que contém todos os vértices 
 \label{eq::vertices_prototipo1}
     \mathbf{V} = 
     \begin{bmatrix}
-    \Pi\cdot\boldsymbol{\psi}(1)^D &
-    \Pi\cdot\boldsymbol{\psi}(2)^D &
-    \Pi\cdot\boldsymbol{\psi}(3)^D & \cdots &
-    \Pi\cdot\boldsymbol{\psi}(M)^D
+    \Pi\cdot\boldsymbol{R}(1)^D &
+    \Pi\cdot\boldsymbol{R}(2)^D &
+    \Pi\cdot\boldsymbol{R}(3)^D & \cdots &
+    \Pi\cdot\boldsymbol{R}(M)^D
     \end{bmatrix}
     ,
 \end{equation}
-onde $\boldsymbol{\psi}(j)_{N\times N}^D$ é a matriz diagonal, onde $\boldsymbol{\psi}(j)^D[i, i] = \boldsymbol{\psi}(j, \mathbf{n}_i)$.% em que $\mathbf{n}_i$ é o vetor unitário com direção e sentido da normal de $P_i$.
+onde $\boldsymbol{R}(j)_{N\times N}^D$ é a matriz diagonal, onde $\boldsymbol{R}(j)^D[i, i] = \boldsymbol{R}(j, \mathbf{n}_i)$.% em que $\mathbf{n}_i$ é o vetor unitário com direção e sentido da normal de $P_i$.
 
-Também na CPU, o vetor $I_{3 \tau M \times 1}^D$ é definido e consiste na replicação de $I$ para formar as malha esférica esféricas de cada um dos objetos definidos por $\Pi\cdot\boldsymbol{\psi}(j)^D$. Como todos os glifos são triangulados da mesma forma, $I^D$ consiste em $M$ replicações de $I$ dispostas em sequência, na qual a $j$-ésima replicação consiste na adição de um fator de índice dado por $j\cdot N$. Logo $I^D$ tem a seguinte formulação:
+Também na CPU, o vetor $I_{3 \tau M \times 1}^D$ é definido e consiste na replicação de $I$ para formar as malha esférica esféricas de cada um dos objetos definidos por $\Pi\cdot\boldsymbol{R}(j)^D$. Como todos os glifos são triangulados da mesma forma, $I^D$ consiste em $M$ replicações de $I$ dispostas em sequência, na qual a $j$-ésima replicação consiste na adição de um fator de índice dado por $j\cdot N$. Logo $I^D$ tem a seguinte formulação:
 \begin{equation}
 \label{eq::index_prototipo1}
     I^D = 
@@ -2111,17 +2111,17 @@ Definimos a matriz $\boldsymbol{\mathscr{R}}_{N \times M}$, computada na CPU, e 
 \begingroup % keep the change local
 \setlength\arraycolsep{2pt}
 \begin{bmatrix} 
-    \psi(1, \mathbf{n}_1) &
-    \psi(2, \mathbf{n}_1) & \cdots & 
-    \psi(M, \mathbf{n}_1)  \\
+    R(1, \mathbf{n}_1) &
+    R(2, \mathbf{n}_1) & \cdots & 
+    R(M, \mathbf{n}_1)  \\
     
-    \psi(1, \mathbf{n}_2) &
-    \psi(2, \mathbf{n}_2) & \cdots & 
-    \psi(M, \mathbf{n}_2) \\ \vdots & \vdots & \vdots & \vdots  \\
+    R(1, \mathbf{n}_2) &
+    R(2, \mathbf{n}_2) & \cdots & 
+    R(M, \mathbf{n}_2) \\ \vdots & \vdots & \vdots & \vdots  \\
     
-    \psi(1, \mathbf{n}_N) & 
-    \psi(2, \mathbf{n}_N) & \cdots & 
-    \psi(M, \mathbf{n}_N)
+    R(1, \mathbf{n}_N) & 
+    R(2, \mathbf{n}_N) & \cdots & 
+    R(M, \mathbf{n}_N)
 \end{bmatrix}
 \endgroup
 \end{equation}
@@ -2162,23 +2162,23 @@ Note também que, para $8^a$ e $16^a$ ordem de tesselação, o FPS mais que dobr
 \subsection{Exploração da simetria}
 \label{sec::otimizacao_da_simetria}
 
-Nesta seção, exploraremos a simetria das ODFs, i.e. $\psi(j, \mathbf{n}) = \psi(j, -\mathbf{n})$, para que possamos diminuir o tráfego de dados de ODF discutidos na Seção \ref{sec::renderizacao_por_instancias}. Para isto, impomos a nossa primeira condição: apenas malhas esféricas com pontos simétricos em relação aos eixos são utilizadas, e os simétricos estão em sequência na memória, ou seja, em $\Pi$, N é par e $P_{2i+2} = -P_{2i+1}$, $(0 \leq i \leq \frac{N-2}{2})$, nos levando a uma estrutura de dados $\Pi = [P_1, -P_1, P_3, -P_3, \dots, P_{N-3}, -P_{N-3}, P_{N-1}, -P_{N-1}]$. Tal como na Seção \ref{sec::renderizacao_por_instancias}, enviamos $(\Pi, I)$ à GPU a priori para ser instanciada $M$ vezes.
+Nesta seção, exploraremos a simetria das ODFs, i.e. $R(j, \mathbf{n}) = R(j, -\mathbf{n})$, para que possamos diminuir o tráfego de dados de ODF discutidos na Seção \ref{sec::renderizacao_por_instancias}. Para isto, impomos a nossa primeira condição: apenas malhas esféricas com pontos simétricos em relação aos eixos são utilizadas, e os simétricos estão em sequência na memória, ou seja, em $\Pi$, N é par e $P_{2i+2} = -P_{2i+1}$, $(0 \leq i \leq \frac{N-2}{2})$, nos levando a uma estrutura de dados $\Pi = [P_1, -P_1, P_3, -P_3, \dots, P_{N-3}, -P_{N-3}, P_{N-1}, -P_{N-1}]$. Tal como na Seção \ref{sec::renderizacao_por_instancias}, enviamos $(\Pi, I)$ à GPU a priori para ser instanciada $M$ vezes.
 
 Reestruturamos os dados
-$\boldsymbol{\psi}(j)_{N\times 1} = [
-\psi(j, \mathbf{n}_1), 
-\psi(j, \mathbf{n}_2), 
-\psi(j, \mathbf{n}_3), ..., 
-\psi(j, \mathbf{n}_N)
+$\boldsymbol{R}(j)_{N\times 1} = [
+R(j, \mathbf{n}_1), 
+R(j, \mathbf{n}_2), 
+R(j, \mathbf{n}_3), ..., 
+R(j, \mathbf{n}_N)
 ]^T$ para
-$\boldsymbol{\psi}(j)_{\frac{N}{2}\times 1} =[
-\psi(j, \mathbf{n}_1), 
-\psi(j, \mathbf{n}_3), ...
-\psi(j, \mathbf{n}_{N-3}),
-\psi(j, \mathbf{n}_{N-1})
+$\boldsymbol{R}(j)_{\frac{N}{2}\times 1} =[
+R(j, \mathbf{n}_1), 
+R(j, \mathbf{n}_3), ...
+R(j, \mathbf{n}_{N-3}),
+R(j, \mathbf{n}_{N-1})
 ]^T$.
 
-Neste contexto, na formação do glifo ODF na $j$-ésima célula, na i-ésima posição $\psi(j, \mathbf{n}_{2i-1})$ escalona os pontos $P_{2i-1}$ e $P_{2i}$ da esfera na $j$-ésima instância. Logo, reestruturamos $\boldsymbol{\mathscr{R}}$ para que se torne $\boldsymbol{\mathscr{R}}_{\frac{N}{2}\times M}$, tal que:
+Neste contexto, na formação do glifo ODF na $j$-ésima célula, na i-ésima posição $R(j, \mathbf{n}_{2i-1})$ escalona os pontos $P_{2i-1}$ e $P_{2i}$ da esfera na $j$-ésima instância. Logo, reestruturamos $\boldsymbol{\mathscr{R}}$ para que se torne $\boldsymbol{\mathscr{R}}_{\frac{N}{2}\times M}$, tal que:
 
 \begin{equation}
 \label{eq::odf_prototipo3}
@@ -2186,17 +2186,17 @@ Neste contexto, na formação do glifo ODF na $j$-ésima célula, na i-ésima po
 \begingroup % keep the change local
 \setlength\arraycolsep{2pt}
 \begin{bmatrix} 
-    \psi(1, \mathbf{n}_1) &
-    \psi(2, \mathbf{n}_1) & \cdots & 
-    \psi(M, \mathbf{n}_1)  \\
+    R(1, \mathbf{n}_1) &
+    R(2, \mathbf{n}_1) & \cdots & 
+    R(M, \mathbf{n}_1)  \\
     
-    \psi(1, \mathbf{n}_3) &
-    \psi(2, \mathbf{n}_3) & \cdots & 
-    \psi(M, \mathbf{n}_3) \\ \vdots & \vdots & \vdots & \vdots  \\
+    R(1, \mathbf{n}_3) &
+    R(2, \mathbf{n}_3) & \cdots & 
+    R(M, \mathbf{n}_3) \\ \vdots & \vdots & \vdots & \vdots  \\
     
-    \psi(1, \mathbf{n}_{N-1}) & 
-    \psi(2, \mathbf{n}_{N-1}) & \cdots & 
-    \psi(M, \mathbf{n}_{N-1})
+    R(1, \mathbf{n}_{N-1}) & 
+    R(2, \mathbf{n}_{N-1}) & \cdots & 
+    R(M, \mathbf{n}_{N-1})
 \end{bmatrix}
 \endgroup
 \end{equation}
@@ -2322,7 +2322,7 @@ Com este objetivo, propomos a segunda condição que restringe o uso da malha es
 
 Aplicadas estas condições, resolvemos a alternância de malhas esféricas, fazendo com que, no processo de inicialização do algoritmo de renderização, os conjunto de vértices $\Pi$ e os conjunto de índices $I_0$, $I_1$, ..., $I_{k-1}$, $I_k$ sejam carregados na GPU.
 
-Resolvemos o problema de tráfego de dados no envio das amostras, no qual as amostras que deformam a sub-malha esférica de mais baixa resolução são colocadas na parte inicial de $\boldsymbol{\psi(\mathbf{r})}$, as amostras que deformam a sub-malha esférica de segunda mais baixa resolução, envolve as amostras da primeira e as suas próprias amostras em $\boldsymbol{\psi(\mathbf{r})}$, e assim por diante.
+Resolvemos o problema de tráfego de dados no envio das amostras, no qual as amostras que deformam a sub-malha esférica de mais baixa resolução são colocadas na parte inicial de $\boldsymbol{R}(\mathbf{r})$, as amostras que deformam a sub-malha esférica de segunda mais baixa resolução, envolve as amostras da primeira e as suas próprias amostras em $\boldsymbol{R(\mathbf{r})}$, e assim por diante.
 
 Sugerimos tesselações do icosaedro de ordem potência de dois para este fim, no qual propomos que os vértices do icosaedro consistam nos primeiros 12 vértices da estrutura de dados, a subdivisão de $2^a$ ordem consista nos 42 primeiros vértices, a subdivisão de $4^a$ ordem consista nos primeiros 162 vértices na estrutura de dados, e assim sucessivamente\footnote{A Eq. \ref{eq::icosphere_vertices} formula a quantidade de vértices em função da ordem de tesselação.}. Adicionalmente, as antípodas estão dispostas de forma consecutiva na memória no conjunto de vértices $\Pi$, assim como nas Seções \ref{sec::otimizacao_da_simetria} e \ref{sec::estrutura_de_dados_para_textura_RGBA}.
 
