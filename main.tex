@@ -598,7 +598,7 @@ A ocorrência da difusão na direção dos feixes se deve aos obstáculos impost
 
 
 
-A medição das características de difusão da água no cérebro pode fornecer informações sobre a substância branca quanto à direção de fibras e conectividade do cérebro. Esta medição é possível através da ressonância magnética ponderada por difusão (\textit{diffusion-weighted magnetic resonance imaging}, DW-MRI ou DWI), que é no estado-da-arte o único meio não-invasivo a permitir tal informação. O DWI mede a atenuação do sinal de ressonância magnética devido a diferença de campos magnéticos aplicados pelos gradientes de ponderação de difusão nos períodos de defasagem e refasagem no \textit{spins} da molécula, que ocorrem devido à difusão.
+A medição das características de difusão da água no cérebro pode fornecer informações sobre a substância branca quanto à direção de fibras e conectividade do cérebro. Esta medição é possível através da ressonância magnética ponderada por difusão (\textit{diffusion-weighted magnetic resonance imaging}, DW-MRI ou DWI), que é no estado-da-arte o único meio não-invasivo a permitir tal informação. O DWI mede a atenuação do sinal de ressonância magnética devido a uma falha na recuperação de fase dos \textit{spins} das moléculas de água, que ocorrem devido ao movimento de difusão.
 
 
 
@@ -739,7 +739,7 @@ Mesmo com estas evidências, tensores de alta ordem não são popularmente utili
 
 %A partir das ODFs, a direção local de fibras em um \textit{voxel} é modelada de forma adequada pela extração de seus máximos locais \cite{fillard2011}, sendo assim a base para algoritmos de tractografia.  %\textcolor{red}{Porém, (comentar o que falta ainda para popularizar o seu uso clínico em relação a DTI) ...}
 
-No uso clínico, o DTI é ainda muito mais utilizado que métodos alta ordem. As vantagens do DTI se referem a sua aquisição, que requer uma quantidade de dados menor, implicando em um menor tempo para ser feita, e a popularidade de aplicativos que processam DWI por este método de imageamento. Adicionalmente, o DTI demanda uma menor quantidade memória para armazenar parâmetros intrínsecos ao seu método comparados aos métodos de alta ordem. E o cômputo de parâmetros relacionados em diferentes aplicações a partir do DTI, como o próprio cômputo do método, renderização de glifos e tractografia, é geralmente computacionalmente menos exigente. Face a estas dificuldades, a comunidade ainda não desenvolveu  um aplicativo que justifique os tempos de aquisição mais longos \cite{descoteaux2015}.
+No uso clínico, o DTI é ainda muito mais utilizado que métodos alta ordem. As vantagens do DTI se referem a sua aquisição, que requer uma quantidade de dados menor, implicando em um menor tempo para ser feita, e a popularidade de aplicativos que processam DWI por este método de imageamento. Adicionalmente, o DTI demanda uma menor quantidade memória para armazenar parâmetros intrínsecos ao seu método comparados aos métodos de alta ordem. O cômputo de parâmetros relacionados em diferentes aplicações a partir do DTI, como o próprio cômputo do tensor, renderização de glifos e tractografia, é geralmente computacionalmente menos exigente. Face a estas dificuldades, a comunidade ainda não desenvolveu  um aplicativo que justifique os tempos de aquisição mais longos \cite{descoteaux2015}.
 
 %Falar de tratos que HARDI resolve e DTI não?
 
@@ -878,7 +878,7 @@ Inspirados no trabalho de \citeonline{voltoline2021} que mostra que a sobreposi�
 \section{Contribuição}
 \label{sec:contribuicoes}
 
-A contribuição esperada para o presente trabalho dentro do escopo de um ambiente exploratório da conectividade cerebral através de técnicas avançadas de imageamento é a integração da técnica de amostragem generalizada no espaço-Q (\textit{Generalized Q-Space Imaging}, GQI) \cite{yeh2010}  ao ambiente de visualização exploratória multimodal, e a renderização em tempo interativo de uma representação gráfica das funções ODF sintetizadas.
+A contribuição esperada para o presente trabalho dentro do escopo de um ambiente exploratório da conectividade cerebral através de técnicas avançadas de imageamento é a integração da técnica de amostragem generalizada no espaço-Q (\textit{Generalized Q-Space Imaging}, GQI) \cite{yeh2010}  ao ambiente de visualização exploratória multimodal, e a proposição de um algoritmo de renderização em tempo interativo de uma representação gráfica das funções ODF sintetizadas.
 %e a proposição e validação de um algoritmo de renderização interativa de glifos que sintetizem as ODFs geradas pelo método integrado.
 
 %\todo[inline]{Sintetizar os principais resultados alcançados ...}
@@ -1958,11 +1958,9 @@ Para estimativa da trajetória de uma fibra, aventamos explorar o trabalho de \c
 \chapter{Dados da série de experimentos: Ganhos em desempenho}
 \label{ap::dados_serie_experimentos_1}
 
-Neste apêndice, apresentamos os dados de desempenho relativos à série de experimentos para renderização de glifos para diferentes ordens de tesselação do icosaedro, conforme descrita na Seção \ref{sec::funcionalidades_agregadas_e_ganhos_de_performance} do Capítulo \ref{sec::experimentos}.
+Neste apêndice, apresentamos os dados de desempenho relativos à série de experimentos para renderização de glifos para diferentes ordens de tesselação do icosaedro, conforme descrita na Seção \ref{sec::funcionalidades_agregadas_e_ganhos_de_performance} do Capítulo \ref{sec::experimentos}. Foram utilizadas as tesselações de ordem 2, 4, 8 e 16 do icosaedro para o cômputo do tempo de renderização dos glifos.
 
-A primeira série de experimentos se refere à funcionalidade de indexação e síntese do glifo na GPU, a segunda série se refere à adição da funcionalidade de instanciação na renderização e a síntese do glifo na GPU, a terceira série se refere à exploração da simetria das ODFs para diminuição do uso de memória e diminuição do tráfego de dados CPU-GPU dos escalares que sintetizam a ODF e o quarto experimento se refere ao uso da memória da GPU em um leiaute tal que os acessos dos escalares de ODF que sintetizam os glifos ocorrem de forma coalescente.
-
-Foram utilizadas as tesselações de ordem 2, 4, 8 e 16 do icosaedro para o cômputo do tempo de renderização dos glifos.
+A primeira série de experimentos se refere à funcionalidade de indexação e síntese do glifo na CPU, a segunda série se refere à adição da funcionalidade de instanciação na renderização e a síntese do glifo na GPU, a terceira série se refere à exploração da simetria das ODFs para diminuição do uso de memória e tráfego de dados CPU-GPU dos escalares que sintetizam a ODF e o quarto experimento se refere ao uso da memória da GPU em um leiaute tal que os acessos dos escalares de ODF que sintetizam os glifos ocorrem de forma coalescente.
 
 \begin{table}[htb]
 \begin{tabular}{c|c|c|c|c|}
@@ -2116,7 +2114,7 @@ Integramos o algoritmo de renderização de glifos ODF no VMTK-Neuro com as func
 1.59	 & 7.96   & 13205  & 8 \\
 \hline
 \end{tabular}
-\caption{Ambiente de visualização multimodal com glifos ODF renderizados em uma imagem $850\times 850$ com a malha esférica base fixa. Fig. \ref{fig::qualidade_visual_longe_highres} teve em sua geração os parâmetros da última linha da tabela.
+\caption{Ambiente de visualização multimodal com glifos ODF renderizados em uma imagem $850\times 850$ com a malha esférica base fixa. Fig. \ref{fig::qualidade_visual_longe_highres} teve em sua geração, os parâmetros da última linha da tabela.
 }
 \label{tab::glyph_info_experiment_fixed}
 \end{table}
@@ -2139,7 +2137,7 @@ Integramos o algoritmo de renderização de glifos ODF no VMTK-Neuro com as func
 1.59    & 16.59 & 13205 & 2 & 36    \\
 \hline
 \end{tabular}
-\caption{Esquema de renderização multimodal com glifos de ODF renderizados em uma imagem $850\times 850$. Fig. \ref{fig::qualidade_visual_longe_lowres} teve em sua geração os parâmetros da última linha da tabela.}
+\caption{Esquema de renderização multimodal com glifos de ODF renderizados em uma imagem $850\times 850$. Fig. \ref{fig::qualidade_visual_longe_lowres} teve em sua geração, os parâmetros da última linha da tabela.}
 \label{tab::glyph_info_experiment}
 \end{table}
 \end{apendicesenv}
