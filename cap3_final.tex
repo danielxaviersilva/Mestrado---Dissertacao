@@ -497,6 +497,29 @@ $\boldsymbol{R}(\mathbf{v}_M)$ definidas para os \textit{voxels} detectados são
     }
  \end{figure}
  
+ Em todas as interações com o usuário, todo o fluxo de controle ilustrado na Fig. \ref{fig::vmtk_simplified} é executado. Categorizamos as interações em dois conjuntos, ilustrado na Fig. \ref{fig::vmtk_interacao}: interações de visão-projeção e de clipagem. As interações visão-projeção consistem em interações do usuário, efetuadas com o \textit{mouse}, que modificam parâmetros de câmera e projeção e que são sintetizados na matriz \textit{view-projection}. As interações de clipagem modificam parâmetros de visualização que dizem respeito à visualização de cortes anatômicos, que são enumerados de acordo com a sua fatia. A configuração de parâmetros resultados das interações são computados na CPU e enviados à GPU.
+ 
+ \begin{figure}[H]
+    \centering
+    \subfloat[Ponto inicial de renderização] {\includegraphics[width=.5\linewidth,  angle=0]{figs/Esquema_Glifo/raycasting/ilustracao_interacao/vmtk_inicial.png}
+    \label{fig::vmtk_interacao_inicial}
+    }
+     \subfloat[Interação visão-projeção - rotação]{\makebox[1.\width]
+     {\includegraphics[width=.5\linewidth,  angle=0]{figs/Esquema_Glifo/raycasting/ilustracao_interacao/vmtk_rotacao.png}
+    \label{fig::vmtk_interacao_rotacao}
+    }
+    }
+    \\
+     \subfloat[Interação de clipagem.]{\makebox[1.\width]
+     {\includegraphics[width=.5\linewidth,  angle=0]{figs/Esquema_Glifo/raycasting/ilustracao_interacao/vmtk_clip.png}
+    \label{fig::vmtk_interacao_clip}
+    }
+    }
+    \caption{Ilustração das interações do usuário com o VMTK-Neuro para visualização de um volume ponderado em T1 de MRI. A Fig. \ref{fig::vmtk_interacao_rotacao} ilustra uma rotação feita em relação à imagem gerada na Fig. \ref{fig::vmtk_interacao_inicial}, e Fig. \ref{fig::vmtk_interacao_clip} ilustra uma interação de clipagem efetuada na Fig. \ref{fig::vmtk_interacao_rotacao}.
+    }
+    \label{fig::vmtk_interacao}
+\end{figure}
+ 
  %!!VERIFICAR TEXTO DAS INTERAÇÕES
 %Toda a \textit{pipeline} de renderização no \textit{VMTK-Neuro} é executada para todas as interações do usuário, que são sintetizados nos parâmetros de renderização e da matriz \textit{View-Projection}. A matriz \textit{View-Projection} sintetiza parâmetros de rotação da cena, mudança de fator de escala e deslocamento na cena. Os parâmetros de renderização que consistem na seleção de fatias, que por sua vez modulam a geometria \textit{proxy}\footnote{Geometria \textit{proxy} é a geometria que contém o objeto a ser visualizado via \textit{ray-casting}}.
 
