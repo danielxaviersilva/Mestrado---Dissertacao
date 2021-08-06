@@ -18,7 +18,7 @@ O segundo grupo de experimentos encontra-se na Seção \ref{sec::multi_resoluç�
 
 %O terceiro grupo de experimentos tem como objetivo de comparar visualmente os glifos superquádricos e os glifos ODFs apresentados neste trabalho quanto à eficiência na visualização das orientações múltiplas de fibras em amostras obtidas pelo protocolo HARDI de exames de ressonância magnética ponderada em difusão.
 
-O terceiro grupo de experimentos encontra-se na Seção \ref{sec::aspectos_visuais_e_interpretabilidade}, onde  comparamos visualmente os glifos superquádricos e os glifos ODF apresentados neste trabalho quanto à melhoria na visualização das orientações múltiplas de fibras em amostras escaneadas. Avaliamos a plausibilidade das múltiplas orientações dos glifos na região de interface do corpo caloso e cíngulo, no leque da coroa radiada e no centro semioval, onde é reconhecida anatomicamente a ocorrência de encontro de dois ou mais conjunto de fibras.
+O terceiro grupo de experimentos encontra-se na Seção \ref{sec::aspectos_visuais_e_interpretabilidade}, onde comparamos visualmente os glifos superquádricos e os glifos ODF apresentados neste trabalho quanto à melhoria na visualização das orientações múltiplas de fibras em amostras escaneadas. Avaliamos a plausibilidade das múltiplas orientações dos glifos na região de interface do corpo caloso e cíngulo, no leque da coroa radiada e no centro semioval, onde é reconhecida anatomicamente a ocorrência de encontro de dois ou mais conjunto de fibras. Adicionalmente, trazemos evidências da eficácia dos glifos ODF nas regiões de coexistência de fibras em cinco volumes adicionais na mesma região do volume em que fazemos a análise comparativa dos superquádricos e glifos ODF.
  
  %objetivando a interatividade que culminaram no algoritmo de renderização apresentado no Capítulo \ref{chap::renderizacao_interativa_de_perfis_de_difusao}.
 
@@ -155,13 +155,15 @@ O pré-cômputo das amostras $\boldsymbol{R}(j)$ associadas a célula de índice
 %\todo[inline]{Revise o texto. \textcolor{green}{Falo o índice do volume? Ou dizer mulher 22-35 anos saudável é suficiente?}}
 
 Utilizamos os dados do repositório \textit{WU-Minn HCP Retest Data} mantido pelo \textit{Connectome Project Consortium} \cite{essen2012}\footnote{Para os testes, não foi possível fazer aquisições HARDI com o escaneador Philips Achieva 3T disponível no hospital-universidade da Unicamp por medidas de contenção da COVID-19.}.
-Os dados de difusão e anatômicos ponderados em T1 foram adquiridos em um \textit{scanner} Siemens 3T Skyra provenientes de uma mulher saudável na faixa etária entre 26-30 anos de idade.
+Os dados de difusão e anatômicos ponderados em T1 foram adquiridos em um \textit{scanner} Siemens 3T Skyra.
 
 A aquisição de difusão é \textit{multi-shell} com 90 gradientes de ponderação de difusão uniformemente distribuídos em cada \textit{shell} $b = 1000, 2000$ e $3000 s/mm^2$ e, adicionalmente, foram escaneados 6 aquisições $b0$ para cada \textit{shell}, totalizando 288 volumes. Os parâmetros da sequência EPI spin-echo da aquisição utilizados foram: tamanho do \textit{voxel} = $1,25\times 1,25 \times 1,25$mm$^3$, tempo de repetição = 5520 ms, tempo de eco = 89,5 ms, \textit{field-of-view}\footnote{Campo de visão, ou FOV.} = 210mm$\times$180mm, \textit{flip angle} = 78 graus, matriz = 168x144. Os dados foram pré-processados com a \textit{pipeline} de pré-processamento do \textit{Human Connectomme Project} (HCP) \cite{glasser2013}, gerando um volume $145\times 174\times  145$, com 3.658.350 \textit{voxels}.
 
 A aquisição anatômica ponderada em T1 do mesmo controle foi também pré-processada utilizando a \textit{pipeline} de pré-processamento do HCP \cite{glasser2013}. Os parâmetros da sequência aquisição utilizados foram: tamanho de \textit{voxel} = $0,7\times 0,7 \times 0,7$mm$^3$, tempo de repetição = 2400 ms, tempo de eco = 2,14 ms, tempo de inversão = 1000ms, \textit{flip angle} = 8 graus, \textit{field-of-view}=224mm$\times$224mm, matriz=320x320. Após o pré-processamento da aquisição, o tamanho do \textit{voxel} é reamostrado para $1,25\times 1,25 \times 1,25$ mm$^3$ e a resolução do volume é de $145\times 174\times 145$ (3.658.350 \textit{voxels}), assim como o seu respectivo DWI.
 
 As dODFs foram obtidas através do GQI \cite{yeh2010} (Capítulo \ref{chapter::metodos_hardi}) e min-max normalizadas. O fator $\sigma \sqrt{6D}$ que utilizamos é de 0,0239. As amostras foram computadas com base no hemisfério da $8^{a}$ ordem de tesselação do icosaedro e armazenadas na CPU, gerando um total de 321 amostras por \textit{voxel}.
+
+No experimento em que fazemos a análise comparativa entre os glifos superquádricos e glifos ODF em regiões de coexistência de fibras, os dados são provenientes de uma mulher saudável na faixa etária entre 26-30 anos de idade. No experimento em que evidenciamos a eficácia dos glifos ODF na interpretação visual nas regiões escolhidas, apresentamos imagens de volumes provenientes de homens e mulheres, saudáveis e nas faixas etárias 22-25, 26-30, 31-35 anos de idade.
 
 %\sout{Utilizamos estes dados nos experimentos feitos com o ambiente de visualização multimodal descritos nas Seções \ref{sec::multi_resolução_e_performance_em_ambiente_de visualização_multimodal} e \ref{sec::aspectos_visuais_e_interpretabilidade}.}
 
@@ -729,13 +731,18 @@ Explorarmos os volumes de glifos renderizados sob a perspectiva de anatomia dos 
 
 %\todo[inline]{Parece que a Fig 4.15 foi enfiada na última hora no texto, solta, sem uma conexão adequada com o restante. Acho melhor removê-la.}
 Nesta seção apresentamos algumas imagens representativas, em glifos ODF e em glifos superquádricos. Elas ilustram diferenças no poder informativo dos dois tipos de visualização de difusões intravóxeis quanto aos feixes de fibras subjacentes. Fig.  \ref{fig::multimodal_localizacao_1} mostra numa mesma fatia coronal as três regiões das quais extraímos as imagens.
-Elas são a interface entre o cíngulo e o corpo caloso (destacada em marrom), a base do leque da coroa radiada (destacada em laranja) e o centro semioval (destacado em ciano). A localização dessa fatia coronal nos planos anatômicos axial e sagital é mostrada nas Figs. \ref{fig::multimodal_localizacao_axial_1} e  \ref{fig::multimodal_localizacao_sagital_1}, respectivamente.%\sout{ A fim de melhor ilustrar a configuração espacial dos cruzamentos no centro semioval, apresentamos na Fig. \ref{fig::multimodal_localizacao_2} uma vista axial de uma das fatias que intercepta a região delimitada pela linha ciano na Fig. \ref{fig::multimodal_localizacao_axial_1}. 
+Elas são a interface entre o cíngulo e o corpo caloso (destacada em verde), a base do leque da coroa radiada (destacada em laranja) e o centro semioval (destacado em ciano). A localização dessa fatia coronal nos planos anatômicos axial e sagital é mostrada nas Figs. \ref{fig::multimodal_localizacao_axial_1} e  \ref{fig::multimodal_localizacao_sagital_1}, respectivamente.%\sout{ A fim de melhor ilustrar a configuração espacial dos cruzamentos no centro semioval, apresentamos na Fig. \ref{fig::multimodal_localizacao_2} uma vista axial de uma das fatias que intercepta a região delimitada pela linha ciano na Fig. \ref{fig::multimodal_localizacao_axial_1}. 
 %Os \textit{voxels} correspondentes nas duas figuras são destacadas com o contorno magenta.}
+
+
+\subsubsection{Regiões de coexistência de fibras: comparação entre glifos ODF e superquádricos}
+\label{sssec::comparacao_glifosODF_superquadrico}
+
 \begin{figure}[H]
 \centering
 %\captionsetup[subfloat]{farskip=0pt,nearskip=0pt}
     %\rule{6cm}{3cm}
-    \subfloat[Três regiões selecionadas para comparação entre os glifos ODF e superquádricos numa fatia coronal: base do leque de coroa radiada (destacada pela linha laranja), interface entre cíngulo e corpo caloso (destacada pela linha marrom), e centro semioval (destacada pela linha ciano). ]{\makebox[1.0\width]{\includegraphics[width=0.7\linewidth, angle=0]{figs/Esquema_Glifo/Visual/Glifo_Fatia79_Coronal_front/coronal_glifos_lowRes_ft_cgcc_fan.png}
+    \subfloat[Três regiões selecionadas para comparação entre os glifos ODF e superquádricos numa fatia coronal: base do leque de coroa radiada (destacada pela linha laranja), interface entre cíngulo e corpo caloso (destacada pela linha verde), e centro semioval (destacada pela linha ciano). ]{\makebox[1.0\width]{\includegraphics[width=0.7\linewidth, angle=0]{figs/Esquema_Glifo/Visual/Glifo_Fatia79_Coronal_front/coronal_glifos_lowRes_ft_cgcc_fan_leg.png}
    \label{fig::multimodal_localizacao_coronal_1}
    }
     }
@@ -751,7 +758,7 @@ Elas são a interface entre o cíngulo e o corpo caloso (destacada em marrom), a
 \end{figure}
 
 
-A região destacada com a linha marrom na Fig. \ref{fig::multimodal_localizacao_coronal_1} corresponde à interface entre o corpo caloso e o cíngulo. Nesta região, temos uma configuração ``beijo'' (\textit{kissing}) entre os dois feixes de fibras.  Mais especificamente, os dois feixes se tocam perpendicularmente como mostra o esboço na Fig. \ref{fig::relacoes_espaciais_feixes}. Espera-se, portanto, que existam amostras na interface entre os dois feixes de fibras com duas direções de difusão dominantes, como revelam os glifos ODF destacados pelos retângulos marrons na Fig. \ref{fig::multimodal_cgcc_glifo_odf}. No entanto, os correspondentes glifos superquádricos na Fig. \ref{fig::multimodal_cgcc_superquadric}, também destacados pela linha marrom, assumem formas que nos induzem a concluir equivocadamente que as difusões sejam isotrópicas nas amostras destacadas. 
+A região destacada com a linha verde na Fig. \ref{fig::multimodal_localizacao_coronal_1} corresponde à interface entre o corpo caloso e o cíngulo. Nesta região, temos uma configuração ``beijo'' (\textit{kissing}) entre os dois feixes de fibras.  Mais especificamente, os dois feixes se tocam perpendicularmente como mostra o esboço na Fig. \ref{fig::relacoes_espaciais_feixes}. Espera-se, portanto, que existam amostras na interface entre os dois feixes de fibras com duas direções de difusão dominantes, como revelam os glifos ODF destacados pelos retângulos marrons na Fig. \ref{fig::multimodal_cgcc_glifo_odf}. No entanto, os correspondentes glifos superquádricos na Fig. \ref{fig::multimodal_cgcc_superquadric}, também destacados pela linha marrom, assumem formas que nos induzem a concluir equivocadamente que as difusões sejam isotrópicas nas amostras destacadas. 
 %nas visões axial e coronal , são apresentados nas Figs. \ref{???}, \ref{fig::multimodal_localizacao_1} e \ref{fig::multimodal_localizacao_2}.
 
 %\subfloat[Fatia coronal de um MRI T1 co-registrado com DWI com glifos ODF sobrepostos. O glifos utilizam a $2^a$ ordem de tesselação do icosaedro. A região de Fig. \ref{fig::multimodal_cruzamento_1} está destacada em amarelo. A região em Fig. \ref{fig::multimodal_cgcc} está destacada em marrom]
@@ -784,13 +791,13 @@ A região destacada com a linha marrom na Fig. \ref{fig::multimodal_localizacao_
 \centering
 %\captionsetup[subfloat]{farskip=0pt,nearskip=0pt}
     %\rule{6cm}{3cm}
-    \subfloat[Glifos ODF do GQI.]{\includegraphics[width=.47\linewidth, angle=0]{figs/Esquema_Glifo/Visual/CG_CC/glifo_ODF_marcado_3.png}
+    \subfloat[Glifos ODF do GQI.]{\includegraphics[width=.47\linewidth, angle=0]{figs/Esquema_Glifo/Visual/CG_CC/glifo_ODF_marcado_3_leg.png}
     \label{fig::multimodal_cgcc_glifo_odf}
     }
-    \subfloat[Superquádricos.] {\includegraphics[width=.47\linewidth, angle=0]{figs/Esquema_Glifo/Visual/CG_CC/superquadrico_marcado_3.png}
+    \subfloat[Superquádricos.] {\includegraphics[width=.47\linewidth, angle=0]{figs/Esquema_Glifo/Visual/CG_CC/superquadrico_marcado_3_leg.png}
     \label{fig::multimodal_cgcc_superquadric}
     }
-    \caption{``Beijo'' na interface entre cíngulo e corpo caloso. As imagens consistem na região destacada em marrom na fatia coronal da Fig. \ref{fig::multimodal_localizacao_coronal_1}.
+    \caption{``Beijo'' na interface entre cíngulo e corpo caloso. As imagens consistem na região destacada em verde na fatia coronal da Fig. \ref{fig::multimodal_localizacao_coronal_1}.
     }
     \label{fig::multimodal_cgcc}
 \end{figure}
@@ -801,10 +808,10 @@ A região destacada com a linha preta na Fig. \ref{fig::multimodal_fanning_glifo
 \centering
 %\captionsetup[subfloat]{farskip=0pt,nearskip=0pt}
     %\rule{6cm}{3cm}
-    \subfloat[Glifos ODF do GQI.]{\includegraphics[width=.47\linewidth, angle=0]{figs/Esquema_Glifo/Visual/Fanning/glifo_ODF_marcado_4.png}
+    \subfloat[Glifos ODF do GQI.]{\includegraphics[width=.47\linewidth, angle=0]{figs/Esquema_Glifo/Visual/Fanning/glifo_ODF_marcado_4_leg.png}
     \label{fig::multimodal_fanning_glifo_odf}
     }
-    \subfloat[Superquádricos.] {\includegraphics[width=.47\linewidth, angle=0]{figs/Esquema_Glifo/Visual/Fanning/superquadrico_marcado_4.png}
+    \subfloat[Superquádricos.] {\includegraphics[width=.47\linewidth, angle=0]{figs/Esquema_Glifo/Visual/Fanning/superquadrico_marcado_4_leg.png}
     \label{fig::multimodal_fanning_superquadric}
     }
     \caption{Bifurcação de fibras no trato cortico-espinhal. As imagens consistem na região destacada em laranja na fatia coronal da Fig. \ref{fig::multimodal_localizacao_coronal_1}. % região de cruzamento da \textit{corona radiata}, corpo caloso e fascículo longitudinal superior em uma visão coronal.
@@ -827,11 +834,11 @@ Finalmente, a região destacada com a linha ciano na Fig. \ref{fig::multimodal_l
 \centering
 %\captionsetup[subfloat]{farskip=0pt,nearskip=0pt}
     %\rule{6cm}{3cm}
-    \subfloat[Glifos ODF do GQI.]{\includegraphics[width=.8\linewidth, angle=0]{figs/Esquema_Glifo/Visual/Glifo_Fatia79_Coronal_front/glifo_ODF_marcado.png}
+    \subfloat[Glifos ODF do GQI.]{\includegraphics[width=.8\linewidth, angle=0]{figs/Esquema_Glifo/Visual/Glifo_Fatia79_Coronal_front/glifo_ODF_marcado_leg.png}
     \label{fig::multimodal_glifo_odf_1}
     }
     \\
-    \subfloat[Superquádricos.] {\includegraphics[width=.8\linewidth, angle=0]{figs/Esquema_Glifo/Visual/Glifo_Fatia79_Coronal_front/superquadrico_crossing.png}
+    \subfloat[Superquádricos.] {\includegraphics[width=.8\linewidth, angle=0]{figs/Esquema_Glifo/Visual/Glifo_Fatia79_Coronal_front/superquadrico_crossing_leg.png}
     \label{fig::multimodal_superquadric_1}
     }
     \caption{Cruzamento no centro semioval numa fatia coronal. As imagens consistem na região destacada em ciano na fatia coronal da Fig. \ref{fig::multimodal_localizacao_coronal_1}.% região de cruzamento da \textit{corona radiata}, corpo caloso e fascículo longitudinal superior em uma visão coronal.
@@ -923,6 +930,205 @@ Finalmente, a região destacada com a linha ciano na Fig. \ref{fig::multimodal_l
     \label{fig::multimodal_cruzamento_2}
 \end{figure}
 
+\subsubsection{Regiões de coexistência de fibras: volumes diversos}
+\label{sssec::comparacao_glifosODF_diversos}
+
+Nesta seção, apresentamos algumas imagens representativas dos glifos ODF em uma fatia coronal nas mesmas regiões do cérebro discutidas na Seção \ref{sssec::comparacao_glifosODF_superquadrico} para evidenciar em mais volumes que os glifos ODF são eficazes na interpretabilidade visual em regiões de coexistência de fibras. As fatias mostradas nas Fig. \ref{fig::103818_localizacao}, \ref{fig::105923_localizacao}, \ref{fig::122317_localizacao}, \ref{fig::146129_localizacao} e \ref{fig::149741_localizacao} representam diferentes sujeitos, em que nos referimos como sujeitos 1, 2, 3, 4 e 5, respectivamente. As Fig. \ref{fig::103818}, \ref{fig::105923}, \ref{fig::122317}, \ref{fig::146129} e \ref{fig::149741} ilustram as regiões de coexistência de tratos em um fator de escala maior para os sujeitos a serem discutidos de 1 a 5, respectivamente. Todos sujeitos nos quais os volumes se referem são saudáveis, e têm seus sexos e faixas-etárias anotados na tabela \ref{tab::vol_id}.
+
+\begin{table}[htb]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Sujeito} & \textbf{Sexo} & \textbf{Faixa-etária} \\ \hline
+1                & Feminino      & 31-35 anos            \\ \hline
+2                & Feminino      & 31-35 anos            \\ \hline
+3                & Masculino     & 31-35 anos            \\ \hline
+4                & Masculino     & 22-25 anos            \\ \hline
+5                & Masculino     & 26-30 anos            \\ \hline
+\end{tabular}
+\caption{Relação entre sujeitos analisados, gênero e faixa-etária.}
+\label{tab::vol_id}
+\end{table}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%!!IMAGENS ADICIONAIS
+
+%%103818
+\begin{figure}[H]
+ %\subfigcapskip = -5pt
+     \centering
+     \includegraphics[width=1.0\linewidth, angle=0]{figs/Esquema_Glifo/Visual/Adicionais/103818/localizacao_leg.png}
+      \caption{Sujeito 1: regiões selecionadas para verificação da interpretabilidade visual dos glifos ODF em regiões de coexistência de fibras.}
+       \label{fig::103818_localizacao}
+  %   \hspace{1pt}
+ \end{figure}
+
+\begin{figure}[H]
+ \centering
+     \subfloat[Cruzamento no centro semioval numa fatia coronal. Região destacada em ciano.]
+     {\makebox[2.0\width]
+     {\includegraphics[width=.50\linewidth,  angle=0]{figs/Esquema_Glifo/Visual/Adicionais/103818/crossing_leg.png}
+    \label{fig::103818_crossing}
+    }
+    }
+    \\
+    \subfloat[``Beijo'' na interface entre cíngulo e corpo caloso. Região destacada em verde.]{\makebox[2.0\width]
+     {\includegraphics[width=.5\linewidth,  angle=0]{figs/Esquema_Glifo/Visual/Adicionais/103818/kissing_leg.png}
+    \label{fig::103818_kissing}
+    }
+    }
+    \\
+    \subfloat[Bifurcação de fibras no trato corticoespinhal na coroa radiada. Região destacada em laranja.]{\makebox[2.0\width]
+     {\includegraphics[width=.33\linewidth,  angle=0]{figs/Esquema_Glifo/Visual/Adicionais/103818/fanning_leg.png}
+    \label{fig::103818_fanning}
+    }
+    }
+    \\
+    \caption{Sujeito 1: regiões destacadas de coexistência de fibras na fatia coronal mostrada na Fig. \ref{fig::103818_localizacao}.
+    }
+    \label{fig::103818}
+\end{figure}
+
+%%105923
+\begin{figure}[H]
+ %\subfigcapskip = -5pt
+     \centering
+     \includegraphics[width=1.0\linewidth, angle=0]{figs/Esquema_Glifo/Visual/Adicionais/105923/localizacao_leg.png}
+      \caption{Sujeito 2: regiões selecionadas para verificação da interpretabilidade visual dos glifos ODF em regiões de coexistência de fibras.}
+       \label{fig::105923_localizacao}
+  %   \hspace{1pt}
+ \end{figure}
+
+\begin{figure}[H]
+ \centering
+     \subfloat[Cruzamento no centro semioval numa fatia coronal. Região destacada em ciano.]
+     {\makebox[1.2\width]
+     {\includegraphics[width=.40\linewidth,  angle=0]{figs/Esquema_Glifo/Visual/Adicionais/105923/crossing_leg.png}
+    \label{fig::105923_crossing}
+    }
+    }
+    \subfloat[``Beijo'' na interface entre cíngulo e corpo caloso. Região destacada em verde.]{\makebox[1.2\width]
+     {\includegraphics[width=.4\linewidth,  angle=0]{figs/Esquema_Glifo/Visual/Adicionais/105923/kissing_leg.png}
+    \label{fig::105923_kissing}
+    }
+    }
+    \\
+    %\subfloat[Bifurcação de fibras no trato corticoespinhal na coroa radiada. Região destacada em laranja.]{\makebox[1.8\width]
+     %{\includegraphics[width=.35\linewidth,  angle=0]{figs/Esquema_Glifo/Visual/Adicionais/105923/fanning_leg.png}
+    \label{fig::105923_fanning}
+    %}
+    %}
+    \caption{Sujeito 2: regiões destacadas de coexistência de fibras na fatia coronal mostrada na Fig. \ref{fig::105923_localizacao}.
+    }
+    \label{fig::105923}
+\end{figure}
+
+%%122317
+\begin{figure}[H]
+ %\subfigcapskip = -5pt
+     \centering
+     \includegraphics[width=1.0\linewidth, angle=0]{figs/Esquema_Glifo/Visual/Adicionais/122317/localizacao_leg.png}
+      \caption{Sujeito 3: regiões selecionadas para verificação da interpretabilidade visual dos glifos ODF em regiões de coexistência de fibras.}
+       \label{fig::122317_localizacao}
+  %   \hspace{1pt}
+ \end{figure}
+
+\begin{figure}[H]
+ \centering
+     \subfloat[Cruzamento no centro semioval numa fatia coronal. Região destacada em ciano.]
+     {\makebox[1.2\width]
+     {\includegraphics[width=.40\linewidth,  angle=0]{figs/Esquema_Glifo/Visual/Adicionais/122317/crossing_leg.png}
+    \label{fig::122317_crossing}
+    }
+    }
+    \subfloat[``Beijo'' na interface entre cíngulo e corpo caloso. Região destacada em verde.]{\makebox[1.2\width]
+     {\includegraphics[width=.4\linewidth,  angle=0]{figs/Esquema_Glifo/Visual/Adicionais/122317/kissing_leg.png}
+    \label{fig::122317_kissing}
+    }
+    }
+   % \subfloat[Bifurcação de fibras no trato corticoespinhal na coroa radiada. Região destacada em laranja.]{\makebox[1.8\width]
+    % {\includegraphics[width=.35\linewidth,  angle=0]{figs/Esquema_Glifo/Visual/Adicionais/122317/fanning_leg.png}
+   % \label{fig::122317_fanning}
+   % }
+    %}
+    \caption{Sujeito 3: regiões destacadas de coexistência de fibras na fatia coronal mostrada na Fig. \ref{fig::122317_localizacao}.
+    }
+    \label{fig::122317}
+\end{figure}
+
+%%146129
+\begin{figure}[H]
+ %\subfigcapskip = -5pt
+     \centering
+     \includegraphics[width=1.0\linewidth, angle=0]{figs/Esquema_Glifo/Visual/Adicionais/146129/localizacao_leg.png}
+      \caption{Sujeito 4: regiões selecionadas para verificação da interpretabilidade visual dos glifos ODF em regiões de coexistência de fibras.}
+       \label{fig::146129_localizacao}
+  %   \hspace{1pt}
+ \end{figure}
+
+\begin{figure}[H]
+ \centering
+     \subfloat[Cruzamento no centro semioval numa fatia coronal. Região destacada em ciano.]
+     {\makebox[1.3\width]
+     {\includegraphics[width=.40\linewidth,  angle=0]{figs/Esquema_Glifo/Visual/Adicionais/146129/crossing_leg.png}
+    \label{fig::146129_crossing}
+    }
+    }
+    \subfloat[Bifurcação de fibras no trato corticoespinhal na coroa radiada. Região destacada em laranja.]{\makebox[1.3\width]
+     {\includegraphics[width=.31\linewidth,  angle=0]{figs/Esquema_Glifo/Visual/Adicionais/146129/fanning_leg.png}
+    \label{fig::146129_fanning}
+    }
+    }
+    \\
+    \subfloat[``Beijo'' na interface entre cíngulo e corpo caloso. Região destacada em verde.]{\makebox[1.0\width]
+     {\includegraphics[width=.8\linewidth,  angle=0]{figs/Esquema_Glifo/Visual/Adicionais/146129/kissing_leg.png}
+    \label{fig::146129_kissing}
+    }
+    }
+    \caption{Sujeito 4: regiões destacadas de coexistência de fibras na fatia coronal mostrada na Fig. \ref{fig::146129_localizacao}.
+    }
+    \label{fig::146129}
+\end{figure}
+
+%%149741
+\begin{figure}[H]
+ %\subfigcapskip = -5pt
+     \centering
+     \includegraphics[width=1.0\linewidth, angle=0]{figs/Esquema_Glifo/Visual/Adicionais/149741/localizacao_leg.png}
+      \caption{Sujeito 5: regiões selecionadas para verificação da interpretabilidade visual dos glifos ODF em regiões de coexistência de fibras.}
+       \label{fig::149741_localizacao}
+  %   \hspace{1pt}
+ \end{figure}
+
+\begin{figure}[H]
+ \centering
+     \subfloat[Cruzamento no centro semioval numa fatia coronal. Região destacada em ciano.]
+     {\makebox[1.2\width]
+     {\includegraphics[width=.40\linewidth,  angle=0]{figs/Esquema_Glifo/Visual/Adicionais/149741/crossing_leg.png}
+    \label{fig::149741_crossing}
+    }
+    }
+    \subfloat[``Beijo'' na interface entre cíngulo e corpo caloso. Região destacada em verde.]{\makebox[1.2\width]
+     {\includegraphics[width=.4\linewidth,  angle=0]{figs/Esquema_Glifo/Visual/Adicionais/149741/kissing_leg.png}
+    \label{fig::149741_kissing}
+    }
+    }
+    \\
+    %\subfloat[Bifurcação de fibras no trato corticoespinhal na coroa radiada. Região destacada em laranja.]{\makebox[1.8\width]
+     %{\includegraphics[width=.35\linewidth,  angle=0]{figs/Esquema_Glifo/Visual/Adicionais/149741/fanning_leg.png}
+    %\label{fig::149741_fanning}
+    %}
+    %}
+    \caption{Sujeito 5: regiões destacadas de coexistência de fibras na fatia coronal mostrada na Fig. \ref{fig::149741_localizacao}.
+    }
+    \label{fig::149741}
+\end{figure}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 \subsection{Discussões}
 \label{ssec::visual_discussoes}
@@ -941,8 +1147,18 @@ Nos \textit{voxels} do centro semioval, ilustrados na Fig. \ref{fig::tratos},  t
 o trato cortico-espinhal, que tem direção dominantemente ascendente vindo da cápsula interna, e o fascículo longitudinal superior, que tem direção anteroposterior. Pode-se perceber pela Fig. \ref{fig::multimodal_cruzamento_1} que, 
 enquanto as pontas isoladas, ou os máximos locais, dos glifos ODF (Fig. \ref{fig::multimodal_glifo_odf_1}, e também Fig. \ref{fig::multimodal_cruzamento_2}) permitem inferir sobre a natureza do cruzamento, os superquádricos, por apresentarem uma forma retangular suave ou em disco (Fig. \ref{fig::multimodal_superquadric_1}), não conseguem proporcionar uma noção de cruzamento. As pontas dos glifos ODFs indicam as prováveis direções de cada feixe de fibras de forma mais precisa. Adicionalmente, constatamos com a Fig. \ref{fig::multimodal_cruzamento_2} uma observação de \citeonline{dellacqua2019} acerca a angulação de cruzamento entre os feixes de fibras de 0$^o$ a 90$^o$: quanto maior a angulação, mais delineadas são as pontas associadas aos feixes. Como a angulação de cruzamento entre CC e CS é menor que 90$^o$ no glifo destacado (Fig. \ref{fig::multimodal_cruzamento_2}), o conjunto de pontas ascendentes e inclinadas para direita (CC) e esquerda (CS) (Fig. \ref{fig::glifo_cruzamento_coronal}) é menos distinguível no glifo que o cruzamento das pontas de CC e CS com as pontas de cor verde (SLF).
 
+%%%%%%% ANALISE COM MULTIPLOS VOLUMES %%%%%%
+Nos resultados mostrados nos diferentes volumes na Seção \ref{sssec::comparacao_glifosODF_diversos}, as imagens mostram que os formatos similares dos glifos nas regiões destacadas em relação à região analisada no volume discutido na Seção \ref{sssec::comparacao_glifosODF_superquadrico} para os cinco volumes analisados e que as diferenças nos volumes dizem respeito a diferenças na conectividade entre indivíduos.
 
-Cabe aqui uma ressalva aos resultados da nossa análise. Embora seja possível identificar visualmente, através das formas e das cores dos glifos ODF implementados, a presença de configurações de múltiplas direções de difusão intravoxel, as características aplicadas são somente condições necessárias. Elas não são suficientes para distinguirmos as diferentes configurações. Essa questão é um problema ainda em aberto \cite{SCHILLING2019194} e não é tratada no escopo deste projeto.
+Nos cinco volumes adicionais analisados, a região de cruzamento no centro semioval é facilmente evidenciável e as diferenças entre os indivíduos pode ser notada na área ocupada da região onde ocorre os cruzamentos, que pode ser relativamente grande (Fig. \ref{fig::122317_localizacao}) ou pequena (Fig. \ref{fig::146129_localizacao}).
+
+Na coroa radiada, há volumes que não evidenciam a bifurcação de fibras na coroa radiada de forma facilmente notável no plano coronal, como nos volumes das Fig. \ref{fig::105923_localizacao}, \ref{fig::122317_localizacao} e \ref{fig::149741_localizacao}. Isso se deve a proximidade das regiões de bifurcação ao centro semioval, em que as múltiplas direções de cruzamento se confundem com as bifurcações que levam os axônios à diferentes regiões do giro pré e pós-central. Adicionalmente pode-se notar que há diversas direções de fibras que passam de forma perpendicular ou oblíquas ao plano coronal mostrado.
+
+Na região de interface entre cíngulo e corpo caloso, há a evidência de glifos que mostram as direções do corpo caloso e cíngulo analisado no experimento da Seção \ref{sssec::comparacao_glifosODF_superquadrico} em todos os volumes adicionais do experimento e são facilmente identificáveis em cada um.
+%%%%%%%%%%
+
+
+Cabe aqui uma ressalva aos resultados da nossa análise. Embora seja possível identificar visualmente, através das formas e das cores dos glifos ODF implementados, a presença de configurações de múltiplas direções de difusão intravóxel, as características aplicadas são somente condições necessárias. Elas não são suficientes para distinguirmos as diferentes configurações. Essa questão é um problema ainda em aberto \cite{SCHILLING2019194} e não é tratada no escopo deste projeto.
 
 %\sout{Nos glifos ODF do centro semioval, ilustrado na Fig. \ref{fig::multimodal_glifo_odf_1}, temos um cruzamento entre o corpo caloso e que vem da parte medial do cérebro, representado na parteinferior esquerda da imagem e tem uma direção na diagonal ascendente e lateral, e as fibrasdo trato CS, que tem direção dominantemente ascendente, vindo da cápsula interna, na parte inferior direita na imagem e o SLF II, que tem direção anteroposterior e está normalao plano da imagem e é predominante na parte superior direita da imagem. Pode-se perceber na região de cruzamento de fibras que, enquanto nos glifos ODF é possível inferir sobre a natureza do cruzamento, os superquádricos apresentam uma forma retangular suave ou disco e não geram a possibilidade de inferimento sobre as fibras que compõem o cruzamento. Através dos glifos ODF, é possível inferir sobre as regiões que são delimitadas pelos tratos. Tomando como exemplo o SLF II, é possível inferir sobre a localização das fibras do trato a partir de componentes verdes dominantes nos glifos ODF na partesuperior direita da imagem, mas a partir dos superquádricos, há glifos na região com tons de cor vermelha e cor de ferrugem (Fig. \ref{fig::multimodal_superquadric_1}) que evidenciam uma descorrelação daaparência do glifo com a vizinhança.
 %}

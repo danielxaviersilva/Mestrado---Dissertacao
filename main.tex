@@ -719,7 +719,7 @@ Durante a década de 2000, foram propostos métodos de imageamento mais descriti
 
 %Os métodos de alta ordem usualmente sintetizam os sinais de difusão locais em uma 
 
-As ODFs associam uma direção, representada pelo vetor unitário $\mathbf{\hat{u}}$, a um valor escalar de probabilidade $R(\mathbf{\hat{u}})$ representativo. Entre os métodos de alta ordem, há os que visam computar funções de distribuição de orientações de difusão (dODF) \cite{TuchQBall2004, wedeen2005, yeh2010}. A partir das dODFs, a informação sobre as fibras subjacentes intravóxel é extraída de um conjunto de direções feita através do cômputo dos máximos locais das funções. Se o cômputo das dODFs é feito a partir de aquisições com uma razão sinal-ruído razoável, as fibras tendem a ser bem modeladas através de seus máximos locais \cite{fillard2011}.
+As ODFs associam uma direção, representada pelo vetor unitário $\mathbf{\hat{u}}$, a um valor escalar de probabilidade $\psi(\mathbf{\hat{u}})$ representativo. Entre os métodos de alta ordem, há os que visam computar funções de distribuição de orientações de difusão (dODF) \cite{TuchQBall2004, wedeen2005, yeh2010}. A partir das dODFs, a informação sobre as fibras subjacentes intravóxel é extraída de um conjunto de direções feita através do cômputo dos máximos locais das funções. Se o cômputo das dODFs é feito a partir de aquisições com uma razão sinal-ruído razoável, as direções das fibras subjacentes tendem a ser bem modeladas através de seus máximos locais \cite{fillard2011}.
 
 %O primeiro uso desta categoria de funções é documentado por \citeonline{tuch2002}, que mostra que há uma relação de Fourier tridimensional entre os sinais de difusão para a função de difusão. Adicionalmente, o conteúdo direcional da difusão é obtido através através da integração na coordenada radial da função de difusão.
 
@@ -1742,16 +1742,32 @@ Considerando a convenção adotada em relação a planos anatômicos, em que a c
 
 \subsection{Renderização Interativa}
 
-Embora sejam conhecidos os procedimentos de mapeamento de dODFs em glifos, visualizá-los em tempo interativo para facilitar a exploração visual da difusividade e análise da plausibilidade das amostras escaneadas é ainda um problema. Fig. \ref{fig::QBall_glifos_coronal} ilustra uma potencial aplicação em que os glifos sobrepostos ao volume de difusão no ambiente de visualização multimodal apoiem na delineação da região de sementes de uma tractografia \cite{voltoline2021}.
+Embora sejam conhecidos os procedimentos de mapeamento de dODFs em glifos, visualizá-los em tempo interativo para facilitar a exploração visual da difusividade e análise da plausibilidade das amostras escaneadas é ainda um problema. Fig. \ref{fig::QBall_glifos_coronal} ilustra uma potencial aplicação em que os glifos sobrepostos ao volume de difusão no ambiente de visualização multimodal possibilitam a visualização da difusão intravóxel, o que é fundamental para pesquisadores da área de tensores de alta ordem para difusão \cite{peeters2009} e possam apoiar a delineação da região de sementes de uma tractografia \cite{voltoline2021}.
 No próximo capítulo, propomos um novo algoritmo interativo de renderização de glifos ODF acelerado por GPU e integrado ao ambiente de visualização multimodal a partir das dODF min-max normalizadas pré-computadas.
 
- \begin{figure}[H]
+% \begin{figure}[H]
  %\subfigcapskip = -5pt
-     \centering
-     \includegraphics[width=0.7\linewidth, angle=0]{figs/Exemplos_QBall_visualizacao/Coronal.png}
-     \caption{Fatia coronal de uma fatia DWI-b0 renderizada no ambiente de visualização multimodal de ressonância magnética e glifos ODF. O volume é artificial e usado no ISMRM \textit{Challenge} 2015 \cite{TractometerTool}.}
-      \label{fig::QBall_glifos_coronal}
+ %    \centering
+    % \includegraphics[width=0.7\linewidth, angle=0]{figs/Exemplos_QBall_visualizacao/Coronal.png}
+    % \caption{}
+     % \label{fig::QBall_glifos_coronal}
   %   \hspace{1pt}
+ %\end{figure}
+ 
+ \begin{figure}[ht]
+ \centering
+ \captionsetup[subfloat]{farskip=5pt,nearskip=0pt}
+%    %!!VER SE ISSO TA CERTO
+     \subfloat[16 glifos ODF destacados em laranja na Fig. \ref{fig::QBall_glifos_coronal_fatorpequeno}.] {\includegraphics[width=.4\linewidth, angle=0]{figs/Exemplos_QBall_visualizacao/Coronal_zoom.png}
+     \label{fig::QBall_glifos_coronal_fatorgrande}
+     }    
+     \hfill
+     \subfloat[Fatia Coronal.]{\includegraphics[width=.7\linewidth, angle=0]{figs/Exemplos_QBall_visualizacao/Coronal.png}
+     \label{fig::QBall_glifos_coronal_fatorpequeno}
+     }
+      \caption{Glifos ODF sobrepostos aos seus respectivos \textit{voxels} em uma fatia coronal de um MRI T1 anatômico no ambiente de visualização multimodal de ressonância magnética VMTK-Neuro. O volume é artificial e usado no ISMRM \textit{Challenge} 2015 \cite{TractometerTool}.}
+     %\hfill
+     \label{fig::QBall_glifos_coronal}
  \end{figure}
 
 %\subsubsection{Realce}

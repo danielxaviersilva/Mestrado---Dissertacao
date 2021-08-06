@@ -112,7 +112,16 @@ Por conta do compromisso entre a qualidade e a eficiência na renderização dos
 
 %\sout{A primeira condição, conforme já discutido no capítulo \ref{chapter::metodos_hardi} na forma de armazenamento de dados da ODF tira vantagem da simetria e armazena os pontos em metade de uma esfera. Propomos que os pontos simétricos em relação aos eixos coordenados de $\Pi$ estejam dispostos de forma consecutiva na memória, i. e. $P_{2i+2} = -P_{2i+1}$, $(0 \leq i \leq \frac{N-2}{2})$, o que nos leva a uma estrutura de dados $\Pi = [P_1, -P_1, P_3, -P_3, \dots, P_{N-3}, -P_{N-3}, P_{N-1}, -P_{N-1}]$.}
 
-Em vista da complexidade em relação à memória, é desejável que a ordem de tesselação seja adaptativa na renderização de glifos, de ordem 1 até 16$^a$ ordem. Propomos que os vértices sejam estruturados numa estrutura linear em $\Pi$. Como os vértices da ordem $2^{t+1}$ $(t < k)$ contêm os vértices da ordem $2^{t}$, propomos anexar, em blocos, os vértices adicionais da ordem $2^{t+1}$ em relação à ordem $2^t$ ao bloco dos vértices da ordem $2^t$, mantendo a relação de vértices de índices pares e ímpares, ou seja $P_{2i+2} = -P_{2i+1}$. Com isso, garante-se que todos os vértices de uma ordem específica sejam contíguos e que os vértices incrementais de sub-malhas de ordens inferiores estejam organizados em blocos facilmente distinguíveis.
+Em vista da complexidade em relação à memória, é desejável que a ordem de tesselação seja adaptativa na renderização de glifos, de ordem 1 até 16$^a$ ordem. Propomos que os vértices sejam estruturados numa estrutura linear em $\Pi$. Como os vértices da ordem $2^{t+1}$ $(t < k)$ contêm os vértices da ordem $2^{t}$, propomos anexar em blocos, os vértices adicionais da ordem $2^{t+1}$ ao bloco dos vértices da ordem $2^t$ como ilustrado na Fig. \ref{fig::icosaedro_blocos}, mantendo a relação de vértices de índices pares e ímpares, ou seja $P_{2i+2} = -P_{2i+1}$. Com isso, garante-se que todos os vértices de uma ordem específica sejam contíguos e que os vértices incrementais de sub-malhas de ordens inferiores estejam organizados em blocos facilmente distinguíveis.
+
+ \begin{figure}[ht]
+%\subfigcapskip = -5pt
+    \centering
+    \includegraphics[width=1.0\linewidth, angle=0]{figs/Esquema_Glifo/icosaedro_blocos.png}
+    \caption{Ilustração do leiaute em memória do conjunto de vértices $\Pi$ da malha esférica. Da esquerda para direita, as esferas aproximadas pela $1^a$, $2^a$, $4^a$, $8^a$ e $16^a$ ordem de tesselação do icosaedro. A quantidade de vértices de cada malha é obtida de acordo com a Eq. \ref{eq::icosphere_vertices}.}
+     \label{fig::icosaedro_blocos}
+   %\hspace{1pt}
+\end{figure}
 
 %\sout{A segunda condição objetiva fazer a geometria base do glifo ser adaptativa como uma sub-malha da malha esférica base. Seja $k$ o número de sub-malhas de $(\Pi, I)$, onde cada sub-malha é denotada por $(\Pi_i, I_i)$,  $(0 \leq i < k)$, adicionalmente, o número de pontos das sub-malhas é crescente de acordo com os sub-índices, i.e. se $(0 \leq i < j < k)$, implica $|\Pi_j| > |\Pi_i|$. Sugerimos que cada sub-malha $(\Pi_i, I_i)$ seja simétrica em relação a origem e os primeiros $|\Pi_i|$ elementos na estrutura de dados de $\Pi$ corresponda aos elementos de $\Pi_i$. Note que esta condição também implica que, para $i$, $j$ tais $0 \leq i < j < k$, $\Pi_i$ é subconjunto de $\Pi_j$.}
 
@@ -499,12 +508,12 @@ $\boldsymbol{R}(\mathbf{v}_M)$ definidas para os \textit{voxels} detectados são
  
  Em todas as interações com o usuário, todo o fluxo de controle ilustrado na Fig. \ref{fig::vmtk_simplified} é executado. Categorizamos as interações em dois conjuntos, ilustrado na Fig. \ref{fig::vmtk_interacao}: interações de visão-projeção e de clipagem. As interações visão-projeção consistem em interações do usuário, efetuadas com o \textit{mouse}, que modificam parâmetros de câmera e projeção e que são sintetizados na matriz \textit{view-projection}. As interações de clipagem modificam parâmetros de visualização que dizem respeito à visualização de cortes anatômicos, que são enumerados de acordo com a sua fatia. A configuração de parâmetros resultados das interações são computados na CPU e enviados à GPU.
  
- \begin{figure}[H]
+ \begin{figure}[htb]
     \centering
-    \subfloat[Ponto inicial de renderização] {\includegraphics[width=.5\linewidth,  angle=0]{figs/Esquema_Glifo/raycasting/ilustracao_interacao/vmtk_inicial.png}
+    \subfloat[Ponto inicial de renderização.] {\includegraphics[width=.5\linewidth,  angle=0]{figs/Esquema_Glifo/raycasting/ilustracao_interacao/vmtk_inicial.png}
     \label{fig::vmtk_interacao_inicial}
     }
-     \subfloat[Interação visão-projeção - rotação]{\makebox[1.\width]
+     \subfloat[Interação visão-projeção - rotação.]{\makebox[1.\width]
      {\includegraphics[width=.5\linewidth,  angle=0]{figs/Esquema_Glifo/raycasting/ilustracao_interacao/vmtk_rotacao.png}
     \label{fig::vmtk_interacao_rotacao}
     }
@@ -515,7 +524,7 @@ $\boldsymbol{R}(\mathbf{v}_M)$ definidas para os \textit{voxels} detectados são
     \label{fig::vmtk_interacao_clip}
     }
     }
-    \caption{Ilustração das interações do usuário com o VMTK-Neuro para visualização de um volume ponderado em T1 de MRI. A Fig. \ref{fig::vmtk_interacao_rotacao} ilustra uma rotação feita em relação à imagem gerada na Fig. \ref{fig::vmtk_interacao_inicial}, e Fig. \ref{fig::vmtk_interacao_clip} ilustra uma interação de clipagem efetuada na Fig. \ref{fig::vmtk_interacao_rotacao}.
+    \caption{Ilustração das interações do usuário com o VMTK-Neuro para visualização de um volume ponderado em T1 de MRI. A Fig. \ref{fig::vmtk_interacao_rotacao} ilustra uma rotação feita em relação à imagem gerada na Fig. \ref{fig::vmtk_interacao_inicial}, e Fig. \ref{fig::vmtk_interacao_clip} ilustra uma interação de clipagem efetuada na Fig. \ref{fig::vmtk_interacao_rotacao}. Volume pertencente ao repositório \textit{Wu-Minn Human Connectome Project Retest} do \textit{Connectome Project Consortium} \cite{essen2012}.
     }
     \label{fig::vmtk_interacao}
 \end{figure}
