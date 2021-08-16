@@ -75,8 +75,8 @@
 
 % adicionado por Ting
 \setlength{\marginparwidth}{2cm}
-\usepackage[disable]{todonotes}
-%\usepackage{todonotes}
+%\usepackage[disable]{todonotes}
+\usepackage{todonotes}
 %\usepackage{soul}
 \usepackage[normalem]{ulem}
 \usepackage{hyperref}
@@ -428,7 +428,7 @@ A ressonância magnética ponderada em difusão (DWI) é uma modalidade de image
 \begin{resumo}[Abstract]
  \begin{otherlanguage*}{english}
 
-Diffusion-weighted magnetic resonance (DWI) is an imaging modality that measures fluid diffusion. Applied to the brain, DWI is unique in quantifying this phenomenon in water in living tissue. In the white matter of the brain, the diffusion has the preferential direction of its fibers, which allows the inference of their architecture \textit{in-vivo} and noninvasively. For this purpose, there are imaging methods that model this phenomenon, and diffusion tensor imaging (DTI) is the most well-known and clinically disseminated. The diffusion signals are mapped to a second-order tensor. From the tensor metrics, such as information regarding the preferred direction of diffusion, it is possible to infer the white matter architecture and make studies and diagnoses viable. However, the model used in DTI cannot resolve regions of white matter where there are two or more fiber populations in the same voxel. Facing this problem, research groups have proposed higher-order tensors to model a diffusion for improving the inference of the white matter architecture. This work aims to integrate a high-order tensor in an interactive multimodal visualization environment and a novel rendering algorithm to the visualization of intravoxel diffusion in glyphs. We present an introduction to high-order tensors and detail the computational implementation of the Generalized Q-Sampling Imaging for processing higher-order tensors, namely the data of High Angular Resolution Diffusion Imaging (HARDI). We developed an interactive GPU-accelerated algorithm that maps high-order tensors data into glyphs to provide a three-dimensional view of the post-processed data. The results demonstrate that the glyphs allow inferring the underlying fiber trajectory and evaluating the generated data, which are of great use for research in the area.
+Diffusion-weighted magnetic resonance (DWI) is an imaging modality that measures fluid diffusion. Applied to the brain, DWI is unique in quantifying this phenomenon in water in living tissue. In the white matter of the brain, the diffusion has the preferential direction of its fibers, which allows the inference of their architecture \textit{in-vivo} and noninvasively. For this purpose, \sout{there are} imaging methods \sout{that} model this phenomenon, and diffusion tensor imaging (DTI) is the most well-known and clinically disseminated. The diffusion signals are mapped to a second-order tensor. From the tensor metrics, such as information regarding the preferred direction of diffusion, it is possible to infer the white matter architecture and make studies and diagnoses viable. However, the model used in DTI cannot resolve regions of white matter where there are two or more fiber populations in the same voxel. Facing this problem, research groups have proposed higher-order tensors to model a diffusion \sout{for improving the inference of} \textcolor{red}{to improve} the white matter architecture \textcolor{red}{inference}. This work aims to integrate a high-order tensor in an interactive multimodal visualization environment and a novel rendering algorithm to the visualization of intravoxel diffusion in glyphs. We present an introduction to high-order tensors and detail the computational implementation of the Generalized Q-Sampling Imaging for processing higher-order tensors, namely the \sout{data of} High Angular Resolution Diffusion Imaging (HARDI) \textcolor{red}{data}. We developed an interactive GPU-accelerated algorithm that maps high-order tensors data into glyphs to provide a three-dimensional view of the post-processed data. The results demonstrate that the glyphs allow inferring the underlying fiber trajectory and evaluating the generated data, which are of great use for research in the area.
 
 %\noindent\textbf{Palavras-chave}: Visualização, Renderização Volumétrica, Ressonância Magnética ponderada em Difusão, Imageamento de Alta Resolução Angular ponderada em Difusão, Funções de Distribuição de Orientações de Difusão, Glifos (Métodos Gráficos).
 
@@ -460,9 +460,9 @@ Diffusion-weighted magnetic resonance (DWI) is an imaging modality that measures
 \begin{siglas}
 
 
-\item[ADC] \textit{Apparent Diffusion Coefficient} (coeficiente de difusão aparente)
+\item[ADC] \textit{Apparent Diffusion Coefficient} (Coeficiente de Difusão Aparente)
 
-\item[API] \textit{Application Programming
+\item[API] \textit{Application Programming (Interface de Programação de Aplicativos)
 Interface}
 
 \item[CC] Corpo Caloso
@@ -490,9 +490,9 @@ Interface}
 
 \item [GPU] \textit{Graphics Processing Unit} (Unidade de Processamento Gráfico)
 
-\item[GQI] \textit{Generalized Q-Sampling Imaging} (amostragem generalizada no espaço Q)
+\item[GQI] \textit{Generalized Q-Sampling Imaging} (Amostragem Generalizada no Espaço Q)
 
-\item[HARDI] \textit{High Angular Resolution Diffusion Imaging} (Imageamento de difusão por alta resolução angular)
+\item[HARDI] \textit{High Angular Resolution Diffusion Imaging} (Imageamento de Difusão por Alta Resolução Angular)
 
 \item[HCP] \textit{Human Connectome Project} (Projeto Conectoma Humano)
 
@@ -502,7 +502,7 @@ Interface}
 
 \item[ODF] \textit{Orientation Distribution Function} (Função de Distribuição de orientações)
 
-\item[PGSE] \textit{Pulsed Gradient Spin Echo}
+\item[PGSE] \textit{Pulsed Gradient Spin Echo} \textcolor{red}{(Eco de \textit{spin} do gradiente pulsado)}
 
 \item[SLF] \textit{Superior Longitudinal Fasciculus} (Fascículo Longitudinal Superior)
 
@@ -510,7 +510,7 @@ Interface}
 
 \item[UNICAMP] Universidade Estadual de Campinas
 
-\item[VMTK-Neuro] \textit{Visual Manipulation Toolkit for NeuroImages}
+\item[VMTK-Neuro] \textit{Visual Manipulation Toolkit for NeuroImages} \textcolor{red}{(\textit{Kit} de Ferramentas de Manipulação Visual para Neuroimagens)}
 
 
 
@@ -598,7 +598,7 @@ A ocorrência da difusão na direção dos feixes se deve aos obstáculos impost
 
 
 
-A medição das características de difusão da água no cérebro pode fornecer informações sobre a substância branca quanto à direção de fibras e conectividade do cérebro. Esta medição é possível através da ressonância magnética ponderada por difusão (\textit{diffusion-weighted magnetic resonance imaging}, DW-MRI ou DWI), que é no estado-da-arte o único meio não-invasivo a permitir tal informação. O DWI mede a atenuação do sinal de ressonância magnética devido a uma falha na recuperação de fase dos \textit{spins} das moléculas de água, que ocorrem devido ao movimento de difusão.
+A medição das características de difusão da água no cérebro pode fornecer informações sobre a substância branca quanto à direção de fibras e conectividade do cérebro. Esta medição é possível através da ressonância magnética ponderada por difusão (\textit{diffusion-weighted magnetic resonance imaging}, DW-MRI ou DWI), que é no estado-da-arte o único meio não-invasivo a permitir tal informação. O DWI mede a atenuação do sinal de ressonância magnética devido a uma falha na recuperação de fase dos \textit{spins} das moléculas de água pela difusão.
 
 
 
@@ -611,19 +611,19 @@ A medição das características de difusão da água no cérebro pode fornecer 
 
 %Na aquisição do DWI, é escaneado um conjunto de volumes em que cada um possui a ponderação de único gradiente de difusão associado a um valor-b\footnote{O valor-b é uma métrica de sensitividade para difusão e é função de parâmetros da aquisição do DWI, como função da intensidade, duração e o intervalo de tempo dos gradientes de ponderação de difusão. Quanto maior o seu valor, maior o decaimento do sinal relativo à difusão.}, e, adicionalmente, um ou mais volumes sem ponderação de gradiente, denominado volume b0. A quantidade de volumes ponderados para diferentes direções de gradiente é denominada de resolução angular.
 
-Há diversas técnicas para sumarizar os sinais coletados em potenciais caminhos de fibras nervosas (tractografia). Essas técnicas são objeto de pesquisa desde o início dos anos 90 \cite{descoteaux2015}. Há também pesquisas na área de visualização em métodos de imageamento aplicados a aquisições DWI, tanto no que diz respeito à criação de glifos representativos do comportamento de difusão quanto à reconstrução das fibras do cérebro.
+Há diversas técnicas, conhecidas por tractografia, para sumarizar os sinais coletados em potenciais caminhos de fibras nervosas. Essas técnicas são objeto de pesquisa desde o início dos anos 90 \cite{descoteaux2015}. Há também pesquisas na área de visualização em métodos de imageamento aplicados a aquisições DWI, tanto no que diz respeito à criação de glifos representativos do comportamento de difusão quanto à reconstrução das fibras do cérebro, paralelas à direção de difusão.
 
-O método de imageamento mais amplamente utilizada para estes fins é chamada de imageamento por tensor de difusão (\textit{Diffusion Tensor Imaging}, DTI), proposto por \citeonline{Basser1994}. Representando a difusão molecular de água como um modelo Gaussiano de dispersão, o DTI consiste em um mapeamento, por ponto no espaço, dos sinais de difusão em tensores de ordem 2, representáveis por matrizes 3x3 simétricas. A informação referente ao processo de difusão é comumente extraída dos três autovetores e autovalores dessas matrizes.
+O método de imageamento mais amplamente utilizado para estes fins é chamada de imageamento por tensor de difusão (\textit{Diffusion Tensor Imaging}, DTI), proposto por \citeonline{Basser1994}. Representando a difusão molecular de água como um modelo Gaussiano de dispersão, o DTI consiste em um mapeamento, por ponto no espaço, dos sinais de difusão em tensores de ordem 2, representáveis por matrizes 3x3 simétricas. A informação referente ao processo de difusão é comumente extraída dos três autovetores e autovalores dessas matrizes.
 
 %\sout{Há pesquisas na área de visualização em métodos de imageamento aplicados a aquisições DWI, tanto no que diz respeito à criação de glifos representativos do comportamento de difusão, quanto à reconstrução das fibras do cérebro -- denominada tractografia.}
 
 \citeonline{Basser1994} e \citeonline{Kindlmann2004} propuseram glifos representativos que sintetizam a difusão por amostra a partir do DTI. A Fig. \ref{fig::intro_ex_DTI_glifos} ilustra glifos propostos por \citeonline{Kindlmann2004}, denominados superquádricos. Esses glifos são gráficos de funções superquádricos cujos coeficientes e expoentes refletem os autovalores e autovetores dos tensores de difusão.
 
-A visualização do comportamento de difusão por amostra facilita a análise local dos sinais escaneados, mas o objetivo final da maioria das aplicações são os feixes de fibras que conectam de forma plausível as amostras locais de difusão. Técnicas usadas para tal reconstrução são conhecidas por tractografia. As fibras reconstruídas podem ser representadas por linhas, como ilustrado na Fig. \ref{fig::intro_ex_DTI_tractografia}. Algoritmos de tractografia baseados em DTI foram propostos, por exemplo, por \citeonline{Weinstein1999} e \citeonline{basser2000} e são categorizados como baseados no rastreamento de direções de difusão (\textit{streamline fiber tractography}). Esses algoritmos consistem essencialmente em conectar as amostras pelas direções dos autovetores de maior autovalor de tensores de difusão locais até um critério de parada, relacionado à chegada da linha em regiões fora da substância branca,  ser satisfeito. Informações adicionais sobre as diferentes abordagens em tractografia podem ser encontradas em \cite{tournier2011, DTI_Handbook}.
+A visualização do comportamento de difusão por amostra facilita a análise local dos sinais escaneados, mas o objetivo final da maioria das aplicações são os feixes de fibras que conectam de forma plausível as amostras locais de difusão meio de tractografia. As fibras reconstruídas podem ser representadas por linhas, como ilustrado na Fig. \ref{fig::intro_ex_DTI_tractografia}. Algoritmos de tractografia baseados em DTI foram propostos, por exemplo, por \citeonline{Weinstein1999} e \citeonline{basser2000} e são categorizados como baseados no rastreamento de direções de difusão (\textit{streamline fiber tractography}). Esses algoritmos consistem essencialmente em conectar as amostras pelas direções dos autovetores de maior autovalor de tensores de difusão locais até um critério de parada\sout{, relacionado à chegada da linha em regiões fora da substância branca,}  ser satisfeito. Informações adicionais sobre as diferentes abordagens em tractografia podem ser encontradas em \cite{tournier2011, DTI_Handbook}.
 
 \begin{figure}[ht]
 \captionsetup[subfloat]{farskip=0pt,nearskip=0pt}
-    \subfloat[Tensores de difusão representado por glifos superquádricos em uma fatia axial do cérebro na região do corpo caloso. As cores representam a direção predominante de difusão onde vermelho é lateral (esquerda-direita), azul é ascendente (superior-inferior) e verde é anteroposterior (anterior-posterior)]{\includegraphics[width=.52\linewidth, angle=0]{figs/Introducao/ex_DTI_Superquadrica.png}
+    \subfloat[Tensores de difusão representado por glifos superquádricos em uma fatia axial do cérebro na região do corpo caloso. As cores representam a direção predominante de difusão onde vermelho é \sout{lateral (}esquerda-direita\sout{)}, azul é \sout{ascendente (}superior-inferior\sout{)} e verde é anteroposterior \sout{(anterior-posterior)}]{\includegraphics[width=.52\linewidth, angle=0]{figs/Introducao/ex_DTI_Superquadrica.png}
     \label{fig::intro_ex_DTI_glifos}}
     \hfill
     \subfloat[Visão axial do fascículo inferior fronto-occipital (IFOF). A cor predominantemente verde indica sua trajetória, que ocorre na direção anteroposterior. As linhas são reconstruídas com base no proposto por \citeonline{Weinstein1999} ]{\includegraphics[width=.46\linewidth, angle=0]{figs/Introducao/ex_DTI_tractography.png}
@@ -643,7 +643,7 @@ A visualização do comportamento de difusão por amostra facilita a análise lo
 % \end{itemize}
 % }
 
-Devido à sua natureza de modelagem, o DTI apresenta limitações. O modelo Gaussiano descreve bem regiões de fibras em que o comportamento de difusão ocorre predominantemente em uma direção. Em pontos que contém múltiplas fibras e que estão dispostas nas mais variadas configurações (por exemplo, cruzamento, bifurcação, fusão, espalhamento e
+Devido à sua natureza de modelagem, o DTI apresenta limitações. O modelo Gaussiano descreve bem regiões de fibras em que o comportamento de difusão ocorre predominantemente em uma direção. Em pontos que contém múltiplas fibras e que estão dispostas nas mais variadas configurações \todo{O que acha de incluir uma ilustração dessas topologias?}(por exemplo, cruzamento, bifurcação, fusão, espalhamento e
 %\todo{toque? \textcolor{green}{A expressão que o pessoal usa é essa... o formato das fibras é:  ")(" é o nome toque não dá essa impressão  }}
 ``beijo''), o modelo Gaussiano não sintetiza de forma correta o comportamento da difusão, impedindo o cômputo das direções plausíveis para reconstrução de uma fibra de interesse \cite{fillard2011, daducci2014}. Há uma estimativa que entre 66\% a 90\% da substância branca do cérebro tem múltiplas configurações de cruzamento de fibra \cite{descoteaux2015} e a limitação do DTI é um obstáculo para traçar caminhos plausíveis dessas fibras do cérebro.
 
@@ -719,7 +719,7 @@ Durante a década de 2000, foram propostos métodos de imageamento mais descriti
 
 %Os métodos de alta ordem usualmente sintetizam os sinais de difusão locais em uma 
 
-As ODFs associam uma direção, representada pelo vetor unitário $\mathbf{\hat{u}}$, a um valor escalar de probabilidade $\psi(\mathbf{\hat{u}})$ representativo. Entre os métodos de alta ordem, há os que visam computar funções de distribuição de orientações de difusão (dODF) \cite{TuchQBall2004, wedeen2005, yeh2010}. A partir das dODFs, a informação sobre as fibras subjacentes intravóxel é extraída de um conjunto de direções feita através do cômputo dos máximos locais das funções. Se o cômputo das dODFs é feito a partir de aquisições com uma razão sinal-ruído razoável, as direções das fibras subjacentes tendem a ser bem modeladas através de seus máximos locais \cite{fillard2011}.
+As ODFs associam uma direção, representada pelo vetor unitário $\mathbf{\hat{u}}$, a um valor escalar de probabilidade $\psi(\mathbf{\hat{u}})$ representativo. Entre os métodos de alta ordem, há os que visam computar funções de distribuição de orientações de difusão (dODF) \cite{TuchQBall2004, wedeen2005, yeh2010}. A partir das dODFs, a informação sobre as fibras subjacentes intravóxel é extraída de um conjunto de direções \sout{feita}\textcolor{red}{obtidas}  através do cômputo dos máximos locais das funções. Se o cômputo das dODFs é feito a partir de aquisições com uma razão sinal-ruído \todo{Quanto é razoável?}razoável, as direções das fibras subjacentes tendem a ser bem modeladas através de seus máximos locais \cite{fillard2011}.
 
 %O primeiro uso desta categoria de funções é documentado por \citeonline{tuch2002}, que mostra que há uma relação de Fourier tridimensional entre os sinais de difusão para a função de difusão. Adicionalmente, o conteúdo direcional da difusão é obtido através através da integração na coordenada radial da função de difusão.
 
@@ -727,7 +727,7 @@ As ODFs associam uma direção, representada pelo vetor unitário $\mathbf{\hat{
 %\textcolor{red}{Foi demonstrado por ??? \cite{???} que, sem pré-condicionar o comportamento de difusão a um modelo matemático, é possível reconstruir uma função de distribuição, também conhecida por função de densidade de probabilidade, de \todo{orientações?}direções de fibras subjacentes às amostras dos sinais escaneados.} 
 %\sout{Os métodos definem transformadas que são aplicadas nas amostras dos sinais de difusão em cada \textit{voxel} em uma função, na qual a distribuição de direções de fibra subjacentes podem ser inferidas.} \textcolor{magenta}{A extração geralmente é feita através da detecção de máximos locais \todo{quais?}destas funções, nos quais, se aplicados sobre aquisições com uma relação sinal ruído razoável, tendem a modelar bem \todo{qual distribuição?}}
 
-A partir da extração de direções fibras subjacentes, tem sido possível gerar tractografias mais coerentes com os tratos reais e que levem em consideração mais nuances do sinal de difusão que o DTI, especialmente em regiões que contém as mais diversas configurações de múltiplas fibras. Entre os trabalhos que trazem evidências da melhoria da tractografia utilizando tensores de alta ordem, temos:
+A partir da extração de direções de fibras subjacentes, tem sido possível gerar tractografias mais coerentes com os tratos reais e que levem em consideração mais nuances do sinal de difusão que o DTI, especialmente em regiões que contém as mais diversas configurações de múltiplas fibras. Entre os trabalhos que trazem evidências da melhoria da tractografia utilizando tensores de alta ordem, temos:
 
 \begin{itemize}
     \item \citeonline{berman2009} registrou a melhor reconstrução da conectividade do trato motor na presença de tumor;
@@ -739,7 +739,7 @@ Mesmo com estas evidências, tensores de alta ordem não são popularmente utili
 
 %A partir das ODFs, a direção local de fibras em um \textit{voxel} é modelada de forma adequada pela extração de seus máximos locais \cite{fillard2011}, sendo assim a base para algoritmos de tractografia.  %\textcolor{red}{Porém, (comentar o que falta ainda para popularizar o seu uso clínico em relação a DTI) ...}
 
-No uso clínico, o DTI é ainda muito mais utilizado que métodos alta ordem. As vantagens do DTI se referem a sua aquisição, que requer uma quantidade de dados menor, implicando em um menor tempo para ser feita, e a popularidade de aplicativos que processam DWI por este método de imageamento. Adicionalmente, o DTI demanda uma menor quantidade memória para armazenar parâmetros intrínsecos ao seu método comparados aos métodos de alta ordem. O cômputo de parâmetros relacionados em diferentes aplicações a partir do DTI, como o próprio cômputo do tensor, renderização de glifos e tractografia, é geralmente computacionalmente menos exigente. Face a estas dificuldades, a comunidade ainda não desenvolveu um aplicativo que justifique os tempos de aquisição mais longos \cite{descoteaux2015}.
+No uso clínico, o DTI é ainda muito mais utilizado que métodos \textcolor{red}{de} alta ordem. As vantagens do DTI se referem a sua aquisição, que requer uma quantidade de dados menor, implicando em um menor tempo para ser feita, e a popularidade de aplicativos que processam DWI por este método de imageamento. Adicionalmente, o DTI demanda uma menor quantidade memória para armazenar parâmetros intrínsecos ao seu método comparados aos métodos de alta ordem. O cômputo de parâmetros relacionados em diferentes aplicações a partir do DTI, como o próprio cômputo do tensor, renderização de glifos e tractografia, é geralmente computacionalmente menos exigente. Face a estas dificuldades, a comunidade ainda não desenvolveu um aplicativo que justifique os tempos de aquisição mais longos \cite{descoteaux2015}.
 
 %Falar de tratos que HARDI resolve e DTI não?
 
@@ -756,10 +756,10 @@ No uso clínico, o DTI é ainda muito mais utilizado que métodos alta ordem. As
 \section{Motivação e Objetivos}
 \label{ssec:motivation}
 
-Motivados pela maior fidelidade na tractografia baseada nos métodos de alta ordem, nosso grupo de pesquisa tem a intenção de desenvolver um sistema de visualização interativa de ODFs e um algoritmo de tractografia interativo baseado nessas funções ODFs integrado ao ambiente de visualização multimodal  exploratória de exames imagiológicos 3D, chamado Visual \textit{Manipulation Toolkit for NeuroImages} (VMTK-Neuro) \cite{VMTKNeuro}.  O aplicativo renderiza em tempo interativo volumes de ressonância magnética (\textit{magnetic resonance imaging} - MRI) e possui ferramentas de exploração 3D para volumes DTI, sintetizados a partir dos volumes de ressonância magnética ponderada em difusão (DWI). A exploração pode ser feita através dos glifos superquádricos, a nível de \textit{voxel} (Fig. \ref{fig::intro_ex_DTI_glifos}), ou por meio de tractografia, a nível de feixes de fibras (Fig. \ref{fig::intro_ex_DTI_tractografia}).
+Motivados pela maior fidelidade na tractografia baseada nos métodos de alta ordem, nosso grupo de pesquisa tem a intenção de desenvolver um sistema de visualização interativa de ODFs e um algoritmo de tractografia interativo baseado nessas funções ODFs integrado ao ambiente de visualização multimodal  exploratória de exames imagiológicos 3D, chamado \textit{ Visual Manipulation Toolkit for NeuroImages} (VMTK-Neuro) \cite{VMTKNeuro}.  O aplicativo renderiza em tempo interativo volumes de ressonância magnética (\textit{magnetic resonance imaging} - MRI) e possui ferramentas de exploração 3D para volumes DTI, sintetizados a partir dos volumes de ressonância magnética ponderada em difusão (DWI). A exploração pode ser feita através dos glifos superquádricos, a nível de \textit{voxel} (Fig. \ref{fig::intro_ex_DTI_glifos}), ou por meio de tractografia, a nível de feixes de fibras (Fig. \ref{fig::intro_ex_DTI_tractografia}).
 
 %Objetivando o aprimoramento de algoritmos de reconstrução de fibras já existentes, consideramos que o próximo passo para pesquisa no DWI leva em consideração a implementação de um método de alta ordem e a exploração de dados de tensores de alta ordem. 
-Fig. \ref{fig::flowchart_vmtk_hardi} contextualiza a contribuição esperada do presente trabalho à arquitetura do VMTK-Neuro. Na figura destacamos os blocos que devem ser integrados ao VMTK-Neuro para visualização das funções ODFs em glifos e tractografia: 
+\sout{Fig. \ref{fig::flowchart_vmtk_hardi} contextualiza a contribuição esperada do presente trabalho à arquitetura do VMTK-Neuro.} Na Fig. \textcolor{red}{\ref{fig::flowchart_vmtk_hardi}} destacamos os blocos que devem ser integrados ao VMTK-Neuro para visualização das funções ODFs em glifos e tractografia: 
 %Baseados no fluxograma da Fig. \ref{fig::flowchart_vmtk_hardi}, podemos esquematizar os passos para visualização de ODFs em glifos e tractografia em:
 
 \begin{enumerate}
@@ -801,7 +801,7 @@ Fig. \ref{fig::flowchart_vmtk_hardi} contextualiza a contribuição esperada do 
 
 
 %Diante destes desafios em aberto, 
-Este trabalho aborda a implementação de um algoritmo de renderização de glifos a partir dos dados de ODFs. Escolhemos a Amostragem Generalizada no Espaço-Q (\textit{Generalized Q-Sampling Imaging}, GQI) para a síntese dos sinais de volumes de ressonância magnética ponderada em difusão em ODFs. 
+Este trabalho aborda a implementação de um algoritmo de renderização de glifos a partir dos dados de ODFs\textcolor{red}{, detacado em ciano na Fig. \ref{fig::flowchart_vmtk_hardi}}. Escolhemos a Amostragem Generalizada no Espaço-Q (\textit{Generalized Q-Sampling Imaging}, GQI) para a síntese dos sinais de volumes de ressonância magnética ponderada em difusão em ODFs. 
 %e propomos um algoritmo para renderização interativa dos glifos que sintetizem as funções obtidas através deste método. 
 Inspirados no trabalho de \citeonline{voltoline2021} que mostra que a sobreposição de glifos superquádricos sobre volumes anatômicos estruturais pode melhorar o processo de escolha de sementes em tractografia baseada em rastreamento de direções plausíveis, conjeturamos que os glifos podem proporcionar não só uma escolha mais acurada como também uma melhor estimativa das orientações intervóxeis de fibras.
 
@@ -878,7 +878,7 @@ Inspirados no trabalho de \citeonline{voltoline2021} que mostra que a sobreposi�
 \section{Contribuição}
 \label{sec:contribuicoes}
 
-A contribuição esperada para o presente trabalho dentro do escopo de um ambiente exploratório da conectividade cerebral através de técnicas avançadas de imageamento é a integração da técnica de amostragem generalizada no espaço-Q (\textit{Generalized Q-Space Imaging}, GQI) \cite{yeh2010}  ao ambiente de visualização exploratória multimodal, e a proposição de um novo algoritmo de renderização em tempo interativo de uma representação gráfica das funções ODF sintetizadas.
+A contribuição esperada para o presente trabalho dentro do escopo de um ambiente exploratório da conectividade cerebral através de técnicas avançadas de imageamento é a integração da técnica de amostragem generalizada no espaço-Q (\textit{Generalized Q-Space Imaging}, GQI) \cite{yeh2010}  ao ambiente de visualização exploratória multimodal, e a proposição de um novo algoritmo de renderização em tempo interativo \sout{de uma representação gráfica} das funções ODF sintetizadas.
 %e a proposição e validação de um algoritmo de renderização interativa de glifos que sintetizem as ODFs geradas pelo método integrado.
 
 %\todo[inline]{Sintetizar os principais resultados alcançados ...}
@@ -894,7 +894,7 @@ Em relação aos trabalhos do nosso conhecimento, as duas principais contribuiç
 \section{Desafios}
 \label{sec::desafios}
 
-O VMTK-Neuro dispõe de uma série de funções para explorar as difusões intravóxeis por meio de glifos superquádricos as plausíveis conexões intervóxeis por meio de tratos reconstruídos. 
+O VMTK-Neuro dispõe de uma série de funções para explorar as difusões intravóxeis por meio de glifos superquádricos \textcolor{red}{e} as plausíveis conexões intervóxeis por meio de tratos reconstruídos. 
 Essas funções podem ser reusadas para explorar os glifos e os tratos derivados de tensores de alta ordem. 
 %Para implementação do sistema, muito da infraestrutura necessária para alcançar os objetivos estabelecidos estão implementadas no VMTK-Neuro para visualização de volumes DWI por DTI. 
 Portanto, os desafios enfrentados dizem respeito à complexidade matemática dos modelos de alta ordem e às questões de implementação do método alta ordem e o seu mapeamento em glifos representativos.
@@ -984,14 +984,14 @@ Na Seção \ref{sec::aquisicao_dwi}, faremos uma breve descrição da sequência
 \label{sec::aquisicao_dwi}
 Nesta seção, faremos uma introdução às grandezas envolvidas na aquisição que usaremos para derivação do GQI na Seção \ref{sec::gqi} a partir de uma sequência de gradientes de ponderação de difusão bipolares \cite{mori2013}. Há diversas formas de se ponderar o sinal de MRI por difusão, dentre as quais a mais comumente utilizada é através da sequência de pulsos, denominada \textit{Pulsed Gradient Spin Echo} (PGSE), e é normalmente combinada à sequência \textit{Echo-Planar Imaging} (EPI) de aquisição de MRI. Uma introdução ao PGSE pode ser encontrada em \citeonline{DTI_Handbook}. Os fundamentos de imageamento por MRI e sequências de pulsos do EPI podem ser encontrados em \citeonline{liang2000}, e a física da difusão e seu imageamento via PGSE em \citeonline{tuch2002}.
 
-Fig. \ref{fig::pgse_ilustrado} ilustra o processo de ponderação de um sinal MRI por difusão, no qual dois gradientes de ponderação de difusão de amplitude $G$ são aplicados em uma direção $\mathbf{\hat{q}}$ no eixo horizontal. Antes da aplicação do gradiente ($t_1$), os núcleos de hidrogênio têm seus respectivos \textit{spins} em fase, oscilando na mesma frequência, chamada de frequência de Larmour  após a excitação pelo pulso de radio-frequência \cite{mori2013}. Esta frequência é dada por  $f = \gamma \cdot B_0$, onde $\gamma$ é a razão giromagnética do núcleo de hidrogênio e $B_0$ é a magnitude do campo magnético estático principal que induz a precessão dos \textit{spins}. O sinal gerado, que é proporcional à soma vetorial do campo magnético gerado pelos \textit{spins}, é forte com frequência $f$.
+Fig. \ref{fig::pgse_ilustrado} ilustra o processo de ponderação de um sinal MRI por difusão, no qual dois gradientes de ponderação de difusão de amplitude $G$ são aplicados em uma direção $\mathbf{\hat{q}}$ no eixo horizontal. Antes da aplicação do gradiente ($t_1$), os núcleos de hidrogênio têm seus respectivos \textit{spins} em fase, oscilando na mesma frequência, chamada de frequência de Larmour  após a excitação pelo pulso de radiofrequência \cite{mori2013}. Esta frequência é dada por  $f = \gamma \cdot B_0$, onde $\gamma$ é a razão giromagnética do núcleo de hidrogênio e $B_0$ é a magnitude do campo magnético estático principal que induz a precessão dos \textit{spins}. O sinal gerado, que é proporcional à soma vetorial do campo magnético gerado pelos \textit{spins}, \sout{é forte}\textcolor{red}{varia} com frequência $f$.
 
 \begin{figure}[ht]
 
 %\subfigcapskip = -5pt
     \centering
     \includegraphics[width=.8\linewidth, angle=0]{figs/HARDI/pgse2.png}
-    \caption{Medição de difusão das moléculas de água realizada na aquisições DWI nos escaneadores de MRI \\
+    \caption{Medição de difusão das moléculas de água realizada na aquisições DWI nos escaneadores de MRI. \\
     Fonte: \cite{voltoline2016}
     }
     \label{fig::pgse_ilustrado}
@@ -1005,7 +1005,7 @@ Em $t_2$, o gradiente de intensidade $G$ é aplicado durante um intervalo de tem
 Depois de um intervalo de tempo $\Delta$ a partir do início da aplicação do primeiro gradiente, o processo de equalizar as fases é inicializado ($t_4$) utilizando um novo gradiente com mesma intensidade e duração, mas com sentido oposto em relação ao primeiro. Os núcleos pertencentes às moléculas que se difundiram na direção durante o intervalo de tempo $\Delta$, destacados em verde na janela de tempo $t_3$, terão suas fases corrigidas de forma a não ter a fase inicial novamente, pois estavam em lugares diferentes no espaço, consequentemente estando sob campos magnéticos diferentes nos instantes de defasagem e equalização de fase. Depois de um intervalo de refasagem, $\delta$, a intensidade do gradiente volta a ser balanceada em $t_5$.
 O sinal resultante em $t_5$ é atenuado em relação ao sinal no intervalo $t_1$ (que está tracejado no instante $t_5$), devido à diferença de fase dos \textit{spins}. Consequentemente, diz-se que o sinal está ponderado em difusão.
 
-Fig. \ref{fig::ilustracao_pgse_direcao} ilustra três casos no comportamento dos \textit{spins} durante o período da sequência para ponderação do sinal por difusão, no qual são ilustrados por três trios de \textit{spins}. A difusão do trio destacado em laranja no instante $t_1$ ocorrerão em paralelo a $\mathbf{\hat{q}}$, logo abaixo, os três \textit{spins} no círculo amarelo se difundirão de forma perpendicular a $\mathbf{\hat{q}}$ e mais abaixo ainda, os \textit{spins} circulados em azul não se difundirão. Pode-se observar que os \textit{spins} que se difundiram perpendicularmente a $\mathbf{\hat{q}}$ são submetidos aos mesmos campos magnéticos de ponderação de difusão dos spins que não se difundiram, o que faz a sua contribuição na atenuação do sinal ser nula \cite{mori2013}. Portanto, para uma caracterização precisa da mobilidade das moléculas em um ponto, é necessária a ponderação de difusão para diferentes direções.
+Fig. \ref{fig::ilustracao_pgse_direcao} ilustra três casos no comportamento dos \textit{spins} durante o período da sequência para ponderação do sinal por difusão, no qual são ilustrados por três trios de \textit{spins}. \textcolor{red}{Considera-se que }a difusão do trio destacado em laranja no instante $t_1$ ocorrerão em paralelo a $\mathbf{\hat{q}}$, logo abaixo, os três \textit{spins} \sout{no círculo amarelo}\textcolor{red}{circulados pela linha amarela} se difundirão de forma perpendicular a $\mathbf{\hat{q}}$ e mais abaixo ainda, os \textit{spins} circulados em azul não se difundirão. \sout{Pode-se observar que}\textcolor{red}{Neste caso, } os \textit{spins} que se difundiram perpendicularmente a $\mathbf{\hat{q}}$ são submetidos aos mesmos campos magnéticos de ponderação de difusão dos spins que não se difundiram, o que faz a sua contribuição na atenuação do sinal ser nula \cite{mori2013}. Portanto, para uma caracterização precisa da mobilidade das moléculas em um ponto, é necessária a ponderação de difusão para diferentes direções.
 
 \begin{figure}[ht]
 
@@ -1042,7 +1042,7 @@ A respeito da atenuação gerada pelo gradiente de difusão, uma abordagem simpl
     S(b) = S_0\exp{(-bD)} ,
 \end{equation}
 onde $S_0$ é o sinal sem ponderação de difusão, S(b) é o sinal de difusão atenuado, e $D$ é um escalar conhecido como o coeficiente de difusão aparente (\textit{Apparent Diffusion Coefficient}, ADC). Observe que o valor $b$, batizado desta forma 20 anos depois por \citeonline{lebihan1985}, abstrai em um coeficiente os parâmetros de difusão no cômputo da difusão aparente. A relação foi medida de forma empírica, e \citeonline{stejskal1965} almejavam descrever o decaimento do sinal devido a difusão em função dos parâmetros $G$, $\delta$, $\gamma$ e $\Delta$, e, a partir destes parâmetros, computar o coeficiente constante de difusão intrínseco a diferentes materiais.
-A relação da Eq. \ref{eq::stanner} é válida para $D$ somente em difusão livre (Fig. \ref{fig::intro_difusao_isotropica}), pois para meios que apresentam obstáculos (Fig. \ref{fig::intro_difusao_anisotropica}), a mobilidade molecular não é a mesma para todas as direções \cite{douek1991}, sendo assim, o valor do ADC varia com a orientação $\mathbf{\hat{q}}$ do gradiente de ponderação de difusão aplicado.
+A relação da Eq. \ref{eq::stanner} é válida para $D$ somente em difusão livre (Fig. \ref{fig::intro_difusao_isotropica}), pois para meios que apresentam obstáculos (Fig. \ref{fig::intro_difusao_anisotropica}), a mobilidade molecular não é a mesma para todas as direções \cite{douek1991}, \sout{sendo}\textcolor{red}{variando} assim\sout{,} o valor do ADC \sout{varia} com a orientação $\mathbf{\hat{q}}$ do gradiente de ponderação de difusão aplicado.
 
 Alguns trabalhos, como \citeonline{chenevert1990} e \citeonline{douek1991}, constaram que na substância branca do cérebro o sinal atenuado varia com a direção $\mathbf{\hat{q}}$, e que há correlação entre o maior decaimento do sinal em um sinal em que há um gradiente de ponderação de difusão paralelo a uma fibra e um menor decaimento do sinal quando perpendicular. A explicação plausível \cite{Basser1994} é que a difusão ocorria de forma livre ao longo da fibra, as membranas das células retardam a difusão na direção perpendicular. Assim, \citeonline{Basser1994} propuseram a extensão da Eq. \ref{eq::stanner} para sintetizar o decaimento do sinal de difusão em função da direção, no que é conhecido por imageamento por tensor de difusão (\textit{Diffusion Tensor Imaging}, DTI).
 
@@ -1056,7 +1056,7 @@ Usualmente, as aquisições de difusão consistem em um conjunto de volumes pond
 \section{Síntese de Direções Intravóxel}
 \label{sec:sintese_intravoxels}
 
-Nesta seção, abordaremos de forma introdutória os métodos de imageamento para modelagem de difusão. Na Seção \ref{sec::dti_limitacoes_hardi}, mencionamos brevemente o imageamento por tensor de difusão (\textit{diffusion tensor imaging}, DTI) e suas limitações, na Seção \ref{metodos_de_alta_ordem}, fazemos uma introdução aos métodos de alta ordem, nos quais categorizamos os métodos em técnicas de misturas e métodos livres de modelo dentre os quais, situamos o GQI; na Seção \ref{sec::gqi}, apresentamos o método GQI.
+Nesta seção, abordaremos de forma introdutória os métodos de imageamento para modelagem de difusão. Na Seção \ref{sec::dti_limitacoes_hardi}, mencionamos brevemente o imageamento por tensor de difusão (\textit{diffusion tensor imaging}, DTI) e suas limitações, na Seção \ref{metodos_de_alta_ordem}, fazemos uma introdução aos métodos de alta ordem, nos quais categorizamos os métodos em técnicas de misturas e métodos livres de modelo dentre os quais, situamos o GQI\sout{;}\textcolor{red}{, e} na Seção \ref{sec::gqi}, apresentamos o método GQI.
 
 \subsection{DTI}
 %\section{DTI e limitações}
@@ -1088,14 +1088,14 @@ D_{xz} & D_{yz} & D_{zz}
 
 %e o decaimento da difusão, derivado da Eq. \ref{eq::stanner}, se torna uma função dada por:
 
-Observe que para cômputo do modelo, o DTI precisa de pelo menos seis volumes de difusão e um $b0$, para resolver o sistema de equações de seis incógnitas do tensor de difusão a partir do coeficiente de difusão aparente $D(\mathbf{\hat{q}})$ para um dado gradiente de ponderação de difusão de orientação $\mathbf{\hat{q}} = [q_x, q_y, q_z]^T$:
+Observe que, para cômputo do modelo, o DTI precisa de pelo menos seis volumes de difusão e um $b0$, para resolver o sistema de equações de seis incógnitas do tensor de difusão a partir do coeficiente de difusão aparente $D(\mathbf{\hat{q}})$ para um dado gradiente de ponderação de difusão de orientação $\mathbf{\hat{q}} = [q_x, q_y, q_z]^T$:
 \begin{equation}
 \label{eq::sistema_dti}
 \frac{1}{b}\ln{\frac{S_0}{S(\mathbf{\hat{q}})}}=D_{x x} q_{x}^{2} +D_{y y} q_{y}^{2}+D_{z z} q_{z}^{2}+2 D_{x y} q_{x} q_{y} +2 D_{x z} q_{x} q_{z}+2 D_{y z} q_{y} q_{z} ,
 \end{equation}
 onde o termo à esquerda é o cômputo do coeficiente aparente de difusão para o sinal $S(\mathbf{\hat{q}})$ derivado da Eq. \ref{eq::stanner}, e à direita expandimos a operação mostrada na Eq. \ref{eq::dti_model_adc}. Na prática, as aquisições DTI tem entre 6 e 32 volumes ponderados por difusão e um volume b0 \cite{descoteaux2015}. 
 
-A informação referente ao processo de difusão é extraída dos três autovetores e autovalores da matriz $\mathbf{D}$ (Eq. \ref{eq::tensor}), onde a direção da fibra é usualmente paralela a direção do autovetor associado ao maior autovalor.
+A informação referente ao processo de difusão é extraída dos três autovetores e autovalores da matriz $\mathbf{D}$ (Eq. \ref{eq::tensor}), onde a direção da fibra é usualmente paralela \textcolor{red}{à} direção do autovetor associado ao maior autovalor.
 Este modelo descreve bem regiões de fibras em que o comportamento de difusão ocorre predominantemente em uma direção. Em pontos que contém múltiplas fibras e que estão dispostas nas mais variadas configurações, como cruzamento, bifurcação, fusão, espalhamento e ``beijo'', o modelo Gaussiano não sintetiza de forma correta o comportamento da difusão, impedindo o cômputo das direções plausíveis para reconstrução de uma fibra de interesse \cite{fillard2011, daducci2014}. Há uma estimativa de que entre 66\% a 90\% da substância branca do cérebro contém múltiplas configurações de cruzamento de fibra \cite{descoteaux2015} e a limitação do DTI é um obstáculo para modelar as direções de fibras subjacentes de forma adequada dentro de um \textit{voxel}.
 
 \subsection{Tensores de alta ordem}
@@ -1104,7 +1104,7 @@ Este modelo descreve bem regiões de fibras em que o comportamento de difusão o
 Devido às limitações dos tensores de segunda ordem (DTI) na resolução de cruzamento de fibras na substância branca do cérebro, houve uma agenda de pesquisa que começa no início da década de 2000 para distinguir múltiplas orientações numa amostra, e consequentemente houve uma demanda por mais amostras de sinais de difusão por \textit{voxel} nas aquisições DWI. %denominadas de imageamento difusão de alta resolução angular para difusão (HARDI - \textit{high angular resolution diffusion imaging}). Tipicamente aquisições HARDI \textit{single-shell} contém 45 volumes ponderados por e $1000 \leq b \leq 4500$ $s/mm^2$.
 Há mais de cem artigos que propuseram métodos de imageamento para transformação do sinal de difusão para o seu perfil de densidade de probabilidade de direções de difusão de fibras entre 2000-2010 \cite{descoteaux2015}.
 
-Os métodos consistem essencialmente na síntese do sinal de difusão em uma função de distribuição de orientações (ODF) que dão a possibilidade de inferir sobre a distribuição de fibras subjacentes em cada \textit{voxel}. Uma ODF consiste em uma associação entre um conjunto de direções, usualmente representadas por um vetor unitário $\mathbf{\hat{u}}$ (ou par $(\theta, \phi)$ em coordenadas esféricas), em um valor escalar $R(\mathbf{\hat{u}})$, representativo da probabilidade de difusividade em $\mathbf{\hat{u}}$. Em geral, esses métodos podem ser categorizados de duas formas de acordo com a natureza da técnica de transformada do sinal de difusão para a ODF: técnicas de misturas (\textit{mixture models techniques}) e técnicas livres de modelo, que abrange o GQI.
+Os métodos consistem essencialmente na síntese do sinal de difusão em uma função de distribuição de orientações (ODF) que dão a possibilidade de inferir sobre a distribuição de fibras subjacentes em cada \textit{voxel}. Uma ODF consiste em uma associação entre um conjunto de direções, usualmente representadas por um vetor unitário $\mathbf{\hat{u}}$ (ou par $(\theta, \phi)$ em coordenadas esféricas), em um valor escalar $R(\mathbf{\hat{u}})$, \sout{representativo}\textcolor{red}{indicativo} da probabilidade de difusividade em $\mathbf{\hat{u}}$. Em geral, esses métodos podem ser categorizados de duas formas de acordo com a natureza da técnica de transformada do sinal de difusão para a ODF: técnicas de misturas (\textit{mixture models techniques}) e técnicas livres de modelo, que abrange o GQI.
 
 Em ambas categorias os métodos requerem uma quantidade maior de volumes ponderados por difusão, além de maiores valores $b$. Tipicamente, a quantidade de gradientes de ponderação por difusão é acima de 45, e $1000 \leq b \leq 4500s/mm^2$ \cite{descoteaux2015}. Comumente, aquisições DWI possuem um valor $b$ fixo para os volumes ponderados por difusão. Estas aquisições são chamadas de \textit{single-shell} porque suas amostras estão contidas em uma esfera no espaço-Q (Seção \ref{metodos_livres_de_modelo}). Aquisições \textit{single-shell} adequadas para tensores de alta ordem são chamadas de imageamento de difusão de alta resolução angular (\textit{High Angular Resolution Diffusion Imaging, HARDI}).
 
@@ -1114,7 +1114,7 @@ Em adição às aquisições HARDI \textit{single-shell}, há mais duas que vale
 
 \subsubsection{Técnicas de misturas}
 
-Técnicas de misturas assumem que o sinal de difusão medido para um \textit{voxel} é a soma dos sinais gerados por cada população de fibra presente nele \cite{tournier2011}. Como exemplos, há a abordagem multi-tensor, também presente na tese de doutorado de \citeonline{tuch2002}, e a abordagem por deconvolução esférica, proposta originalmente por \citeonline{Tournier2004DirectEO}.
+Técnicas de misturas assumem que o sinal de difusão medido para um \textit{voxel} é a soma dos sinais gerados por cada população de fibra presente nele \cite{tournier2011}. Como exemplos, há a abordagem multi-tensor, também presente na tese de doutorado de \citeonline{tuch2002}, e a abordagem por deconvolução esférica, proposta \sout{originalmente} por \citeonline{Tournier2004DirectEO}.
 
 A abordagem multi-tensor modela a difusão como uma soma ponderada de modelos Gaussianos, com diferentes tensores associados a cada um. Enquanto na abordagem por deconvolução esférica, parte-se da premissa de que o sinal de difusão é gerado a partir da resposta da fibra ao gradiente de ponderação de difusão e este fenômeno é representado por uma convolução da função de distribuição de orientações de fibras (\textit{fiber orientation distribution function}, fODF) por uma função resposta para uma fibra única. Assim, a fODF é reconstruída a partir de uma técnica de deconvolução. O aplicativo MRTrix\footnote{Disponível em: \url{https://www.mrtrix.org/}} utiliza a abordagem \textit{constrained spherical deconvolution} \cite{tournier2007} para sintetizar sinais de difusão em fODFs.
 
@@ -1146,7 +1146,7 @@ Definindo a probabilidade de deslocamento $\mathbf{u}$ durante um dado tempo de 
 \end{equation}
 onde $W_{\Delta}(\mathbf{r},\mathbf{0})$ é o sinal no espaço-Q obtido na ausência de gradiente de ponderação de difusão, e que $\bar{p}_{\Delta}(\mathbf{r}, \mathbf{u})$ é uma função de densidade de probabilidade.
 
-A partir da Eq. \ref{eq::propagator}, métodos de imageamento, como o \textit{Diffusion Spectrum Imaging} (DSI) \cite{tuch2002, wedeen2005}, \textit{Q-Ball Imaging} \cite{TuchQBall2004} e GQI \cite{yeh2010}, foram desenvolvidos para inferir sobre o perfil de difusão, ou a distribuição de probabilidade direcional de fibras \textit{voxel} a \textit{voxel}. 
+A partir da Eq. \ref{eq::propagator}, métodos de imageamento, como o \textit{Diffusion Spectrum Imaging} (DSI) \cite{tuch2002, wedeen2005}, \textit{Q-Ball Imaging} \cite{TuchQBall2004} e GQI \cite{yeh2010}, foram desenvolvidos para inferir \sout{sobre} o perfil de difusão, ou a distribuição de probabilidade direcional de fibras \textit{voxel} a \textit{voxel}. 
 A função de distribuição de orientações de difusão (\textit{Diffusion Orientation Distribution Function}, dODF) $\Psi(\mathbf{\hat{u}})$ para a direção $\mathbf{\hat{u}}$, onde $|\mathbf{\hat{u}}| = 1$,  nos permite sintetizar a distribuição de fibras subjacentes. Sua relação com o propagador de difusão é dada por \cite{tuch2002}
 \begin{equation}
 \label{eq::dodf_propagador}
@@ -1190,9 +1190,8 @@ Neste trabalho, escolhemos o método de modelo livre GQI para reconstruir ODFs a
 %\sout{Uma desvantagem na representação em memória do GQI em relação a métodos de alta ordem que caracterizam as ODFs como uma soma ponderada de funções base, como a formulação analítica do \textit{Q-Ball Imaging} \cite{descoteaux2007_QBI} e as abordagens de deconvolução esférica \cite{Tournier2004DirectEO, tournier2007}. Enquanto no GQI, o uso de memória relacionado ao método consiste em amostras das funções computadas, o uso de memória dos métodos que formulam as ODFs analiticamente é referente a coeficientes de funções base, que usualmente ocupam menos espaço.}
 
 %\todo{escolha de quê? de um modelo de síntese de ODFs. \textcolor{green}{OK!}}
-Um ponto importante no processo de escolha do método de alta ordem é referente à adequabilidade em tractografia. No seu trabalho sobre comparações de diferentes métodos de imageamento em tractografia, \citeonline{daducci2014} concluíram que não há métodos que se sobressaem em relação a outros nas mais diferentes condições experimentais.
-
-Há diferentes aplicativos livres, ligados a grupos de pesquisa, que processam DWIs com métodos livres de modelo. Há o DSI-Studio\footnote{Disponível em: \url{http://dsi-studio.labsolver.org}}, que utiliza o GQI; há também o aplicativo/biblioteca FSL\footnote{Disponível em: \url{https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FSL}} e o aplicativo Fibernavigator\footnote{Disponível em: \url{https://scilus.github.io/fibernavigator/}}, em que ambos utilizam o \textit{Q-Ball Imaging}.
+Um ponto importante no processo de escolha do método de alta ordem é referente à adequabilidade em tractografia. \sout{No seu trabalho sobre comparações de diferentes métodos de imageamento em tractografia, \citeonline{daducci2014} concluíram que não há métodos que se sobressaem em relação a outros nas mais diferentes condições experimentais.}
+Há diferentes aplicativos livres, ligados a grupos de pesquisa, que processam DWIs com métodos livres de modelo. Há o DSI-Studio\footnote{Disponível em: \url{http://dsi-studio.labsolver.org}}, que utiliza o GQI; há também o aplicativo/biblioteca FSL\footnote{Disponível em: \url{https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FSL}} e o aplicativo Fibernavigator\footnote{Disponível em: \url{https://scilus.github.io/fibernavigator/}}, em que ambos utilizam o \textit{Q-Ball Imaging}. \textcolor{red}{No seu trabalho sobre comparações de diferentes métodos de imageamento em tractografia, \citeonline{daducci2014} concluíram que não há métodos que se sobressaem em relação a outros nas mais diferentes condições experimentais.}
 
 
 
@@ -1268,7 +1267,7 @@ Há diferentes aplicativos livres, ligados a grupos de pesquisa, que processam D
 \subsection{Amostragem Generalizada no Espaço Q}
 \label{sec::gqi}
 
-Nesta seção faremos uma breve apresentação do método GQI (\textit{Generalized Q-sampling Imaging}), a sua fundamentação teórica, na qual mostraremos a relação entre o sinal de difusão $W(\mathbf{r},\mathbf{q})$ e a função de distribuição de \textit{spins} (\textit{spin distribution function}, SDF) por uma multiplicação matricial. Mostraremos uma formulação discreta de SDFs e a sua relação linear com dODFs. Ambas diferem 
+Nesta seção faremos uma breve apresentação do método GQI (\textit{Generalized Q-sampling Imaging}), a sua fundamentação teórica, na qual mostraremos a relação entre o sinal de difusão $W(\mathbf{r},\mathbf{q})$\textcolor{red}{,} e a função de distribuição de \textit{spins} (\textit{spin distribution function}, SDF) por uma multiplicação matricial. Mostraremos uma formulação discreta de SDFs e a sua relação linear com dODFs. Ambas diferem 
 por um fator de normalização. Uma boa aproximação da versão discreta de SDFs à versão contínua é usualmente feita a partir de uma amostragem de direções 3D com uma certa uniformidade no domínio esférico. Subdivisões do icosaedro são frequentemente utilizados para definir esse domínio \cite{tuch2002, TuchQBall2004, descoteaux2007, yeh2010}. Discutiremos, adicionalmente, uma técnica de subdivisões.
 
 %o método de reconstrução de funções de densidade de probabilidade de difusão em relação às diferentes orientações que usaremos para reconstruir ODF (\textit{Orientation Distribution Function}).
@@ -1321,7 +1320,7 @@ Integrando em $L$, obtemos $\psi_Q(\mathbf{r}, \mathbf{\hat{u}})$ em função do
     \psi_Q(\mathbf{r}, \mathbf{\hat{u}}) =
     L_{\Delta} \int \! W(\mathbf{r}, \mathbf{q}) \text{sinc}(2\pi L_{\Delta} \mathbf{q} \cdot \mathbf{\hat{u}}) \,\mathrm{d}\mathbf{q} ,
 \end{equation}
-onde $\text{sinc}(x) = \text{sin}(x)/x$ para todo $x$ real, exceto $0$ e $\text{sinc}(0) = 1$.
+onde $\text{sinc}(x) = \text{sin}(x)/x$ para todo $x$ real, exceto \textcolor{red}{em $x=0$}\sout{ e}\textcolor{red}{. Por definição, } $\text{sinc}(0) = 1$.
 
 Assumindo que a área de quadratura seja constante $A_q$ na discretização da Eq. \ref{eq::sdf_continuous_2}, chegamos na forma discreta de SDF que, em notação, diferenciamos da sua forma contínua $\psi_Q(\mathbf{r}, \mathbf{\hat{u}})$ mudando o índice $Q$ por $m$:
 
@@ -1338,9 +1337,9 @@ onde $\mathbf{Q}= [
 \mathbf{q}_T
 ]$ corresponde às $T$ amostras no espaço-Q.
 
-Observe que a distância de difusão ajusta a contribuição de cada $W(\mathbf{r}, \mathbf{q})$ no cômputo de $\psi_m(\mathbf{r}, \mathbf{\hat{u}})$ e funciona como um parâmetro de regularização. Se $L_{\Delta}$ tende a infinito, a função de distribuição irá se comportar como um impulso na origem, gerando um $\psi_m(\mathbf{r}, \mathbf{\hat{u}})$ fortemente ponderado pelas direções de $\mathbf{q}$ ortogonais a $\mathbf{\hat{u}}$. Um $L_{\Delta}$ pequeno implica em uma maior ponderação para coeficientes que não são ortogonais a $\mathbf{\hat{u}}$, o que atua como uma filtragem. No caso extremo, $L_{\Delta} = 0$, implica que todos os pesos aplicados para cômputo de ODFs em todas as direções $\mathbf{\hat{u}}$ se tornem iguais.
+Observe que a distância de difusão \textcolor{red}{se} ajusta \textcolor{red}{à} contribuição de cada $W(\mathbf{r}, \mathbf{q})$ no cômputo de $\psi_m(\mathbf{r}, \mathbf{\hat{u}})$ e funciona como um parâmetro de regularização. Se $L_{\Delta}$ tende a infinito, a função de distribuição irá se comportar como um impulso na origem, gerando um $\psi_m(\mathbf{r}, \mathbf{\hat{u}})$ fortemente ponderado pelas direções de $\mathbf{q}$ ortogonais a $\mathbf{\hat{u}}$. Um $L_{\Delta}$ pequeno implica em uma maior ponderação para coeficientes que não são ortogonais a $\mathbf{\hat{u}}$, o que atua como uma filtragem. No caso extremo, $L_{\Delta} = 0$, \sout{implica que} todos os pesos aplicados para cômputo de ODFs em todas as direções $\mathbf{\hat{u}}$ se tornem iguais.
 
-Considerando que a distribuição da difusão seja Gaussiana, a distância de difusão é dada por $L_{\Delta}=(6D\lambda)^{1/2}$, onde $D$ é o coeficiente de difusão da água na temperatura do corpo e $\lambda = \Delta - \delta/3$, que correspondem aos parâmetros de aquisição mostrados em Fig. \ref{fig::pgse_ilustrado}. 
+Considerando que a distribuição da difusão seja Gaussiana, a distância de difusão é dada por $L_{\Delta}=(6D\lambda)^{1/2}$, onde $D$ é o coeficiente de difusão da água na temperatura do corpo e $\lambda = \Delta - \delta/3$ que\textcolor{red}{, por sua vez,} correspondem aos parâmetros de aquisição mostrados em Fig. \ref{fig::pgse_ilustrado}. 
 Tipicamente, assume-se $D = 3.0*10^{-3} mm^2/s$ \cite{yeh2019_DSI}. Podemos ponderar $L_{\Delta}$ por um fator $\sigma$, isto é, $L_{\Delta} = \sigma(6D\lambda)^{1/2}$. Para $\sigma$ = 1.3, $80\%$ da difusão é considerada no cômputo da $\psi_Q(\mathbf{r}, \mathbf{\hat{u}})$.
 
 Substituindo $L_{\Delta}$ por $\sigma(6D\lambda)^{1/2}$ e $\mathbf{q}$ pela Eq. \ref{eq::qspace_bvalue}, obtemos:
@@ -1356,7 +1355,7 @@ Substituindo $L_{\Delta}$ por $\sigma(6D\lambda)^{1/2}$ e $\mathbf{q}$ pela Eq. 
 
  Na prática, as informações de ponderação de difusão em cada volume na aquisição DWI estão associadas a um valor $b(\mathbf{q})$ e uma direção associada ao gradiente de ponderação de difusão $\mathbf{\hat{q}}$.% Vale a pena ressaltar que aquisições cujos sinais DWI são amostrados na metade de uma esfera para gradientes na direção $\mathbf{\hat{q}}$ tem um simétrico,  $-\mathbf{\hat{q}}$ associado no espaço-Q, tal que o valor de sinal de difusão $W(\mathbf{r}, -\mathbf{q}) = W(\mathbf{r}, \mathbf{q})$ \cite{descoteaux2015}.
 
-A estimativa da SDF por \textit{voxel}, 
+A estimativa \sout{da SDF}\textcolor{red}{de uma função de distribuição de \textit{spins}, SDF,} por \textit{voxel}, 
 $\boldsymbol{\psi}_m(\mathbf{r}) = [
 \psi_m(\mathbf{r}, \mathbf{\hat{u}}_1), 
 \psi_m(\mathbf{r}, \mathbf{\hat{u}}_2), 
@@ -1364,7 +1363,7 @@ $\boldsymbol{\psi}_m(\mathbf{r}) = [
 $ ..., 
 \psi_m(\mathbf{r}, \mathbf{\hat{u}}_S)
 ]^T$
-é feita por meio de $S$ amostras, nas quais são reconstruídas num domínio de $S$ direções de interesse $\mathbf{U} = [
+\sout{é}\textcolor{red}{pode ser} feita por meio de $S$ amostras, nas quais são reconstruídas num domínio de $S$ direções de interesse $\mathbf{U} = [
 \mathbf{\hat{u}}_1, 
 \mathbf{\hat{u}}_2, 
 \mathbf{\hat{u}}_3, \dots, 
@@ -1444,7 +1443,7 @@ $\mathbf{U} = [
 \mathbf{\hat{u}}_1$, 
 $\mathbf{\hat{u}}_2$, 
 $\mathbf{\hat{u}}_3$, ..., 
-$\mathbf{\hat{u}}_S]$ como ilustra a Fig. \ref{fig::direcoes}, são obtidas através das coordenadas dos pontos de uma malha esférica gerada por subdivisões sucessivas de um icosaedro inscrito numa esfera unitária, uma vez que as coordenadas dos pontos coincidem com as coordenadas dos vetores normais da esfera no ponto. Na comunidade de métodos de alta ordem para DWI, esta categoria de malha é amplamente utilizada \cite{yeh2010, TuchQBall2004, descoteaux2007} pois apresenta certas propriedades desejáveis  \cite{popko2012}:
+$\mathbf{\hat{u}}_S]$ como ilustra a Fig. \ref{fig::direcoes}, são obtidas através das coordenadas dos pontos de uma malha esférica gerada por subdivisões sucessivas de um icosaedro inscrito numa esfera unitária, uma vez que as coordenadas dos pontos coincidem com as coordenadas dos vetores normais da esfera no ponto. Na comunidade de métodos de alta ordem para DWI, esta categoria de malha é amplamente utilizada \cite{yeh2010, TuchQBall2004, descoteaux2007} pois apresenta \sout{certas}\textcolor{red}{as seguintes} propriedades desejáveis  \cite{popko2012}:
 
 \begin{enumerate}
     \item Os doze vértices do icosaedro são uniformemente\footnote{O conceito de uniformidade em uma distribuição de pontos em uma esfera, apesar de intuitivo, é algo cuja avaliação não se dá em apenas uma métrica. O Capítulo 9 de \cite{popko2012} introduz métricas para este fim e compara malhas esféricas obtidas a partir de subdivisões de sólidos de Platão.} distribuídos e estão contidos em uma esfera.
@@ -1463,7 +1462,7 @@ $\mathbf{\hat{u}}_S]$ como ilustra a Fig. \ref{fig::direcoes}, são obtidas atra
      \centering
      \includegraphics[width=.8\linewidth, angle=0]{figs/HARDI/icosphere_normals.png}
      \caption{
-     Ilustração da extração do conjunto de amostras $\mathbf{U}$ da malha esférica obtida através da tesselação de $4^a$ ordem do icosaedro. Os vetores em vermelho indicam os vetores em $\mathbf{U}$, extraídos a partir das normais dos pontos à esfera. As coordenadas dos vetores coincidem com as coordenadas das amostras em $\mathbf{U}$.% no hemisfério $y > 0 \cup (y = 0 \cap x > 0)$.
+     Extração do conjunto de amostras $\mathbf{U}$ da malha esférica obtida através da tesselação de $4^a$ ordem do icosaedro. Os vetores em vermelho indicam os vetores em $\mathbf{U}$, extraídos a partir das normais dos pontos à esfera. As coordenadas dos vetores coincidem com as coordenadas das amostras em $\mathbf{U}$.% no hemisfério $y > 0 \cup (y = 0 \cap x > 0)$.
      }
      \label{fig::direcoes}
    \hspace{1pt}
@@ -1471,7 +1470,7 @@ $\mathbf{\hat{u}}_S]$ como ilustra a Fig. \ref{fig::direcoes}, são obtidas atra
 
  %Devido a simetria em relação aos eixos das funções de difusão, as amostramos apenas em uma semi-esfera
  
-\citeonline{popko2012} discute diversas maneiras de aproximar uma esfera a partir de um icosaedro (Fig. \ref{fig::icosaedro}), entre as quais, escolhemos a subdivisão por cordas iguais  (\textit{Class I - Equal-Chords}). Esta subdivisão, além de manter a \textit{quasi}-uniformidade dos pontos na esfera, também herda do icosaedro a propriedade de que todos os pontos têm as suas respectivas antípodas no conjunto de vértices. A manutenção dos pares de antípodas é importante pois exploramos a simetria das dODFs para armazenarmos as amostras em uma semi-esfera (Fig. \ref{fig::direcoes}). Mencionamos a subdivisão por arcos iguais (\textit{Class I - Equal Arcs, three great circles}), a qual, além de gozar das mesmas propriedades presentes na subdivisão por cordas iguais, os vértices computados na subdivisão são mais uniformemente distribuídos na esfera, a custo de uma complexidade computacional maior.
+\citeonline{popko2012} discute diversas maneiras de aproximar uma esfera a partir de um icosaedro (Fig. \ref{fig::icosaedro}), entre as quais, escolhemos a subdivisão por cordas iguais  (\textit{Class I - Equal-Chords}). Esta subdivisão, além de manter a \textit{quasi}-uniformidade dos pontos na esfera, também herda do icosaedro a propriedade de que todos os pontos têm as suas respectivas antípodas no conjunto de vértices. A manutenção dos pares de antípodas é importante pois exploramos a simetria das dODFs para \sout{armazenarmos}\textcolor{red}{reduzirmos a quantidade d}as amostras em uma semi-esfera (Fig. \ref{fig::direcoes}). \sout{Mencionamos}\textcolor{red}{Embora} a subdivisão por arcos iguais (\textit{Class I - Equal Arcs, three great circles})\sout{, a qual}, além de gozar das mesmas propriedades presentes na subdivisão por cordas iguais, \textcolor{red}{tenha} os vértices computados na subdivisão \sout{são} mais uniformemente distribuídos \sout{na}\textcolor{red}{sobre a} esfera, \sout{a custo de}\textcolor{red}{apresenta} uma complexidade computacional maior.
 
 \begin{figure}[H]
 %\subfigcapskip = -5pt
@@ -1502,7 +1501,7 @@ A subdivisão por cordas iguais é efetuada em cada face do icosaedro. Para cada
     \label{fig::icosaedro_norm}
     }
     }
-    \caption{ Ilustração da subdivisão por cordas iguais. Vértices do icosaedro destacados por círculos vermelhos.
+    \caption{ \sout{Ilustração da} Subdivisão por cordas iguais. Vértices do icosaedro destacados por círculos vermelhos.
     }
     \label{fig::triangle_subdivisao}
 \end{figure}
@@ -1659,7 +1658,7 @@ Um glifo é um objeto gráfico projetado para representar um ou mais atributos q
 %\end{enumerate}
 %}
 
- \citeonline{Kindlmann2004} propõe glifos superquádricos para representar tensores de segunda ordem. Os autovalores são mapeados na forma de um glifo, enquanto os autovetores em orientações espaciais e cores dos glifos, como ilustra Fig. \ref{fig::intro_ex_DTI_glifos}. Ressaltamos que na Fig. \ref{fig::intro_ex_DTI_glifos}, os eixos x, y e z da cena são coerentes com a direção horizontal, vertical e normal aos planos anatômicos e as cores vermelho, verde e azul reforçam a informação da dominância das componentes x, y e z na orientação dos glifos. Estes glifos permitem sintetizar numa única imagem não só o comportamento local (intravóxel) de difusão como também as relações entre \textit{voxels} (intervóxel), quando glifos referentes aos \textit{voxels} vizinhos são renderizados lado a lado.
+ \citeonline{Kindlmann2004} propõe glifos superquádricos para representar tensores de segunda ordem. Os autovalores são mapeados na forma de um glifo, enquanto os autovetores em orientações espaciais\todo{Maepamento de cor é adicional.}\sout{ e cores} dos glifos, como ilustra Fig. \ref{fig::intro_ex_DTI_glifos}. Ressaltamos que na Fig. \ref{fig::intro_ex_DTI_glifos}, os eixos x, y e z da cena são coerentes com a direção horizontal, vertical e normal aos planos anatômicos\sout{ e as}\textcolor{red}{. É comum agregar as} cores vermelho, verde e azul \textcolor{red}{para reforçar} \sout{reforçam} a informação da dominância das componentes x, y e z na orientação dos glifos\todo{Citar este trabalho: https://www.researchgate.net/publication/12456615\_Color\_Schemes\_to\_Represent\_the\_Orientation\_of\_Anisotropic\_Tissues\_From\_Diffusion\_Tensor\_Data\_Application\_to\_White\_Matter\_Fiber\_Tract\_Mapping}~\cite{???}. Estes glifos permitem sintetizar numa única imagem não só o comportamento local (intravóxel) de difusão como também as relações entre \textit{voxels} (intervóxel), quando glifos referentes aos \textit{voxels} vizinhos são renderizados lado a lado.
 
 A forma mais difundida para visualizar os dados numéricos das ODFs são os glifos provenientes da superfície definida pela plotagem polar esférica $R(\mathbf{\hat{u}})$ \cite{descoteaux2015, TuchQBall2004}, introduzidos por \citeonline{tuch2002} em seu trabalho seminal. Como os glifos superquádricos, estes glifos permitem sintetizar numa única imagem não só o comportamento local (intravóxel) de difusão como também as relações entre \textit{voxels} renderizados lado a lado.
 %\textcolor{red}{Esta seção apresenta as ideias básicas no projeto de glifos para representar a densidade de difusão em cada amostra de um volume de DWI.}
@@ -1742,7 +1741,7 @@ Considerando a convenção adotada em relação a planos anatômicos, em que a c
 
 \subsection{Renderização Interativa}
 
-Embora sejam conhecidos os procedimentos de mapeamento de dODFs em glifos, visualizá-los em tempo interativo para facilitar a exploração visual da difusividade e análise da plausibilidade das amostras escaneadas é ainda um problema. Fig. \ref{fig::QBall_glifos_coronal} ilustra uma potencial aplicação em que os glifos sobrepostos ao volume de difusão no ambiente de visualização multimodal possibilitam a visualização da difusão intravóxel, o que é fundamental para pesquisadores da área de tensores de alta ordem para difusão \cite{peeters2009} e possam apoiar a delineação da região de sementes de uma tractografia \cite{voltoline2021}.
+Embora sejam conhecidos os procedimentos de mapeamento de dODFs em glifos, visualizá-los em tempo interativo para facilitar a exploração visual da difusividade e análise da plausibilidade das amostras escaneadas é ainda um problema. Fig. \ref{fig::QBall_glifos_coronal} ilustra uma potencial aplicação em que os glifos sobrepostos ao volume de difusão no ambiente de visualização multimodal possibilitam a visualização da difusão intravóxel, o que é fundamental para pesquisadores da área de tensores de \textcolor{red}{difusão de} alta ordem\sout{ para difusão} \cite{peeters2009} e possam apoiar a delineação da região de sementes de uma tractografia \cite{voltoline2021}.
 No próximo capítulo, propomos um novo algoritmo interativo de renderização de glifos ODF acelerado por GPU e integrado ao ambiente de visualização multimodal a partir das dODF min-max normalizadas pré-computadas.
 
 % \begin{figure}[H]
@@ -1793,9 +1792,9 @@ No próximo capítulo, propomos um novo algoritmo interativo de renderização d
 
 %\todo[inline]{Nas conclusões do seu trabalho, você deve retomar o seu ponto de partida (introdução). Pontos que devem constar: (1) redefinir o foco do seu projeto (renderização interativa dos glifos ODFs); (2) redefinir a sua tese (suas conjeturas); (3) sintetizar os principais problemas/desafios; (4) sintetizar os principais resultados/principais contribuições em relação ao estado-da-arte; (5) discutir potenciais aplicações caso haja; (6) discutir limitações; (7) apresentar suas sugestões para continuidade do trabalho.}
 
-Neste trabalho abordamos a renderização interativa de glifos ODF, uma representação gráfica das funções densidade de orientações de difusão intravóxel (dODF). Essas funções são muito aplicadas para sintetizar os sinais de difusão obtidos em exames ponderados em difusão de alta resolução angular. Implementamos o método de alta ordem amostragem generalizada no espaço-Q \cite{yeh2010}. A principal motivação do trabalho vem do objetivo de termos uma visualização interativa das funções de distribuição de orientações de difusão obtidas através de métodos de alta ordem para difusão no ambiente de visualização multimodal VMTK-Neuro \cite{VMTKNeuro}, em desenvolvimento na Faculdade de Engenharia Elétrica e de Computação, e iniciarmos pesquisas na área de imagens de ressonância magnética de difusão de alta resolução angular almejando por uma reconstrução mais acurada de feixes de fibras nervosas.
+Neste trabalho abordamos a renderização interativa de glifos ODF, uma representação gráfica das funções densidade de orientações de difusão intravóxel (dODF). Essas funções são muito aplicadas para sintetizar os sinais de difusão obtidos em exames ponderados em difusão de alta resolução angular. Implementamos \sout{o} \textcolor{red}{um} método de alta ordem, \textcolor{red}{a} Amostragem Generalizada no Espaço-Q \cite{yeh2010}. A principal motivação do trabalho vem do objetivo de termos uma visualização interativa das funções de distribuição de orientações de difusão obtidas através de métodos de alta ordem para difusão no ambiente de visualização multimodal VMTK-Neuro \cite{VMTKNeuro}, em desenvolvimento na Faculdade de Engenharia Elétrica e de Computação, e iniciarmos pesquisas na área de imagens de ressonância magnética de difusão de alta resolução angular almejando por uma reconstrução mais acurada de feixes de fibras nervosas.
 
-A visualização interativa de dODFs é uma ferramenta muito útil na pesquisa da área. Quando representados em glifos, usuários podem inferir através de recursos pré-atencionais, como formas, cores, e até texturas \cite{ware2004}, sobre a coexistência de fibras subjacentes a partir de volumes de difusão, e sobre a plausibilidade das aquisições DWI e das suas sínteses em dODFs pelos métodos de alta ordem em relação aos feixes de fibras obtidos com dissecações. Adicionalmente, \citeonline{voltoline2021} mostraram que os glifos sobrepostos a um volume de ressonância magnética ponderada em T1 pode melhorar o processo de escolha de sementes para tractografia.
+A visualização interativa de dODFs é uma ferramenta muito útil na pesquisa da área. Quando representados em glifos, usuários podem inferir através de recursos \sout{pré-atencionais}\textcolor{red}{[gráficos}, como formas, cores, e até texturas \cite{ware2004}, \sout{sobre} a coexistência de fibras subjacentes a partir de volumes de difusão, e \sout{sobre} a plausibilidade das aquisições DWI e das suas sínteses em dODFs pelos métodos de alta ordem \sout{em relação aos feixes de fibras obtidos com dissecações}. Adicionalmente, \citeonline{voltoline2021} mostraram que os glifos sobrepostos a um volume de ressonância magnética ponderada em T1 pode melhorar o processo de escolha de sementes para tractografia.
 
 %Os desafios enfrentados dizem respeito à integração ao de um método de alta ordem para DWI ao VMTK-Neuro e a complexidade matemática envolvida para obtenção das dODFs, e a renderização dos dados obtidos em glifos. Na renderização de glifos,
 Os desafios enfrentados ao longo do trabalho foram a quantidade de dados envolvidas na síntese de cada glifo em cada ODF e a alta escalabilidade demandada pelo VMTK-Neuro na renderização. A quantidade volumosa de dados discretos das dODFs, na ordem de $10^8$-$10^9$ \textit{bytes} para uma aquisição DWI inteira, impossibilita o armazenamento total das amostras das funções na maioria das GPU disponíveis no mercado e impõe um elevado tráfego de dados CPU-GPU num ambiente interativo. Neste trabalho, procuramos diminuir o tráfego de dados, remover as redundâncias dos dados na renderização e minimizar a ocupação na memória da GPU.
@@ -1806,9 +1805,9 @@ Com o intuito de otimizar os acessos aos dados multi-resolução otimizados na m
 Demonstramos através dos nossos experimentos que as estratégias aplicadas geram ganhos em desempenho e escalabilidade na renderização de glifos. Para alguns experimentos relacionados com a interatividade, 
 integramos o algoritmo proposto no ambiente de visualização multimodal VMTK-Neuro \cite{VMTKNeuro}. Tiramos vantagem das funcionalidades de co-registro entre volumes de diferentes modalidades \cite{ting2014} e da visualização multimodal interativa presentes no VMTK-Neuro. Mostramos que o usuário pode explorar o comportamento de difusão intravóxel e intervóxel no ambiente oferecido pelo VMTK-Neuro.
 
-Vale ressaltar que os princípios expostos neste trabalho podem ser aplicados à renderização de qualquer tipo de função de distribuição de orientações renderizados em sua plotagem polar esférica. A funcionalidade da deformação de uma malha esférica instanciada na GPU, a configuração de multi-resolução, e de acessos coalescentes de memória na GPU de escalares de ODFs que deformam a malha são universais e se encaixam em qualquer procedimento de renderização de ODF na GPU.
+Vale ressaltar que os princípios expostos neste trabalho podem ser aplicados à renderização de qualquer tipo de função de distribuição de orientações renderizados em sua plotagem polar esférica. A funcionalidade da deformação de uma malha esférica instanciada na GPU, a configuração de multi-resolução, e de acessos coalescentes \sout{de memória na GPU} de escalares de ODFs que deformam a malha são universais e se encaixam em qualquer procedimento de renderização de ODF na GPU.
 
-\todo[inline]{Adicionar uma referência de compressão na GPU. Veja \url{https://developer.nvidia.com/blog/optimizing-data-transfer-using-lossless-compression-with-nvcomp/}}
+%\todo[inline]{Adicionar uma referência de compressão na GPU. Veja \url{https://developer.nvidia.com/blog/optimizing-data-transfer-using-lossless-compression-with-nvcomp/}}
 
 A principal limitação  do algoritmo na forma como propomos se dá em termos de memória para amostras de dODF. Consideramos que as funções são armazenadas como dados discretos e em multi-resolução e, para o conjunto de malhas que utilizamos, esses dados pré-computados crescem exponencialmente a uma quantidade proibitiva de memória. Acreditamos que seja pertinente investigar uma alternativa para contornar o problema de processamento de grande volume de dados. Técnicas conhecidas, como compressão acelerada por \textit{hardware} \cite{sakharnykh2020} e subdivisões do volume de dados (\textit{bricking}) \cite{Beyer2014}, devem ser avaliadas.
 
@@ -1826,7 +1825,7 @@ A principal limitação  do algoritmo na forma como propomos se dá em termos de
 
 Para futuros trabalhos, sugerimos pesquisar algoritmos para cômputo da distribuição local de fibras subjacentes às dODFs através de seus máximos locais, bem como pesquisar e desenvolver uma abordagem de tractografia a partir da distribuição local de fibras, como mostrado no fluxograma da Fig. \ref{fig::flowchart_vmtk_hardi}.
 Ambos os temas são ainda um problema em aberto e alguns dos desafios da área podem ser encontrados em \citeonline{SCHILLING2019194}.
-Encorajamos experimentar usar os glifos ODF para escolha das sementes. 
+Encorajamos experimentar usar os glifos ODF para escolha das sementes \textcolor{red}{dos feixes de fibras nervosas de interesse}. 
 Para estimativa da trajetória de uma fibra, aventamos explorar o trabalho de \citeonline{chamberland2014}, que propuseram um algoritmo interativo baseado em máximos locais de dODFs pré-computados. A nossa análise preliminar nos faz acreditar que o procedimento proposto por \citeonline{chamberland2014} está em conformidade com a arquitetura do VMTK-Neuro.
 
 %Por questões de otimização no uso de memória, que é muito demandada por dados gerados a partir de métodos de alta ordem, destacamos a importância da integração de um algoritmo de segmentação do cérebro ao VMTK-Neuro para aquisição de difusão, para que métodos de alta ordem não aloquem memória para \textit{voxels} que não estão contidos no cérebro.
@@ -1974,9 +1973,9 @@ Para estimativa da trajetória de uma fibra, aventamos explorar o trabalho de \c
 \chapter{Dados da série de experimentos: Ganhos em desempenho}
 \label{ap::dados_serie_experimentos_1}
 
-Neste apêndice, apresentamos os dados de desempenho relativos à série de experimentos para renderização de glifos para diferentes ordens de tesselação do icosaedro, conforme descrita na Seção \ref{sec::funcionalidades_agregadas_e_ganhos_de_performance} do Capítulo \ref{sec::experimentos}. Foram utilizadas as tesselações de ordem 2, 4, 8 e 16 do icosaedro para o cômputo do tempo de renderização dos glifos.
+Neste apêndice, apresentamos os dados de desempenho relativos à série de experimentos para renderização de glifos para diferentes ordens de tesselação do icosaedro, conforme descrita na Seção \ref{sec::funcionalidades_agregadas_e_ganhos_de_performance}\sout{ do Capítulo \ref{sec::experimentos}}. Foram utilizadas as tesselações de ordem 2, 4, 8 e 16 do icosaedro para o cômputo do tempo de renderização dos glifos.
 
-A primeira série de experimentos se refere à funcionalidade de indexação e síntese do glifo na CPU, a segunda série se refere à adição da funcionalidade de instanciação na renderização e a síntese do glifo na GPU, a terceira série se refere à exploração da simetria das ODFs para diminuição do uso de memória e tráfego de dados CPU-GPU dos escalares que sintetizam a ODF e o quarto experimento se refere ao uso da memória da GPU em um leiaute tal que os acessos dos escalares de ODF que sintetizam os glifos ocorrem de forma coalescente.
+A primeira série de experimentos se refere à funcionalidade de indexação e síntese do glifo na CPU, a segunda série se refere à adição da \sout{funcionalidade de} instanciação na renderização e a síntese do glifo na GPU, a terceira série se refere à exploração da simetria das ODFs para diminuição do uso de memória e tráfego de dados CPU-GPU dos escalares que sintetizam \sout{a} ODF\textcolor{red}{s} e o quarto experimento se refere ao \sout{uso}\textcolor{red}{acesso coalescente} da memória da GPU\sout{ em um leiaute tal que os acessos dos escalares de ODF que sintetizam os glifos ocorrem de forma coalescente}.
 
 \begin{table}[htb]
 \begin{tabular}{c|c|c|c|c|}
@@ -2106,7 +2105,7 @@ A primeira série de experimentos se refere à funcionalidade de indexação e s
 \chapter{Dados da série de experimentos: Multi-Resolução}
 \label{ap::performance_vmtk}
 
-Neste apêndice, apresentamos os dados de desempenho relativos à série de experimentos para renderização de glifos que validam a funcionalidade de multi-resolução para o algoritmo proposto integrado ao VMTK-Neuro \cite{VMTKNeuro}, conforme descrito na Seção \ref{sec::multi_resolução_e_performance_em_ambiente_de visualização_multimodal} do Capítulo \ref{sec::experimentos}.
+Neste apêndice, apresentamos os dados de desempenho relativos à série de experimentos para renderização de glifos que validam a funcionalidade de multi-resolução para o algoritmo proposto integrado ao VMTK-Neuro \cite{VMTKNeuro}, conforme descrito na Seção \ref{sec::multi_resolução_e_performance_em_ambiente_de visualização_multimodal}\sout{ do Capítulo \ref{sec::experimentos}}.
 
 Integramos o algoritmo de renderização de glifos ODF no VMTK-Neuro com as funcionalidades exploradas e que trazem ganhos em desempenho do algoritmo. Na Tabela \ref{tab::glyph_info_experiment_fixed}, mostramos os dados de desempenho associados ao glifo sintetizado a partir da malha esférica obtida através da 8$^a$ ordem de tesselação do icosaedro e na Tabela \ref{tab::glyph_info_experiment}, habilitamos o cômputo da ocupação máxima $max_p$ em \textit{pixels} em tela da projeção de um \textit{voxel} para seleção da resolução apropriada.
 
@@ -2130,7 +2129,7 @@ Integramos o algoritmo de renderização de glifos ODF no VMTK-Neuro com as func
 1.59	 & 7.96   & 13205  & 8 \\
 \hline
 \end{tabular}
-\caption{Ambiente de visualização multimodal com glifos ODF renderizados em uma imagem $850\times 850$ com a malha esférica base fixa. Fig. \ref{fig::qualidade_visual_longe_highres} teve em sua geração, os parâmetros da última linha da tabela.
+\caption{Ambiente de visualização multimodal com glifos ODF renderizados em uma imagem $850\times 850$ com \textcolor{red}{um}a malha esférica \sout{base} fixa. Fig. \ref{fig::qualidade_visual_longe_highres} \sout{teve em sua geração,}\textcolor{red}{foi gerada com} os parâmetros da última linha da tabela.
 }
 \label{tab::glyph_info_experiment_fixed}
 \end{table}
@@ -2153,7 +2152,7 @@ Integramos o algoritmo de renderização de glifos ODF no VMTK-Neuro com as func
 1.59    & 16.59 & 13205 & 2 & 36    \\
 \hline
 \end{tabular}
-\caption{Esquema de renderização multimodal com glifos de ODF renderizados em uma imagem $850\times 850$. Fig. \ref{fig::qualidade_visual_longe_lowres} teve em sua geração, os parâmetros da última linha da tabela.}
+\caption{Esquema de renderização multimodal com glifos de ODF \sout{renderizados} em uma imagem $850\times 850$. Fig. \ref{fig::qualidade_visual_longe_lowres} \sout{teve em sua geração,}\textcolor{red}{foi gerado com} os parâmetros da última linha da tabela.}
 \label{tab::glyph_info_experiment}
 \end{table}
 \end{apendicesenv}
