@@ -14,11 +14,11 @@ Dividimos o capítulo em três grupos de experimentos para os quais fazemos as s
  % O primeiro experimento apresentado na série tem forma similar a abordagem de renderização utilizada por \citeonline{shattuck2008}.
  
 %\todo[inline]{Dê uma lida sobre Schneiderman's Mantra: https://hampdatavisualization.wordpress.com/2016/02/26/schneidermans-mantra/ Em termos de implementação, quando se fala em visualização exploratória, já está subtendida a multi-resolução como um compromisso entre eficiência x qualidade.}
-O segundo grupo de experimentos encontra-se na Seção \ref{sec::multi_resolução_e_performance_em_ambiente_de visualização_multimodal}. Como o primeiro experimento do grupo, integramos o algoritmo com as estratégias integradas e validadas na Seção \ref{sec::funcionalidades_agregadas_e_ganhos_de_performance} no ambiente de visualização multimodal e fazemos a medição de tempo de resposta na visualização exploratória. Neste segundo experimento, integramos a quinta característica, multi-resolução adaptativa, do algoritmo e a validamos comparativamente em aspectos visuais e desempenho em relação à abordagem anterior. O algoritmo do segundo experimento com a configuração de multi-resolução é o algoritmo que propomos no Capítulo \ref{chap::renderizacao_interativa_de_perfis_de_difusao} e neste grupo de experimentos, atestamos a interatividade e a escalabilidade do algoritmo de renderização proposto em volumes reais.
+O segundo grupo de experimentos encontra-se na Seção \ref{sec::multi_resolução_e_performance_em_ambiente_de visualização_multimodal}. \sout{Como o primeiro experimento do grupo, integramos o algoritmo com as estratégias integradas e validadas na Seção \ref{sec::funcionalidades_agregadas_e_ganhos_de_performance} no ambiente de visualização multimodal e fazemos a medição de tempo de resposta na visualização exploratória.} Neste \sout{segundo experimento}\textcolor{red}{grupo}, \textcolor{red}{além das quatro estratégias do primeiro grupo de experimento,} integramos a quinta característica, multi-resolução adaptativa, do algoritmo\textcolor{red}{, fizemos a medição de tempo de resposta} e \sout{a} validamos \textcolor{red}{os resultados} comparativamente em aspectos visuais e desempenho em relação à abordagem anterior. O algoritmo \sout{do segundo experimento} com a configuração de multi-resolução é o algoritmo que propomos no Capítulo \ref{chap::renderizacao_interativa_de_perfis_de_difusao} e neste grupo de experimentos atestamos \textcolor{red}{ainda} a interatividade e a escalabilidade do algoritmo de renderização proposto em volumes reais.
 
 %O terceiro grupo de experimentos tem como objetivo de comparar visualmente os glifos superquádricos e os glifos ODFs apresentados neste trabalho quanto à eficiência na visualização das orientações múltiplas de fibras em amostras obtidas pelo protocolo HARDI de exames de ressonância magnética ponderada em difusão.
 
-O terceiro grupo de experimentos encontra-se na Seção \ref{sec::aspectos_visuais_e_interpretabilidade}, onde comparamos visualmente os glifos superquádricos e os glifos ODF apresentados neste trabalho quanto à melhoria na visualização das orientações múltiplas de fibras em amostras escaneadas. Avaliamos a plausibilidade das múltiplas orientações dos glifos em seis volumes na região de interface do corpo caloso e cíngulo, no leque da coroa radiada e no centro semioval, onde é reconhecida anatomicamente a ocorrência de encontro de dois ou mais conjunto de fibras.
+O terceiro grupo de experimentos encontra-se na Seção \ref{sec::aspectos_visuais_e_interpretabilidade}, onde comparamos visualmente os glifos superquádricos e os glifos ODF apresentados neste trabalho quanto à melhoria na visualização das orientações múltiplas de fibras em amostras escaneadas. Avaliamos a plausibilidade das múltiplas orientações dos glifos em seis volumes na região de interface do corpo caloso e cíngulo, no leque da coroa radiada e no centro semioval, onde é reconhecida anatomicamente a ocorrência de encontro de dois ou mais conjunto\textcolor{red}{s} de fibras.
  
  %objetivando a interatividade que culminaram no algoritmo de renderização apresentado no Capítulo \ref{chap::renderizacao_interativa_de_perfis_de_difusao}.
 
@@ -31,7 +31,7 @@ O terceiro grupo de experimentos encontra-se na Seção \ref{sec::aspectos_visua
 
 Todos os experimentos e medições foram feitas em um computador Macbook Pro Retina 13'', com processador Intel Core i5 Dual-Core 2.7GHz, processador gráfico integrado Intel Iris Graphics 6100 1536 MB e memória RAM de 8 GB 1867 MHz DDR3.
 %\todo[inline]{Como são feitas as medidas? \textcolor{green}{OK!} Como é estimada a ocupação da memória? \textcolor{green}{Eu estimo derivando os dados que eu utilizo para renderização.}}
-As medições de tempo foram efetuadas pela diferenças na hora do sistema entre dois quadros obtidas pela função \textit{Now()} do cabeçalho \textit{Chrono} da biblioteca padrão do C++. Renderizamos a mesma cena cem vezes, computamos a diferença de tempo entre dois quadros e extraímos o valor médio das medições. As limitações de taxa quadros por segundo na aplicação foram desativadas para medição\footnote{Devido à pandemia e às restrições ao acesso do laboratório de controle e automação da UNICAMP, não efetuei as medições em computadores providos de placa gráfica da NVIDIA no laboratório. Para placas da NVIDIA, há um \textit{software} chamado NSight Studio (\url{https://developer.nvidia.com/nsight-visual-studio-edition}) que permite fazer, com maior acurácia, diversas medidas em relação ao tempo de execução e ao uso de memória}.
+As medições de tempo foram efetuadas pela diferenças na hora do sistema entre dois quadros obtidas pela função \textit{Now()} do cabeçalho \textit{Chrono} da biblioteca padrão do C++. Renderizamos a mesma cena cem vezes, computamos a diferença de tempo entre dois quadros e extraímos o valor médio das medições. As limitações de taxa quadros por segundo \sout{na aplicação} foram desativadas para medição\footnote{Devido à pandemia e às restrições ao acesso do laboratório de controle e automação da UNICAMP, não efetuei as medições em computadores providos de placa gráfica da NVIDIA no laboratório. Para placas da NVIDIA, há um \textit{software} chamado NSight Studio (\url{https://developer.nvidia.com/nsight-visual-studio-edition}) que permite fazer, com maior acurácia, diversas medidas em relação ao tempo de execução e ao uso de memória}.
 
 %Os ambientes para o experimento consistem em um ambiente de teste, no qual faremos experimentos que validem as estratégias para melhora do algoritmo de renderização de glifos proposto em tempo de execução e escalabilidade, e o ambiente de visualização multimodal VMTK-Neuro \cite{VMTKNeuro}, no qual o algoritmo é integrado para visualização das funções de difusão juntamente com o volume anatômico ponderado em T1 co-registrado com o DWI.
 
@@ -65,7 +65,7 @@ Para avaliar a melhoria no desempenho do algoritmo de renderização proposto, q
 %\subsubsection{Ambiente de visualização multimodal}
 
 
-Integramos o algoritmo implementado ao aplicativo VMTK-Neuro \cite{VMTKNeuro}, que renderiza os volumes anatômico co-registrados ao DWI e glifos ODF, conforme mencionado na Seção \ref{sec::superquadricas}. Sendo um ambiente de visualização multimodal, esperamos reusar todas as funcionalidades de exploração já disponíveis para avaliar a interatividade e a escalabilidade do algoritmo. O ambiente é utilizado nos experimentos nas Seções \ref{sec::multi_resolução_e_performance_em_ambiente_de visualização_multimodal} e \ref{sec::aspectos_visuais_e_interpretabilidade}.
+Integramos o algoritmo implementado ao aplicativo VMTK-Neuro \cite{VMTKNeuro}, que renderiza os volumes anatômico co-registrados ao DWI e glifos ODF, conforme mencionado na Seção \ref{sec::superquadricas}. Sendo um ambiente de visualização multimodal, esperamos reusar todas as funcionalidades de exploração já disponíveis para avaliar a interatividade e a escalabilidade do algoritmo. O ambiente é utilizado nos experimentos \textcolor{red}{apresentados} nas Seções \ref{sec::multi_resolução_e_performance_em_ambiente_de visualização_multimodal} e \ref{sec::aspectos_visuais_e_interpretabilidade}.
 
 
 
@@ -75,14 +75,15 @@ Integramos o algoritmo implementado ao aplicativo VMTK-Neuro \cite{VMTKNeuro}, q
 
 %Esta classe de funções também é comumente utilizada pela comunidade de pesquisa de métodos de alta ordem em DWI.
 
-\subsection{Dados de teste}
-\label{ssec::dados_de_teste}
+%\subsection{Dados de teste}
+%\label{ssec::dados_de_teste}
 
-Foram utilizados dois conjuntos de dados para teste. Um conjunto compreende os dados sintetizados a partir de funções harmônicas esféricas, e outro conjunto são dados obtidos a partir de seis volume de ressonância magnética disponível no repositório \textit{WU-Minn HCP Retest Data} do \textit{Connectome Project Consortium} \cite{essen2012}. Utilizamos as funções harmônicas esféricas para geração de dados sintéticos, porque os glifos destas funções são conhecidos\footnote{A página \url{https://chem.libretexts.org/@go/page/283935} oferece a visualização das funções harmônicas esféricas em plotagens polares esféricas.}. Isso serviu de suporte para depuração dos códigos. Usamos os dados reais do \textit{Connectome Project Consortium} por ser um repositório amplamente utilizado pela comunidade e por ter os volumes de ressonância magnética ponderada em T1 e ponderada em difusão com alta resolução angular (HARDI) de um mesmo paciente.
+Foram utilizados dois conjuntos de dados para teste. Um conjunto compreende os dados sintetizados a partir de funções harmônicas esféricas, e outro conjunto são dados obtidos a partir de seis volume de ressonância magnética disponíve\sout{l}\textcolor{red}{is} no repositório \textit{WU-Minn HCP Retest Data} do \textit{Connectome Project Consortium} \cite{essen2012}. Utilizamos as funções harmônicas esféricas para geração de dados sintéticos, porque os glifos destas funções são conhecidos\footnote{A página \url{https://chem.libretexts.org/@go/page/283935} oferece a visualização das funções harmônicas esféricas em plotagens polares esféricas.}. Isso serviu de suporte para depuração dos códigos. Usamos os dados reais do \textit{Connectome Project Consortium} por ser um repositório amplamente utilizado pela comunidade e por ter os volumes de ressonância magnética ponderada em T1 e ponderada em difusão com alta resolução angular (HARDI) de um mesmo paciente.
 
 %\todo[inline]{Revise o texto. \textcolor{green}{Revisado e reestruturado}}
 
-\subsubsection{Dados sintéticos}
+%\subsubsection{Dados sintéticos}
+\subsection{Dados sintéticos}
 \label{sssec::dados_sinteticos}
 
  As amostras que geram os glifos no ambiente de teste são computadas a partir de ODFs derivadas de funções harmônicas esféricas, cujo grau das funções varia de zero a três. 
@@ -140,7 +141,8 @@ O pré-cômputo das amostras $\boldsymbol{R}(j)$ associadas a célula de índice
 
 
 
-\subsubsection{Dados de ressonância magnética}
+%\subsubsection{Dados de ressonância magnética}
+\subsection{Dados de ressonância magnética}
 \label{sssec::dados_de_ressonancia_magnetica}
 
 %\todo[inline]{Revise o texto. \textcolor{green}{Falo o índice do volume? Ou dizer mulher 22-35 anos saudável é suficiente?}}
@@ -177,8 +179,8 @@ As dODFs foram obtidas através do GQI \cite{yeh2010} (Capítulo \ref{chapter::m
 %\section{Funcionalidades adicionadas e ganhos de performance}
 \label{sec::funcionalidades_agregadas_e_ganhos_de_performance}
 
-Nesta seção, abordamos os experimentos que nos permitiram avaliar, quanto à complexidade de memória e de tempo, o impacto das diferentes estratégias adotadas no algoritmo de renderização de glifos ODF apresentado no Capítulo \ref{chap::renderizacao_interativa_de_perfis_de_difusao}.
-Nos experimentos variamos a divisão $H$ nos eixos $x$ e $y$ da janela de exibição de 5 até 100, e a resolução de amostragem, setando a ordem de tesselação do icosaedro entre $2^a$, $4^a$, $8^a$ e $16^a$. Fig. \ref{fig::ambiente_validacao} ilustra a partição da área de janela em 25, 625, 2500 e 10000 células. A cada requisição de desenho, todos os dados de translação e que geram os glifos associados a ODFs de índices $[1, 2, 3, ..., M]$ $(M = H^2)$ são enviados à GPU. Neste experimento, o envio dos dados ocorre a cada requisição de desenho para fins de simulação do ambiente de visualização multimodal, que demanda o envio de dados para GPU a cada interação, conforme discutido na Seção \ref{sec::superquadricas}.
+Nesta seção, abordamos \sout{os}\textcolor{red}{o primeiro grupo de} experimentos que nos \sout{permitiram}\textcolor{red}{permitiu} avaliar, quanto à complexidade de memória e de tempo, o impacto das diferentes estratégias adotadas no algoritmo de renderização de glifos ODF apresentado no Capítulo \ref{chap::renderizacao_interativa_de_perfis_de_difusao}.
+Nos experimentos variamos a divisão $H$ nos eixos $x$ e $y$ da janela de exibição de 5 até 100, e a resolução de amostragem, setando a ordem de tesselação do icosaedro entre $2^a$, $4^a$, $8^a$ e $16^a$. Fig. \ref{fig::ambiente_validacao} ilustra a partição da área de janela em 25, 625, 2500 e 10000 células. A cada requisição de desenho, todos os dados de \sout{translação}\textcolor{red}{deslocamento} e que geram os glifos associados a ODFs de índices $[1, 2, 3, ..., M]$ $(M = H^2)$ são enviados à GPU. Neste experimento, o envio dos dados ocorre a cada requisição de desenho para fins de simulação do ambiente de visualização multimodal, que demanda o envio de dados para GPU a cada interação, conforme discutido na Seção \ref{sec::superquadricas}.
 
  Avaliamos comparativamente as 4 diferentes configurações em que diferentes estratégias foram integradas incrementalmente: (1) técnica de indexação e visibilidade; (2) técnica de instanciação; (3) compactação de dados de difusão; e (4) coalescência.
  
@@ -207,7 +209,7 @@ Substituindo $N$ pela Eq. \ref{eq::icosphere_vertices} e $\tau$ pela Eq. \ref{eq
 \end{equation}
 Se cada valor escalar ocupar 4 \textit{bytes}\footnote{No experimento, utilizamos pontos flutuantes para descrição dos vértices e inteiros sem sinal para índices. Ambos ocupam 4 \textit{bytes}.}, o volume de dados envolvidos em cada interação é $4M(120t^2 + 12)$ \textit{bytes}. Neste experimento, a ocupação de memória da GPU $\mathscr{G}$ para formação dos glifos é a mesma da quantidade dos dados enviados.
 
-Na segunda série de experimentos, aplicamos a instanciação. Enviamos a malha esférica unitária e centrada na origem para GPU para ser instanciada $M$ vezes. Cada instanciação envolve $N$ vértices, um conjunto de índices de tamanho $3\tau$ e um vetor de deslocamento. Os dados de $M$ instâncias são enviados à GPU via um vetor instanciado (\textit{instanced array}). Adicionalmente, enviamos $N\times M$ escalares de ODF como uma textura 2D com apenas um canal $RED$ ativado em cada \textit{texel}. É armazenado nesse canal um elemento $R(j, \mathbf{n}_i)$, que desloca apenas um ponto $P_i$ na malha esférica instanciada. A cada requisição de desenho para $M$ glifos, via o comando \textit{glDrawElementsInstanced},
+Na segunda série de experimentos, aplicamos a instanciação. Enviamos a malha esférica unitária e centrada na origem para GPU \sout{para ser}\textcolor{red}{onde é} instanciada $M$ vezes. Cada instanciação envolve $N$ vértices, um conjunto de índices de tamanho $3\tau$ e um vetor de deslocamento. Os dados de $M$ instâncias são enviados à GPU via um vetor instanciado (\textit{instanced array}). Adicionalmente, enviamos $N\times M$ escalares de ODF como uma textura 2D com apenas um canal $RED$ ativado em cada \textit{texel}. É armazenado nesse canal um elemento $R(j, \mathbf{n}_i)$, que desloca apenas um ponto $P_i$ na malha esférica instanciada. A cada requisição de desenho para $M$ glifos, via o comando \textit{glDrawElementsInstanced},
 a malha esférica instanciada é deformada, redimensionada e deslocada para a sua célula na GPU. Cada $R(j, \mathbf{n}_i)$ 
 é acessado no \textit{vertex shader} com as coordenadas $(Instance\_ID, Vertex\_ID)$. Com base no que foi exposto, o tráfego de dados é reduzido a:
 \begin{equation}
@@ -278,7 +280,7 @@ e, considerando que cada valor escalar ocupe 4 \textit{bytes}, a quantidade tota
 %\todo[inline]{Revise o texto e, principalmente, as legendas para que fiquem coerentes com o restante do texto. Diminua um pouco os gráficos ... ou a legenda ...  Pode ser que caibam 2 figuras por página.\textcolor{green}{OK!}}
 
 Neste primeiro grupo de experimentos, procuramos sempre diminuir a quantidade de memória utilizada da GPU para geração de glifos em relação ao experimento anterior como detalhado na Seção \ref{ssec:exp1_descricao}. Além de reduzir a complexidade de memória, o tráfego de dados CPU-GPU para geração dos glifos também diminui. Mostramos nesta seção os tempos de resposta que coletamos para avaliar quantitativamente o impacto das diferentes configurações na complexidade de tempo e na escalabilidade. A escalabilidade é uma demanda do ambiente de visualização exploratória que requer interações com os dados em escalas muito diferentes, conforme discutiremos na Seção \ref{sec::multi_resolução_e_performance_em_ambiente_de visualização_multimodal}. As medidas de tempo, em quadros por segundo, (\textit{frames per second}, FPS), e em diferentes níveis de resolução das orientações de difusão, mais especificamente em ordens de tesselação 2$^a$, 4$^a$, 8$^a$, e 16$^a$, são sintetizadas em gráficos nesta seção.
-Todos os dados numéricos que geraram os resultados nos gráficos nas Fig. \ref{fig::FPS_prototipo_1}, \ref{fig::FPS_prototipo_2}, \ref{fig::FPS_prototipo_3} e \ref{fig::FPS_prototipo_4} estão anotados na Seção \ref{ap::dados_serie_experimentos_1} do apêndice.
+Todos os dados numéricos que geraram os \textcolor{red}{\sout{resultados n}}os gráficos nas Fig. \ref{fig::FPS_prototipo_1}, \ref{fig::FPS_prototipo_2}, \ref{fig::FPS_prototipo_3} e \ref{fig::FPS_prototipo_4} estão anotados na Seção \ref{ap::dados_serie_experimentos_1} do apêndice.
 
 As medidas de tempo da primeira série do experimento em função da quantidade de glifos, estão sintetizadas no gráfico da Fig. \ref{fig::FPS_prototipo_1}. As curvas em cores azul, laranja, verde e vermelha representam diferentes níveis de resolução das orientações de difusão. Elas correspondem, respectivamente, a $2^{a}$ $4^{a}$, $8^{a}$ e $16^{a}$ ordem de tesselação do icosaedro.
 
@@ -370,7 +372,7 @@ Fig. \ref{fig::FPS_prototipo_4} traz de forma comparativa a taxa de quadros, em 
 
 %\todo[inline]{Revise e adicione comentários sobre escalabilidade para que faça sentido as medidas de tantos números de glifos. \textcolor{green}{OK!}}
 
-As estratégias para minimização de ocupação de memória de GPU e de redução de tráfego de dados tem como objetivo propiciar o desenvolvimento de um ambiente exploratório da difusão intravoxel revelada pelos exames de ressonância magnética ponderada em difusão. No ambiente de visualização multimodal do VMTK-Neuro \cite{VMTKNeuro} é possível explorar exames de diferentes modalidades alinhadas, ou co-registradas, em diferentes níveis de escala. Quando diminuímos o fator de escala da imagem, aumentamos a quantidade de \textit{voxels} detectados, implicando em uma alta demanda de glifos a serem renderizados, podendo incorrer em um alto tráfego de dados e uso da memória da GPU.
+As estratégias para minimização de ocupação de memória de GPU e de redução de tráfego de dados tem como objetivo propiciar o desenvolvimento de um ambiente exploratório da difusão intravoxel revelada pelos exames de ressonância magnética ponderada em difusão. No ambiente de visualização multimodal do VMTK-Neuro \cite{VMTKNeuro} é possível explorar exames de diferentes modalidades alinhadas, ou co-registradas, em diferentes níveis de escala. Quando diminuímos o fator de escala da imagem, aumentamos a quantidade de \textit{voxels} \sout{detectados}\textcolor{red}{visíveis}, implicando em uma alta demanda de glifos a serem renderizados, podendo incorrer em um alto tráfego de dados e uso da memória da GPU.
 
 %Na Seção \ref{sec::adaptatividade_de_resolucao}, introduzimos a adaptabilidade na resolução como uma função da máxima quantidade de \textit{pixels} contidos em um único \textit{voxel}, o que é algo intrínseco à métricas do ambiente de visualização multimodal. A validação da inserção deste tópico está nos resultados mostrados na Tabela \ref{tab::glyph_info_experiment}, no qual comparamos com o algoritmo de renderização de glifos ODF integrado ao ambiente de visualização multimodal onde a resolução dos glifos é fixa e derivada da $8^a$ ordem de tesselação do icosaedro, que está anotada na Tabela \ref{tab::glyph_info_experiment_fixed}.
 
@@ -382,7 +384,7 @@ Na segunda série de experimentos, os deslocamentos dos vértices das malhas esf
 Para a configuração da terceira série de experimentos exploramos a simetria em relação aos eixos das funções para reduzir o tráfego de dados para metade dos escalares de ODF.
 Observe que esta otimização faz o tráfego de dados CPU-GPU ser reduzido de $4(10t^2 + 5)$  para $4(5t^2 + 4)$ \textit{bytes}, totalizando uma queda de aproximadamente $50\%$, o que também ocorre na ocupação de memória na GPU. Em termos de desempenho, observe em Fig. \ref{fig::FPS_prototipo_3_642} e \ref{fig::FPS_prototipo_3_2562} que aproximadamente 4900 e 1225 glifos puderam ser renderizados a 60 FPS para $8^a$ e $16^a$ ordem de tesselação, enquanto na abordagem em que não tomamos vantagem da simetria, 3600 e 900 puderam ser gerados. Adicionalmente, os maiores ganhos de desempenho ocorrem na faixa que compreendem 600 a 1600 glifos para $16^a$ ordem de tesselação e 2400 até 5000 glifos para $8^a$ ordem e os ganhos em FPS são acima de 20\% em comparação à abordagem anterior. Esses resultados evidenciam a relevância em tirar vantagem da propriedade de simetria das funções dODFs para aumentar o ganho em desempenho.
 
-Para configuração da quarta série, objetivamos reduzir a ocupação da memória da GPU para renderização dos glifos. Vimos na derivação da Eq. \ref{eq::mem_odfs_ocupancia_4.1} que, ao compactarmos 4 escalares de difusão num único \textit{texel}, reduzimos a quantidade de memória de textura alocada na GPU por um fator de aproximadamente 4. Porém, para complementar a quantidade de escalares em um múltiplo de 4, precisamos adicionar 3 escalares \textit{dummy} por glifo para as ordens de tesselação que adotamos (Eq. \ref{eq::mem_odfs_trafego_4.2}). Para mais de 100 glifos renderizados, a memória total alocada na GPU é menor que $30\%$ em relação à terceira série para as tesselações de ordem 4, 8 e 16. Tende a ser menor quando mais glifos são renderizados. Em relação ao ganho em desempenho, a variação é muito sutil. Há somente um aumento em FPS quando milhares de glifos são renderizados a partir das malhas da $8^a$ e $16^a$ ordem de subdivisão. Na subdivisão de ordem 8, o ganho em FPS é acima de 10\% para mais de 5600 glifos. %\sout{Por outro lado, a diferença é desprezível quando a quantidade de glifos renderizados é menor que 1000 para estas malhas e totalmente desprezível quando utilizamos as tesselações de ordem dois e quatro.}
+Para configuração da quarta série, objetivamos reduzir a ocupação da memória da GPU para renderização dos glifos. Vimos na derivação da Eq. \ref{eq::mem_odfs_ocupancia_4.1} que, ao compactarmos 4 escalares de difusão num único \textit{texel}, reduzimos a quantidade de memória de textura alocada na GPU por um fator de aproximadamente 4. Porém, para complementar a quantidade de escalares em um múltiplo de 4, precisamos adicionar 3 escalares \textit{dummy} por glifo para as ordens de tesselação que adotamos (Eq. \ref{eq::mem_odfs_trafego_4.2}). Para mais de 100 glifos renderizados, a memória total alocada na GPU é menor que $30\%$ em relação à terceira série para as tesselações de ordem 4, 8 e 16. Tende a ser menor quando mais glifos são renderizados. Em relação ao ganho em desempenho, a variação é muito sutil \textcolor{red}{na forma como avaliamos}. Há somente um aumento em FPS quando milhares de glifos são renderizados a partir das malhas da $8^a$ e $16^a$ ordem de subdivisão. Na subdivisão de ordem 8, o ganho em FPS é acima de 10\% para mais de 5600 glifos. %\sout{Por outro lado, a diferença é desprezível quando a quantidade de glifos renderizados é menor que 1000 para estas malhas e totalmente desprezível quando utilizamos as tesselações de ordem dois e quatro.}
 
 %\todo[inline]{Não entendi a finalidade do parágrafo abaixo. Não seria mais interessante tecer alguns comentários em relação à interatividade e escalabilidade, tomando como base a Fig. 4.5. Pode-se mostrar que o desempenho é interativo quando a quantidade de orientações de difusão se limita em até 4$^a$ ordem e há uma drástica redução no desempenho para as 8$^a$ e 16$^a$ quando se aumenta a quantidade de glifos renderizados. Por outro lado, a baixa resolução das orientações de difusão pode tornar glifos pouco representativos em análises mais detalhadas ... Sugiro que, para mostrar a redução da capacidade informativa, ilustre um mesmo glifo com dois ou mais pares de pontas em 4 diferentes escalas. \textcolor{green}{OK!}}
 
@@ -422,7 +424,7 @@ Os resultados na quarta série mostram que o desempenho da renderização dos gl
 %\section{Multi-resolução e desempenho em ambiente de visualização multimodal}
 \label{sec::multi_resolução_e_performance_em_ambiente_de visualização_multimodal}
 
-Neste grupo de experimentos avaliamos o potencial do algoritmo de renderização proposto na implementação de um ambiente de visualização investigativa, sob diferentes fatores de escala, das amostras de difusão intravoxel dos exames imagiológicos. Validamos a  multi-resolução adaptativa proposta, tanto em tempos de resposta quanto na capacidade informativa. Verificaremos o impacto da multi-resolução no compromisso entre a interatividade e a qualidade informativa dos glifos.
+\sout{Neste}\textcolor{red}{No segundo} grupo de experimentos avaliamos o potencial do algoritmo de renderização proposto na implementação de um ambiente de visualização investigativa, sob diferentes fatores de escala, das amostras de difusão intravoxel dos exames imagiológicos. Validamos a  multi-resolução adaptativa proposta, tanto em tempos de resposta quanto na capacidade informativa. Verificaremos o impacto da multi-resolução no compromisso entre a interatividade e a qualidade informativa dos glifos.
 
 %Elaboramos um experimento em que coletamos os tempos médios de renderização de uma mesma cena variando apenas os fatores de escala de visualização para analisarmos a capacidade adaptativa do algoritmo e validarmos a funcionalidade de multi-resolução a diferentes fatores de escala e o seu efeito tanto em tempos de resposta quanto na qualidade dos glifos visualizados.
 
@@ -600,7 +602,7 @@ Observe na Fig. \ref{fig::fps_fatorescala} que, para fatores de escala menores q
 
 O gráfico na Fig. \ref{fig::fps_fatorescala} e a Tabela \ref{tab::glyph_info_experiment} no apêndice mostram que, em um fator de escala menor que 10 e muitos glifos sendo renderizados, há uma queda abrupta no desempenho, em FPS, da renderização dos glifos de resolução correspondente à tesselação de 8$^a$ ordem do icosaedro (linha azul). Ao compará-la com a estratégia de multi-resolução (linha multi-cores), temos um ganho em aproximadamente 8,63 FPS quando 13205 glifos (fator de escala = 1,59) são renderizados (linha magenta) e em 6,3 FPS quando pouco mais de 9166 glifos (fator de escala = 2,4) são renderizados.
 
-\todo{Alguma justificativa para esta diferença uma vez que a ordem de tesselação seja a mesma? \textcolor{green}{Adicionado! cômputo de maxp}}
+%\todo{Alguma justificativa para esta diferença uma vez que a ordem de tesselação seja a mesma? \textcolor{green}{Adicionado! cômputo de maxp}}
 Por outro lado, devido a ativação do cômputo de $max_p$ na GPU, o tempo de resposta da abordagem multi-resolução se torna menor que a abordagem de resolução fixa para um fator de escala acima de 10, porém ambos estão sendo renderizados a taxas interativas na faixa de 30 FPS \cite{nielsen1994} e o usuário tem a sensação que o sistema reage de forma instantânea à sua interação. As perdas em desempenho para visualização sem multi-resolução para fatores de escala menores que 10, em que a taxa de quadros do ambiente de visualização se torna menor que 10 FPS, faz com que a configuração multi-resolução seja uma adição agregadora ao algoritmo proposto.%Isto não ocorre na visualização sem multi-resolução com fator de escala menor do que 10, na qual a taxa de quadros do sistema é menor que 10 FPS, e o usuário percebe o atraso de resposta, o que não ocorre com a configuração de multi-resolução.
 
 Fazendo uma análise visual das Fig. \ref{fig::qualidade_visual_longe_lowres},  \ref{fig::qualidade_visual_longe_highres} e \ref{fig::qualidade_visual_longe_lowres_0}, nas quais 13205 glifos são renderizados a um fator de escala igual a 1,59 e $max_p = 36$ (Tabela \ref{tab::glyph_info_experiment}), certificamos que, para um fator de escala baixo, as diferenças entre as formas dos glifos gerados a partir das tesselações de segunda e oitava ordens do icosaedro, e até de primeira ordem para fatores de escala mais baixos, são imperceptíveis visualmente. Num nível de fator de escala próximo de 1, a informação que os glifos carregam para o usuário se deve mais às cores do que às suas formas. Mesmo que essa diferença não seja distinguível quando $max_p$ seja em algumas unidades de \textit{pixels}, optamos por excluir a primeira ordem na abordagem multi-resolução (Eq. \ref{eq::icosa_order}).
@@ -625,7 +627,8 @@ Com esta série de experimentos, mesmo com a diminuição do FPS para muitos gli
 
 %\sout{Propomos um experimento para avaliar aspectos visuais do nosso algoritmo de esquema de renderização em comparação às superquádricos. Para isso, exibiremos regiões onde diferentes tratos coexistem nos mesmos \textit{voxels} e as comparamos com os glifos superquádricos \cite{Kindlmann2004} do DTI, que também estão integrados ao ambiente de visualização.}
 
-Embora seja conhecida na literatura a superioridade dos glifos ODF em relação aos grifos superquádricos quanto ao poder informativo em difusões múltiplas intravóxeis, apresentamos nesta seção um grupo de experimentos que nos permita avaliar a nossa implementação de glifos ODF em relação aos glifos superquádricos, cuja renderização multimodal foi proposta por \citeonline{voltoline2021}, em regiões de múltiplas direções de difusão. As regiões consistem no centro semioval (Fig. \ref{fig::relacoes_espaciais_feixes}), onde ocorre o cruzamento do trato\footnote{Tratos são conjuntos de fibras organizadas em feixe que conectam diferentes partes do cérebro e geralmente são nomeados de acordo com sua origem e terminação.} cortico-espinhal (CS), corpo caloso (CC), fascículo longitudinal superior (\textit{superior longitudinal fasciculus}, SLF), na interface entre corpo caloso e cíngulo, onde há o ``beijo'' (\textit{kissing}) das fibras do corpo caloso na região medial com o cíngulo, e na coroa radiada, nos quais as fibras de corpo caloso e do trato CS se abrem como ``leque'' (\textit{fanning}).
+\todo[inline]{Observou a falta de uniformidade em relação ao Cap. 1. na hora de mencionar beijo e leque ... Procure adorar uma mesma forma.}
+Embora seja conhecida na literatura a superioridade dos glifos ODF em relação aos grifos superquádricos quanto ao poder informativo em difusões múltiplas intravóxeis, apresentamos nesta seção \sout{um}\textcolor{red}{o terceiro} grupo de experimentos que nos permita avaliar a nossa implementação de glifos ODF em relação aos glifos superquádricos, cuja renderização multimodal foi proposta por \citeonline{voltoline2021}, em regiões de múltiplas direções de difusão. As regiões consistem no centro semioval (Fig. \ref{fig::relacoes_espaciais_feixes}), onde ocorre o cruzamento do trato\footnote{Tratos são conjuntos de fibras organizadas em feixe que conectam diferentes partes do cérebro e geralmente são nomeados de acordo com sua origem e terminação.} cortico-espinhal (CS), corpo caloso (CC), fascículo longitudinal superior (\textit{superior longitudinal fasciculus}, SLF), na interface entre corpo caloso e cíngulo, onde há o ``beijo'' (\textit{kissing}) das fibras do corpo caloso na região medial com o cíngulo, e na coroa radiada, \sout{nos quais}\textcolor{red}{onde} as fibras de corpo caloso e do trato CS se abrem como ``leque'' (\textit{fanning}).
 
 %fibras dos tratos
 
@@ -721,7 +724,7 @@ Explorarmos os volumes de glifos renderizados sob a perspectiva de anatomia dos 
 \label{ssec::visual_resultados}
 
 %\todo[inline]{Parece que a Fig 4.15 foi enfiada na última hora no texto, solta, sem uma conexão adequada com o restante. Acho melhor removê-la.}
-Nesta seção apresentamos algumas imagens representativas, em glifos ODF e em glifos superquádricos. Elas ilustram diferenças no poder informativo dos dois tipos de visualização de difusões intravóxeis quanto aos feixes de fibras subjacentes. Escolhemos seis sujeitos para análise das regiões, os quais nos referimos como Sujeitos 1, 2, 3, 4, 5 e 6. Todos os sujeitos são saudáveis e têm seus sexos e faixas etárias anotados na Tabela \ref{tab::vol_id}. 
+Nesta seção apresentamos algumas imagens representativas, em glifos ODF e em glifos superquádricos. Elas ilustram diferenças no poder informativo dos dois tipos de visualização de difusões intravóxeis quanto aos feixes de fibras subjacentes. \sout{Escolhemos seis sujeitos para análise das regiões, os quais nos} Referimos \textcolor{red}{os seis sujeitos escolhidos para análise} como Sujeitos 1, 2, 3, 4, 5 e 6. Todos os sujeitos são saudáveis e têm seus sexos e faixas etárias anotados na Tabela \ref{tab::vol_id}. 
 
 \begin{table}[htb]
 \centering
@@ -747,11 +750,10 @@ As fatias coronais mostradas nas Fig.
 \ref{fig::146129_localizacao} e
 \ref{fig::149741_localizacao} representam a localização das regiões dos cérebros dos sujeitos, de 1 a 6, respectivamente a serem analisadas. Destacamos três regiões para análise em cada fatia, que são a interface entre o cíngulo e o corpo caloso (destacada em verde), a base do leque da coroa radiada (destacada em laranja) e o centro semioval (destacado em ciano). Adicionalmente, mostramos a localização da fatia coronal em relação as vistas axiais e sagitais.
 
-Afim de facilitar a análise visual, as fatias selecionadas para o experimento das diversas configurações de fibras ocorrem de forma que as fibras a serem analisadas estejam contidas no plano coronal selecionado ou sejam normais ao plano.
+\textcolor{red}{A fim} de facilitar a análise visual, as fatias selecionadas para o experimento das diversas configurações de fibras ocorrem de forma que as fibras a serem analisadas estejam contidas no plano coronal selecionado ou sejam normais ao plano.
+Adicionalmente, mostramos as regiões destacadas \sout{com um}\textcolor{red}{em} maior nível de detalhamento para análise de cada um dos sujeitos em sequência após as imagens das suas localizações\sout{ na ordem}: interface cíngulo e o corpo caloso, base do leque da coroa radiada e cruzamento no centro semioval. \sout{Trazemos os glifos ODF do GQI e os superquádricos do DTI para que possamos analisá-los de forma comparativa.} 
 
-Adicionalmente, mostramos as regiões destacadas com um maior nível de detalhamento para análise de cada um dos sujeitos em sequência após as imagens das suas localizações na ordem: interface cíngulo e o corpo caloso, base do leque da coroa radiada e cruzamento no centro semioval. Trazemos os glifos ODF do GQI e os superquádricos do DTI para que possamos analisá-los de forma comparativa. 
-
-Para melhorar a interpretabilidade dos glifos nas regiões analisadas, fizemos alguns destaques nas imagens com maior nível de detalhamento das configurações mostradas. Por estarem em uma pequena quantidade em relação a totalidade dos glifos trazidas na imagens com maior detalhamento, destacamos os glifos ODF que evidenciam a transição entre cíngulo e corpo caloso em branco e os glifos que evidenciam a bifurcação na coroa radiada em vermelho escuro para todos os sujeitos. Adicionalmente, para enfatizar o poder informativo dos glifos ODF no cruzamento triplo entre SLF, CC e CST, destacamos um glifo ODF no \textit{voxel} de ocorrência no Sujeito 1 (Fig. \ref{fig::172332_crossing_odf}) e o mostramos de forma mais detalhada nas visões coronal, axial e sagital (Fig. \ref{fig::172332_crossing_odf_adicional}). Por completude e para facilitar e associação visual de superquádricos com os glifos ODF para o mesmo \textit{voxel}, também destacamos os superquádricos dos mesmos \textit{voxels} nas imagens com maior nível de detalhamento.
+Para melhorar a interpretabilidade dos glifos nas regiões analisadas, fizemos alguns destaques \sout{nas imagens com maior nível de detalhamento das configurações mostradas}\textcolor{red}{nos três recortes ampliados de cada sujeito}. \sout{Por estarem em uma pequena quantidade em relação a totalidade dos glifos trazidas na imagens com maior detalhamento,}  Destacamos os glifos ODF que evidenciam a transição entre cíngulo e corpo caloso em branco e os glifos que evidenciam a bifurcação na coroa radiada em vermelho escuro para todos os sujeitos. \sout{Adicionalmente, p} \textcolor{red}{O cruzamento das três fibras no centro semioval é evidente em todas as figuras. Porém, p}ara enfatizar o poder informativo dos glifos ODF no cruzamento triplo entre SLF, CC e CST, destacamos um glifo ODF no \textit{voxel} de ocorrência no Sujeito 1 (Fig. \ref{fig::172332_crossing_odf}) e o mostramos de forma mais detalhada nas visões coronal, axial e sagital (Fig. \ref{fig::172332_crossing_odf_adicional}). Por completude e para facilitar e associação visual de superquádricos com os glifos ODF para o mesmo \textit{voxel}, também destacamos os superquádricos dos mesmos \textit{voxels} nas imagens \sout{com maior nível de detalhamento}\textcolor{red}{correspondentes}.
 
 As interfaces entre cíngulo e corpo caloso estão detalhadas nas Fig. \ref{fig::172332_kissing},
 \ref{fig::103818_kissing},
@@ -760,7 +762,7 @@ As interfaces entre cíngulo e corpo caloso estão detalhadas nas Fig. \ref{fig:
 \ref{fig::146129_kissing} e
 \ref{fig::149741_kissing} para cada sujeito. Nesta região, temos uma configuração ``beijo'' (\textit{kissing}) entre os dois feixes de fibras. Mais especificamente, os dois feixes se tocam perpendicularmente como mostra o esboço na Fig. \ref{fig::relacoes_espaciais_feixes}. Espera-se, portanto, que existam amostras na interface entre os dois feixes de fibras com duas direções de difusão dominantes, como revelam os glifos ODF destacados pelos retângulos brancos nas imagens mostradas. No entanto, os correspondentes glifos superquádricos, também destacados pela linha branca, assumem formas que nos induzem a concluir equivocadamente que as difusões sejam isotrópicas, assim como nas regiões com o fundo mais escuro na parte inferior das imagens, que corresponde ao ventrículo.
 
-A base de um leque de fibras que passam pela capsula interna na coroa radiada estão detalhadas nas Fig.
+A base de um leque de fibras que passam pela c\textcolor{red}{á}psula interna na coroa radiada estão detalhadas nas Fig.
 \ref{fig::172332_fanning},
 \ref{fig::103818_fanning},
 \ref{fig::105923_fanning},
@@ -777,8 +779,6 @@ Finalmente, a região do centro semioval estão detalhadas nas Fig.
 \ref{fig::149741_crossing} para cada sujeito. Nesta região ocorre o cruzamento de três grandes feixes de fibras, SLF, CC e CS, como ilustra a Fig. \ref{fig::tratos}. Enquanto os glifos superquádricos correspondentes tem a forma de disco, ou uma forma retangular suave, os glifos ODF mostram nitidamente cruzamentos de duas ou três direções. Os cruzamentos entre CS e CC ocorrem de forma oblíqua no plano da imagem e o SLF II, que é normal ao plano da imagem, cruza com CS e CC perpendicularmente (Fig. \ref{fig::172332_crossing_odf_adicional}).
 
 % \textcolor{magenta}{indicando que a segunda direção de difusão dominante é perpendicular ao plano da fatia.}%Comparando esses glifos com os seus correpondentes glifos superquádricos na Fig. \ref{fig::multimodal_fanning_superquadric}...
-
-
 
 
 %Nos resultados mostrados, são esperados que possamos identificar múltiplas direções de fibras subjacentes através dos glifos, sendo duas para a interface do cíngulo e corpo caloso, duas na coroa radiada e duas ou três no centro semioval.
@@ -830,7 +830,7 @@ Finalmente, a região do centro semioval estão detalhadas nas Fig.
     \subfloat[Superquádricos.] {\includegraphics[width=.47\linewidth, angle=0]{figs/Visual/172332/configuracoes/kissing/superquadricos.png}
     \label{fig::172332_kissing_sqc}
     }
-    \caption{Sujeito 1: ``beijo'' na interface entre cíngulo e corpo caloso. As imagens consistem na região destacada em verde na fatia coronal da Fig. \ref{fig::172332_localizacao}.
+    \caption{Sujeito 1: ``beijo'' na interface entre cíngulo e corpo caloso. \sout{As imagens consistem na região destacada}\textcolor{red}{Os recortes correspondem à região destacada} em verde na fatia coronal da Fig. \ref{fig::172332_localizacao}.
     }
     \label{fig::172332_kissing}
 \end{figure}
@@ -848,7 +848,7 @@ Finalmente, a região do centro semioval estão detalhadas nas Fig.
     \subfloat[Superquádricos.] {\includegraphics[width=.475\linewidth, angle=0]{figs/Visual/172332/configuracoes/fanning/superquadricos.png}
     \label{fig::172332_fanning_sqc}
     }
-    \caption{Sujeito 1: bifurcação de fibras no trato cortico-espinhal. As imagens consistem na região destacada em laranja na fatia coronal da Fig. \ref{fig::172332_localizacao}.
+    \caption{Sujeito 1: bifurcação de fibras no trato cortico-espinhal. \sout{As imagens consistem na região destacada}\textcolor{red}{Os recortes correspondem à região destacada} em laranja na fatia coronal da Fig. \ref{fig::172332_localizacao}.
     }
     \label{fig::172332_fanning}
 \end{figure}
@@ -866,7 +866,7 @@ Finalmente, a região do centro semioval estão detalhadas nas Fig.
     \subfloat[Superquádricos.] {\includegraphics[width=.465\linewidth, angle=0]{figs/Visual/172332/configuracoes/crossing/superquadricos}
     \label{fig::172332_crossing_sqc}
     }
-    \caption{Sujeito 1: cruzamento no centro semioval numa fatia coronal. As imagens consistem na região destacada em ciano na fatia coronal da Fig. \ref{fig::172332_localizacao}.
+    \caption{Sujeito 1: cruzamento no centro semioval numa fatia coronal. \sout{As imagens consistem na região destacada}\textcolor{red}{Os recortes correspondem à região destacada} em ciano na fatia coronal da Fig. \ref{fig::172332_localizacao}.
     }
     \label{fig::172332_crossing}
 \end{figure}
@@ -926,7 +926,7 @@ Finalmente, a região do centro semioval estão detalhadas nas Fig.
     \subfloat[Superquádricos.] {\includegraphics[width=.47\linewidth, angle=0]{figs/Visual/103818/configuracoes/kissing/superquadricos}
     \label{fig::103818_kissing_sqc}
     }
-    \caption{Sujeito 2: ``beijo'' na interface entre cíngulo e corpo caloso. As imagens consistem na região destacada em verde na fatia coronal da Fig. \ref{fig::103818_localizacao}.
+    \caption{Sujeito 2: ``beijo'' na interface entre cíngulo e corpo caloso. \sout{As imagens consistem na região destacada}\textcolor{red}{Os recortes correspondem à região destacada} em verde na fatia coronal da Fig. \ref{fig::103818_localizacao}.
     }
     \label{fig::103818_kissing}
 \end{figure}
@@ -942,7 +942,7 @@ Finalmente, a região do centro semioval estão detalhadas nas Fig.
     \subfloat[Superquádricos.] {\includegraphics[width=.47\linewidth, angle=0]{figs/Visual/103818/configuracoes/fanning/superquadricos}
     \label{fig::103818_fanning_sqc}
     }
-    \caption{Sujeito 2: cruzamento no centro semioval numa fatia coronal. As imagens consistem na região destacada em ciano na fatia coronal da Fig. \ref{fig::103818_localizacao}.
+    \caption{Sujeito 2: cruzamento no centro semioval numa fatia coronal. \sout{As imagens consistem na região destacada}\textcolor{red}{Os recortes correspondem à região destacada} em \sout{ciano}\textcolor{red}{laranja} na fatia coronal da Fig. \ref{fig::103818_localizacao}.
     }
     \label{fig::103818_fanning}
 \end{figure}
@@ -958,7 +958,7 @@ Finalmente, a região do centro semioval estão detalhadas nas Fig.
     \subfloat[Superquádricos.] {\includegraphics[width=.47\linewidth, angle=0]{figs/Visual/103818/configuracoes/crossing/superquadricos}
     \label{fig::103818_crossing_sqc}
     }
-    \caption{Sujeito 2: cruzamento no centro semioval numa fatia coronal. As imagens consistem na região destacada em ciano na fatia coronal da Fig. \ref{fig::103818_localizacao}.
+    \caption{Sujeito 2: cruzamento no centro semioval numa fatia coronal. \sout{As imagens consistem na região destacada}\textcolor{red}{Os recortes correspondem à região destacada} em ciano na fatia coronal da Fig. \ref{fig::103818_localizacao}.
     }
     \label{fig::103818_crossing}
 \end{figure}
@@ -997,7 +997,7 @@ Finalmente, a região do centro semioval estão detalhadas nas Fig.
     \subfloat[Superquádricos.] {\includegraphics[width=.47\linewidth, angle=0]{figs/Visual/105923/configuracoes/kissing/superquadricos}
     \label{fig::105923_kissing_sqc}
     }
-    \caption{Sujeito 3: ``beijo'' na interface entre cíngulo e corpo caloso. As imagens consistem na região destacada em verde na fatia coronal da Fig. \ref{fig::105923_localizacao}.
+    \caption{Sujeito 3: ``beijo'' na interface entre cíngulo e corpo caloso. \sout{As imagens consistem na região destacada}\textcolor{red}{Os recortes correspondem à região destacada} em verde na fatia coronal da Fig. \ref{fig::105923_localizacao}.
     }
     \label{fig::105923_kissing}
 \end{figure}
@@ -1013,7 +1013,7 @@ Finalmente, a região do centro semioval estão detalhadas nas Fig.
     \subfloat[Superquádricos.] {\includegraphics[width=.477\linewidth, angle=0]{figs/Visual/105923/configuracoes/fanning/superquadricos}
     \label{fig::105923_fanning_sqc}
     }
-    \caption{Sujeito 3: bifurcação de fibras no trato cortico-espinhal. As imagens consistem na região destacada em laranja na fatia coronal da Fig. \ref{fig::105923_localizacao}.
+    \caption{Sujeito 3: bifurcação de fibras no trato cortico-espinhal. \sout{As imagens consistem na região destacada}\textcolor{red}{Os recortes correspondem à região destacada} em laranja na fatia coronal da Fig. \ref{fig::105923_localizacao}.
     }
     \label{fig::105923_fanning}
 \end{figure}
@@ -1029,7 +1029,7 @@ Finalmente, a região do centro semioval estão detalhadas nas Fig.
     \subfloat[Superquádricos.] {\includegraphics[width=.47\linewidth, angle=0]{figs/Visual/105923/configuracoes/crossing/superquadricos}
     \label{fig::105923_crossing_sqc}
     }
-    \caption{Sujeito 3: cruzamento no centro semioval numa fatia coronal. As imagens consistem na região destacada em ciano na fatia coronal da Fig. \ref{fig::105923_localizacao}.
+    \caption{Sujeito 3: cruzamento no centro semioval numa fatia coronal. \sout{As imagens consistem na região destacada}\textcolor{red}{Os recortes correspondem à região destacada} em ciano na fatia coronal da Fig. \ref{fig::105923_localizacao}.
     }
     \label{fig::105923_crossing}
 \end{figure}
@@ -1068,7 +1068,7 @@ Finalmente, a região do centro semioval estão detalhadas nas Fig.
     \subfloat[Superquádricos.] {\includegraphics[width=.462\linewidth, angle=0]{figs/Visual/122317/configuracoes/kissing/superquadricos}
     \label{fig::122317_kissing_sqc}
     }
-    \caption{Sujeito 4: ``beijo'' na interface entre cíngulo e corpo caloso. As imagens consistem na região destacada em verde na fatia coronal da Fig. \ref{fig::122317_localizacao}.
+    \caption{Sujeito 4: ``beijo'' na interface entre cíngulo e corpo caloso. \sout{As imagens consistem na região destacada}\textcolor{red}{Os recortes correspondem à região destacada} em verde na fatia coronal da Fig. \ref{fig::122317_localizacao}.
     }
     \label{fig::122317_kissing}
 \end{figure}
@@ -1084,7 +1084,7 @@ Finalmente, a região do centro semioval estão detalhadas nas Fig.
     \subfloat[Superquádricos.] {\includegraphics[width=.471\linewidth, angle=0]{figs/Visual/122317/configuracoes/fanning/superquadricos}
     \label{fig::122317_fanning_sqc}
     }
-    \caption{Sujeito 4: bifurcação de fibras no trato cortico-espinhal. As imagens consistem na região destacada em laranja na fatia coronal da Fig. \ref{fig::122317_localizacao}.
+    \caption{Sujeito 4: bifurcação de fibras no trato cortico-espinhal. \sout{As imagens consistem na região destacada}\textcolor{red}{Os recortes correspondem à região destacada} em laranja na fatia coronal da Fig. \ref{fig::122317_localizacao}.
     }
     \label{fig::122317_fanning}
 \end{figure}
@@ -1100,7 +1100,7 @@ Finalmente, a região do centro semioval estão detalhadas nas Fig.
     \subfloat[Superquádricos.] {\includegraphics[width=.471\linewidth, angle=0]{figs/Visual/122317/configuracoes/crossing/superquadricos}
     \label{fig::122317_crossing_sqc}
     }
-    \caption{Sujeito 4: cruzamento no centro semioval numa fatia coronal. As imagens consistem na região destacada em ciano na fatia coronal da Fig. \ref{fig::122317_localizacao}.
+    \caption{Sujeito 4: cruzamento no centro semioval numa fatia coronal. \sout{As imagens consistem na região destacada}\textcolor{red}{Os recortes correspondem à região destacada} em ciano na fatia coronal da Fig. \ref{fig::122317_localizacao}.
     }
     \label{fig::122317_crossing}
 \end{figure}
@@ -1139,7 +1139,7 @@ Finalmente, a região do centro semioval estão detalhadas nas Fig.
     \subfloat[Superquádricos.] {\includegraphics[width=.46\linewidth, angle=0]{figs/Visual/146129/configuracoes/kissing/superquadricos}
     \label{fig::146129_kissing_sqc}
     }
-    \caption{Sujeito 5: ``beijo'' na interface entre cíngulo e corpo caloso. As imagens consistem na região destacada em verde na fatia coronal da Fig. \ref{fig::146129_localizacao}.
+    \caption{Sujeito 5: ``beijo'' na interface entre cíngulo e corpo caloso. \sout{As imagens consistem na região destacada}\textcolor{red}{Os recortes correspondem à região destacada} em verde na fatia coronal da Fig. \ref{fig::146129_localizacao}.
     }
     \label{fig::146129_kissing}
 \end{figure}
@@ -1155,7 +1155,7 @@ Finalmente, a região do centro semioval estão detalhadas nas Fig.
     \subfloat[Superquádricos.] {\includegraphics[width=.47\linewidth, angle=0]{figs/Visual/146129/configuracoes/fanning/superquadricos}
     \label{fig::146129_fanning_sqc}
     }
-    \caption{Sujeito 5: bifurcação de fibras no trato cortico-espinhal. As imagens consistem na região destacada em laranja na fatia coronal da Fig. \ref{fig::146129_localizacao}.
+    \caption{Sujeito 5: bifurcação de fibras no trato cortico-espinhal. \sout{As imagens consistem na região destacada}\textcolor{red}{Os recortes correspondem à região destacada} em laranja na fatia coronal da Fig. \ref{fig::146129_localizacao}.
     }
     \label{fig::146129_fanning}
 \end{figure}
@@ -1171,7 +1171,7 @@ Finalmente, a região do centro semioval estão detalhadas nas Fig.
     \subfloat[Superquádricos.] {\includegraphics[width=.458\linewidth, angle=0]{figs/Visual/146129/configuracoes/crossing/superquadricos}
     \label{fig::146129_crossing_sqc}
     }
-    \caption{Sujeito 5: cruzamento no centro semioval numa fatia coronal. As imagens consistem na região destacada em ciano na fatia coronal da Fig. \ref{fig::146129_localizacao}.
+    \caption{Sujeito 5: cruzamento no centro semioval numa fatia coronal. \sout{As imagens consistem na região destacada}\textcolor{red}{Os recortes correspondem à região destacada} em ciano na fatia coronal da Fig. \ref{fig::146129_localizacao}.
     }
     \label{fig::146129_crossing}
 \end{figure}
@@ -1211,7 +1211,7 @@ Finalmente, a região do centro semioval estão detalhadas nas Fig.
     \subfloat[Superquádricos.] {\includegraphics[width=.475\linewidth, angle=0]{figs/Visual/149741/configuracoes/kissing/superquadricos}
     \label{fig::149741_kissing_sqc}
     }
-    \caption{Sujeito 6: ``beijo'' na interface entre cíngulo e corpo caloso. As imagens consistem na região destacada em verde na fatia coronal da Fig. \ref{fig::149741_localizacao}.
+    \caption{Sujeito 6: ``beijo'' na interface entre cíngulo e corpo caloso. \sout{As imagens consistem na região destacada}\textcolor{red}{Os recortes correspondem à região destacada} em verde na fatia coronal da Fig. \ref{fig::149741_localizacao}.
     }
     \label{fig::149741_kissing}
 \end{figure}
@@ -1227,7 +1227,7 @@ Finalmente, a região do centro semioval estão detalhadas nas Fig.
     \subfloat[Superquádricos.] {\includegraphics[width=.465\linewidth, angle=0]{figs/Visual/149741/configuracoes/fanning/superquadricos}
     \label{fig::149741_fanning_sqc}
     }
-    \caption{Sujeito 6: bifurcação de fibras no trato cortico-espinhal. As imagens consistem na região destacada em laranja na fatia coronal da Fig. \ref{fig::149741_localizacao}.
+    \caption{Sujeito 6: bifurcação de fibras no trato cortico-espinhal. \sout{As imagens consistem na região destacada}\textcolor{red}{Os recortes correspondem à região destacada} em laranja na fatia coronal da Fig. \ref{fig::149741_localizacao}.
     }
     \label{fig::149741_fanning}
 \end{figure}
@@ -1243,7 +1243,7 @@ Finalmente, a região do centro semioval estão detalhadas nas Fig.
     \subfloat[Superquádricos.] {\includegraphics[width=.47\linewidth, angle=0]{figs/Visual/149741/configuracoes/crossing/superquadricos}
     \label{fig::149741_crossing_sqc}
     }
-    \caption{Sujeito 6: cruzamento no centro semioval numa fatia coronal. As imagens consistem na região destacada em ciano na fatia coronal da Fig. \ref{fig::149741_localizacao}.
+    \caption{Sujeito 6: cruzamento no centro semioval numa fatia coronal. \sout{As imagens consistem na região destacada}\textcolor{red}{Os recortes correspondem à região destacada} em ciano na fatia coronal da Fig. \ref{fig::149741_localizacao}.
     }
     \label{fig::149741_crossing}
 \end{figure}
@@ -1274,7 +1274,7 @@ Embora de forma sutil, as Fig.
 \ref{fig::105923_fanning},
 \ref{fig::122317_fanning},
 \ref{fig::146129_fanning} e
-\ref{fig::149741_fanning} demonstram a capacidade dos glifos ODF em mostrar configurações em ``leque'' (\textit{fanning}), típica do trato cortico-espinhal \cite{fortin2012, wang2019}. Como já destacamos na Seção \ref{ssec::visual_resultados}, os glifos ODF contornados pela linha vermelha escura nas imagens da base do leque da coroa radiada em todos os volumes tem  direções predominantemente ascendentes e levemente inclinadas na direção lateral com uma cor que transita entre azul e magenta, evidenciando mais de uma direção de difusão. Com os glifos superquádricos, não há a possibilidade de inferência sobre a abertura em ``leque'' por serem de formato tubular (Fig. \ref{fig::172332_fanning_sqc} e \ref{fig::146129_fanning_sqc}) ou de paralelepípedo suave (Fig. \ref{fig::103818_fanning_sqc}, \ref{fig::105923_fanning_sqc} e \ref{fig::122317_fanning_sqc}) com tons de cor que variam também entre magenta e azul. Vale ressaltar que há coerência, tanto em cor quanto em forma, entre os glifos ao lado da região de abertura em ``leque'' destacada. A diferença ocorre no meio da abertura, onde somente os glifos ODF conseguem revelar a existência de uma região de mistura das duas direções de difusão. Vale ressaltar que a região da coroa radiada apresenta diversas configurações de cruzamento e bifurcações de duas, três ou mais fibras \cite{schilling2017}, e que muitas regiões de bifurcação de fibras ocorrem em direções oblíquas aos planos anatômicos. Aqui enfatizamos novamente que, por clareza na ilustração, os resultados mostrados dizem respeito a bifurcação de fibras cujas direções estão contidas no plano coronal.
+\ref{fig::149741_fanning} demonstram a capacidade dos glifos ODF em mostrar configurações em ``leque'' (\textit{fanning}), típica do trato cortico-espinhal \cite{fortin2012, wang2019}. Como já destacamos na Seção \ref{ssec::visual_resultados}, os glifos ODF contornados pela linha vermelha escura nas imagens da base do leque da coroa radiada em todos os volumes tem  direções predominantemente ascendentes e levemente inclinadas na direção lateral com uma cor que transita entre azul e magenta, evidenciando mais de uma direção de difusão. Com os glifos superquádricos, não há a possibilidade de inferência \textcolor{red}{visual} sobre a abertura em ``leque'' por serem de formato tubular (Fig. \ref{fig::172332_fanning_sqc} e \ref{fig::146129_fanning_sqc}) ou de paralelepípedo suave (Fig. \ref{fig::103818_fanning_sqc}, \ref{fig::105923_fanning_sqc} e \ref{fig::122317_fanning_sqc}) com tons de cor que variam também entre magenta e azul. Vale ressaltar que há coerência, tanto em cor quanto em forma, entre os glifos ao lado da região de abertura em ``leque'' destacada. A diferença ocorre no meio da abertura, onde somente os glifos ODF conseguem revelar a existência de uma região de mistura das duas direções de difusão. Vale ressaltar que a região da coroa radiada apresenta diversas configurações de cruzamento e bifurcações de duas, três ou mais fibras \cite{schilling2017}, e que muitas regiões de bifurcação de fibras ocorrem em direções oblíquas aos planos anatômicos. Aqui enfatizamos novamente que, por clareza na ilustração, os resultados mostrados dizem respeito \textcolor{red}{à} bifurcação de fibras cujas direções estão contidas no plano coronal.
 
 Nos \textit{voxels} do centro semioval, ilustrados na Fig. \ref{fig::tratos},  temos um cruzamento entre o corpo caloso, que vem da parte medial do cérebro,
 o CST, que tem direção dominantemente ascendente vindo da cápsula interna, e o SLF, que tem direção anteroposterior. Pode-se perceber nas Fig.
@@ -1286,7 +1286,7 @@ o CST, que tem direção dominantemente ascendente vindo da cápsula interna, e 
 \ref{fig::149741_crossing} que, 
 enquanto as pontas isoladas, ou os máximos locais, dos glifos ODF permitem inferir sobre a natureza do cruzamento, os superquádricos, por apresentarem uma forma retangular suave ou em disco, não conseguem proporcionar uma noção de cruzamento. As pontas dos glifos ODFs indicam as prováveis direções de cada feixe de fibras de forma mais precisa, como evidenciado no glifo ODF na Fig. \ref{fig::172332_crossing_odf_adicional}. Adicionalmente, mencionamos uma observação de \citeonline{dellacqua2019} acerca a angulação de cruzamento entre os feixes de fibras de 0$^o$ a 90$^o$: quanto maior a angulação, mais delineadas são as pontas associadas aos feixes. Como a angulação de cruzamento entre CC e CS é menor que 90$^o$ no glifo destacado (Fig. \ref{fig::172332_crossing_odf_adicional}), o conjunto de pontas ascendentes e inclinadas para direita (CC) e esquerda (CS) é menos distinguível no glifo que o cruzamento das pontas de CC e CS com as pontas de cor verde (SLF).
 
-Observe que os glifos ODF representativos das três regiões analisadas que indicam a coexistência de fibras em três configurações estão presentes de forma clara para os volumes analisados, o que nos leva a crer que a configuração é facilmente evidenciável para DWIs com a mesma sequência de aquisição e pipeline de pré-processamento do HCP.
+Observe que os glifos ODF representativos das três regiões analisadas que indicam a coexistência de fibras em três configurações estão presentes de forma clara para os volumes analisados, o que nos leva a crer que \sout{a configuração é facilmente evidenciável}\textcolor{red}{estas configurações são facilmente evidenciáveis} para DWIs com a mesma sequência de aquisição e \sout{pipeline} de pré-processamento do HCP.
 
 %%%%%%% ANALISE COM MULTIPLOS VOLUMES %%%%%%
 %Nos resultados mostrados para os Sujeitos 2 a 6, as imagens mostram que os formatos similares dos glifos nas regiões destacadas em relação à região analisada no volume discutido para o Sujeito 1 para os cinco volumes analisados e que as diferenças nos volumes dizem respeito a diferenças na conectividade entre indivíduos.
