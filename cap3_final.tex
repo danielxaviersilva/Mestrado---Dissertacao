@@ -3,7 +3,7 @@
 
 %\todo[inline]{Falta contextualizar nos objetivos que você listou na seção 1.3. Não é melhor focar em renderização de perfis de difusão que é um dos problemas relacionados diretamente com a interatividade?}
 
-A forma mais comum de visualizar dados relacionados a ODFs é através de glifos provenientes da superfície definida pela plotagem polar esférica $R(\mathbf{r} , \mathbf{\hat{u}})$. Esta classe de superfície permite a \sout{inferência e} inspeção de ODFs de difusão e a \textcolor{red}{inferência da} distribuição de fibras subjacentes. Adicionalmente, ela permite a avaliação visual das ODFs obtidas a partir de um método de alta ordem para DWI em diferentes esquemas de aquisições, pois os glifos dão uma visualização clara do comportamento local de difusão\sout{ e }\textcolor{red}{. S}ão amplamente utilizados em trabalhos que utilizam métodos de alta ordem aplicados a aquisições HARDI.
+A forma mais comum de visualizar dados relacionados a ODFs é através de glifos provenientes da superfície definida pela plotagem polar esférica $R(\mathbf{r} , \mathbf{\hat{u}})$. Esta classe de superfície permite a inspeção de ODFs de difusão e a inferência da distribuição de fibras subjacentes. Adicionalmente, ela permite a avaliação visual das ODFs obtidas a partir de um método de alta ordem para DWI em diferentes esquemas de aquisições, pois os glifos dão uma visualização clara do comportamento local de difusão. São amplamente utilizados em trabalhos que utilizam métodos de alta ordem aplicados a aquisições HARDI.
 
 Entre os trabalhos que aplicam os glifos, temos \citeonline{TuchQBall2004},  \citeonline{yeh2010} e  \citeonline{daducci2014}.  \citeonline{descoteaux2007}. \citeonline{TuchQBall2004},  \citeonline{yeh2010} os utilizam como ferramenta de visualização para os métodos de imageamento propostos em seus respectivos trabalhos. \citeonline{daducci2014} os usam para ilustrar e comparar ODFs reconstruídas por diferentes métodos.
 
@@ -43,8 +43,7 @@ Em seu trabalho, \citeonline{shattuck2008} utilizam a GPU. Porém, as malhas tri
 Há um problema crítico na acurácia e eficiência do raio lançado, embora a qualidade do glifo seja independente do fator de escala. Quando o raio tende a ser paralelo ao glifo, muitas iterações podem ocorrer em algumas \textit{threads}. Na nossa abordagem, baseada em rasterização de triângulos, podemos explorar todas as otimizações disponíveis no fluxo de renderização de uma GPU. Adotamos a estratégia de multi-resolução.
 Em ambos os trabalhos de \citeonline{peeters2009} e \citeonline{almsick2011}, assume-se que as ODFs sejam definidas como uma soma ponderada de 15 funções harmônicas esféricas pré-computadas de até quarta ordem. Esta consideração é suficiente para que o usuário possa inferir acerca da coexistência de fibras, mas requer uma regressão dos sinais amostrados para as funções harmônicas esféricas. Os autores não detalham questões relativas ao aumento da acurácia na representação em maior ordem, utilizando sexta e oitava ordem das harmônicas esféricas, no qual há 28 e 45 funções-base \cite{descoteaux2007_QBI} cuja regressão pode ser bastante custosa computacionalmente. Neste trabalho, não lidamos com problemáticas desta natureza, pois aplicamos a técnica GQI para estimar dODFs discretas.
 
-\citeonline{voltoline2021} propuseram um esquema de renderização integralmente na GPU para glifos superquádricos que representam tensores de difusão \cite{Kindlmann2004}. Para atingir o objetivo de interatividade, eles exploraram recursos modernos da GPU, que consistem em \textit{transform feedback}, aproximação triangular adaptativa dos glifos e renderização por instanciação. Adicionalmente, o algoritmo proposto por eles consiste em renderizar \textcolor{red}{somente glifos nos \textit{voxels} visíveis dos} volumes \textit{co-registrados} via \textit{ray-casting}\sout{, renderizar somente glifos nos \textit{voxels} visíveis, cuja}. \textcolor{red}{A} resolução \textcolor{red}{dos glifos} 
-é adaptativa à \textcolor{red}{sua} ocupação \sout{dos glifos} na tela. O nosso trabalho é baseado em \citeonline{voltoline2021}. Todavia, diferentemente dos superquádricos, os dados associados com glifos ODF tem dimensionalidade bem maior. Neste trabalho, almejamos por uma renderização interativa dos glifos ODF.
+\citeonline{voltoline2021} propuseram um esquema de renderização integralmente na GPU para glifos superquádricos que representam tensores de difusão \cite{Kindlmann2004}. Para atingir o objetivo de interatividade, eles exploraram recursos modernos da GPU, que consistem em \textit{transform feedback}, aproximação triangular adaptativa dos glifos e renderização por instanciação. Adicionalmente, o algoritmo proposto por eles consiste em renderizar somente glifos nos \textit{voxels} visíveis dos volumes \textit{co-registrados} via \textit{ray-casting}. A resolução dos glifos é adaptativa à sua ocupação na tela. O nosso trabalho é baseado em \citeonline{voltoline2021}. Todavia, diferentemente dos superquádricos, os dados associados com glifos ODF tem dimensionalidade bem maior. Neste trabalho, almejamos por uma renderização interativa dos glifos ODF.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Mapeamento dos glifos ODF em formas geométricas}
@@ -98,7 +97,7 @@ $P_{N-1}\}$ nos pontos contidos no hemisfério $\{P(x, y, z) \in \Pi | y > 0 \cu
 \mathbf{n}_3, ..., 
 \mathbf{n}_{N-3},
 \mathbf{n}_{N-1}
-]$, são suficientes para moldar um glifo. Isso nos leva a representar a topologia da malha em separado dos dados de difusão representados por $R(\mathbf{r},\mathbf{n}_i)$. Fig. \ref{fig::direcoes} ilustra a amostragem no conjunto $\mathbf{U}$ a partir dos pontos \sout{na}\textcolor{red}{de uma} semi-esfera. Propomos, ainda, definir cada triângulo da malha esférica usando os índices dos vértices na lista de pontos $\Pi$. Isso facilita o reuso das coordenadas dos pontos na definição de vários triângulos, evitando duplicação de dados na memória. 
+]$, são suficientes para moldar um glifo. Isso nos leva a representar a topologia da malha em separado dos dados de difusão representados por $R(\mathbf{r},\mathbf{n}_i)$. Fig. \ref{fig::direcoes} ilustra a amostragem no conjunto $\mathbf{U}$ a partir dos pontos de uma semi-esfera. Propomos, ainda, definir cada triângulo da malha esférica usando os índices dos vértices na lista de pontos $\Pi$. Isso facilita o reuso das coordenadas dos pontos na definição de vários triângulos, evitando duplicação de dados na memória. 
 
 Por conta do compromisso entre a qualidade e a eficiência na renderização dos glifos, propomos uma representação multi-resolução para as malhas esféricas de orientações. Pelos testes realizados, \todo{É coerente com o conteúdo do próximo parágrafo? A resolução é adaptativa ou só tem 2 níveis?}recomendamos que a ordem de tesselação para amostragem seja a oitava ($k=3$) ou, no máximo, a décima sexta ($k=4$), implicando em 321 e 1281 amostras de dODFs min-max normalizadas por \textit{voxel}. Valores acima destes computados para todo DWI pode incorrer no uso de uma quantidade proibitiva de memória. Por exemplo, para tesselação de oitava ordem, em que armazenamos os dados em um ponto flutuante de 4 \textit{bytes}, são necessários 1.284 \textit{bytes} por \textit{voxel}, que gera aproximadamente 4.480 \textit{Gigabytes} de memória para um volume de dimensões $145 \times 174 \times 145$ do \textit{Human Connectome Project} \cite{essen2012}.
 
@@ -111,7 +110,7 @@ Por conta do compromisso entre a qualidade e a eficiência na renderização dos
 
 %\sout{A primeira condição, conforme já discutido no capítulo \ref{chapter::metodos_hardi} na forma de armazenamento de dados da ODF tira vantagem da simetria e armazena os pontos em metade de uma esfera. Propomos que os pontos simétricos em relação aos eixos coordenados de $\Pi$ estejam dispostos de forma consecutiva na memória, i. e. $P_{2i+2} = -P_{2i+1}$, $(0 \leq i \leq \frac{N-2}{2})$, o que nos leva a uma estrutura de dados $\Pi = [P_1, -P_1, P_3, -P_3, \dots, P_{N-3}, -P_{N-3}, P_{N-1}, -P_{N-1}]$.}
 
-Em vista da complexidade em relação à memória, é desejável que a ordem de tesselação seja adaptativa na renderização de glifos, de ordem 1 até 16$^a$ ordem. Propomos que os vértices sejam estruturados numa estrutura linear em $\Pi$. Como os vértices da ordem $2^{t+1}$ $(t < k)$ contêm os vértices da ordem $2^{t}$, propomos anexar, em blocos, os vértices adicionais da ordem $2^{t+1}$ ao bloco dos vértices da ordem $2^t$ como ilustrado na Fig. \ref{fig::icosaedro_blocos}, mantendo a relação de vértices de índices pares e ímpares, ou seja $P_{2i+2} = -P_{2i+1}$. Com isso, garante-se que todos os vértices de uma ordem específica sejam contíguos e que os vértices incrementais de sub-malhas de ordens inferiores estejam organizados em blocos facilmente distinguíveis.
+Por questões de desempenho, é desejável que a ordem de tesselação na renderização de glifos seja adaptativa em tempo de execução, de ordem 1 até a ordem de tesselação de amostragem. Propomos que os vértices sejam estruturados linearmente em $\Pi$. Como os vértices da ordem $2^{t+1}$ $(t < k)$ contêm os vértices da ordem $2^{t}$, propomos anexar, em blocos, os vértices adicionais da ordem $2^{t+1}$ ao bloco dos vértices da ordem $2^t$ como ilustrado na Fig. \ref{fig::icosaedro_blocos}, mantendo a relação de vértices de índices pares e ímpares, ou seja $P_{2i+2} = -P_{2i+1}$. Com isso, garante-se que todos os vértices de uma ordem específica sejam contíguos e que os vértices incrementais de sub-malhas de ordens inferiores estejam organizados em blocos facilmente distinguíveis. Esta proposição faz com que, ao gerarmos um glifo a partir de uma tesselação de $2^t$-ésima ordem menor que a ordem de amostragem, os escalares necessários para sua síntese sejam facilmente identificados para serem enviados à GPU para renderização, conforme discutiremos na Seção \ref{sec::trafego_cpu_gpu}.
 
  \begin{figure}[ht]
 %\subfigcapskip = -5pt
@@ -139,9 +138,9 @@ Conforme mencionado na Seção \ref{ssec::dominio_esferico}, escolhemos o conjun
 
 Elaboramos um algoritmo de tesselação que realiza inserções não-repetitivas de vértices e que os vértices da ordem $2^{t+1}$ $(t < k)$ sejam adicionados ao bloco de vértices da ordem $2^t$. Além disso, as tomadas de decisão são baseadas em operações inteiras. Para isso, uma lista de arestas é usada. Para cada triângulo da malha esférica, determina-se os pontos médios das suas três arestas para construir os 4 novos triângulos. A lista de arestas é acessada. Se uma aresta já se encontra na lista de arestas, acessa-se o índice do ponto médio da aresta e remova a aresta da lista de arestas. Do contrário, computa-se o ponto médio da aresta, adiciona-se na lista de pontos este ponto médio e o seu ponto antipodal, e insere-se na lista de arestas a aresta com os índices dos seus vértices e o índice do novo ponto médio.
 
-Por uma questão de eficiência na renderização, os triângulos definidos pelo conjunto de índices que referenciam os vértices são \sout{formados}\textcolor{red}{sequencializados} no sentido anti-horário. Assim podemos ativar a funcionalidade de descarte de triângulos não-visíveis (\textit{back-face culling})\sout{, a qual descarta} para remover os polígonos cujos vetores normais formam com o vetor de visão um ângulo maior que 90$^0$ na \textit{pipeline} de renderização. Isso diminui a quantidade de triângulos na renderização dos glifos.
+Por uma questão de eficiência na renderização, os triângulos definidos pelo conjunto de índices que referenciam os vértices são sequencializados no sentido anti-horário. Assim podemos ativar a funcionalidade de descarte de triângulos não-visíveis (\textit{back-face culling}) para remover os polígonos cujos vetores normais formam com o vetor de visão um ângulo maior que 90$^0$ na \textit{pipeline} de renderização. Isso diminui a quantidade de triângulos na renderização dos glifos.
 
-A cada processo de subdivisão, guardamos o conjunto de índices $I_0$, $I_1$, $I_2$, ..., $I_k$ que referenciam $\Pi$ e triangulam a malha esférica de ordem $2^0$, $2^1$, $2^2$, ...,$2^k$, respectivamente. Fig. \ref{fig::icosphere} ilustra malhas esféricas obtida\textcolor{red}{s} com o algoritmo proposto. Por ser uma percentagem pequena do volume total de dados a ser transferido para GPU e ter um impacto significativo no desempenho de renderização, os conjuntos de índices são transferidos para GPU via \textit{buffers} de índices (\textit{index buffers}).
+A cada processo de subdivisão, guardamos o conjunto de índices $I_0$, $I_1$, $I_2$, ..., $I_k$ que referenciam $\Pi$ e triangulam a malha esférica de ordem $2^0$, $2^1$, $2^2$, ...,$2^k$, respectivamente. Fig. \ref{fig::icosphere} ilustra malhas esféricas obtidas com o algoritmo proposto. Por ser uma percentagem pequena do volume total de dados a ser transferido para GPU e ter um impacto significativo no desempenho de renderização, os conjuntos de índices são transferidos para GPU via \textit{buffers} de índices (\textit{index buffers}).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Tráfego CPU-GPU}
 \label{sec::trafego_cpu_gpu}
@@ -244,12 +243,12 @@ Substituindo $\tau$ pela Eq. \ref{eq::icosphere_triangulos} temos:
 \label{eq::maxp_order_1}
     20 \cdot 4^t - 20 = 8\sqrt{max_p}    .
 \end{equation}
-Reestruturando a Eq. \ref{eq::maxp_order_1} para que possamos obter a ordem de tesselação $2^t$ em função de $max_p$, \sout{obtemos}\textcolor{red}{chegamos em}:
+Reestruturando a Eq. \ref{eq::maxp_order_1} para que possamos obter a ordem de tesselação $2^t$ em função de $max_p$, chegamos em:
 \begin{equation}
 \label{eq::icosa_order}
      t = \lceil \frac{1}{2}\log_2{(\frac{2}{5}\sqrt{max_p} + 1)} \rceil,
 \end{equation}
-onde o arredondamento de $t$ para o próximo valor inteiro garante que \sout{o \textit{trade-off} d}a Eq. \ref{eq::trade_off} seja satisfeito. Adicionalmente, $t$ é delimitado pela ordem de tesselação utilizada para amostragem dos dados.
+onde o arredondamento de $t$ para o próximo valor inteiro garante que Eq. \ref{eq::trade_off} seja satisfeita. Adicionalmente, $t$ é delimitado pela ordem de tesselação utilizada para amostragem dos dados.
 
 %\textcolor{red}{Propomos adotar o algoritmo proposto por \citeonline{voltoline2021} na estimativa de $max_p$. Essencialmente, ele consiste em contabilizar, para cada \textit{voxel} visível $v_j$, a quantidade de entradas das coordenadas de $v_j$ na matriz de \textit{pixels} ${\mathscr M}$ apresentada na seção \ref{ssec:visibilidade}. O valor $max_p$ é o valor máximo de \textit{pixels} ocupados por um único \textit{voxel}.  Adicionalmente, sugerimos realizar a escolha do nível de resolução da malha esférica da tesselação do icosaedro de ordem $2^t$ através da ativação do \textit{index buffer} $I_t$, já carregado na GPU conforme mostra a seção \ref{ssec:tesselacao}. }
 
@@ -304,7 +303,7 @@ A cada malha instanciada, representada por um conjunto de vértices $\Pi = [
   P_1$,
 $-P_1$,
 $ P_3$,
-$-P_3$,...,
+$-P_3$, ...,
 $ P_{N-1}$,
 $-P_{N-1}]$ e o índice $t$ do \textit{buffer} de índices $I_t$ de triângulos com vértices indexados, é necessário especificar individualmente (1) um vetor de translação que desloque a malha para o \textit{voxel} correspondente, e (2) as amostras da função $\boldsymbol{R}(\mathbf{r})$ deste \textit{voxel}.
 
@@ -340,10 +339,10 @@ $R(\mathbf{r}, \mathbf{n}_{N-3})$ ~
 $R(\mathbf{r}, \mathbf{n}_{N-1})]^T$, onde cada elemento $R(\mathbf{r}, \mathbf{n}_{2i-1})$  na i-ésima posição desloca os pontos $P_{2i-1}$ e o seu ponto antipodal $P_{2i}$ na malha esférica.
 
 %\todo[inline]{Não dá para entender o que você quis destacar no parágrafo abaixo. \textcolor{green}{OK! Falei da organização em blocos}}
-Dada a organização em blocos dos dados em $\Pi$ com $N$ vértices, nos quais os vértices das tesselações de ordem $2^{t+1}$ são adicionados em bloco em relação a ordem $2^t$, conforme discutido na Seção \ref{ssec:tesselacao}, $I_t$ referencia os primeiros $W = 10 \times 4^t + 2$ vértices em $\Pi$ para \sout{triangular} \textcolor{red}{um}a tesselação de ordem $2^t$ escolhida (Eq. \ref{eq::icosphere_vertices}), sendo os primeiros $\frac{W}{2}$ elementos de $\boldsymbol{R}(\mathbf{r})$ suficientes para síntese de um glifo.
+Dada a organização em blocos dos dados em $\Pi$ com $N$ vértices, cujos vértices das tesselações de ordem $2^{t+1}$ são adicionados em bloco em relação a ordem $2^t$, conforme discutido na Seção \ref{ssec:tesselacao}, $I_t$ referencia os primeiros $W = 10 \times 4^t + 2$ vértices em $\Pi$ para a tesselação de ordem $2^t$ escolhida (Eq. \ref{eq::icosphere_vertices}), sendo os primeiros $\frac{W}{2}$ elementos de $\boldsymbol{R}(\mathbf{r})$ suficientes para síntese de um glifo.
 %\todo[inline]{ Não seria N? \textcolor{green}{N é de amostragem, V é para malha esférica escolhida}}
 
-Para uma malha esférica de ordem $2^t$, geramos na CPU uma matriz $\boldsymbol{\mathscr{R}}_{\frac{W}{2} \times M}$ com todas as amostras nas $\frac{W}{2}$ direções de difusão $\mathbf{n}_j$ \textcolor{red}{de um hemisfério} em cada um dos \textit{M} glifos: 
+Para uma malha esférica de ordem $2^t$, geramos na CPU uma matriz $\boldsymbol{\mathscr{R}}_{\frac{W}{2} \times M}$ com todas as amostras nas $\frac{W}{2}$ direções de difusão $\mathbf{n}_j$ de um hemisfério em cada um dos \textit{M} glifos: 
 %\todo[inline]{É bom dar uma boa revisada nas notações da quantidade de pontos em cada glifo ... N, S, V, etc. A contagem de pontos começa com 0 ... O total não está defasado de 1???? \textcolor{green}{Eu resolvo quando introduzo o Vertex\_ID e digo que $P_i$ tem um valor associado Vertex\_ID = i - 1}}
 
 \begin{equation}
@@ -377,7 +376,7 @@ Limitamos a quantidade de linhas na matriz para $\frac{W}{2}$ ($W \leq N$) visan
 
 %\todo[inline]{Vale a pena dar uma boa checada na notação usada para referenciar a posição de um voxel: r, d? \textcolor{green}{Certo! Troquei o d por v em tudo, inclusive figuras.}}
 
-As coordenadas dos vértices \sout{do modelo} de malhas esféricas são passadas como um objeto de \textit{buffer} de vértices (\textit{vertex buffer object}) para GPU. O conjunto de coordenadas dos \textit{voxels} \textcolor{red}{visíveis} detectados $V$ é transferido como um vetor instanciado (\textit{instanced array}). A matriz $\boldsymbol{\mathscr{R}}$ na Eq. \ref{eq::R}, é enviada, por sua vez, para GPU como uma textura 2D de formato RGBA. Cada \textit{texel} no formato RGBA suporta quatro valores. Para otimizarmos acessos aos dados, agrupamos os valores escalares da j-ésima coluna $[
+As coordenadas dos vértices de malhas esféricas são passadas como um objeto de \textit{buffer} de vértices (\textit{vertex buffer object}) para GPU. O conjunto de coordenadas dos \textit{voxels} visíveis detectados $V$ é transferido como um vetor instanciado (\textit{instanced array}). A matriz $\boldsymbol{\mathscr{R}}$ na Eq. \ref{eq::R}, é enviada, por sua vez, para GPU como uma textura 2D de formato RGBA. Cada \textit{texel} no formato RGBA suporta quatro valores. Para otimizarmos acessos aos dados, agrupamos os valores escalares da j-ésima coluna $[
 R(\mathbf{v}_{j}, \mathbf{n}_1) ~
 R(\mathbf{v}_{j}, \mathbf{n}_3) ~ ... ~
 R(\mathbf{v}_{j}, \mathbf{n}_{W-3}) ~
@@ -386,7 +385,7 @@ R(\mathbf{v}_{j}, \mathbf{n}_{W-1}) ~
 R(\mathbf{v}_{j}, \mathbf{\mathbf{n}}_{8i+1})$ (R), $
 R(\mathbf{v}_{j}, \mathbf{\mathbf{n}}_{8i+3})$ (G), $
 R(\mathbf{v}_{j}, \mathbf{\mathbf{n}}_{8i+5})$ (B), $
-R(\mathbf{v}_{j}, \mathbf{\mathbf{n}}_{8i+7})$ (A) com os quais deslocamos quatro pares de pontos simétricos na malha esférica $P_{8i+1}$, $-P_{8i+1}$, $P_{8i+3}$, $-P_{8i+3}$, $P_{8i+5}$, $-P_{8i+5}$, $P_{8i+7}$, $-P_{8i+7}$ para o j-ésimo glifo visível (também $j$-ésima instância). Desta forma, as dimensões da textura com dados das dODFs é $ \lceil \frac{W/2}{4} \rceil \times M$ e \textcolor{red}{esta textura} tem todas as amostras referentes a uma instância j do modelo de malha armazenadas num espaço contíguo de memória o que facilita múltiplos acessos numa única transação. Se $\frac{W}{2}$ não é divisível por quatro, é necessário inserir mais linhas abaixo da última com valores \textit{dummy}, para que o número de linhas se torne divisível por quatro.
+R(\mathbf{v}_{j}, \mathbf{\mathbf{n}}_{8i+7})$ (A) com os quais deslocamos quatro pares de pontos simétricos na malha esférica $P_{8i+1}$, $-P_{8i+1}$, $P_{8i+3}$, $-P_{8i+3}$, $P_{8i+5}$, $-P_{8i+5}$, $P_{8i+7}$, $-P_{8i+7}$ para o j-ésimo glifo visível (também $j$-ésima instância). Desta forma, as dimensões da textura com dados das dODFs é $ \lceil \frac{W/2}{4} \rceil \times M$ e esta textura tem todas as amostras referentes a uma instância j do modelo de malha armazenadas num espaço contíguo de memória o que facilita múltiplos acessos numa única transação. Se $\frac{W}{2}$ não é divisível por quatro, é necessário inserir mais linhas abaixo da última com valores \textit{dummy}, para que o número de linhas se torne divisível por quatro.
 
 \begin{figure}[ht]
 %\subfigcapskip = -5pt
@@ -400,7 +399,7 @@ R(\mathbf{v}_{j}, \mathbf{\mathbf{n}}_{8i+7})$ (A) com os quais deslocamos quatr
 \section{Processamento em GPU}
 \label{sec::processamento_GPU}
 
-Por completude, incluímos a renderização dos glifos na GPU. A técnica de renderização é baseada em triângulos (no espaço do objeto), aplicando o tradicional fluxo de renderização programável de OpenGL que requer a programação de um \textit{vertex} e \textit{fragment shaders}. Ativamos funcionalidades de \sout{corte}\textcolor{red}{descarte} de triângulos não-visíveis (\textit{back-face culling}) para ganhos em desempenho e de teste de profundidade (\textit{depth test}) para garantir a correta visibilidade dos glifos.
+Por completude, incluímos a renderização dos glifos na GPU. A técnica de renderização é baseada em triângulos (no espaço do objeto), aplicando o tradicional fluxo de renderização programável de OpenGL que requer a programação de um \textit{vertex} e \textit{fragment shaders}. Ativamos funcionalidades de descarte de triângulos não-visíveis (\textit{back-face culling}) para ganhos em desempenho e de teste de profundidade (\textit{depth test}) para garantir a correta visibilidade dos glifos.
 
 %\todo[inline]{Visibility Culling e depth map ativados. \textcolor{green}{OK!}}
 
@@ -442,7 +441,7 @@ onde $M_{ij}$ desloca o ponto da malha esférica ao longo do vetor normal do pon
     0 & 0 & 0 & 1 \\
 \end{bmatrix},
 \end{equation}
-$M_{S}$ \sout{dimensiona}\textcolor{red}{muda o fator de escala d}o glifo para caber em seu respectivo \textit{voxel}
+$M_{S}$ muda o fator de escala do glifo para caber em seu respectivo \textit{voxel}
 \begin{equation}
     M_{S} = \begin{bmatrix} 
     \frac{mS}{2} & 0             & 0            & 0 \\
@@ -452,7 +451,7 @@ $M_{S}$ \sout{dimensiona}\textcolor{red}{muda o fator de escala d}o glifo para c
 \end{bmatrix},
 \end{equation}
 sendo $mS=min(spacing_x , spacing_y , spacing_z)$,
-$M_{D}$ \sout{translada}\textcolor{red}{desloca} o glifo para o centro do seu respectivo \textit{voxel}:
+$M_{D}$ desloca o glifo para o centro do seu respectivo \textit{voxel}:
 \begin{equation}
 \label{eq::displace}
     M_{D} = \begin{bmatrix} 
@@ -470,7 +469,7 @@ e $\mathbf{M_{vp}}$ é a matriz \textit{view-projection} que configura parâmetr
 
 \subsection{\textit{Fragment Shader}}
 
-No \textit{fragment shader} fazemos a definição de cor de cada \textcolor{red}{\textit{pixel}}. Enviamos os valores absolutos das três componentes dos vértices da esfera unitária instanciada $(|P_x|, |P_y|, |P_z|)$ a partir do \textit{vertex shader} e atribuímos este valor a cor do fragmento, conforme Eq. \ref{eq::cor_glifo}.
+No \textit{fragment shader} fazemos a definição de cor de cada \textit{pixel}. Enviamos os valores absolutos das três componentes dos vértices da esfera unitária instanciada $(|P_x|, |P_y|, |P_z|)$ a partir do \textit{vertex shader} e atribuímos este valor a cor do fragmento, conforme Eq. \ref{eq::cor_glifo}.
 
 
 \section{Renderização multimodal de glifos ODF}
@@ -483,7 +482,7 @@ Neste ambiente está integrada a renderização multimodal dos glifos superquád
 %\todo[inline]{\textcolor{green}{Não entendi o que tenho que referenciar?! Do OpenGL?}}
 
 O fluxo de controle foi adaptado para renderização multimodal de glifos ODF. Fig. \ref{fig::vmtk_simplified} apresenta o diagrama de blocos da renderização multimodal dos glifos ODF, adaptada. O \textit{setup} dos dados de ODF está descrito na Seção \ref{sec::renderizacao_de_glifos_ODF} e a renderização de glifos ODF está detalhada na Seção \ref{sec::processamento_GPU}. Os vértices de um modelo de malha esférica (base) são gerados na CPU e transferidos para GPU (Seção \ref{sec::trafego_cpu_gpu}). Na GPU eles são replicados em tantas instâncias quanto a quantidade de \textit{voxels} visíveis. As $k$ listas, $I_1$, $I_2$, $\cdots$, $I_k$, de triângulos definidos por vértices indexados para malhas de diferentes níveis de resolução são também construídas na CPU e transferidas para GPU uma única vez. Adicionalmente, outros parâmetros como espaçamento $(spacing_x, spacing_y, spacing_z)$ entre duas amostras no volume $b0$, o fator de escala a ser aplicado sobre os glifos $mS/2$ são enviados uma vez como variáveis uniformes. A cada requisição de desenho, as amostras de $\boldsymbol{R}(\mathbf{v}_1)$, $\boldsymbol{R}(\mathbf{v}_2)$, ...,
-$\boldsymbol{R}(\mathbf{v}_M)$ definidas para os \textit{voxels} \sout{detectados}\textcolor{red}[visíveis] são transferidos para GPU como textura. Para diminuição de tráfego de dados, utilizamos as coordenadas dos \textit{voxels} já computadas na GPU como um vetor instanciado (\textit{instanced array}) (Seção \ref{ssec::atributos}).
+$\boldsymbol{R}(\mathbf{v}_M)$ definidas para os \textit{voxels} visíveis são transferidos para GPU como textura. Para diminuição de tráfego de dados, utilizamos as coordenadas dos \textit{voxels} já computadas na GPU como um vetor instanciado (\textit{instanced array}) (Seção \ref{ssec::atributos}).
 
 
 %O conjunto de vértices é enviado como um , o super-conjunto de \textcolor{red}{As amostras de dODFs definidas para os \textit{voxels} detectados são transferidos para GPU como textura, e os vetores de translação são enviados como  consistem em objetos  enquanto outros parâmetros como espaçamentos  entre duas amostras do volume b0 e o fator de escala a ser aplicado sobre glifos $mS$ e os \todo{Na memória de textura?}vetores de translação são transferidos como variáveis dos registradores.}  
@@ -504,7 +503,7 @@ $\boldsymbol{R}(\mathbf{v}_M)$ definidas para os \textit{voxels} \sout{detectado
     }
  \end{figure}
  
- Em \sout{todas as interações}\textcolor{red}{cada interação} com o usuário, todo o fluxo de controle ilustrado na Fig. \ref{fig::vmtk_simplified} é executado. Categorizamos as interações em dois conjuntos, conforme ilustrado na Fig. \ref{fig::vmtk_interacao}: edição de parâmetros de \sout{visualização (\textit{viewing parameters})} \textcolor{red}{rotação} e de recorte \textcolor{red}{do volume anatômico}. Os parâmetros \sout{visualização}\textcolor{red}{de rotação} são sintetizados na CPU \sout{na matriz \textit{view-projection} e enviados à GPU  e se referem à transformação da cena para o espaço da câmera, movimentada pelo usuário} \textcolor{red}{em ângulos de rotação e enviados à GPU como parte da matriz \textit{view-projection}}. Os parâmetros de recorte configuram seis cortes aplicados no volume \textcolor{red}{anatômico} para visualização do seu interior e estes parâmetros se referem a \sout{um par de cada um dos planos anatômicos}\textcolor{red}{pares de planos nos eixos anatômicaos, isto é} \sout{. Os planos consistem no par de} planos axiais \textit{top} e \textit{bottom}; \sout{nos} sagitais \textit{right} e \textit{left}; e \sout{nos} coronais \textit{front} e \textit{back}\textcolor{red}{, que delimitam o sub-espaço do volume anatômico a ser enviado à GPU}.
+ Em cada interação com o usuário, todo o fluxo de controle ilustrado na Fig. \ref{fig::vmtk_simplified} é executado. Categorizamos as interações em dois conjuntos: edição de parâmetros de visualização e de recorte do volume anatômico. Os parâmetros visualização, que se referem ao movimento, rotação e fator de escala, são sintetizados na CPU na matriz \textit{view-projection} e enviados para GPU. Os parâmetros de recorte configuram seis cortes aplicados no volume anatômico para visualização do seu interior e estes parâmetros se referem a pares de planos nos eixos anatômicos, isto é, planos axiais \textit{top} e \textit{bottom}; sagitais \textit{right} e \textit{left}; e coronais \textit{front} e \textit{back}, que delimitam o sub-espaço do volume anatômico a ser renderizado na GPU. Fig. \ref{fig::vmtk_interacao} ilustra as interações de visualização (rotação) e de recorte (plano \textit{top} axial e \textit{front} coronal).
  
  % em recortar o objeto para visualização da fatia o visualização do objeto de configuração de renderização obtidos com a edição são computados na CPU e enviados à GPU. 
 
@@ -519,7 +518,7 @@ $\boldsymbol{R}(\mathbf{v}_M)$ definidas para os \textit{voxels} \sout{detectado
     }
     }
     \\
-     \subfloat[Redição de parâmetros de recorte.]{\makebox[1.\width]
+     \subfloat[Edição de parâmetros de recorte.]{\makebox[1.\width]
      {\includegraphics[width=.47\linewidth,  angle=0]{figs/Esquema_Glifo/raycasting/ilustracao_interacao/vmtk_clip.png}
     \label{fig::vmtk_interacao_clip}
     }
